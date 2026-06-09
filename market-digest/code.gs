@@ -222,8 +222,8 @@ function buildOutput(items) {
   const byTrack = {};
   items.forEach(item => {
     const t = item.track || "agnostic";
-    if (!byTrack[t]) byTrack[t] = [];
-    byTrack[t].push({
+    if (!byTrack[t]) byTrack[t] = { u: new Date().toLocaleDateString("pt-BR",{month:"short",year:"numeric"}), d: [] };
+    byTrack[t].d.push({
       t: item.title,
       s: item.summary || item.rawSummary.slice(0, 200),
       d: item.decision || "",
@@ -259,7 +259,7 @@ function publishToGitHub(data) {
   const owner  = PROPS.getProperty("GITHUB_OWNER") || "amanda340";
   const repo   = PROPS.getProperty("GITHUB_REPO")  || "intelligence-digest";
   const branch = PROPS.getProperty("GITHUB_BRANCH") || "main";
-  const path   = "market-digest/feed.json";
+  const path   = "feed.json";
 
   if (!token) {
     Logger.log("GITHUB_TOKEN não configurada — salvando localmente");
