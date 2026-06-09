@@ -580,47 +580,41 @@ function App(){
       {/* ── HEADER ── */}
       <header style={{background:"#FFF",borderBottom:"1px solid #E5E7EB",
         position:"sticky",top:0,zIndex:30,boxShadow:"0 1px 4px rgba(0,0,0,.05)"}}>
-        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 28px"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px"}}>
 
-          {/* brand strip */}
-          <div style={{display:"flex",alignItems:"center",height:56,gap:16,
-            borderBottom:"1px solid #F3F4F6",flexWrap:"wrap"}}>
-            <span className="serif" style={{fontSize:21,fontWeight:800,color:RED,
-              letterSpacing:"-0.5px",flexShrink:0}}>Intelligence Digest</span>
-            <div style={{width:1,height:18,background:"#E5E7EB",flexShrink:0}}/>
-            <span style={{fontSize:11.5,color:"#9CA3AF",flexShrink:0}}>{t.tagline}</span>
-            <div style={{flex:1}}/>
-            {/* search */}
+          {/* LINHA 1: título + alertas + status */}
+          <div style={{display:"flex",alignItems:"center",paddingTop:10,paddingBottom:6,gap:6,flexWrap:"wrap"}}>
+            <span className="serif" style={{fontSize:20,fontWeight:800,color:RED,letterSpacing:"-0.5px",flexShrink:0}}>Intelligence Digest</span>
+            {alertCount>0&&(
+              <span style={{background:"#FEF2F2",color:RED,fontSize:11,fontWeight:700,
+                padding:"3px 9px",borderRadius:99,border:`1px solid ${RED}28`,flexShrink:0}}>
+                ⚡ {alertCount} {t.alerts}
+              </span>
+            )}
+            {genAt&&(
+              <span style={{fontSize:10,color:"#9CA3AF",display:"flex",alignItems:"center",gap:4,flexShrink:0}}>
+                <span style={{width:6,height:6,borderRadius:"50%",background:"#10B981",display:"inline-block",animation:"pulse 2s infinite"}}/>
+                {genAt}
+              </span>
+            )}
+          </div>
+          {/* LINHA 2: busca + idiomas */}
+          <div style={{display:"flex",alignItems:"center",gap:6,paddingBottom:8,borderBottom:"1px solid #F3F4F6",flexWrap:"wrap"}}>
             <input type="search" placeholder={t.search} value={search}
               onChange={e=>setSearch(e.target.value)}
               style={{padding:"6px 13px",borderRadius:99,border:"1px solid #E5E7EB",
                 background:"#F9FAFB",color:"#111",fontFamily:"inherit",fontSize:12.5,
-                width:184,outline:"none"}}/>
-            {/* lang switcher */}
+                flex:1,minWidth:120,outline:"none"}}/>
             {["pt","en","es"].map(l=>(
               <button key={l} onClick={()=>setLang(l)} style={{
                 padding:"5px 10px",borderRadius:6,border:"1px solid #E5E7EB",
                 background:lang===l?RED:"transparent",
                 color:lang===l?"#FFF":"#6B7280",
-                fontSize:12,fontWeight:600,transition:"all .15s",
+                fontSize:12,fontWeight:600,transition:"all .15s",flexShrink:0,
               }}>
                 {l.toUpperCase()}
               </button>
             ))}
-            {alertCount>0&&(
-              <span style={{background:"#FEF2F2",color:RED,fontSize:11,fontWeight:700,
-                padding:"4px 11px",borderRadius:99,border:`1px solid ${RED}28`,flexShrink:0}}>
-                ⚡ {alertCount} {t.alerts}
-              </span>
-            )}
-            {genAt&&(
-              <span style={{fontSize:10.5,color:"#9CA3AF",flexShrink:0,
-                display:"flex",alignItems:"center",gap:5}}>
-                <span style={{width:7,height:7,borderRadius:"50%",background:"#10B981",
-                  display:"inline-block",animation:"pulse 2s infinite"}}/>
-                {genAt}
-              </span>
-            )}
           </div>
 
           {/* track nav */}
@@ -647,7 +641,7 @@ function App(){
 
       {/* ── ROLE FILTER ── */}
       <div style={{background:"#FFF",borderBottom:"1px solid #E5E7EB"}}>
-        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 28px",
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px",
           display:"flex",alignItems:"center",height:38,gap:6,
           overflowX:"auto",scrollbarWidth:"none"}}>
           <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
