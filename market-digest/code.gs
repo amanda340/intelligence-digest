@@ -205,32 +205,40 @@ function enrichWithGemini(items) {
 }
 
 function callGemini(apiKey, item) {
-  const prompt = `Você é um analista sênior especializado em plataformas de IA enterprise, Salesforce, arquitetura de agentes e mercado de tecnologia.
+  const prompt = `You are a senior analyst specializing in enterprise AI platforms, Salesforce, agent architecture and the technology market.
 
-Analise este artigo e retorne APENAS JSON válido (sem markdown, sem explicações):
+Analyze this article and return ONLY valid JSON (no markdown, no explanations):
 
-Título: ${item.title}
-Fonte: ${item.category}
+Title: ${item.title}
+Source: ${item.category}
 Track: ${item.track}
-Conteúdo: ${item.rawSummary}
+Content: ${item.rawSummary}
 
-Formato exato:
+Exact format (all fields required):
 {
-  "summary": "<resumo factual em PT-BR, 2-3 frases, máx 280 chars>",
-  "decision": "<ação concreta que EA/TA/arquiteto deve tomar — máx 200 chars>",
-  "critical": "<análise crítica: o que pode estar errado, exagerado, ou qual a limitação real desta notícia — máx 200 chars>",
-  "alert": <true se breaking news ou mudança que exige ação imediata, false caso contrário>,
-  "tags": ["<tag primária>", "<tag secundária>"],
-  "aud": ["<EA|SA|TA|Build|SE|Exec> — liste TODOS os perfis relevantes"],
-  "urls": ["<url original>"],
-  "radar": "<adopt|trial|assess|hold — onde esta tecnologia/notícia se posiciona>",
-  "radar_name": "<nome curto da tecnologia para o radar, máx 20 chars>"
+  "summary":    "<factual summary in PT-BR, 2-3 sentences, max 280 chars>",
+  "summary_en": "<same summary in English, max 280 chars>",
+  "summary_es": "<same summary in Spanish, max 280 chars>",
+  "decision":    "<concrete action for EA/TA/architect in PT-BR, max 200 chars>",
+  "decision_en": "<same decision in English, max 200 chars>",
+  "decision_es": "<same decision in Spanish, max 200 chars>",
+  "critical":    "<critical analysis: what may be wrong, overstated, or limited — PT-BR, max 200 chars>",
+  "critical_en": "<same critical analysis in English, max 200 chars>",
+  "critical_es": "<same critical analysis in Spanish, max 200 chars>",
+  "t_en": "<article title translated to English, max 120 chars>",
+  "t_es": "<article title translated to Spanish, max 120 chars>",
+  "alert": <true if breaking news requiring immediate action, false otherwise>,
+  "tags": ["<primary tag>", "<secondary tag>"],
+  "aud": ["<EA|SA|TA|Build|SE|Exec> — list ALL relevant profiles"],
+  "urls": ["<original url>"],
+  "radar": "<adopt|trial|assess|hold>",
+  "radar_name": "<short technology name for radar, max 20 chars>"
 }`;
 
   const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
   const body = JSON.stringify({
     contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: { temperature: 0.25, maxOutputTokens: 400 },
+    generationConfig: { temperature: 0.25, maxOutputTokens: 700 },
   });
 
   const resp = UrlFetchApp.fetch(url, {
@@ -272,17 +280,25 @@ function buildFeed(items) {
     const t = item.track || "agnostic";
     if (!tracks[t]) tracks[t] = { u: formatMonth(), d: [] };
     tracks[t].d.push({
-      t:        item.title,
-      s:        item.summary || item.rawSummary.slice(0, 250),
-      d:        item.decision || "",
-      critical: item.critical || "",
-      f:        item.category,
-      dt:       item.pubDate,
-      tag:      (item.tags || [])[0] || item.category,
-      alert:    !!item.alert,
-      url:      item.url,
-      urls:     item.urls || [item.url],
-      aud:      Array.isArray(item.aud) && item.aud.length ? item.aud : inferAud(item),
+      t:           item.title,
+      t_en:        item.t_en || item.title,
+      t_es:        item.t_es || item.title,
+      s:           item.summary    || item.rawSummary.slice(0, 250),
+      s_en:        item.summary_en || item.summary || item.rawSummary.slice(0, 250),
+      s_es:        item.summary_es || item.summary || item.rawSummary.slice(0, 250),
+      d:           item.decision    || "",
+      d_en:        item.decision_en || item.decision || "",
+      d_es:        item.decision_es || item.decision || "",
+      critical:    item.critical    || "",
+      critical_en: item.critical_en || item.critical || "",
+      critical_es: item.critical_es || item.critical || "",
+      f:           item.category,
+      dt:          item.pubDate,
+      tag:         (item.tags || [])[0] || item.category,
+      alert:       !!item.alert,
+      url:         item.url,
+      urls:        item.urls || [item.url],
+      aud:         Array.isArray(item.aud) && item.aud.length ? item.aud : inferAud(item),
     });
   });
   return {

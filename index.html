@@ -21,13 +21,16 @@ html,body{background:#F3F4F6;font-family:'Inter',-apple-system,sans-serif;color:
 .serif{font-family:'Playfair Display',Georgia,serif}
 .hscroll{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
 .hscroll::-webkit-scrollbar{display:none}
+/* responsive card grid — fills width, no orphan space */
+.card-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .lift{transition:transform .18s,box-shadow .18s;cursor:pointer}
 .lift:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.13)}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 @media(max-width:720px){
   .hero-split{flex-direction:column!important}
-  .hero-img{width:100%!important;flex:none!important;min-height:200px!important;border-radius:14px 14px 0 0!important}
+  .hero-img{width:100%!important;flex:none!important;min-height:160px!important;border-radius:14px 14px 0 0!important}
+  .card-grid{grid-template-columns:1fr!important}
 }
 </style>
 </head>
@@ -331,10 +334,10 @@ function Featured({item,lang,t}){
       style={{display:"flex",background:"#FFF",borderRadius:16,overflow:"hidden",
         border:"1px solid #E5E7EB",boxShadow:"0 2px 8px rgba(0,0,0,.06)",
         cursor:hasAnalysis?"pointer":"default"}}>
-      <div className="hero-img" style={{flex:"0 0 42%",alignSelf:"stretch",borderRadius:"16px 0 0 16px",overflow:"hidden"}}>
-        <Cover tag={item.tag} stretch h={320} rTop={false} rBottom={false}/>
+      <div className="hero-img" style={{flex:"0 0 36%",alignSelf:"stretch",borderRadius:"16px 0 0 16px",overflow:"hidden",maxHeight:220}}>
+        <Cover tag={item.tag} stretch h={220} rTop={false} rBottom={false}/>
       </div>
-      <div style={{flex:1,padding:"28px 32px",display:"flex",flexDirection:"column",gap:14,overflow:"hidden"}}>
+      <div style={{flex:1,padding:"20px 26px",display:"flex",flexDirection:"column",gap:10,overflow:"hidden"}}>
         <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
           <SrcBadge name={item.f} size={22}/>
           <span style={{fontSize:12.5,color:"#374151",fontWeight:500}}>{item.f}</span>
@@ -348,10 +351,12 @@ function Featured({item,lang,t}){
             </span>
           )}
         </div>
-        <h2 className="serif" style={{fontSize:26,fontWeight:700,color:"#111",lineHeight:1.35}}>
+        <h2 className="serif" style={{fontSize:22,fontWeight:700,color:"#111",lineHeight:1.32,
+          display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
           {tf(item,"t",lang)}
         </h2>
-        <p style={{fontSize:14.5,color:"#4B5563",lineHeight:1.78}}>
+        <p style={{fontSize:13.5,color:"#4B5563",lineHeight:1.72,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
           {tf(item,"s",lang)}
         </p>
         <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
@@ -388,7 +393,7 @@ function NewsCard({item,lang,t,variant="default"}){
     <div className="lift" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
       style={{background:"#FFF",borderRadius:14,overflow:"hidden",
         border:`1px solid ${accentColor}`,
-        flex:"0 0 270px",display:"flex",flexDirection:"column",
+        display:"flex",flexDirection:"column",
         boxShadow:"0 1px 4px rgba(0,0,0,.05)",
         cursor:hasAnalysis?"pointer":"default"}}>
 
@@ -458,116 +463,59 @@ function Section({title,items,lang,t,variant="default"}){
           {items.length} {t.insights}
         </span>
       </div>
-      <div className="hscroll">
+      <div className="card-grid">
         {items.map((it,i)=>(
           <NewsCard key={i} item={it} lang={lang} t={t} variant={variant}/>
         ))}
-        <div style={{flexShrink:0,width:4}}/>
       </div>
     </section>
   );
 }
 
-/* ── Technology Radar (SVG) ─── */
+/* ── Technology Radar — tabela 4 colunas ─── */
 function TechRadar({radarData,t}){
   if(!radarData)return null;
-  const zones=[
-    {id:"adopt", label:t.radar_adopt, r:80,  fill:"rgba(5,150,105,.08)",  stroke:"#059669", dotColor:"#059669"},
-    {id:"trial", label:t.radar_trial, r:155, fill:"rgba(37,99,235,.07)",  stroke:"#2563EB", dotColor:"#2563EB"},
-    {id:"assess",label:t.radar_assess,r:230, fill:"rgba(124,58,237,.06)", stroke:"#7C3AED", dotColor:"#7C3AED"},
-    {id:"hold",  label:t.radar_hold,  r:300, fill:"rgba(220,38,38,.05)",  stroke:"#DC2626", dotColor:"#DC2626"},
+  const cols=[
+    {id:"adopt", label:t.radar_adopt, icon:"✅", c:"#059669", bg:"#F0FDF4", border:"#BBF7D0"},
+    {id:"trial", label:t.radar_trial, icon:"🧪", c:"#2563EB", bg:"#EFF6FF", border:"#BFDBFE"},
+    {id:"assess",label:t.radar_assess,icon:"🔭", c:"#7C3AED", bg:"#F5F3FF", border:"#DDD6FE"},
+    {id:"hold",  label:t.radar_hold,  icon:"⚠️", c:"#DC2626", bg:"#FEF2F2", border:"#FECACA"},
   ];
-  const cx=310,cy=310;
-  // Distribute items evenly around each ring
-  const dots=[];
-  zones.forEach(({id,r,dotColor})=>{
-    const items=radarData[id]||[];
-    items.forEach((name,i)=>{
-      const angle=(i/Math.max(items.length,1))*2*Math.PI - Math.PI/2;
-      const rr=r-15+Math.random()*20;
-      dots.push({
-        name,cx:cx+rr*Math.cos(angle),cy:cy+rr*Math.sin(angle),
-        color:dotColor,ring:id,
-      });
-    });
-  });
-  // deterministic positions using index
-  const dotsFixed=[];
-  zones.forEach(({id,r,dotColor})=>{
-    const items=radarData[id]||[];
-    items.forEach((name,i)=>{
-      const offset=(id==="adopt"?0:id==="trial"?0.15:id==="assess"?0.3:0.45);
-      const angle=(i/Math.max(items.length,1))*2*Math.PI - Math.PI/2 + offset;
-      const rr=r*0.72;
-      dotsFixed.push({name,cx:cx+rr*Math.cos(angle),cy:cy+rr*Math.sin(angle),color:dotColor,ring:id});
-    });
-  });
-
   return(
     <section style={{marginBottom:44}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
         marginBottom:14,paddingBottom:12,borderBottom:"2px solid #E5E7EB",
-        borderLeft:`4px solid #7C3AED`,paddingLeft:12}}>
+        borderLeft:"4px solid #7C3AED",paddingLeft:12}}>
         <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{t.sec_radar}</h2>
-        <span style={{fontSize:12,color:"#7C3AED",fontWeight:600}}>{t.automatic}</span>
+        <span style={{fontSize:12,color:"#7C3AED",fontWeight:600}}>{t.radar_sub}</span>
       </div>
-      <p style={{fontSize:12,color:"#9CA3AF",marginBottom:20}}>{t.radar_sub}</p>
-
-      <div style={{display:"flex",gap:24,flexWrap:"wrap",alignItems:"flex-start"}}>
-        {/* SVG radar */}
-        <div style={{background:"#FFF",borderRadius:16,border:"1px solid #E5E7EB",
-          padding:16,boxShadow:"0 1px 4px rgba(0,0,0,.05)",overflow:"auto"}}>
-          <svg width="620" height="620" viewBox="0 0 620 620" style={{maxWidth:"100%"}}>
-            {/* rings */}
-            {[...zones].reverse().map(z=>(
-              <circle key={z.id} cx={cx} cy={cy} r={z.r}
-                fill={z.fill} stroke={z.stroke} strokeWidth="1" strokeDasharray="4 4"/>
-            ))}
-            {/* cross lines */}
-            <line x1={cx} y1={cy-310} x2={cx} y2={cy+310} stroke="#E5E7EB" strokeWidth="1"/>
-            <line x1={cx-310} y1={cy} x2={cx+310} y2={cy} stroke="#E5E7EB" strokeWidth="1"/>
-            {/* ring labels */}
-            {zones.map(z=>(
-              <text key={z.id} x={cx+6} y={cy-z.r+14}
-                fontSize="11" fontWeight="600" fill={z.stroke} fontFamily="Inter,-apple-system,sans-serif">
-                {z.label}
-              </text>
-            ))}
-            {/* dots + labels */}
-            {dotsFixed.map((d,i)=>(
-              <g key={i}>
-                <circle cx={d.cx} cy={d.cy} r="6" fill={d.color} opacity=".85"/>
-                <text x={d.cx+9} y={d.cy+4}
-                  fontSize="10" fill="#374151" fontFamily="Inter,-apple-system,sans-serif"
-                  style={{userSelect:"none"}}>
-                  {d.name}
-                </text>
-              </g>
-            ))}
-          </svg>
-        </div>
-
-        {/* legend */}
-        <div style={{display:"flex",flexDirection:"column",gap:12,minWidth:180}}>
-          {zones.map(z=>{
-            const items=radarData[z.id]||[];
-            return(
-              <div key={z.id} style={{background:"#FFF",borderRadius:12,
-                border:`1px solid ${z.stroke}28`,padding:"12px 14px"}}>
-                <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:8}}>
-                  <div style={{width:10,height:10,borderRadius:"50%",background:z.stroke,flexShrink:0}}/>
-                  <span style={{fontSize:12.5,fontWeight:700,color:z.stroke}}>{z.label}</span>
-                </div>
-                {items.map((name,i)=>(
-                  <div key={i} style={{fontSize:11.5,color:"#374151",
-                    padding:"2px 0",borderBottom:i<items.length-1?"1px solid #F3F4F6":"none"}}>
-                    {name}
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:14}}>
+        {cols.map(col=>{
+          const names=radarData[col.id]||[];
+          return(
+            <div key={col.id} style={{background:col.bg,borderRadius:12,
+              border:`1px solid ${col.border}`,padding:"14px 16px"}}>
+              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:12}}>
+                <span style={{fontSize:16}}>{col.icon}</span>
+                <span style={{fontSize:13,fontWeight:700,color:col.c}}>{col.label}</span>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                {names.map((name,i)=>(
+                  <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
+                    <div style={{width:6,height:6,borderRadius:"50%",
+                      background:col.c,flexShrink:0}}/>
+                    <span style={{fontSize:12.5,color:"#374151",lineHeight:1.4}}>{name}</span>
                   </div>
                 ))}
+                {names.length===0&&(
+                  <span style={{fontSize:11.5,color:"#9CA3AF",fontStyle:"italic"}}>
+                    —
+                  </span>
+                )}
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
