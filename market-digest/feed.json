@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-06-09T00:00:00.000Z",
+  "totalItems": 4,
+  "tracks": {
+    "salesforce": [
+      {
+        "t": "Summer '26 disponível 15/jun — Headless 360 muda tudo para devs",
+        "s": "Headless 360 torna cada capacidade Salesforce disponível como API REST, tool MCP ou comando CLI. Agent Script e Agentforce Builder saem do beta e viram GA.",
+        "d": "Revise integrações existentes que dependem de UI — muitas podem virar chamadas MCP diretas.",
+        "f": "Salesforce Developers Blog",
+        "dt": "2026-06-09",
+        "tag": "Agentforce",
+        "alert": true,
+        "url": "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
+        "aud": ["TA", "Build"]
+      }
+    ],
+    "agnostic": [
+      {
+        "t": "Claude Agent SDK #2 em frameworks agnósticos — melhor para MCP nativo",
+        "s": "Baseado em 18+ deploys de produção: LangGraph lidera workflows stateful, Claude SDK é referência para agentes Anthropic-nativos com MCP e subagentes.",
+        "d": "O Claude Agent SDK não é só para apps Anthropic — use para qualquer agente que precise de MCP nativo e safety hooks.",
+        "f": "Alice Labs",
+        "dt": "2026-06-09",
+        "tag": "Claude",
+        "alert": false,
+        "url": null,
+        "aud": ["TA", "Build"]
+      }
+    ],
+    "arch": [
+      {
+        "t": "MCP + A2A sob Linux Foundation — neutralidade confirmada",
+        "s": "Anthropic, Block e OpenAI criam Agentic AI Foundation. MCP define como agentes acessam tools/dados; A2A define como agentes colaboram.",
+        "d": "Padronize acesso a tools via MCP e comunicação via A2A. Governança da Linux Foundation elimina argumento de lock-in.",
+        "f": "DEV Community",
+        "dt": "2026-06-09",
+        "tag": "MCP",
+        "alert": false,
+        "url": null,
+        "aud": ["TA", "Build"]
+      }
+    ],
+    "tools": [
+      {
+        "t": "Langfuse vira camada de trace obrigatória em redes multi-agente",
+        "s": "Oracle e Rush University usam Langfuse para trace end-to-end. Novo Langfuse MCP Server: agentes consultam os próprios traces para auto-debugging.",
+        "d": "Inclua Langfuse no escopo desde o PoC — sem trace por agente não há diagnóstico em produção.",
+        "f": "Oracle Blogs / GitHub",
+        "dt": "2026-06-09",
+        "tag": "Langfuse",
+        "alert": false,
+        "url": null,
+        "aud": ["TA", "Build"]
+      }
+    ]
+  }
+}

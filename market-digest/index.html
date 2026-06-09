@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Market Digest · Radar Global de IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#081327}
+body{font-family:'Inter',-apple-system,sans-serif;color:#D8E2FE}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:#0F1A2E}
+::-webkit-scrollbar-thumb{background:#1E293B;border-radius:99px}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4)}70%{box-shadow:0 0 0 6px rgba(251,191,36,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.serif{font-family:'Playfair Display',Georgia,serif}
+.scroll-x{display:flex;gap:6px;overflow-x:auto;padding:0 4px;scrollbar-width:none}
+.scroll-x::-webkit-scrollbar{display:none}
+.track-chip{border:none;border-radius:999px;padding:6px 14px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0}
+.card{transition:border-color .18s,box-shadow .18s;cursor:pointer}
+.card:hover{box-shadow:0 6px 28px rgba(0,0,0,.45)}
+.aud-pill{border-radius:999px;padding:2px 9px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.03em}
+.tag-chip{border-radius:999px;padding:2px 9px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.04em}
+/* desktop grid */
+@media(min-width:900px){
+  .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+}
+@media(min-width:1400px){
+  .cards-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useMemo,useCallback}=React;
+
+/* ─── TRACKS ─── */
+const TRACKS=[
+  {id:"all",        label:"🌐 Todos",               color:"#D8E2FE"},
+  {id:"salesforce", label:"☁️ Salesforce / Agentforce", color:"#00A1E0"},
+  {id:"agnostic",   label:"🤖 IA & Frameworks",      color:"#A78BFA"},
+  {id:"rivals",     label:"⚔️ Concorrentes",          color:"#EF4444"},
+  {id:"arch",       label:"🏛️ MCP / A2A / Arquitetura",color:"#EC4899"},
+  {id:"tools",      label:"🛠️ LLMOps & Observabilidade",color:"#06B6D4"},
+];
+
+const AUD={
+  TA:    {l:"TA / EA",   c:"#A78BFA",b:"rgba(167,139,250,.12)"},
+  Build: {l:"Builder",   c:"#34D399",b:"rgba(52,211,153,.12)"},
+  Exec:  {l:"C-Level",   c:"#FB923C",b:"rgba(251,146,60,.12)"},
+  SE:    {l:"SE / AE",   c:"#38BDF8",b:"rgba(56,189,248,.12)"},
+};
+
+const TAG_COLORS={
+  Salesforce:"#00A1E0",Agentforce:"#00A1E0",Claude:"#FBBF24",Anthropic:"#FBBF24",
+  OpenAI:"#10B981",Google:"#4285F4",Gemini:"#4285F4",AWS:"#FF9900",Bedrock:"#FF9900",
+  MCP:"#EC4899",Padrão:"#8B5CF6","A2A":"#D946EF",LangGraph:"#10B981",
+  Frameworks:"#EC4899",LLMOps:"#0EA5E9",Observab:"#22D3EE",Langfuse:"#06B6D4",
+  Mercado:"#F472B6",Enterprise:"#38BDF8",Comunidade:"#64748B",
+};
+
+const FEED_URL="./feed.json";
+
+/* ─── Icons ─── */
+const IconRefresh=({spin})=>(
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
+       strokeLinecap="round" strokeLinejoin="round" style={{animation:spin?"spin 1s linear infinite":"none"}}>
+    <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+  </svg>
+);
+const IconLink=()=>(
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+       strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+  </svg>
+);
+const IconChevron=({open})=>(
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+       strokeLinecap="round" strokeLinejoin="round"
+       style={{transition:"transform .2s",transform:open?"rotate(180deg)":"rotate(0deg)"}}>
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+);
+
+/* ─── AudBadge ─── */
+function AudBadge({r}){
+  const a=AUD[r];
+  if(!a)return null;
+  return <span className="aud-pill" style={{background:a.b,color:a.c,border:`1px solid ${a.c}40`}}>{a.l}</span>;
+}
+
+/* ─── Card ─── */
+function Card({item}){
+  const [open,setOpen]=useState(false);
+  const c=TAG_COLORS[item.tag]||"#6B7280";
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  return(
+    <article className="card" onClick={()=>setOpen(v=>!v)} style={{
+      background:"#0F1A2E",
+      border:`1px solid ${item.alert?"rgba(251,191,36,.35)":"#1E293B"}`,
+      borderRadius:12,overflow:"hidden",
+      animation:item.alert?"alertglow 2.8s ease-in-out infinite":"none",
+      position:"relative",
+    }}>
+      <div style={{position:"absolute",left:0,top:0,bottom:0,width:3,background:item.alert?"#FBBF24":c,borderRadius:"12px 0 0 12px"}}/>
+      <div style={{padding:"13px 13px 13px 17px"}}>
+        {/* top row */}
+        <div style={{display:"flex",gap:6,alignItems:"center",marginBottom:8,flexWrap:"wrap"}}>
+          {item.alert&&(
+            <span className="tag-chip" style={{background:"rgba(251,191,36,.12)",color:"#FBBF24",border:"1px solid rgba(251,191,36,.3)"}}>⚡ URGENTE</span>
+          )}
+          <span className="tag-chip" style={{background:c+"14",color:c,border:`1px solid ${c}30`}}>{item.tag}</span>
+          <div style={{flex:1}}/>
+          <div style={{display:"flex",gap:3,flexWrap:"wrap"}}>
+            {auds.map(r=><AudBadge key={r} r={r}/>)}
+          </div>
+        </div>
+        {/* headline */}
+        <h3 className="serif" style={{fontSize:14.5,fontWeight:700,color:"#EEF2FF",lineHeight:1.38,margin:"0 0 7px",letterSpacing:"-0.01em"}}>{item.t}</h3>
+        {/* summary */}
+        <p style={{fontSize:12.5,color:"#94A3B8",lineHeight:1.65,margin:"0 0 9px"}}>{item.s}</p>
+        {/* decisão */}
+        {open&&item.d&&(
+          <div style={{background:"rgba(167,139,250,.07)",border:"1px solid rgba(167,139,250,.2)",borderRadius:8,padding:"10px 12px",margin:"0 0 9px"}}>
+            <p style={{margin:0,fontSize:12,color:"#C4B5FD",lineHeight:1.62}}>
+              <span className="serif" style={{color:"#A78BFA",fontWeight:700,fontSize:12.5}}>🏛 Decisão — </span>{item.d}
+            </p>
+          </div>
+        )}
+        {/* footer */}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:8,borderTop:"1px solid #1A2840",flexWrap:"wrap",gap:5}}>
+          <span style={{fontSize:10.5,color:"#334155",lineHeight:1.4}}>
+            {item.f}<br/><span style={{color:"#2D3E55"}}>{item.dt}</span>
+          </span>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            {item.url&&(
+              <a href={item.url} target="_blank" rel="noopener noreferrer"
+                 onClick={e=>e.stopPropagation()}
+                 style={{display:"flex",alignItems:"center",gap:3,fontSize:11,color:"#38BDF8",textDecoration:"none",
+                         padding:"3px 7px",border:"1px solid rgba(56,189,248,.25)",borderRadius:6}}>
+                fonte <IconLink/>
+              </a>
+            )}
+            {item.d&&(
+              <span style={{display:"flex",alignItems:"center",gap:3,fontSize:11,color:"#A78BFA"}}>
+                {open?"fechar":"decisão"} <IconChevron open={open}/>
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/* ─── LoadState ─── */
+function LoadState({error,onRetry}){
+  if(error)return(
+    <div style={{textAlign:"center",padding:"64px 24px",color:"#475569"}}>
+      <div style={{fontSize:36,marginBottom:12}}>⚠️</div>
+      <p style={{fontSize:14,marginBottom:16,color:"#64748B"}}>{error}</p>
+      <button onClick={onRetry} style={{padding:"8px 20px",borderRadius:8,border:"1px solid #334155",
+        background:"#0F1A2E",color:"#94A3B8",cursor:"pointer",fontFamily:"inherit",fontSize:13}}>
+        Tentar novamente
+      </button>
+    </div>
+  );
+  return(
+    <div style={{textAlign:"center",padding:"64px 24px",color:"#475569"}}>
+      <div style={{width:32,height:32,border:"3px solid #1E293B",borderTopColor:"#38BDF8",
+                   borderRadius:"50%",animation:"spin 1s linear infinite",margin:"0 auto 16px"}}/>
+      <p style={{fontSize:13,color:"#334155"}}>Carregando feed...</p>
+    </div>
+  );
+}
+
+/* ─── App ─── */
+function App(){
+  const [feed,setFeed]      = useState(null);
+  const [loading,setLoading]= useState(true);
+  const [error,setError]    = useState(null);
+  const [track,setTrack]    = useState("all");
+  const [aud,setAud]        = useState(null);
+  const [search,setSearch]  = useState("");
+
+  const loadFeed=useCallback(()=>{
+    setLoading(true);setError(null);
+    fetch(FEED_URL+"?t="+Date.now())
+      .then(r=>{ if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then(data=>{ setFeed(data); setLoading(false); })
+      .catch(e=>{ setError("Não foi possível carregar o feed. "+e.message); setLoading(false); });
+  },[]);
+
+  useEffect(()=>{ loadFeed(); },[]);
+
+  const allItems=useMemo(()=>{
+    if(!feed?.tracks) return [];
+    return Object.entries(feed.tracks).flatMap(([t,items])=>
+      items.map(i=>({...i,track:t}))
+    );
+  },[feed]);
+
+  const filtered=useMemo(()=>{
+    let items=track==="all"?allItems:(feed?.tracks?.[track]||[]).map(i=>({...i,track}));
+    if(aud) items=items.filter(i=>(i.aud||[]).includes(aud));
+    if(search.trim()){
+      const q=search.toLowerCase();
+      items=items.filter(i=>(i.t+i.s+i.tag+i.f).toLowerCase().includes(q));
+    }
+    return items;
+  },[allItems,track,aud,search,feed]);
+
+  const alerts=useMemo(()=>allItems.filter(i=>i.alert).length,[allItems]);
+  const genAt=feed?.generatedAt ? new Date(feed.generatedAt).toLocaleString("pt-BR",{
+    day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "";
+  const tr=TRACKS.find(t=>t.id===track)||TRACKS[0];
+
+  return(
+    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",background:"#081327"}}>
+
+      {/* ── HEADER ── */}
+      <header style={{background:"rgba(5,14,33,.97)",borderBottom:"1px solid #1A2840",
+                      padding:"14px 24px 0",flexShrink:0,backdropFilter:"blur(20px)",
+                      position:"sticky",top:0,zIndex:20}}>
+        <div style={{maxWidth:1400,margin:"0 auto"}}>
+          {/* title row */}
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14,flexWrap:"wrap",gap:10}}>
+            <div>
+              <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
+                <span style={{width:6,height:6,borderRadius:"50%",background:"#EF4444",
+                              boxShadow:"0 0 8px #EF444488",display:"inline-block",animation:"livepulse 2s infinite"}}/>
+                <span style={{fontSize:10,color:"#38BDF8",fontWeight:700,letterSpacing:"2.5px",textTransform:"uppercase"}}>AO VIVO</span>
+              </div>
+              <h1 className="serif" style={{fontSize:26,fontWeight:700,color:"#EEF2FF",letterSpacing:"-0.02em",lineHeight:1}}>Market Digest</h1>
+              <p style={{marginTop:4,fontSize:11,color:"#475569",fontWeight:400}}>Radar Global de IA · {genAt||"carregando..."}</p>
+            </div>
+            <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
+              {/* search */}
+              <input
+                type="search" placeholder="Buscar..." value={search}
+                onChange={e=>setSearch(e.target.value)}
+                style={{padding:"7px 14px",borderRadius:999,border:"1px solid #1E293B",
+                        background:"#0F1A2E",color:"#D8E2FE",fontFamily:"inherit",fontSize:13,
+                        width:200,outline:"none"}}
+              />
+              {/* alerts badge */}
+              {alerts>0&&(
+                <div style={{background:"rgba(251,191,36,.1)",border:"1px solid rgba(251,191,36,.25)",
+                             borderRadius:999,padding:"5px 11px",textAlign:"center",flexShrink:0}}>
+                  <div style={{fontSize:13,fontWeight:700,color:"#FBBF24",lineHeight:1}}>⚡ {alerts}</div>
+                  <div style={{fontSize:9,color:"rgba(251,191,36,.6)",marginTop:2,fontWeight:500}}>ALERTAS</div>
+                </div>
+              )}
+              {/* total badge */}
+              {feed&&(
+                <div style={{background:"rgba(56,189,248,.08)",border:"1px solid rgba(56,189,248,.2)",
+                             borderRadius:999,padding:"5px 11px",textAlign:"center",flexShrink:0}}>
+                  <div style={{fontSize:13,fontWeight:700,color:"#38BDF8",lineHeight:1}}>{allItems.length}</div>
+                  <div style={{fontSize:9,color:"rgba(56,189,248,.5)",marginTop:2,fontWeight:500}}>ITENS</div>
+                </div>
+              )}
+              {/* refresh */}
+              <button onClick={loadFeed} title="Atualizar feed"
+                style={{padding:"8px 14px",borderRadius:999,border:"1px solid #1E293B",
+                        background:"#0F1A2E",color:"#475569",cursor:"pointer",
+                        display:"flex",alignItems:"center",gap:6,fontSize:12,fontFamily:"inherit",
+                        transition:"all .15s"}}
+                onMouseEnter={e=>e.currentTarget.style.color="#38BDF8"}
+                onMouseLeave={e=>e.currentTarget.style.color="#475569"}>
+                <IconRefresh spin={loading}/> Atualizar
+              </button>
+            </div>
+          </div>
+
+          {/* track chips */}
+          <div className="scroll-x" style={{paddingBottom:2}}>
+            {TRACKS.map(t=>{
+              const on=track===t.id;
+              const cnt=t.id==="all"?allItems.length:(feed?.tracks?.[t.id]?.length||0);
+              return(
+                <button key={t.id} className="track-chip"
+                  onClick={()=>{setTrack(t.id);setAud(null);}}
+                  style={{
+                    background:on?t.color:"#0F1A2E",
+                    color:on?"#020817":t.color,
+                    border:`1px solid ${on?t.color:t.color+"30"}`,
+                    boxShadow:on?`0 2px 12px ${t.color}50`:"none",
+                  }}>
+                  {t.label}
+                  {cnt>0&&<span style={{marginLeft:5,opacity:.7,fontSize:10}}>({cnt})</span>}
+                </button>
+              );
+            })}
+            <div style={{flexShrink:0,width:8}}/>
+          </div>
+
+          {/* audience filter */}
+          <div style={{display:"flex",gap:5,alignItems:"center",padding:"10px 0 12px",overflowX:"auto",scrollbarWidth:"none"}}>
+            <span style={{fontSize:10,color:"#334155",fontWeight:600,letterSpacing:"0.05em",textTransform:"uppercase",flexShrink:0}}>Para</span>
+            {[null,"SE","TA","Build","Exec"].map(r=>{
+              const a=r?AUD[r]:null;const on=aud===r;
+              return(
+                <button key={r||"all"} onClick={()=>setAud(r)} style={{
+                  background:on?(a?a.b:"rgba(238,242,255,.1)"):"transparent",
+                  border:`1px solid ${on?(a?a.c:"rgba(238,242,255,.3)"):"#1E293B"}`,
+                  borderRadius:999,padding:"4px 12px",flexShrink:0,
+                  color:on?(a?a.c:"#EEF2FF"):"#334155",
+                  fontFamily:"inherit",fontSize:11,fontWeight:on?600:400,cursor:"pointer",transition:"all .15s",
+                }}>{r?a.l:"Todos"}</button>
+              );
+            })}
+          </div>
+        </div>
+      </header>
+
+      {/* ── MAIN ── */}
+      <main style={{flex:1,padding:"20px 24px 40px",maxWidth:1400,margin:"0 auto",width:"100%"}}>
+        {/* section label */}
+        {!loading&&!error&&(
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+                       marginBottom:16,paddingBottom:12,borderBottom:"1px solid #1A2840",flexWrap:"wrap",gap:8}}>
+            <div>
+              <h2 className="serif" style={{fontSize:20,fontWeight:700,color:"#EEF2FF",lineHeight:1.2}}>{tr.label}</h2>
+              <p style={{marginTop:3,fontSize:11,color:"#334155"}}>
+                {filtered.length} insight{filtered.length!==1?"s":""}
+                {aud?` · ${AUD[aud]?.l}`:""}
+                {search?` · "${search}"`:""}
+              </p>
+            </div>
+            <span style={{background:tr.color+"10",border:`1px solid ${tr.color}25`,borderRadius:999,
+                          padding:"4px 12px",fontSize:10,color:tr.color,fontWeight:600,letterSpacing:"0.05em"}}>
+              ao vivo · automático
+            </span>
+          </div>
+        )}
+
+        {/* cards or state */}
+        {(loading||error)?(
+          <LoadState error={error} onRetry={loadFeed}/>
+        ):(
+          filtered.length===0?(
+            <div style={{textAlign:"center",padding:"64px 24px",color:"#334155"}}>
+              <div style={{fontSize:40,marginBottom:12}}>🔍</div>
+              <p style={{fontSize:13}}>Nenhum item encontrado.</p>
+            </div>
+          ):(
+            <div className="cards-grid" style={{display:"flex",flexDirection:"column",gap:10}}>
+              {filtered.map((item,i)=><Card key={i} item={item}/>)}
+            </div>
+          )
+        )}
+      </main>
+
+      {/* ── FOOTER ── */}
+      <footer style={{background:"rgba(5,14,33,.97)",borderTop:"1px solid #1A2840",
+                      padding:"14px 24px",textAlign:"center"}}>
+        <p style={{fontSize:11,color:"#1A2535",lineHeight:1.9}}>
+          Alimentado por RSS · Sumarizado por Gemini · Atualizado a cada 6h<br/>
+          <span style={{color:"#152030"}}>Toque nos cards para ver o insight arquitetural</span>
+        </p>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
