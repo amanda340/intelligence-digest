@@ -12,213 +12,358 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#F5F5F5;font-family:'Inter',-apple-system,sans-serif;color:#1A1A1A}
+html,body{background:#F3F4F6;font-family:'Inter',-apple-system,sans-serif;color:#1A1A1A}
 ::-webkit-scrollbar{height:3px;width:3px}
-::-webkit-scrollbar-track{background:#F1F1F1}
+::-webkit-scrollbar-track{background:#F0F0F0}
 ::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:99px}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .serif{font-family:'Playfair Display',Georgia,serif}
-.row{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
-.row::-webkit-scrollbar{display:none}
-.lift{transition:transform .15s,box-shadow .15s;cursor:pointer}
-.lift:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.10)}
+.hscroll{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.hscroll::-webkit-scrollbar{display:none}
+.lift{transition:transform .18s,box-shadow .18s;cursor:pointer}
+.lift:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.13)}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
-@media(max-width:700px){
-  .hero-wrap{flex-direction:column!important}
-  .hero-img{min-height:180px!important;width:100%!important;flex:none!important}
+@media(max-width:720px){
+  .hero-split{flex-direction:column!important}
+  .hero-img{width:100%!important;flex:none!important;min-height:200px!important;border-radius:14px 14px 0 0!important}
 }
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const {useState,useEffect,useMemo}=React;
-const RED="#D72638";
+const {useState,useEffect,useMemo,useCallback}=React;
+const RED="#C8102E";
 const FEED="./feed.json";
 
-const TRACKS=[
-  {id:"all",      label:"Todos"},
-  {id:"hot",      label:"🔥 Urgente Agora"},
-  {id:"summer26", label:"☁️ Summer '26"},
-  {id:"fabric",   label:"🧵 Agent Fabric"},
-  {id:"agnostic", label:"🌐 Mercado & IA"},
-  {id:"rivals",   label:"⚔️ Concorrentes"},
-  {id:"crossref", label:"🔀 Cross-Reference"},
-  {id:"arch",     label:"🏛️ MCP / A2A"},
-  {id:"tools",    label:"🛠️ LLMOps"},
-  {id:"skills",   label:"🎓 Skills"},
-];
-
-const TC={
-  Headless:{c:"#0369A1",bg:"#E0F2FE",e:"🔗"},
-  FIFA:{c:"#0369A1",bg:"#DBEAFE",e:"⚽"},
-  "Agent Fabric":{c:"#5B21B6",bg:"#EDE9FE",e:"🕸️"},
-  "Multi-Agent":{c:"#6D28D9",bg:"#F3E8FF",e:"🤝"},
-  "Agentforce Ops":{c:"#1D4ED8",bg:"#DBEAFE",e:"⚙️"},
-  Momentum:{c:"#065F46",bg:"#D1FAE5",e:"📈"},
-  AgentExchange:{c:"#5B21B6",bg:"#EDE9FE",e:"🛒"},
-  "Summer 26":{c:"#075985",bg:"#E0F2FE",e:"☁️"},
-  "Guided Det":{c:"#5B21B6",bg:"#EDE9FE",e:"🎯"},
-  "MCP Bridge":{c:"#0E7490",bg:"#CFFAFE",e:"🔌"},
-  "LLM Gov":{c:"#9D174D",bg:"#FCE7F3",e:"🏛"},
-  "Claude SDK":{c:"#92400E",bg:"#FEF3C7",e:"🤖"},
-  Google:{c:"#1E40AF",bg:"#DBEAFE",e:"🔍"},
-  Frameworks:{c:"#6D28D9",bg:"#EDE9FE",e:"🧩"},
-  Anthropic:{c:"#92400E",bg:"#FEF3C7",e:"🧬"},
-  Microsoft:{c:"#1E40AF",bg:"#DBEAFE",e:"💼"},
-  ServiceNow:{c:"#065F46",bg:"#D1FAE5",e:"🔧"},
-  SAP:{c:"#92400E",bg:"#FEF3C7",e:"🏢"},
-  OpenAI:{c:"#065F46",bg:"#D1FAE5",e:"✨"},
-  "Build-vs-Buy":{c:"#9A3412",bg:"#FEE2E2",e:"⚖️"},
-  "Decisão":{c:"#92400E",bg:"#FEF3C7",e:"🎲"},
-  "Agent Wash":{c:"#991B1B",bg:"#FEE2E2",e:"⚠️"},
-  MCP:{c:"#9D174D",bg:"#FCE7F3",e:"🔌"},
-  "A2A":{c:"#5B21B6",bg:"#EDE9FE",e:"↔️"},
-  WebMCP:{c:"#0E7490",bg:"#CFFAFE",e:"🌐"},
-  Langfuse:{c:"#0E7490",bg:"#CFFAFE",e:"📊"},
-  LLMOps:{c:"#1E40AF",bg:"#DBEAFE",e:"🛠️"},
-  Skill:{c:"#065F46",bg:"#D1FAE5",e:"🎓"},
-  Mercado:{c:"#9D174D",bg:"#FCE7F3",e:"📰"},
-  Cert:{c:"#065F46",bg:"#D1FAE5",e:"🏅"},
+/* ──────────────────────────────────────────
+   i18n
+────────────────────────────────────────── */
+const I18N={
+  pt:{
+    tagline:"Bússola para Arquitetos de IA",search:"Buscar insights…",
+    alerts:"alertas",live:"AO VIVO",updated:"Atualizado",
+    roles_lbl:"Para",all_roles:"Todos os perfis",
+    all_tracks:"Todos",insights:"insights",automatic:"automático",
+    decision:"Decisão arquitetural",critical:"Análise Crítica",
+    read:"min leitura",source:"Fonte",references:"Referências",
+    see:"▼ ver análise",close:"▲ fechar",
+    latest:"Latest Insights",
+    sec_releases:"🚀 Novas Features — Release Salesforce",
+    sec_issues:"⚠️ Incidentes & Issues Detectados",
+    sec_social:"💬 Debates & Opiniões",
+    sec_radar:"📊 Technology Radar",
+    radar_adopt:"Adotar",radar_trial:"Testar",
+    radar_assess:"Avaliar",radar_hold:"Cautela",
+    radar_sub:"Posicionamento baseado nas notícias monitoradas — atualizado diariamente",
+    sources_title:"Fontes monitoradas",
+    badge_adopt:"Adotar",badge_trial:"Testar",badge_assess:"Avaliar",badge_hold:"Cautela",
+    content_note:"Conteúdo disponível em PT-BR",
+    tracks:["Todos","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
+            "⚔️ Concorrentes","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
+  en:{
+    tagline:"Compass for AI Architects",search:"Search insights…",
+    alerts:"alerts",live:"LIVE",updated:"Updated",
+    roles_lbl:"For",all_roles:"All profiles",
+    all_tracks:"All",insights:"insights",automatic:"automatic",
+    decision:"Architectural Decision",critical:"Critical Analysis",
+    read:"min read",source:"Source",references:"References",
+    see:"▼ see analysis",close:"▲ close",
+    latest:"Latest Insights",
+    sec_releases:"🚀 New Features — Salesforce Release",
+    sec_issues:"⚠️ Incidents & Detected Issues",
+    sec_social:"💬 Debates & Opinions",
+    sec_radar:"📊 Technology Radar",
+    radar_adopt:"Adopt",radar_trial:"Trial",
+    radar_assess:"Assess",radar_hold:"Hold",
+    radar_sub:"Positioning based on monitored news — updated daily",
+    sources_title:"Monitored sources",
+    badge_adopt:"Adopt",badge_trial:"Trial",badge_assess:"Assess",badge_hold:"Hold",
+    content_note:"Content in PT-BR · translations via Gemini in next release",
+    tracks:["All","🔥 Urgent","☁️ Summer '26","🧵 Agent Fabric","🌐 Market & AI",
+            "⚔️ Competitors","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
+  es:{
+    tagline:"Brújula para Arquitectos de IA",search:"Buscar insights…",
+    alerts:"alertas",live:"EN VIVO",updated:"Actualizado",
+    roles_lbl:"Para",all_roles:"Todos los perfiles",
+    all_tracks:"Todos",insights:"insights",automatic:"automático",
+    decision:"Decisión Arquitectónica",critical:"Análisis Crítico",
+    read:"min lectura",source:"Fuente",references:"Referencias",
+    see:"▼ ver análisis",close:"▲ cerrar",
+    latest:"Últimos Insights",
+    sec_releases:"🚀 Nuevas Features — Release Salesforce",
+    sec_issues:"⚠️ Incidentes y Problemas Detectados",
+    sec_social:"💬 Debates y Opiniones",
+    sec_radar:"📊 Radar Tecnológico",
+    radar_adopt:"Adoptar",radar_trial:"Probar",
+    radar_assess:"Evaluar",radar_hold:"Precaución",
+    radar_sub:"Posicionamiento basado en noticias monitoreadas — actualizado diariamente",
+    sources_title:"Fuentes monitoreadas",
+    badge_adopt:"Adoptar",badge_trial:"Probar",badge_assess:"Evaluar",badge_hold:"Precaución",
+    content_note:"Contenido en PT-BR · traducciones vía Gemini en próxima versión",
+    tracks:["Todos","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
+            "⚔️ Competidores","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
 };
-const DEF_TC={c:"#374151",bg:"#F3F4F6",e:"🤖"};
-const tc=(tag)=>TC[tag]||DEF_TC;
 
-const SRCS=[
-  {m:["salesforce","agentforce","vantagepoint","summer"],lbl:"SF", c:"#0369A1",bg:"#DBEAFE"},
-  {m:["anthropic","claude"],                             lbl:"AN", c:"#92400E",bg:"#FEF3C7"},
-  {m:["openai","gpt","codex"],                           lbl:"OA", c:"#065F46",bg:"#D1FAE5"},
-  {m:["google","gemini","next web"],                     lbl:"G",  c:"#1E40AF",bg:"#DBEAFE"},
-  {m:["aws","amazon","bedrock","strands"],                lbl:"AW", c:"#9A3412",bg:"#FEE2E2"},
-  {m:["venturebeat"],                                    lbl:"VB", c:"#5B21B6",bg:"#EDE9FE"},
-  {m:["techcrunch"],                                     lbl:"TC", c:"#0E7490",bg:"#CFFAFE"},
-  {m:["microsoft","copilot"],                            lbl:"MS", c:"#1E40AF",bg:"#DBEAFE"},
-  {m:["servicenow","now assist"],                        lbl:"SN", c:"#065F46",bg:"#D1FAE5"},
-  {m:["sap","joule"],                                    lbl:"SAP",c:"#92400E",bg:"#FEF3C7"},
-  {m:["langfuse","langchain","langgraph"],               lbl:"LG", c:"#0E7490",bg:"#CFFAFE"},
+/* ──────────────────────────────────────────
+   Constants
+────────────────────────────────────────── */
+const GRAD={
+  "Headless":       ["#0EA5E9","#6366F1"],
+  "FIFA":           ["#16A34A","#0D9488"],
+  "Agent Fabric":   ["#7C3AED","#DB2777"],
+  "Multi-Agent":    ["#4F46E5","#7C3AED"],
+  "Agentforce Ops": ["#0369A1","#0891B2"],
+  "Momentum":       ["#059669","#0F766E"],
+  "AgentExchange":  ["#7C3AED","#9333EA"],
+  "Summer 26":      ["#0284C7","#0EA5E9"],
+  "MCP Bridge":     ["#0E7490","#0891B2"],
+  "Guided Det":     ["#5B21B6","#7C3AED"],
+  "LLM Gov":        ["#9D174D","#BE185D"],
+  "Claude SDK":     ["#D97706","#92400E"],
+  "Google":         ["#1D4ED8","#4338CA"],
+  "Frameworks":     ["#6D28D9","#4F46E5"],
+  "Anthropic":      ["#B45309","#D97706"],
+  "Microsoft":      ["#1E40AF","#1D4ED8"],
+  "ServiceNow":     ["#065F46","#047857"],
+  "SAP":            ["#92400E","#B45309"],
+  "OpenAI":         ["#047857","#065F46"],
+  "Build-vs-Buy":   ["#9A3412","#B91C1C"],
+  "Decisão":        ["#92400E","#B45309"],
+  "Agent Wash":     ["#991B1B","#DC2626"],
+  "MCP":            ["#9D174D","#A21CAF"],
+  "A2A":            ["#5B21B6","#4F46E5"],
+  "WebMCP":         ["#0E7490","#0369A1"],
+  "Langfuse":       ["#0E7490","#0891B2"],
+  "LLMOps":         ["#1E40AF","#1D4ED8"],
+  "Skill":          ["#065F46","#047857"],
+  "Mercado":        ["#9D174D","#BE185D"],
+  "Cert":           ["#047857","#065F46"],
+  "AWS":            ["#9A3412","#D97706"],
+  "Kore.ai":        ["#A21CAF","#9333EA"],
+  "Release":        ["#0369A1","#4338CA"],
+  "Issue":          ["#B91C1C","#9A3412"],
+  "Reddit":         ["#C2410C","#EA580C"],
+  "HN":             ["#B45309","#D97706"],
+  "Dev.to":         ["#1F2937","#374151"],
+  "Comunidade":     ["#374151","#1F2937"],
+  "LLMs":           ["#6D28D9","#7C3AED"],
+  "_default":       ["#374151","#1F2937"],
+};
+
+const AUD={
+  EA:   {l:"EA",     c:"#6D28D9",b:"rgba(109,40,217,.1)"},
+  SA:   {l:"SA",     c:"#0369A1",b:"rgba(3,105,161,.1)"},
+  TA:   {l:"TA",     c:"#0891B2",b:"rgba(8,145,178,.1)"},
+  Build:{l:"Builder",c:"#059669",b:"rgba(5,150,105,.1)"},
+  SE:   {l:"SE",     c:"#D97706",b:"rgba(217,119,6,.1)"},
+  Exec: {l:"C-Level",c:"#DC2626",b:"rgba(220,38,38,.1)"},
+};
+
+const TRACK_IDS=["all","hot","summer26","fabric","agnostic","rivals","crossref","arch","tools","skills","releases","issues","social"];
+
+const SRC_MAP=[
+  {m:["salesforce","vantagepoint","agentforce","summer","sf dev"],s:"SF",c:"#0369A1",b:"#DBEAFE"},
+  {m:["anthropic","claude"],                                       s:"AN",c:"#92400E",b:"#FEF3C7"},
+  {m:["openai","codex","gpt"],                                     s:"OA",c:"#047857",b:"#D1FAE5"},
+  {m:["google","gemini"],                                          s:"G", c:"#1D4ED8",b:"#DBEAFE"},
+  {m:["aws","amazon","bedrock"],                                   s:"AW",c:"#9A3412",b:"#FEE2E2"},
+  {m:["venturebeat"],                                              s:"VB",c:"#5B21B6",b:"#EDE9FE"},
+  {m:["techcrunch"],                                               s:"TC",c:"#0E7490",b:"#CFFAFE"},
+  {m:["microsoft","copilot"],                                      s:"MS",c:"#1E40AF",b:"#DBEAFE"},
+  {m:["servicenow"],                                               s:"SN",c:"#065F46",b:"#D1FAE5"},
+  {m:["sap","joule"],                                              s:"SP",c:"#92400E",b:"#FEF3C7"},
+  {m:["langfuse","langchain","langgraph"],                         s:"LG",c:"#0E7490",b:"#CFFAFE"},
+  {m:["reddit"],                                                   s:"R", c:"#C2410C",b:"#FEF3C7"},
+  {m:["hacker news","hn","hnrss"],                                 s:"HN",c:"#B45309",b:"#FEF3C7"},
+  {m:["dev.to","devto"],                                           s:"DV",c:"#1F2937",b:"#F3F4F6"},
+  {m:["gartner","forrester","idc"],                                s:"GA",c:"#6D28D9",b:"#EDE9FE"},
 ];
-const DEF_SRC={lbl:"SRC",c:"#6B7280",bg:"#F3F4F6"};
-function src(name){
-  const n=(name||"").toLowerCase();
-  return SRCS.find(s=>s.m.some(m=>n.includes(m)))||DEF_SRC;
-}
+function srcOf(n){const x=(n||"").toLowerCase();return SRC_MAP.find(s=>s.m.some(m=>x.includes(m)))||{s:"—",c:"#6B7280",b:"#F3F4F6"};}
 
-function readTime(t){return Math.max(1,Math.round((t||"").split(" ").length/200))+" min leitura";}
-
-function getItems(feed,id){
-  if(!feed?.tracks) return [];
+/* ──────────────────────────────────────────
+   Helpers
+────────────────────────────────────────── */
+function readTime(t){return Math.max(1,Math.round((t||"").split(" ").length/200));}
+function getTrackItems(feed,id){
+  if(!feed?.tracks)return[];
   const v=feed.tracks[id];
-  if(!v) return [];
+  if(!v)return[];
   return Array.isArray(v)?v:(v.d||[]);
 }
-
-function allItems(feed){
-  if(!feed?.tracks) return [];
+function allFeedItems(feed){
+  if(!feed?.tracks)return[];
   return Object.entries(feed.tracks).flatMap(([t,v])=>
     (Array.isArray(v)?v:(v.d||[])).map(i=>({...i,_track:t}))
   );
 }
+function tf(item,field,lang){
+  if(lang==="pt")return item[field]||"";
+  return item[`${field}_${lang}`]||item[field]||"";
+}
 
-/* ── Thumbnail ── */
-function Thumb({tag,h=180,r="8px 8px 0 0",stretch=false}){
-  const {c,bg,e}=tc(tag);
+/* ──────────────────────────────────────────
+   Components — Cover
+────────────────────────────────────────── */
+function Cover({tag,h=170,rTop=true,rBottom=false,stretch=false}){
+  const [a,b]=GRAD[tag]||GRAD._default;
+  const r=[rTop?"14px":"0",rTop?"14px":"0",rBottom?"14px":"0",rBottom?"14px":"0"].join(" ");
   return(
-    <div style={{
-      height:stretch?"100%":h,minHeight:stretch?220:h,
-      borderRadius:r,background:bg,overflow:"hidden",position:"relative",
-      display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,
-    }}>
-      <span style={{fontSize:stretch?64:h<160?28:40,zIndex:1,position:"relative"}}>{e}</span>
-      <div style={{position:"absolute",right:-28,top:-28,width:120,height:120,borderRadius:"50%",background:c+"18"}}/>
-      <div style={{position:"absolute",left:-18,bottom:-18,width:90,height:90,borderRadius:"50%",background:c+"12"}}/>
-      <div style={{position:"absolute",bottom:0,left:0,right:0,height:48,
-        background:`linear-gradient(to top,${bg}dd,transparent)`}}/>
+    <div style={{height:stretch?"100%":h,minHeight:h,
+      background:`linear-gradient(135deg,${a} 0%,${b} 100%)`,
+      borderRadius:r,position:"relative",overflow:"hidden",flexShrink:0}}>
+      {/* dot pattern */}
+      <div style={{position:"absolute",inset:0,
+        backgroundImage:"radial-gradient(rgba(255,255,255,.15) 1px,transparent 1px)",
+        backgroundSize:"20px 20px"}}/>
+      {/* deco circles */}
+      <div style={{position:"absolute",right:-60,top:-60,width:200,height:200,
+        borderRadius:"50%",background:"rgba(255,255,255,.12)"}}/>
+      <div style={{position:"absolute",left:-36,bottom:-36,width:140,height:140,
+        borderRadius:"50%",background:"rgba(0,0,0,.14)"}}/>
+      <div style={{position:"absolute",right:32,bottom:36,width:60,height:60,
+        borderRadius:"50%",background:"rgba(255,255,255,.08)"}}/>
+      {/* gradient overlay */}
+      <div style={{position:"absolute",inset:0,
+        background:"linear-gradient(to top,rgba(0,0,0,.48) 0%,transparent 60%)"}}/>
+      {/* tag pill */}
+      <div style={{position:"absolute",bottom:12,left:14}}>
+        <span style={{background:"rgba(255,255,255,.18)",backdropFilter:"blur(16px)",
+          WebkitBackdropFilter:"blur(16px)",color:"#FFF",fontSize:10.5,fontWeight:700,
+          letterSpacing:"1.4px",textTransform:"uppercase",padding:"4px 10px",
+          borderRadius:99,border:"1px solid rgba(255,255,255,.3)"}}>
+          {tag}
+        </span>
+      </div>
     </div>
   );
 }
 
-/* ── Source circle ── */
-function SrcCircle({name,size=20}){
-  const s=src(name);
+/* ── Role badge ─── */
+function RoleBadge({r}){
+  const a=AUD[r];if(!a)return null;
   return(
-    <span style={{width:size,height:size,borderRadius:"50%",background:s.bg,color:s.c,
+    <span style={{background:a.b,color:a.c,fontSize:10,fontWeight:700,
+      padding:"2px 7px",borderRadius:99,border:`1px solid ${a.c}28`,
+      whiteSpace:"nowrap",letterSpacing:"0.02em"}}>
+      {a.l}
+    </span>
+  );
+}
+
+/* ── Source badge ─── */
+function SrcBadge({name,size=20}){
+  const s=srcOf(name);
+  return(
+    <span style={{width:size,height:size,borderRadius:"50%",background:s.b,color:s.c,
       fontSize:size*.38,fontWeight:800,display:"inline-flex",alignItems:"center",
-      justifyContent:"center",flexShrink:0,border:`1.5px solid ${s.c}28`,letterSpacing:"-0.5px"}}>
-      {s.lbl}
+      justifyContent:"center",flexShrink:0,border:`1.5px solid ${s.c}22`,
+      letterSpacing:"-0.5px"}}>
+      {s.s}
     </span>
   );
 }
 
-/* ── Tag pill ── */
-function Pill({tag}){
-  const {c,bg}=tc(tag);
+/* ── Reference links ─── */
+function RefLinks({urls,url,t}){
+  const all=useMemo(()=>{
+    const list=Array.isArray(urls)?[...urls]:[];
+    if(url&&!list.includes(url))list.unshift(url);
+    return list.filter(Boolean);
+  },[urls,url]);
+  if(!all.length)return null;
   return(
-    <span style={{background:bg,color:c,fontSize:11.5,fontWeight:600,
-      padding:"2px 9px",borderRadius:99,border:`1px solid ${c}28`,whiteSpace:"nowrap"}}>
-      {tag}
-    </span>
+    <div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:2}}>
+      {all.map((u,i)=>(
+        <a key={i} href={u} target="_blank" rel="noopener"
+           onClick={e=>e.stopPropagation()}
+           style={{display:"inline-flex",alignItems:"center",gap:3,
+             background:"#F3F4F6",border:"1px solid #E5E7EB",
+             borderRadius:6,padding:"3px 8px",
+             fontSize:11,color:"#374151",fontWeight:500,flexShrink:0}}>
+          {t.references} {all.length>1?`[${i+1}]`:"↗"}
+        </a>
+      ))}
+    </div>
   );
 }
 
-/* ── Featured hero card ── */
-function Featured({item}){
+/* ── Expandable analysis panels ─── */
+function AnalysisPanels({item,lang,t,open}){
+  if(!open)return null;
+  const d=tf(item,"d",lang);
+  const c=tf(item,"critical",lang);
+  return(
+    <div style={{display:"flex",flexDirection:"column",gap:8}}>
+      {d&&(
+        <div style={{background:"#F5F3FF",border:"1px solid #DDD6FE",borderRadius:8,padding:"10px 13px"}}>
+          <p style={{margin:0,fontSize:12.5,color:"#5B21B6",lineHeight:1.65}}>
+            <strong style={{display:"block",marginBottom:3}}>🏛 {t.decision}</strong>{d}
+          </p>
+        </div>
+      )}
+      {c&&(
+        <div style={{background:"#FFF7ED",border:"1px solid #FED7AA",borderRadius:8,padding:"10px 13px"}}>
+          <p style={{margin:0,fontSize:12.5,color:"#9A3412",lineHeight:1.65}}>
+            <strong style={{display:"block",marginBottom:3}}>🔍 {t.critical}</strong>{c}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Featured hero card ─── */
+function Featured({item,lang,t}){
   const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
   return(
-    <div className="lift hero-wrap"
-      onClick={()=>setOpen(v=>!v)}
+    <div className="lift hero-split" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
       style={{display:"flex",background:"#FFF",borderRadius:16,overflow:"hidden",
-        border:"1px solid #E5E7EB"}}>
-
-      {/* image */}
-      <div className="hero-img" style={{flex:"0 0 44%",alignSelf:"stretch"}}>
-        <Thumb tag={item.tag} stretch h={300} r="0"/>
+        border:"1px solid #E5E7EB",boxShadow:"0 2px 8px rgba(0,0,0,.06)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+      <div className="hero-img" style={{flex:"0 0 42%",alignSelf:"stretch",borderRadius:"16px 0 0 16px",overflow:"hidden"}}>
+        <Cover tag={item.tag} stretch h={320} rTop={false} rBottom={false}/>
       </div>
-
-      {/* content */}
-      <div style={{flex:1,padding:"32px 36px",display:"flex",flexDirection:"column",gap:16}}>
+      <div style={{flex:1,padding:"28px 32px",display:"flex",flexDirection:"column",gap:14,overflow:"hidden"}}>
         <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
-          <SrcCircle name={item.f} size={24}/>
-          <span style={{fontSize:13,color:"#374151",fontWeight:500}}>{item.f}</span>
+          <SrcBadge name={item.f} size={22}/>
+          <span style={{fontSize:12.5,color:"#374151",fontWeight:500}}>{item.f}</span>
           <span style={{color:"#D1D5DB"}}>·</span>
-          <span style={{fontSize:13,color:"#9CA3AF"}}>{item.dt}</span>
+          <span style={{fontSize:12.5,color:"#9CA3AF"}}>{item.dt}</span>
           {item.alert&&(
             <span style={{marginLeft:"auto",background:"#FEF2F2",color:"#B91C1C",
               fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:99,
-              border:"1px solid #FECACA",flexShrink:0}}>⚡ URGENTE</span>
-          )}
-        </div>
-
-        <h2 className="serif" style={{fontSize:28,fontWeight:700,color:"#111",lineHeight:1.32}}>
-          {item.t}
-        </h2>
-
-        <p style={{fontSize:15,color:"#4B5563",lineHeight:1.78}}>{item.s}</p>
-
-        {open&&item.d&&(
-          <div style={{background:"#F5F3FF",border:"1px solid #DDD6FE",borderRadius:10,padding:"14px 18px"}}>
-            <p style={{margin:0,fontSize:13.5,color:"#5B21B6",lineHeight:1.65}}>
-              <strong>🏛 Decisão arquitetural:</strong> {item.d}
-            </p>
-          </div>
-        )}
-
-        <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginTop:"auto",
-          paddingTop:16,borderTop:"1px solid #F3F4F6"}}>
-          <Pill tag={item.tag}/>
-          <span style={{color:"#D1D5DB"}}>·</span>
-          <span style={{color:"#9CA3AF",fontSize:13}}>{readTime(item.s)}</span>
-          {item.d&&(
-            <span style={{color:"#6D28D9",fontSize:13,fontWeight:500}}>
-              {open?"▲ fechar":"▼ ver decisão"}
+              border:"1px solid #FECACA",flexShrink:0,animation:"pulse 2s infinite"}}>
+              ⚡ URGENTE
             </span>
           )}
-          {item.url&&(
-            <a href={item.url} target="_blank" rel="noopener"
-               onClick={e=>e.stopPropagation()}
-               style={{marginLeft:"auto",color:RED,fontSize:13,fontWeight:600}}>
-              Fonte →
-            </a>
+        </div>
+        <h2 className="serif" style={{fontSize:26,fontWeight:700,color:"#111",lineHeight:1.35}}>
+          {tf(item,"t",lang)}
+        </h2>
+        <p style={{fontSize:14.5,color:"#4B5563",lineHeight:1.78}}>
+          {tf(item,"s",lang)}
+        </p>
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",
+          marginTop:"auto",paddingTop:14,borderTop:"1px solid #F3F4F6"}}>
+          {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          <span style={{flex:1}}/>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{color:"#6D28D9",fontSize:12.5,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
           )}
         </div>
       </div>
@@ -226,52 +371,70 @@ function Featured({item}){
   );
 }
 
-/* ── News card ── */
-function Card({item}){
+/* ── News card ─── */
+function NewsCard({item,lang,t,variant="default"}){
   const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+
+  const accentColor={
+    default:"#E5E7EB",
+    issue:"#FCA5A5",
+    release:"#93C5FD",
+    social:"#A7F3D0",
+  }[variant];
+
   return(
-    <div className="lift"
-      onClick={()=>setOpen(v=>!v)}
-      style={{background:"#FFF",borderRadius:12,overflow:"hidden",border:"1px solid #E5E7EB",
-        flex:"0 0 258px",display:"flex",flexDirection:"column"}}>
+    <div className="lift" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,overflow:"hidden",
+        border:`1px solid ${accentColor}`,
+        flex:"0 0 270px",display:"flex",flexDirection:"column",
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:hasAnalysis?"pointer":"default"}}>
 
-      <Thumb tag={item.tag} h={160}/>
+      <Cover tag={item.tag} h={160} rTop rBottom={false}/>
 
-      <div style={{padding:"14px 15px 15px",flex:1,display:"flex",flexDirection:"column",gap:8}}>
+      <div style={{padding:"12px 13px 13px",flex:1,display:"flex",flexDirection:"column",gap:8}}>
+        {/* source */}
         <div style={{display:"flex",alignItems:"center",gap:6}}>
-          <SrcCircle name={item.f} size={18}/>
-          <span style={{fontSize:11.5,color:"#9CA3AF",flex:1,overflow:"hidden",
+          <SrcBadge name={item.f} size={17}/>
+          <span style={{fontSize:11,color:"#9CA3AF",flex:1,overflow:"hidden",
             textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.f}</span>
-          {item.alert&&<span style={{fontSize:13,flexShrink:0}}>⚡</span>}
+          {item.alert&&<span style={{fontSize:12,flexShrink:0}}>⚡</span>}
+          <span style={{fontSize:11,color:"#D1D5DB",flexShrink:0}}>{item.dt}</span>
         </div>
 
-        <h3 style={{fontSize:14.5,fontWeight:700,color:"#111",lineHeight:1.4,
+        {/* title */}
+        <h3 style={{fontSize:13.5,fontWeight:700,color:"#111",lineHeight:1.42,
           display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
-          {item.t}
+          {tf(item,"t",lang)}
         </h3>
 
+        {/* summary */}
         <p style={{fontSize:12.5,color:"#6B7280",lineHeight:1.65,flex:1,
-          display:"-webkit-box",WebkitLineClamp:open?20:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
-          {item.s}
+          display:"-webkit-box",WebkitLineClamp:open?20:2,
+          WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
         </p>
 
-        {open&&item.d&&(
-          <div style={{background:"#F5F3FF",border:"1px solid #DDD6FE",borderRadius:8,padding:"9px 12px"}}>
-            <p style={{margin:0,fontSize:11.5,color:"#5B21B6",lineHeight:1.6}}>
-              <strong>🏛</strong> {item.d}
-            </p>
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+
+        {/* roles */}
+        {auds.length>0&&(
+          <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
+            {auds.map(r=><RoleBadge key={r} r={r}/>)}
           </div>
         )}
 
-        <div style={{display:"flex",alignItems:"center",gap:7,paddingTop:10,
-          borderTop:"1px solid #F3F4F6",flexWrap:"wrap",marginTop:"auto"}}>
-          <Pill tag={item.tag}/>
-          <span style={{color:"#D1D5DB",fontSize:12}}>·</span>
-          <span style={{color:"#9CA3AF",fontSize:12}}>{readTime(item.s)}</span>
-          {item.url&&(
-            <a href={item.url} target="_blank" rel="noopener"
-               onClick={e=>e.stopPropagation()}
-               style={{marginLeft:"auto",color:RED,fontSize:12,fontWeight:600}}>↗</a>
+        {/* footer */}
+        <div style={{display:"flex",alignItems:"center",gap:6,
+          paddingTop:9,borderTop:"1px solid #F3F4F6",marginTop:"auto",flexWrap:"wrap"}}>
+          <span style={{fontSize:11,color:"#9CA3AF"}}>{readTime(item.s)} {t.read}</span>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{marginLeft:"auto",color:"#6D28D9",fontSize:11,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
           )}
         </div>
       </div>
@@ -279,108 +442,254 @@ function Card({item}){
   );
 }
 
-/* ── Section row ── */
-function Section({title,items}){
-  if(!items||items.length===0) return null;
+/* ── Section row ─── */
+function Section({title,items,lang,t,variant="default"}){
+  if(!items?.length)return null;
+  const accentLeft={default:RED,issue:"#DC2626",release:"#2563EB",social:"#059669"}[variant];
   return(
     <section style={{marginBottom:44}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
-        marginBottom:16,paddingBottom:12,borderBottom:"2px solid #F0F0F0"}}>
-        <h2 style={{fontSize:20,fontWeight:700,color:"#111"}}>{title}</h2>
-        <span style={{fontSize:13,color:RED,fontWeight:600,flexShrink:0}}>
-          {items.length} insight{items.length!==1?"s":""}
+        marginBottom:14,paddingBottom:12,
+        borderBottom:`2px solid #E5E7EB`,
+        borderLeft:`4px solid ${accentLeft}`,
+        paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{title}</h2>
+        <span style={{fontSize:12,color:accentLeft,fontWeight:600}}>
+          {items.length} {t.insights}
         </span>
       </div>
-      <div className="row">
-        {items.map((item,i)=><Card key={i} item={item}/>)}
+      <div className="hscroll">
+        {items.map((it,i)=>(
+          <NewsCard key={i} item={it} lang={lang} t={t} variant={variant}/>
+        ))}
         <div style={{flexShrink:0,width:4}}/>
       </div>
     </section>
   );
 }
 
-/* ── App ── */
+/* ── Technology Radar (SVG) ─── */
+function TechRadar({radarData,t}){
+  if(!radarData)return null;
+  const zones=[
+    {id:"adopt", label:t.radar_adopt, r:80,  fill:"rgba(5,150,105,.08)",  stroke:"#059669", dotColor:"#059669"},
+    {id:"trial", label:t.radar_trial, r:155, fill:"rgba(37,99,235,.07)",  stroke:"#2563EB", dotColor:"#2563EB"},
+    {id:"assess",label:t.radar_assess,r:230, fill:"rgba(124,58,237,.06)", stroke:"#7C3AED", dotColor:"#7C3AED"},
+    {id:"hold",  label:t.radar_hold,  r:300, fill:"rgba(220,38,38,.05)",  stroke:"#DC2626", dotColor:"#DC2626"},
+  ];
+  const cx=310,cy=310;
+  // Distribute items evenly around each ring
+  const dots=[];
+  zones.forEach(({id,r,dotColor})=>{
+    const items=radarData[id]||[];
+    items.forEach((name,i)=>{
+      const angle=(i/Math.max(items.length,1))*2*Math.PI - Math.PI/2;
+      const rr=r-15+Math.random()*20;
+      dots.push({
+        name,cx:cx+rr*Math.cos(angle),cy:cy+rr*Math.sin(angle),
+        color:dotColor,ring:id,
+      });
+    });
+  });
+  // deterministic positions using index
+  const dotsFixed=[];
+  zones.forEach(({id,r,dotColor})=>{
+    const items=radarData[id]||[];
+    items.forEach((name,i)=>{
+      const offset=(id==="adopt"?0:id==="trial"?0.15:id==="assess"?0.3:0.45);
+      const angle=(i/Math.max(items.length,1))*2*Math.PI - Math.PI/2 + offset;
+      const rr=r*0.72;
+      dotsFixed.push({name,cx:cx+rr*Math.cos(angle),cy:cy+rr*Math.sin(angle),color:dotColor,ring:id});
+    });
+  });
+
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,borderBottom:"2px solid #E5E7EB",
+        borderLeft:`4px solid #7C3AED`,paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{t.sec_radar}</h2>
+        <span style={{fontSize:12,color:"#7C3AED",fontWeight:600}}>{t.automatic}</span>
+      </div>
+      <p style={{fontSize:12,color:"#9CA3AF",marginBottom:20}}>{t.radar_sub}</p>
+
+      <div style={{display:"flex",gap:24,flexWrap:"wrap",alignItems:"flex-start"}}>
+        {/* SVG radar */}
+        <div style={{background:"#FFF",borderRadius:16,border:"1px solid #E5E7EB",
+          padding:16,boxShadow:"0 1px 4px rgba(0,0,0,.05)",overflow:"auto"}}>
+          <svg width="620" height="620" viewBox="0 0 620 620" style={{maxWidth:"100%"}}>
+            {/* rings */}
+            {[...zones].reverse().map(z=>(
+              <circle key={z.id} cx={cx} cy={cy} r={z.r}
+                fill={z.fill} stroke={z.stroke} strokeWidth="1" strokeDasharray="4 4"/>
+            ))}
+            {/* cross lines */}
+            <line x1={cx} y1={cy-310} x2={cx} y2={cy+310} stroke="#E5E7EB" strokeWidth="1"/>
+            <line x1={cx-310} y1={cy} x2={cx+310} y2={cy} stroke="#E5E7EB" strokeWidth="1"/>
+            {/* ring labels */}
+            {zones.map(z=>(
+              <text key={z.id} x={cx+6} y={cy-z.r+14}
+                fontSize="11" fontWeight="600" fill={z.stroke} fontFamily="Inter,-apple-system,sans-serif">
+                {z.label}
+              </text>
+            ))}
+            {/* dots + labels */}
+            {dotsFixed.map((d,i)=>(
+              <g key={i}>
+                <circle cx={d.cx} cy={d.cy} r="6" fill={d.color} opacity=".85"/>
+                <text x={d.cx+9} y={d.cy+4}
+                  fontSize="10" fill="#374151" fontFamily="Inter,-apple-system,sans-serif"
+                  style={{userSelect:"none"}}>
+                  {d.name}
+                </text>
+              </g>
+            ))}
+          </svg>
+        </div>
+
+        {/* legend */}
+        <div style={{display:"flex",flexDirection:"column",gap:12,minWidth:180}}>
+          {zones.map(z=>{
+            const items=radarData[z.id]||[];
+            return(
+              <div key={z.id} style={{background:"#FFF",borderRadius:12,
+                border:`1px solid ${z.stroke}28`,padding:"12px 14px"}}>
+                <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:8}}>
+                  <div style={{width:10,height:10,borderRadius:"50%",background:z.stroke,flexShrink:0}}/>
+                  <span style={{fontSize:12.5,fontWeight:700,color:z.stroke}}>{z.label}</span>
+                </div>
+                {items.map((name,i)=>(
+                  <div key={i} style={{fontSize:11.5,color:"#374151",
+                    padding:"2px 0",borderBottom:i<items.length-1?"1px solid #F3F4F6":"none"}}>
+                    {name}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────
+   App
+────────────────────────────────────────── */
 function App(){
   const [feed,setFeed]=useState(null);
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState(null);
   const [track,setTrack]=useState("all");
   const [search,setSearch]=useState("");
+  const [audFilter,setAudFilter]=useState(null);
+  const [lang,setLang]=useState("pt");
+
+  const t=I18N[lang]||I18N.pt;
 
   useEffect(()=>{
-    fetch(FEED+"?t="+Date.now())
+    fetch(FEED+"?v="+Date.now())
       .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
       .then(d=>{setFeed(d);setLoading(false);})
       .catch(e=>{setError(e.message);setLoading(false);});
   },[]);
 
-  const items=useMemo(()=>allItems(feed),[feed]);
+  const items=useMemo(()=>allFeedItems(feed),[feed]);
   const featured=useMemo(()=>items.find(i=>i.alert)||items[0],[items]);
   const alertCount=useMemo(()=>items.filter(i=>i.alert).length,[items]);
-
-  const sections=useMemo(()=>{
-    if(!feed) return [];
-    return TRACKS.filter(t=>t.id!=="all").map(t=>{
-      let list=getItems(feed,t.id);
-      if(search.trim()){
-        const q=search.toLowerCase();
-        list=list.filter(i=>(i.t+i.s+(i.tag||"")+(i.f||"")).toLowerCase().includes(q));
-      }
-      return{...t,items:list};
-    }).filter(s=>s.items.length>0);
-  },[feed,search]);
-
-  const visible=useMemo(()=>
-    track==="all"?sections:sections.filter(s=>s.id===track)
-  ,[sections,track]);
-
   const genAt=feed?.generatedAt
     ?new Date(feed.generatedAt).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})
     :"";
 
+  const visibleSections=useMemo(()=>{
+    if(!feed)return[];
+    return TRACK_IDS.filter(id=>id!=="all").map((id,i)=>({
+      id,
+      label:t.tracks[i+1]||id,
+      items:(() => {
+        let list=getTrackItems(feed,id);
+        if(audFilter)list=list.filter(it=>(it.aud||[]).includes(audFilter));
+        if(search.trim()){const q=search.toLowerCase();list=list.filter(it=>(it.t+it.s+(it.tag||"")+it.f||"").toLowerCase().includes(q));}
+        return list;
+      })(),
+      variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":"default",
+    })).filter(s=>s.items.length>0);
+  },[feed,search,audFilter,lang,t]);
+
+  const visible=useMemo(()=>
+    track==="all"?visibleSections:visibleSections.filter(s=>s.id===track)
+  ,[visibleSections,track]);
+
+  const trackCounts=useMemo(()=>{
+    const m={all:items.length};
+    TRACK_IDS.filter(id=>id!=="all").forEach(id=>{m[id]=getTrackItems(feed,id).length;});
+    return m;
+  },[feed,items]);
+
   return(
-    <div style={{background:"#F5F5F5",minHeight:"100vh"}}>
+    <div style={{background:"#F3F4F6",minHeight:"100vh"}}>
 
       {/* ── HEADER ── */}
-      <header style={{background:"#FFF",borderBottom:"1px solid #EBEBEB",
-        position:"sticky",top:0,zIndex:30,boxShadow:"0 1px 3px rgba(0,0,0,.04)"}}>
-        <div style={{maxWidth:1240,margin:"0 auto",padding:"0 24px"}}>
+      <header style={{background:"#FFF",borderBottom:"1px solid #E5E7EB",
+        position:"sticky",top:0,zIndex:30,boxShadow:"0 1px 4px rgba(0,0,0,.05)"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 28px"}}>
 
           {/* brand strip */}
-          <div style={{display:"flex",alignItems:"center",gap:20,height:58,
+          <div style={{display:"flex",alignItems:"center",height:56,gap:16,
             borderBottom:"1px solid #F3F4F6",flexWrap:"wrap"}}>
-            <span className="serif" style={{fontSize:22,fontWeight:800,color:RED,
-              letterSpacing:"-0.5px",flexShrink:0,lineHeight:1}}>
-              Intelligence Digest
-            </span>
-            <div style={{width:1,height:20,background:"#E5E7EB",flexShrink:0}}/>
+            <span className="serif" style={{fontSize:21,fontWeight:800,color:RED,
+              letterSpacing:"-0.5px",flexShrink:0}}>Intelligence Digest</span>
+            <div style={{width:1,height:18,background:"#E5E7EB",flexShrink:0}}/>
+            <span style={{fontSize:11.5,color:"#9CA3AF",flexShrink:0}}>{t.tagline}</span>
             <div style={{flex:1}}/>
-            <input type="search" placeholder="Buscar insights..." value={search}
+            {/* search */}
+            <input type="search" placeholder={t.search} value={search}
               onChange={e=>setSearch(e.target.value)}
-              style={{padding:"7px 14px",borderRadius:99,border:"1px solid #E5E7EB",
-                background:"#F9FAFB",color:"#111",fontFamily:"inherit",fontSize:13,
-                width:190,outline:"none"}}/>
+              style={{padding:"6px 13px",borderRadius:99,border:"1px solid #E5E7EB",
+                background:"#F9FAFB",color:"#111",fontFamily:"inherit",fontSize:12.5,
+                width:184,outline:"none"}}/>
+            {/* lang switcher */}
+            {["pt","en","es"].map(l=>(
+              <button key={l} onClick={()=>setLang(l)} style={{
+                padding:"5px 10px",borderRadius:6,border:"1px solid #E5E7EB",
+                background:lang===l?RED:"transparent",
+                color:lang===l?"#FFF":"#6B7280",
+                fontSize:12,fontWeight:600,transition:"all .15s",
+              }}>
+                {l.toUpperCase()}
+              </button>
+            ))}
             {alertCount>0&&(
-              <span style={{background:"#FEF2F2",color:RED,fontSize:12,fontWeight:700,
-                padding:"5px 12px",borderRadius:99,border:`1px solid ${RED}28`,flexShrink:0}}>
-                ⚡ {alertCount} alertas
+              <span style={{background:"#FEF2F2",color:RED,fontSize:11,fontWeight:700,
+                padding:"4px 11px",borderRadius:99,border:`1px solid ${RED}28`,flexShrink:0}}>
+                ⚡ {alertCount} {t.alerts}
               </span>
             )}
-            {genAt&&<span style={{fontSize:11,color:"#9CA3AF",flexShrink:0}}>{genAt}</span>}
+            {genAt&&(
+              <span style={{fontSize:10.5,color:"#9CA3AF",flexShrink:0,
+                display:"flex",alignItems:"center",gap:5}}>
+                <span style={{width:7,height:7,borderRadius:"50%",background:"#10B981",
+                  display:"inline-block",animation:"pulse 2s infinite"}}/>
+                {genAt}
+              </span>
+            )}
           </div>
 
           {/* track nav */}
-          <div className="row" style={{height:46,alignItems:"center",gap:2,padding:"0 0"}}>
-            {TRACKS.map(t=>{
-              const cnt=t.id==="all"?items.length:getItems(feed,t.id).length;
-              const on=track===t.id;
+          <div className="hscroll" style={{height:42,alignItems:"center",gap:1,padding:"0"}}>
+            {TRACK_IDS.map((id,i)=>{
+              const cnt=trackCounts[id]||0;const on=track===id;
               return(
-                <button key={t.id} onClick={()=>setTrack(t.id)}
-                  style={{padding:"5px 13px",borderRadius:99,border:"none",
-                    background:on?RED:"transparent",color:on?"#FFF":"#4B5563",
-                    fontSize:13,fontWeight:on?600:400,whiteSpace:"nowrap",transition:"all .15s"}}>
-                  {t.label}
-                  {feed&&cnt>0&&<span style={{marginLeft:4,opacity:.6,fontSize:11}}>({cnt})</span>}
+                <button key={id} onClick={()=>setTrack(id)} style={{
+                  padding:"4px 12px",borderRadius:99,border:"none",
+                  background:on?RED:"transparent",
+                  color:on?"#FFF":"#4B5563",
+                  fontSize:12.5,fontWeight:on?600:400,whiteSpace:"nowrap",
+                  transition:"all .15s",flexShrink:0}}>
+                  {t.tracks[i]}
+                  {feed&&cnt>0&&(
+                    <span style={{marginLeft:4,opacity:.55,fontSize:11}}>({cnt})</span>
+                  )}
                 </button>
               );
             })}
@@ -388,66 +697,106 @@ function App(){
         </div>
       </header>
 
-      {/* ── HERO BANNER ── */}
-      <div style={{background:"#FFF",borderBottom:"1px solid #EBEBEB",padding:"20px 24px 18px",textAlign:"center"}}>
-        <p style={{fontSize:11,color:"#9CA3AF",letterSpacing:"2px",textTransform:"uppercase",marginBottom:6}}>
-          BÚSSOLA PARA ARQUITETOS DE IA
-        </p>
-        <p style={{fontSize:18,fontWeight:300,color:"#374151",lineHeight:1.55,maxWidth:600,margin:"0 auto"}}>
-          Curadoria <strong style={{color:RED,fontWeight:600}}>ao vivo</strong> dos mercados que moldam
-          a arquitetura de agentes inteligentes
+      {/* ── ROLE FILTER ── */}
+      <div style={{background:"#FFF",borderBottom:"1px solid #E5E7EB"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 28px",
+          display:"flex",alignItems:"center",height:38,gap:6,
+          overflowX:"auto",scrollbarWidth:"none"}}>
+          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
+            textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
+            {t.roles_lbl}
+          </span>
+          {[null,...Object.keys(AUD)].map(r=>{
+            const a=r?AUD[r]:null;const on=audFilter===r;
+            return(
+              <button key={r||"all"} onClick={()=>setAudFilter(r)} style={{
+                background:on?(a?a.b:"rgba(0,0,0,.06)"):"transparent",
+                border:`1px solid ${on?(a?a.c+"55":"rgba(0,0,0,.15)"):"#E5E7EB"}`,
+                borderRadius:99,padding:"3px 12px",flexShrink:0,
+                color:on?(a?a.c:"#111"):"#6B7280",
+                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                {r?a.l:t.all_roles}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── BANNER ── */}
+      <div style={{background:"#FFF",borderBottom:"1px solid #EBEBEB",
+        padding:"14px 28px",textAlign:"center"}}>
+        <p style={{fontSize:14,fontWeight:300,color:"#374151",lineHeight:1.6}}>
+          RSS + Gemini · {t.automatic} ·{" "}
+          <strong style={{color:RED,fontWeight:600}}>6h BRT</strong>
+          {lang!=="pt"&&(
+            <span style={{marginLeft:12,fontSize:11.5,color:"#9CA3AF",
+              background:"#F3F4F6",padding:"2px 8px",borderRadius:99}}>
+              ℹ️ {t.content_note}
+            </span>
+          )}
         </p>
       </div>
 
       {/* ── MAIN ── */}
-      <main style={{maxWidth:1240,margin:"0 auto",padding:"32px 24px 60px"}}>
+      <main style={{maxWidth:1360,margin:"0 auto",padding:"32px 28px 60px"}}>
 
-        {/* loading */}
         {loading&&(
           <div style={{textAlign:"center",padding:"80px 0"}}>
-            <div style={{width:36,height:36,border:"3px solid #E5E7EB",borderTopColor:RED,
-              borderRadius:"50%",animation:"spin .8s linear infinite",margin:"0 auto 16px"}}/>
-            <p style={{color:"#9CA3AF",fontSize:14}}>Carregando feed...</p>
+            <div style={{width:36,height:36,border:"3px solid #E5E7EB",
+              borderTopColor:RED,borderRadius:"50%",
+              animation:"spin .8s linear infinite",margin:"0 auto 16px"}}/>
+            <p style={{color:"#9CA3AF",fontSize:14}}>Carregando feed…</p>
           </div>
         )}
 
-        {/* error */}
         {error&&(
           <div style={{textAlign:"center",padding:"80px 0"}}>
             <p style={{fontSize:36,marginBottom:12}}>⚠️</p>
-            <p style={{fontSize:14,color:"#6B7280"}}>Não foi possível carregar o feed.</p>
-            <p style={{fontSize:12,color:"#9CA3AF",marginTop:6}}>{error}</p>
+            <p style={{fontSize:14,color:"#6B7280",marginBottom:8}}>
+              Feed não encontrado.
+            </p>
+            <p style={{fontSize:12,color:"#9CA3AF"}}>{error}</p>
           </div>
         )}
 
-        {/* content */}
         {!loading&&!error&&(
           <>
-            {/* featured hero — só na aba "todos" sem busca */}
-            {featured&&track==="all"&&!search&&(
-              <div style={{marginBottom:44}}>
-                <Featured item={featured}/>
+            {featured&&track==="all"&&!search&&!audFilter&&(
+              <div style={{marginBottom:40}}>
+                <Featured item={featured} lang={lang} t={t}/>
               </div>
             )}
 
-            {/* "Latest News" label para aba todos */}
-            {track==="all"&&!search&&(
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
-                marginBottom:28,paddingBottom:14,borderBottom:"2px solid #F0F0F0"}}>
-                <h2 style={{fontSize:22,fontWeight:700,color:"#111"}}>Latest News</h2>
-                <span style={{fontSize:13,color:RED,fontWeight:600}}>
-                  {items.length} insights · automático
+            {track==="all"&&!search&&!audFilter&&(
+              <div style={{display:"flex",justifyContent:"space-between",
+                alignItems:"center",marginBottom:24,paddingBottom:12,
+                borderBottom:"2px solid #E5E7EB",borderLeft:`4px solid ${RED}`,paddingLeft:12}}>
+                <h2 style={{fontSize:20,fontWeight:700,color:"#111"}}>
+                  {t.latest}
+                </h2>
+                <span style={{fontSize:12.5,color:RED,fontWeight:600}}>
+                  {items.length} {t.insights}
                 </span>
               </div>
             )}
 
-            {/* sections */}
-            {visible.map(s=><Section key={s.id} title={s.label} items={s.items}/>)}
+            {visible.map(s=>(
+              <Section key={s.id} title={s.label} items={s.items}
+                lang={lang} t={t} variant={s.variant}/>
+            ))}
 
-            {visible.length===0&&search&&(
-              <div style={{textAlign:"center",padding:"60px 0",color:"#9CA3AF"}}>
-                <p style={{fontSize:36,marginBottom:12}}>🔍</p>
-                <p style={{fontSize:14}}>Nenhum resultado para "{search}"</p>
+            {/* Technology Radar */}
+            {feed?.radar&&(track==="all"||track==="arch")&&!search&&(
+              <TechRadar radarData={feed.radar} t={t}/>
+            )}
+
+            {visible.length===0&&!feed?.radar&&(
+              <div style={{textAlign:"center",padding:"60px 0"}}>
+                <p style={{fontSize:40,marginBottom:12}}>🔍</p>
+                <p style={{fontSize:14,color:"#9CA3AF"}}>
+                  {search?`"${search}" — sem resultados`:
+                    audFilter?`Nenhum item para ${AUD[audFilter]?.l}`:"Nenhum item."}
+                </p>
               </div>
             )}
           </>
@@ -456,33 +805,30 @@ function App(){
 
       {/* ── SOURCE STRIP ── */}
       {!loading&&!error&&(
-        <div style={{borderTop:"1px solid #EBEBEB",background:"#FFF",padding:"28px 0"}}>
-          <div style={{maxWidth:1240,margin:"0 auto",padding:"0 24px"}}>
-            <p style={{fontSize:11,color:"#9CA3AF",marginBottom:18,fontWeight:600,
-              textTransform:"uppercase",letterSpacing:"1.5px"}}>Fontes monitoradas</p>
-            <div className="row" style={{gap:28,alignItems:"flex-start"}}>
+        <div style={{borderTop:"1px solid #E5E7EB",background:"#FFF",padding:"24px 28px 28px"}}>
+          <div style={{maxWidth:1360,margin:"0 auto"}}>
+            <p style={{fontSize:10,color:"#9CA3AF",marginBottom:16,fontWeight:600,
+              textTransform:"uppercase",letterSpacing:"1.5px"}}>{t.sources_title}</p>
+            <div className="hscroll" style={{gap:22}}>
               {[
-                {label:"Salesforce",  c:"#0369A1",bg:"#DBEAFE"},
-                {label:"Anthropic",   c:"#92400E",bg:"#FEF3C7"},
-                {label:"OpenAI",      c:"#065F46",bg:"#D1FAE5"},
-                {label:"Google AI",   c:"#1E40AF",bg:"#DBEAFE"},
-                {label:"AWS",         c:"#9A3412",bg:"#FEE2E2"},
-                {label:"VentureBeat", c:"#5B21B6",bg:"#EDE9FE"},
-                {label:"TechCrunch",  c:"#0E7490",bg:"#CFFAFE"},
-                {label:"MCP Protocol",c:"#9D174D",bg:"#FCE7F3"},
-                {label:"LangChain",   c:"#065F46",bg:"#D1FAE5"},
-                {label:"Langfuse",    c:"#0E7490",bg:"#CFFAFE"},
-                {label:"Hacker News", c:"#C2410C",bg:"#FEF3C7"},
+                {l:"Salesforce",c:"#0369A1",b:"#DBEAFE"},{l:"Anthropic",c:"#92400E",b:"#FEF3C7"},
+                {l:"OpenAI",c:"#047857",b:"#D1FAE5"},{l:"Google AI",c:"#1D4ED8",b:"#DBEAFE"},
+                {l:"AWS",c:"#9A3412",b:"#FEE2E2"},{l:"VentureBeat",c:"#5B21B6",b:"#EDE9FE"},
+                {l:"TechCrunch",c:"#0E7490",b:"#CFFAFE"},{l:"MCP.io",c:"#9D174D",b:"#FCE7F3"},
+                {l:"LangChain",c:"#047857",b:"#D1FAE5"},{l:"Langfuse",c:"#0E7490",b:"#CFFAFE"},
+                {l:"Reddit r/SF",c:"#C2410C",b:"#FEF3C7"},{l:"Hacker News",c:"#B45309",b:"#FEF3C7"},
+                {l:"Dev.to",c:"#1F2937",b:"#F3F4F6"},{l:"InfoWorld",c:"#374151",b:"#F3F4F6"},
               ].map(s=>(
-                <div key={s.label} style={{display:"flex",flexDirection:"column",
-                  alignItems:"center",gap:8,flexShrink:0}}>
-                  <div style={{width:52,height:52,borderRadius:"50%",background:s.bg,color:s.c,
-                    fontSize:12,fontWeight:800,display:"flex",alignItems:"center",
-                    justifyContent:"center",border:`2px solid ${s.c}22`,
-                    boxShadow:`0 2px 8px ${s.c}18`,letterSpacing:"-0.5px"}}>
-                    {s.label.slice(0,2).toUpperCase()}
+                <div key={s.l} style={{display:"flex",flexDirection:"column",
+                  alignItems:"center",gap:6,flexShrink:0}}>
+                  <div style={{width:48,height:48,borderRadius:"50%",
+                    background:s.b,color:s.c,fontSize:11,fontWeight:800,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`2px solid ${s.c}22`,boxShadow:`0 2px 8px ${s.c}16`,
+                    letterSpacing:"-0.5px"}}>
+                    {s.l.slice(0,2).toUpperCase()}
                   </div>
-                  <span style={{fontSize:10.5,color:"#9CA3AF",whiteSpace:"nowrap"}}>{s.label}</span>
+                  <span style={{fontSize:9.5,color:"#9CA3AF",whiteSpace:"nowrap"}}>{s.l}</span>
                 </div>
               ))}
             </div>
@@ -491,13 +837,12 @@ function App(){
       )}
 
       {/* ── FOOTER ── */}
-      <footer style={{borderTop:"1px solid #EBEBEB",padding:"18px 24px",
+      <footer style={{borderTop:"1px solid #E5E7EB",padding:"16px 28px",
         textAlign:"center",background:"#FAFAFA"}}>
-        <p style={{fontSize:12,color:"#D1D5DB"}}>
-          RSS feeds · Gemini 1.5 Flash · Google Apps Script · Atualização automática a cada 6h
+        <p style={{fontSize:11,color:"#D1D5DB"}}>
+          RSS · Gemini 1.5 Flash · Google Apps Script · 6h BRT
         </p>
       </footer>
-
     </div>
   );
 }
