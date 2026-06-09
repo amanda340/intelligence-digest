@@ -9,1581 +9,787 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script>
-const {
-  useState,
-  useEffect,
-  useMemo,
-  useCallback
-} = React;
-const RED = "#C8102E";
-const FEED = "./feed.json";
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#F3F4F6;font-family:'Inter',-apple-system,sans-serif;color:#1A1A1A}
+::-webkit-scrollbar{height:3px;width:3px}
+::-webkit-scrollbar-track{background:#F0F0F0}
+::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:99px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.serif{font-family:'Playfair Display',Georgia,serif}
+.hscroll{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.hscroll::-webkit-scrollbar{display:none}
+/* responsive card grid — fills width, no orphan space */
+.card-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.lift{transition:transform .18s,box-shadow .18s;cursor:pointer}
+.lift:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.13)}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+  .hero-split{flex-direction:column!important}
+  .hero-img{width:100%!important;flex:none!important;min-height:160px!important;border-radius:14px 14px 0 0!important}
+  .card-grid{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useMemo,useCallback}=React;
+const RED="#C8102E";
+const FEED="./feed.json";
 
 /* ──────────────────────────────────────────
    i18n
 ────────────────────────────────────────── */
-const I18N = {
-  pt: {
-    tagline: "Bússola para Arquitetos de IA",
-    search: "Buscar insights…",
-    alerts: "alertas",
-    live: "AO VIVO",
-    updated: "Atualizado",
-    roles_lbl: "Para",
-    all_roles: "Todos os perfis",
-    all_tracks: "Todos",
-    insights: "insights",
-    automatic: "automático",
-    decision: "Decisão arquitetural",
-    critical: "Análise Crítica",
-    read: "min leitura",
-    source: "Fonte",
-    references: "Referências",
-    see: "▼ ver análise",
-    close: "▲ fechar",
-    latest: "Latest Insights",
-    sec_releases: "🚀 Novas Features — Release Salesforce",
-    sec_issues: "⚠️ Incidentes & Issues Detectados",
-    sec_social: "💬 Debates & Opiniões",
-    sec_radar: "📊 Technology Radar",
-    radar_adopt: "Adotar",
-    radar_trial: "Testar",
-    radar_assess: "Avaliar",
-    radar_hold: "Cautela",
-    radar_sub: "Posicionamento baseado nas notícias monitoradas — atualizado diariamente",
-    sources_title: "Fontes monitoradas",
-    badge_adopt: "Adotar",
-    badge_trial: "Testar",
-    badge_assess: "Avaliar",
-    badge_hold: "Cautela",
-    content_note: "Conteúdo disponível em PT-BR",
-    tracks: ["Todos", "🎤 Benioff", "🔥 Urgente", "☁️ Summer '26", "🧵 Agent Fabric", "🌐 Mercado & IA", "⚔️ Concorrentes", "🔀 Cross-Ref", "🏛️ MCP / A2A", "🛠️ LLMOps", "🎓 Skills", "🚀 Releases", "⚠️ Issues", "💬 Social"]
+const I18N={
+  pt:{
+    tagline:"Bússola para Arquitetos de IA",search:"Buscar insights…",
+    alerts:"alertas",live:"AO VIVO",updated:"Atualizado",
+    roles_lbl:"Para",all_roles:"Todos os perfis",
+    all_tracks:"Todos",insights:"insights",automatic:"automático",
+    decision:"Decisão arquitetural",critical:"Análise Crítica",
+    read:"min leitura",source:"Fonte",references:"Referências",
+    see:"▼ ver análise",close:"▲ fechar",
+    latest:"Latest Insights",
+    sec_releases:"🚀 Novas Features — Release Salesforce",
+    sec_issues:"⚠️ Incidentes & Issues Detectados",
+    sec_social:"💬 Debates & Opiniões",
+    sec_radar:"📊 Technology Radar",
+    radar_adopt:"Adotar",radar_trial:"Testar",
+    radar_assess:"Avaliar",radar_hold:"Cautela",
+    radar_sub:"Posicionamento baseado nas notícias monitoradas — atualizado diariamente",
+    sources_title:"Fontes monitoradas",
+    badge_adopt:"Adotar",badge_trial:"Testar",badge_assess:"Avaliar",badge_hold:"Cautela",
+    content_note:"Conteúdo disponível em PT-BR",
+    tracks:["Todos","🎤 Benioff","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
+            "⚔️ Concorrentes","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
   },
-  en: {
-    tagline: "Compass for AI Architects",
-    search: "Search insights…",
-    alerts: "alerts",
-    live: "LIVE",
-    updated: "Updated",
-    roles_lbl: "For",
-    all_roles: "All profiles",
-    all_tracks: "All",
-    insights: "insights",
-    automatic: "automatic",
-    decision: "Architectural Decision",
-    critical: "Critical Analysis",
-    read: "min read",
-    source: "Source",
-    references: "References",
-    see: "▼ see analysis",
-    close: "▲ close",
-    latest: "Latest Insights",
-    sec_releases: "🚀 New Features — Salesforce Release",
-    sec_issues: "⚠️ Incidents & Detected Issues",
-    sec_social: "💬 Debates & Opinions",
-    sec_radar: "📊 Technology Radar",
-    radar_adopt: "Adopt",
-    radar_trial: "Trial",
-    radar_assess: "Assess",
-    radar_hold: "Hold",
-    radar_sub: "Positioning based on monitored news — updated daily",
-    sources_title: "Monitored sources",
-    badge_adopt: "Adopt",
-    badge_trial: "Trial",
-    badge_assess: "Assess",
-    badge_hold: "Hold",
-    content_note: "Content in PT-BR · translations via Gemini in next release",
-    tracks: ["All", "🎤 Benioff", "🔥 Urgent", "☁️ Summer '26", "🧵 Agent Fabric", "🌐 Market & AI", "⚔️ Competitors", "🔀 Cross-Ref", "🏛️ MCP / A2A", "🛠️ LLMOps", "🎓 Skills", "🚀 Releases", "⚠️ Issues", "💬 Social"]
+  en:{
+    tagline:"Compass for AI Architects",search:"Search insights…",
+    alerts:"alerts",live:"LIVE",updated:"Updated",
+    roles_lbl:"For",all_roles:"All profiles",
+    all_tracks:"All",insights:"insights",automatic:"automatic",
+    decision:"Architectural Decision",critical:"Critical Analysis",
+    read:"min read",source:"Source",references:"References",
+    see:"▼ see analysis",close:"▲ close",
+    latest:"Latest Insights",
+    sec_releases:"🚀 New Features — Salesforce Release",
+    sec_issues:"⚠️ Incidents & Detected Issues",
+    sec_social:"💬 Debates & Opinions",
+    sec_radar:"📊 Technology Radar",
+    radar_adopt:"Adopt",radar_trial:"Trial",
+    radar_assess:"Assess",radar_hold:"Hold",
+    radar_sub:"Positioning based on monitored news — updated daily",
+    sources_title:"Monitored sources",
+    badge_adopt:"Adopt",badge_trial:"Trial",badge_assess:"Assess",badge_hold:"Hold",
+    content_note:"Content in PT-BR · translations via Gemini in next release",
+    tracks:["All","🎤 Benioff","🔥 Urgent","☁️ Summer '26","🧵 Agent Fabric","🌐 Market & AI",
+            "⚔️ Competitors","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
   },
-  es: {
-    tagline: "Brújula para Arquitectos de IA",
-    search: "Buscar insights…",
-    alerts: "alertas",
-    live: "EN VIVO",
-    updated: "Actualizado",
-    roles_lbl: "Para",
-    all_roles: "Todos los perfiles",
-    all_tracks: "Todos",
-    insights: "insights",
-    automatic: "automático",
-    decision: "Decisión Arquitectónica",
-    critical: "Análisis Crítico",
-    read: "min lectura",
-    source: "Fuente",
-    references: "Referencias",
-    see: "▼ ver análisis",
-    close: "▲ cerrar",
-    latest: "Últimos Insights",
-    sec_releases: "🚀 Nuevas Features — Release Salesforce",
-    sec_issues: "⚠️ Incidentes y Problemas Detectados",
-    sec_social: "💬 Debates y Opiniones",
-    sec_radar: "📊 Radar Tecnológico",
-    radar_adopt: "Adoptar",
-    radar_trial: "Probar",
-    radar_assess: "Evaluar",
-    radar_hold: "Precaución",
-    radar_sub: "Posicionamiento basado en noticias monitoreadas — actualizado diariamente",
-    sources_title: "Fuentes monitoreadas",
-    badge_adopt: "Adoptar",
-    badge_trial: "Probar",
-    badge_assess: "Evaluar",
-    badge_hold: "Precaución",
-    content_note: "Contenido en PT-BR · traducciones vía Gemini en próxima versión",
-    tracks: ["Todos", "🎤 Benioff", "🔥 Urgente", "☁️ Summer '26", "🧵 Agent Fabric", "🌐 Mercado & IA", "⚔️ Competidores", "🔀 Cross-Ref", "🏛️ MCP / A2A", "🛠️ LLMOps", "🎓 Skills", "🚀 Releases", "⚠️ Issues", "💬 Social"]
-  }
+  es:{
+    tagline:"Brújula para Arquitectos de IA",search:"Buscar insights…",
+    alerts:"alertas",live:"EN VIVO",updated:"Actualizado",
+    roles_lbl:"Para",all_roles:"Todos los perfiles",
+    all_tracks:"Todos",insights:"insights",automatic:"automático",
+    decision:"Decisión Arquitectónica",critical:"Análisis Crítico",
+    read:"min lectura",source:"Fuente",references:"Referencias",
+    see:"▼ ver análisis",close:"▲ cerrar",
+    latest:"Últimos Insights",
+    sec_releases:"🚀 Nuevas Features — Release Salesforce",
+    sec_issues:"⚠️ Incidentes y Problemas Detectados",
+    sec_social:"💬 Debates y Opiniones",
+    sec_radar:"📊 Radar Tecnológico",
+    radar_adopt:"Adoptar",radar_trial:"Probar",
+    radar_assess:"Evaluar",radar_hold:"Precaución",
+    radar_sub:"Posicionamiento basado en noticias monitoreadas — actualizado diariamente",
+    sources_title:"Fuentes monitoreadas",
+    badge_adopt:"Adoptar",badge_trial:"Probar",badge_assess:"Evaluar",badge_hold:"Precaución",
+    content_note:"Contenido en PT-BR · traducciones vía Gemini en próxima versión",
+    tracks:["Todos","🎤 Benioff","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
+            "⚔️ Competidores","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
 };
 
 /* ──────────────────────────────────────────
    Constants
 ────────────────────────────────────────── */
-const GRAD = {
-  "Headless": ["#0EA5E9", "#6366F1"],
-  "FIFA": ["#16A34A", "#0D9488"],
-  "Agent Fabric": ["#7C3AED", "#DB2777"],
-  "Multi-Agent": ["#4F46E5", "#7C3AED"],
-  "Agentforce Ops": ["#0369A1", "#0891B2"],
-  "Momentum": ["#059669", "#0F766E"],
-  "AgentExchange": ["#7C3AED", "#9333EA"],
-  "Summer 26": ["#0284C7", "#0EA5E9"],
-  "MCP Bridge": ["#0E7490", "#0891B2"],
-  "Guided Det": ["#5B21B6", "#7C3AED"],
-  "LLM Gov": ["#9D174D", "#BE185D"],
-  "Claude SDK": ["#D97706", "#92400E"],
-  "Google": ["#1D4ED8", "#4338CA"],
-  "Frameworks": ["#6D28D9", "#4F46E5"],
-  "Anthropic": ["#B45309", "#D97706"],
-  "Microsoft": ["#1E40AF", "#1D4ED8"],
-  "ServiceNow": ["#065F46", "#047857"],
-  "SAP": ["#92400E", "#B45309"],
-  "OpenAI": ["#047857", "#065F46"],
-  "Build-vs-Buy": ["#9A3412", "#B91C1C"],
-  "Decisão": ["#92400E", "#B45309"],
-  "Agent Wash": ["#991B1B", "#DC2626"],
-  "MCP": ["#9D174D", "#A21CAF"],
-  "A2A": ["#5B21B6", "#4F46E5"],
-  "WebMCP": ["#0E7490", "#0369A1"],
-  "Langfuse": ["#0E7490", "#0891B2"],
-  "LLMOps": ["#1E40AF", "#1D4ED8"],
-  "Skill": ["#065F46", "#047857"],
-  "Mercado": ["#9D174D", "#BE185D"],
-  "Cert": ["#047857", "#065F46"],
-  "AWS": ["#9A3412", "#D97706"],
-  "Kore.ai": ["#A21CAF", "#9333EA"],
-  "Release": ["#0369A1", "#4338CA"],
-  "Issue": ["#B91C1C", "#9A3412"],
-  "Reddit": ["#C2410C", "#EA580C"],
-  "HN": ["#B45309", "#D97706"],
-  "Dev.to": ["#1F2937", "#374151"],
-  "Comunidade": ["#374151", "#1F2937"],
-  "LLMs": ["#6D28D9", "#7C3AED"],
-  "_default": ["#374151", "#1F2937"]
+const GRAD={
+  "Headless":       ["#0EA5E9","#6366F1"],
+  "FIFA":           ["#16A34A","#0D9488"],
+  "Agent Fabric":   ["#7C3AED","#DB2777"],
+  "Multi-Agent":    ["#4F46E5","#7C3AED"],
+  "Agentforce Ops": ["#0369A1","#0891B2"],
+  "Momentum":       ["#059669","#0F766E"],
+  "AgentExchange":  ["#7C3AED","#9333EA"],
+  "Summer 26":      ["#0284C7","#0EA5E9"],
+  "MCP Bridge":     ["#0E7490","#0891B2"],
+  "Guided Det":     ["#5B21B6","#7C3AED"],
+  "LLM Gov":        ["#9D174D","#BE185D"],
+  "Claude SDK":     ["#D97706","#92400E"],
+  "Google":         ["#1D4ED8","#4338CA"],
+  "Frameworks":     ["#6D28D9","#4F46E5"],
+  "Anthropic":      ["#B45309","#D97706"],
+  "Microsoft":      ["#1E40AF","#1D4ED8"],
+  "ServiceNow":     ["#065F46","#047857"],
+  "SAP":            ["#92400E","#B45309"],
+  "OpenAI":         ["#047857","#065F46"],
+  "Build-vs-Buy":   ["#9A3412","#B91C1C"],
+  "Decisão":        ["#92400E","#B45309"],
+  "Agent Wash":     ["#991B1B","#DC2626"],
+  "MCP":            ["#9D174D","#A21CAF"],
+  "A2A":            ["#5B21B6","#4F46E5"],
+  "WebMCP":         ["#0E7490","#0369A1"],
+  "Langfuse":       ["#0E7490","#0891B2"],
+  "LLMOps":         ["#1E40AF","#1D4ED8"],
+  "Skill":          ["#065F46","#047857"],
+  "Mercado":        ["#9D174D","#BE185D"],
+  "Cert":           ["#047857","#065F46"],
+  "AWS":            ["#9A3412","#D97706"],
+  "Kore.ai":        ["#A21CAF","#9333EA"],
+  "Release":        ["#0369A1","#4338CA"],
+  "Issue":          ["#B91C1C","#9A3412"],
+  "Reddit":         ["#C2410C","#EA580C"],
+  "HN":             ["#B45309","#D97706"],
+  "Dev.to":         ["#1F2937","#374151"],
+  "Comunidade":     ["#374151","#1F2937"],
+  "LLMs":           ["#6D28D9","#7C3AED"],
+  "_default":       ["#374151","#1F2937"],
 };
-const AUD = {
-  EA: {
-    l: "EA",
-    c: "#6D28D9",
-    b: "rgba(109,40,217,.1)"
-  },
-  SA: {
-    l: "SA",
-    c: "#0369A1",
-    b: "rgba(3,105,161,.1)"
-  },
-  TA: {
-    l: "TA",
-    c: "#0891B2",
-    b: "rgba(8,145,178,.1)"
-  },
-  Build: {
-    l: "Builder",
-    c: "#059669",
-    b: "rgba(5,150,105,.1)"
-  },
-  SE: {
-    l: "SE",
-    c: "#D97706",
-    b: "rgba(217,119,6,.1)"
-  },
-  Exec: {
-    l: "C-Level",
-    c: "#DC2626",
-    b: "rgba(220,38,38,.1)"
-  }
+
+const AUD={
+  EA:   {l:"EA",     c:"#6D28D9",b:"rgba(109,40,217,.1)"},
+  SA:   {l:"SA",     c:"#0369A1",b:"rgba(3,105,161,.1)"},
+  TA:   {l:"TA",     c:"#0891B2",b:"rgba(8,145,178,.1)"},
+  Build:{l:"Builder",c:"#059669",b:"rgba(5,150,105,.1)"},
+  SE:   {l:"SE",     c:"#D97706",b:"rgba(217,119,6,.1)"},
+  Exec: {l:"C-Level",c:"#DC2626",b:"rgba(220,38,38,.1)"},
 };
-const TRACK_IDS = ["all", "benioff", "hot", "summer26", "fabric", "agnostic", "rivals", "crossref", "arch", "tools", "skills", "releases", "issues", "social"];
-const SRC_MAP = [{
-  m: ["salesforce", "vantagepoint", "agentforce", "summer", "sf dev"],
-  s: "SF",
-  c: "#0369A1",
-  b: "#DBEAFE"
-}, {
-  m: ["anthropic", "claude"],
-  s: "AN",
-  c: "#92400E",
-  b: "#FEF3C7"
-}, {
-  m: ["openai", "codex", "gpt"],
-  s: "OA",
-  c: "#047857",
-  b: "#D1FAE5"
-}, {
-  m: ["google", "gemini"],
-  s: "G",
-  c: "#1D4ED8",
-  b: "#DBEAFE"
-}, {
-  m: ["aws", "amazon", "bedrock"],
-  s: "AW",
-  c: "#9A3412",
-  b: "#FEE2E2"
-}, {
-  m: ["venturebeat"],
-  s: "VB",
-  c: "#5B21B6",
-  b: "#EDE9FE"
-}, {
-  m: ["techcrunch"],
-  s: "TC",
-  c: "#0E7490",
-  b: "#CFFAFE"
-}, {
-  m: ["microsoft", "copilot"],
-  s: "MS",
-  c: "#1E40AF",
-  b: "#DBEAFE"
-}, {
-  m: ["servicenow"],
-  s: "SN",
-  c: "#065F46",
-  b: "#D1FAE5"
-}, {
-  m: ["sap", "joule"],
-  s: "SP",
-  c: "#92400E",
-  b: "#FEF3C7"
-}, {
-  m: ["langfuse", "langchain", "langgraph"],
-  s: "LG",
-  c: "#0E7490",
-  b: "#CFFAFE"
-}, {
-  m: ["reddit"],
-  s: "R",
-  c: "#C2410C",
-  b: "#FEF3C7"
-}, {
-  m: ["hacker news", "hn", "hnrss"],
-  s: "HN",
-  c: "#B45309",
-  b: "#FEF3C7"
-}, {
-  m: ["dev.to", "devto"],
-  s: "DV",
-  c: "#1F2937",
-  b: "#F3F4F6"
-}, {
-  m: ["gartner", "forrester", "idc"],
-  s: "GA",
-  c: "#6D28D9",
-  b: "#EDE9FE"
-}];
-function srcOf(n) {
-  const x = (n || "").toLowerCase();
-  return SRC_MAP.find(s => s.m.some(m => x.includes(m))) || {
-    s: "—",
-    c: "#6B7280",
-    b: "#F3F4F6"
-  };
-}
+
+const TRACK_IDS=["all","benioff","hot","summer26","fabric","agnostic","rivals","crossref","arch","tools","skills","releases","issues","social"];
+
+const SRC_MAP=[
+  {m:["salesforce","vantagepoint","agentforce","summer","sf dev"],s:"SF",c:"#0369A1",b:"#DBEAFE"},
+  {m:["anthropic","claude"],                                       s:"AN",c:"#92400E",b:"#FEF3C7"},
+  {m:["openai","codex","gpt"],                                     s:"OA",c:"#047857",b:"#D1FAE5"},
+  {m:["google","gemini"],                                          s:"G", c:"#1D4ED8",b:"#DBEAFE"},
+  {m:["aws","amazon","bedrock"],                                   s:"AW",c:"#9A3412",b:"#FEE2E2"},
+  {m:["venturebeat"],                                              s:"VB",c:"#5B21B6",b:"#EDE9FE"},
+  {m:["techcrunch"],                                               s:"TC",c:"#0E7490",b:"#CFFAFE"},
+  {m:["microsoft","copilot"],                                      s:"MS",c:"#1E40AF",b:"#DBEAFE"},
+  {m:["servicenow"],                                               s:"SN",c:"#065F46",b:"#D1FAE5"},
+  {m:["sap","joule"],                                              s:"SP",c:"#92400E",b:"#FEF3C7"},
+  {m:["langfuse","langchain","langgraph"],                         s:"LG",c:"#0E7490",b:"#CFFAFE"},
+  {m:["reddit"],                                                   s:"R", c:"#C2410C",b:"#FEF3C7"},
+  {m:["hacker news","hn","hnrss"],                                 s:"HN",c:"#B45309",b:"#FEF3C7"},
+  {m:["dev.to","devto"],                                           s:"DV",c:"#1F2937",b:"#F3F4F6"},
+  {m:["gartner","forrester","idc"],                                s:"GA",c:"#6D28D9",b:"#EDE9FE"},
+];
+function srcOf(n){const x=(n||"").toLowerCase();return SRC_MAP.find(s=>s.m.some(m=>x.includes(m)))||{s:"—",c:"#6B7280",b:"#F3F4F6"};}
 
 /* ──────────────────────────────────────────
    Helpers
 ────────────────────────────────────────── */
-function readTime(t) {
-  return Math.max(1, Math.round((t || "").split(" ").length / 200));
+function readTime(t){return Math.max(1,Math.round((t||"").split(" ").length/200));}
+function getTrackItems(feed,id){
+  if(!feed?.tracks)return[];
+  const v=feed.tracks[id];
+  if(!v)return[];
+  return Array.isArray(v)?v:(v.d||[]);
 }
-function getTrackItems(feed, id) {
-  if (!feed?.tracks) return [];
-  const v = feed.tracks[id];
-  if (!v) return [];
-  return Array.isArray(v) ? v : v.d || [];
+function allFeedItems(feed){
+  if(!feed?.tracks)return[];
+  return Object.entries(feed.tracks).flatMap(([t,v])=>
+    (Array.isArray(v)?v:(v.d||[])).map(i=>({...i,_track:t}))
+  );
 }
-function allFeedItems(feed) {
-  if (!feed?.tracks) return [];
-  return Object.entries(feed.tracks).flatMap(([t, v]) => (Array.isArray(v) ? v : v.d || []).map(i => ({
-    ...i,
-    _track: t
-  })));
-}
-function tf(item, field, lang) {
-  if (lang === "pt") return item[field] || "";
-  return item[`${field}_${lang}`] || item[field] || "";
+function tf(item,field,lang){
+  if(lang==="pt")return item[field]||"";
+  return item[`${field}_${lang}`]||item[field]||"";
 }
 
 /* ──────────────────────────────────────────
    Components — Cover
 ────────────────────────────────────────── */
-function Cover({
-  tag,
-  h = 170,
-  rTop = true,
-  rBottom = false,
-  stretch = false
-}) {
-  const [a, b] = GRAD[tag] || GRAD._default;
-  const r = [rTop ? "14px" : "0", rTop ? "14px" : "0", rBottom ? "14px" : "0", rBottom ? "14px" : "0"].join(" ");
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: stretch ? "100%" : h,
-      minHeight: h,
-      background: `linear-gradient(135deg,${a} 0%,${b} 100%)`,
-      borderRadius: r,
-      position: "relative",
-      overflow: "hidden",
-      flexShrink: 0
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      inset: 0,
-      backgroundImage: "radial-gradient(rgba(255,255,255,.15) 1px,transparent 1px)",
-      backgroundSize: "20px 20px"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      right: -60,
-      top: -60,
-      width: 200,
-      height: 200,
-      borderRadius: "50%",
-      background: "rgba(255,255,255,.12)"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      left: -36,
-      bottom: -36,
-      width: 140,
-      height: 140,
-      borderRadius: "50%",
-      background: "rgba(0,0,0,.14)"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      right: 32,
-      bottom: 36,
-      width: 60,
-      height: 60,
-      borderRadius: "50%",
-      background: "rgba(255,255,255,.08)"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      inset: 0,
-      background: "linear-gradient(to top,rgba(0,0,0,.48) 0%,transparent 60%)"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      bottom: 12,
-      left: 14
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      background: "rgba(255,255,255,.18)",
-      backdropFilter: "blur(16px)",
-      WebkitBackdropFilter: "blur(16px)",
-      color: "#FFF",
-      fontSize: 10.5,
-      fontWeight: 700,
-      letterSpacing: "1.4px",
-      textTransform: "uppercase",
-      padding: "4px 10px",
-      borderRadius: 99,
-      border: "1px solid rgba(255,255,255,.3)"
-    }
-  }, tag)));
+function Cover({tag,h=170,rTop=true,rBottom=false,stretch=false}){
+  const [a,b]=GRAD[tag]||GRAD._default;
+  const r=[rTop?"14px":"0",rTop?"14px":"0",rBottom?"14px":"0",rBottom?"14px":"0"].join(" ");
+  return(
+    <div style={{height:stretch?"100%":h,minHeight:h,
+      background:`linear-gradient(135deg,${a} 0%,${b} 100%)`,
+      borderRadius:r,position:"relative",overflow:"hidden",flexShrink:0}}>
+      {/* dot pattern */}
+      <div style={{position:"absolute",inset:0,
+        backgroundImage:"radial-gradient(rgba(255,255,255,.15) 1px,transparent 1px)",
+        backgroundSize:"20px 20px"}}/>
+      {/* deco circles */}
+      <div style={{position:"absolute",right:-60,top:-60,width:200,height:200,
+        borderRadius:"50%",background:"rgba(255,255,255,.12)"}}/>
+      <div style={{position:"absolute",left:-36,bottom:-36,width:140,height:140,
+        borderRadius:"50%",background:"rgba(0,0,0,.14)"}}/>
+      <div style={{position:"absolute",right:32,bottom:36,width:60,height:60,
+        borderRadius:"50%",background:"rgba(255,255,255,.08)"}}/>
+      {/* gradient overlay */}
+      <div style={{position:"absolute",inset:0,
+        background:"linear-gradient(to top,rgba(0,0,0,.48) 0%,transparent 60%)"}}/>
+      {/* tag pill */}
+      <div style={{position:"absolute",bottom:12,left:14}}>
+        <span style={{background:"rgba(255,255,255,.18)",backdropFilter:"blur(16px)",
+          WebkitBackdropFilter:"blur(16px)",color:"#FFF",fontSize:10.5,fontWeight:700,
+          letterSpacing:"1.4px",textTransform:"uppercase",padding:"4px 10px",
+          borderRadius:99,border:"1px solid rgba(255,255,255,.3)"}}>
+          {tag}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 /* ── Role badge ─── */
-function RoleBadge({
-  r
-}) {
-  const a = AUD[r];
-  if (!a) return null;
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      background: a.b,
-      color: a.c,
-      fontSize: 10,
-      fontWeight: 700,
-      padding: "2px 7px",
-      borderRadius: 99,
-      border: `1px solid ${a.c}28`,
-      whiteSpace: "nowrap",
-      letterSpacing: "0.02em"
-    }
-  }, a.l);
+function RoleBadge({r}){
+  const a=AUD[r];if(!a)return null;
+  return(
+    <span style={{background:a.b,color:a.c,fontSize:10,fontWeight:700,
+      padding:"2px 7px",borderRadius:99,border:`1px solid ${a.c}28`,
+      whiteSpace:"nowrap",letterSpacing:"0.02em"}}>
+      {a.l}
+    </span>
+  );
 }
 
 /* ── Source badge ─── */
-function SrcBadge({
-  name,
-  size = 20
-}) {
-  const s = srcOf(name);
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: size,
-      height: size,
-      borderRadius: "50%",
-      background: s.b,
-      color: s.c,
-      fontSize: size * .38,
-      fontWeight: 800,
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 0,
-      border: `1.5px solid ${s.c}22`,
-      letterSpacing: "-0.5px"
-    }
-  }, s.s);
+function SrcBadge({name,size=20}){
+  const s=srcOf(name);
+  return(
+    <span style={{width:size,height:size,borderRadius:"50%",background:s.b,color:s.c,
+      fontSize:size*.38,fontWeight:800,display:"inline-flex",alignItems:"center",
+      justifyContent:"center",flexShrink:0,border:`1.5px solid ${s.c}22`,
+      letterSpacing:"-0.5px"}}>
+      {s.s}
+    </span>
+  );
 }
 
 /* ── Reference links ─── */
-function RefLinks({
-  urls,
-  url,
-  t
-}) {
-  const all = useMemo(() => {
-    const list = Array.isArray(urls) ? [...urls] : [];
-    if (url && !list.includes(url)) list.unshift(url);
+function RefLinks({urls,url,t}){
+  const all=useMemo(()=>{
+    const list=Array.isArray(urls)?[...urls]:[];
+    if(url&&!list.includes(url))list.unshift(url);
     return list.filter(Boolean);
-  }, [urls, url]);
-  if (!all.length) return null;
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: 5,
-      marginTop: 2
-    }
-  }, all.map((u, i) => /*#__PURE__*/React.createElement("a", {
-    key: i,
-    href: u,
-    target: "_blank",
-    rel: "noopener",
-    onClick: e => e.stopPropagation(),
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 3,
-      background: "#F3F4F6",
-      border: "1px solid #E5E7EB",
-      borderRadius: 6,
-      padding: "3px 8px",
-      fontSize: 11,
-      color: "#374151",
-      fontWeight: 500,
-      flexShrink: 0
-    }
-  }, t.references, " ", all.length > 1 ? `[${i + 1}]` : "↗")));
+  },[urls,url]);
+  if(!all.length)return null;
+  return(
+    <div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:2}}>
+      {all.map((u,i)=>(
+        <a key={i} href={u} target="_blank" rel="noopener"
+           onClick={e=>e.stopPropagation()}
+           style={{display:"inline-flex",alignItems:"center",gap:3,
+             background:"#F3F4F6",border:"1px solid #E5E7EB",
+             borderRadius:6,padding:"3px 8px",
+             fontSize:11,color:"#374151",fontWeight:500,flexShrink:0}}>
+          {t.references} {all.length>1?`[${i+1}]`:"↗"}
+        </a>
+      ))}
+    </div>
+  );
 }
 
 /* ── Expandable analysis panels ─── */
-function AnalysisPanels({
-  item,
-  lang,
-  t,
-  open
-}) {
-  if (!open) return null;
-  const d = tf(item, "d", lang);
-  const c = tf(item, "critical", lang);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, d && /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#F5F3FF",
-      border: "1px solid #DDD6FE",
-      borderRadius: 8,
-      padding: "10px 13px"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontSize: 12.5,
-      color: "#5B21B6",
-      lineHeight: 1.65
-    }
-  }, /*#__PURE__*/React.createElement("strong", {
-    style: {
-      display: "block",
-      marginBottom: 3
-    }
-  }, "\uD83C\uDFDB ", t.decision), d)), c && /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#FFF7ED",
-      border: "1px solid #FED7AA",
-      borderRadius: 8,
-      padding: "10px 13px"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontSize: 12.5,
-      color: "#9A3412",
-      lineHeight: 1.65
-    }
-  }, /*#__PURE__*/React.createElement("strong", {
-    style: {
-      display: "block",
-      marginBottom: 3
-    }
-  }, "\uD83D\uDD0D ", t.critical), c)));
+function AnalysisPanels({item,lang,t,open}){
+  if(!open)return null;
+  const d=tf(item,"d",lang);
+  const c=tf(item,"critical",lang);
+  return(
+    <div style={{display:"flex",flexDirection:"column",gap:8}}>
+      {d&&(
+        <div style={{background:"#F5F3FF",border:"1px solid #DDD6FE",borderRadius:8,padding:"10px 13px"}}>
+          <p style={{margin:0,fontSize:12.5,color:"#5B21B6",lineHeight:1.65}}>
+            <strong style={{display:"block",marginBottom:3}}>🏛 {t.decision}</strong>{d}
+          </p>
+        </div>
+      )}
+      {c&&(
+        <div style={{background:"#FFF7ED",border:"1px solid #FED7AA",borderRadius:8,padding:"10px 13px"}}>
+          <p style={{margin:0,fontSize:12.5,color:"#9A3412",lineHeight:1.65}}>
+            <strong style={{display:"block",marginBottom:3}}>🔍 {t.critical}</strong>{c}
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }
 
 /* ── Featured hero card ─── */
-function Featured({
-  item,
-  lang,
-  t
-}) {
-  const [open, setOpen] = useState(false);
-  const auds = Array.isArray(item.aud) ? item.aud : [];
-  const hasAnalysis = !!(tf(item, "d", lang) || tf(item, "critical", lang));
-  return /*#__PURE__*/React.createElement("div", {
-    className: "lift hero-split",
-    onClick: () => hasAnalysis && setOpen(v => !v),
-    style: {
-      display: "flex",
-      background: "#FFF",
-      borderRadius: 16,
-      overflow: "hidden",
-      border: "1px solid #E5E7EB",
-      boxShadow: "0 2px 8px rgba(0,0,0,.06)",
-      cursor: hasAnalysis ? "pointer" : "default"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "hero-img",
-    style: {
-      flex: "0 0 36%",
-      alignSelf: "stretch",
-      borderRadius: "16px 0 0 16px",
-      overflow: "hidden",
-      maxHeight: 220
-    }
-  }, /*#__PURE__*/React.createElement(Cover, {
-    tag: item.tag,
-    stretch: true,
-    h: 220,
-    rTop: false,
-    rBottom: false
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      padding: "20px 26px",
-      display: "flex",
-      flexDirection: "column",
-      gap: 10,
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 8,
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement(SrcBadge, {
-    name: item.f,
-    size: 22
-  }), item.dt && /*#__PURE__*/React.createElement("span", {
-    style: {
-      background: "#F3F4F6",
-      borderRadius: 4,
-      padding: "1px 6px",
-      fontSize: 10,
-      color: "#6B7280",
-      flexShrink: 0
-    }
-  }, new Date(item.dt).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "short"
-  })), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12.5,
-      color: "#374151",
-      fontWeight: 500
-    }
-  }, item.f), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#D1D5DB"
-    }
-  }, "\xB7"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12.5,
-      color: "#9CA3AF"
-    }
-  }, item.dt), item.alert && /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: "auto",
-      background: "#FEF2F2",
-      color: "#B91C1C",
-      fontSize: 11,
-      fontWeight: 700,
-      padding: "3px 10px",
-      borderRadius: 99,
-      border: "1px solid #FECACA",
-      flexShrink: 0,
-      animation: "pulse 2s infinite"
-    }
-  }, "\u26A1 URGENTE")), /*#__PURE__*/React.createElement("h2", {
-    className: "serif",
-    style: {
-      fontSize: 22,
-      fontWeight: 700,
-      color: "#111",
-      lineHeight: 1.32,
-      display: "-webkit-box",
-      WebkitLineClamp: 2,
-      WebkitBoxOrient: "vertical",
-      overflow: "hidden"
-    }
-  }, tf(item, "t", lang)), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 13.5,
-      color: "#4B5563",
-      lineHeight: 1.72,
-      display: "-webkit-box",
-      WebkitLineClamp: 3,
-      WebkitBoxOrient: "vertical",
-      overflow: "hidden"
-    }
-  }, tf(item, "s", lang)), /*#__PURE__*/React.createElement(AnalysisPanels, {
-    item: item,
-    lang: lang,
-    t: t,
-    open: open
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 8,
-      flexWrap: "wrap",
-      marginTop: "auto",
-      paddingTop: 14,
-      borderTop: "1px solid #F3F4F6"
-    }
-  }, auds.map(r => /*#__PURE__*/React.createElement(RoleBadge, {
-    key: r,
-    r: r
-  })), /*#__PURE__*/React.createElement("span", {
-    style: {
-      flex: 1
-    }
-  }), /*#__PURE__*/React.createElement(RefLinks, {
-    urls: item.urls,
-    url: item.url,
-    t: t
-  }), hasAnalysis && /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#6D28D9",
-      fontSize: 12.5,
-      fontWeight: 500
-    }
-  }, open ? t.close : t.see))));
+function Featured({item,lang,t}){
+  const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+  return(
+    <div className="lift hero-split" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{display:"flex",background:"#FFF",borderRadius:16,overflow:"hidden",
+        border:"1px solid #E5E7EB",boxShadow:"0 2px 8px rgba(0,0,0,.06)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+      <div className="hero-img" style={{flex:"0 0 36%",alignSelf:"stretch",borderRadius:"16px 0 0 16px",overflow:"hidden",maxHeight:220}}>
+        <Cover tag={item.tag} stretch h={220} rTop={false} rBottom={false}/>
+      </div>
+      <div style={{flex:1,padding:"20px 26px",display:"flex",flexDirection:"column",gap:10,overflow:"hidden"}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
+          <SrcBadge name={item.f} size={22}/>
+          <span style={{fontSize:12.5,color:"#374151",fontWeight:500}}>{item.f}</span>
+          <span style={{color:"#D1D5DB"}}>·</span>
+          <span style={{fontSize:12.5,color:"#9CA3AF"}}>{item.dt}</span>
+          {item.alert&&(
+            <span style={{marginLeft:"auto",background:"#FEF2F2",color:"#B91C1C",
+              fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:99,
+              border:"1px solid #FECACA",flexShrink:0,animation:"pulse 2s infinite"}}>
+              ⚡ URGENTE
+            </span>
+          )}
+        </div>
+        <h2 className="serif" style={{fontSize:22,fontWeight:700,color:"#111",lineHeight:1.32,
+          display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"t",lang)}
+        </h2>
+        <p style={{fontSize:13.5,color:"#4B5563",lineHeight:1.72,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
+        </p>
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",
+          marginTop:"auto",paddingTop:14,borderTop:"1px solid #F3F4F6"}}>
+          {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          <span style={{flex:1}}/>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{color:"#6D28D9",fontSize:12.5,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ── News card ─── */
-function NewsCard({
-  item,
-  lang,
-  t,
-  variant = "default"
-}) {
-  const [open, setOpen] = useState(false);
-  const auds = Array.isArray(item.aud) ? item.aud : [];
-  const hasAnalysis = !!(tf(item, "d", lang) || tf(item, "critical", lang));
-  const accentColor = {
-    default: "#E5E7EB",
-    issue: "#FCA5A5",
-    release: "#93C5FD",
-    social: "#A7F3D0"
+function NewsCard({item,lang,t,variant="default"}){
+  const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+
+  const accentColor={
+    default:"#E5E7EB",
+    issue:"#FCA5A5",
+    release:"#93C5FD",
+    social:"#A7F3D0",
   }[variant];
-  return /*#__PURE__*/React.createElement("div", {
-    className: "lift",
-    onClick: () => hasAnalysis && setOpen(v => !v),
-    style: {
-      background: "#FFF",
-      borderRadius: 14,
-      overflow: "hidden",
-      border: `1px solid ${accentColor}`,
-      display: "flex",
-      flexDirection: "column",
-      boxShadow: "0 1px 4px rgba(0,0,0,.05)",
-      cursor: hasAnalysis ? "pointer" : "default"
-    }
-  }, /*#__PURE__*/React.createElement(Cover, {
-    tag: item.tag,
-    h: 160,
-    rTop: true,
-    rBottom: false
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "12px 13px 13px",
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement(SrcBadge, {
-    name: item.f,
-    size: 17
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 11,
-      color: "#9CA3AF",
-      flex: 1,
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap"
-    }
-  }, item.f), item.alert && /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      flexShrink: 0
-    }
-  }, "\u26A1"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 11,
-      color: "#D1D5DB",
-      flexShrink: 0
-    }
-  }, item.dt)), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      fontSize: 13.5,
-      fontWeight: 700,
-      color: "#111",
-      lineHeight: 1.42,
-      display: "-webkit-box",
-      WebkitLineClamp: 3,
-      WebkitBoxOrient: "vertical",
-      overflow: "hidden"
-    }
-  }, tf(item, "t", lang)), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 12.5,
-      color: "#6B7280",
-      lineHeight: 1.65,
-      flex: 1,
-      display: "-webkit-box",
-      WebkitLineClamp: open ? 20 : 2,
-      WebkitBoxOrient: "vertical",
-      overflow: "hidden"
-    }
-  }, tf(item, "s", lang)), /*#__PURE__*/React.createElement(AnalysisPanels, {
-    item: item,
-    lang: lang,
-    t: t,
-    open: open
-  }), auds.length > 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 4,
-      flexWrap: "wrap"
-    }
-  }, auds.map(r => /*#__PURE__*/React.createElement(RoleBadge, {
-    key: r,
-    r: r
-  }))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-      paddingTop: 9,
-      borderTop: "1px solid #F3F4F6",
-      marginTop: "auto",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 11,
-      color: "#9CA3AF"
-    }
-  }, readTime(item.s), " ", t.read), /*#__PURE__*/React.createElement(RefLinks, {
-    urls: item.urls,
-    url: item.url,
-    t: t
-  }), hasAnalysis && /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: "auto",
-      color: "#6D28D9",
-      fontSize: 11,
-      fontWeight: 500
-    }
-  }, open ? t.close : t.see))));
+
+  return(
+    <div className="lift" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,overflow:"hidden",
+        border:`1px solid ${accentColor}`,
+        display:"flex",flexDirection:"column",
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+
+      <Cover tag={item.tag} h={160} rTop rBottom={false}/>
+
+      <div style={{padding:"12px 13px 13px",flex:1,display:"flex",flexDirection:"column",gap:8}}>
+        {/* source */}
+        <div style={{display:"flex",alignItems:"center",gap:6}}>
+          <SrcBadge name={item.f} size={17}/>
+          <span style={{fontSize:11,color:"#9CA3AF",flex:1,overflow:"hidden",
+            textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.f}</span>
+          {item.alert&&<span style={{fontSize:12,flexShrink:0}}>⚡</span>}
+          <span style={{fontSize:11,color:"#D1D5DB",flexShrink:0}}>{item.dt}</span>
+        </div>
+
+        {/* title */}
+        <h3 style={{fontSize:13.5,fontWeight:700,color:"#111",lineHeight:1.42,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"t",lang)}
+        </h3>
+
+        {/* summary */}
+        <p style={{fontSize:12.5,color:"#6B7280",lineHeight:1.65,flex:1,
+          display:"-webkit-box",WebkitLineClamp:open?20:2,
+          WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
+        </p>
+
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+
+        {/* roles */}
+        {auds.length>0&&(
+          <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
+            {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          </div>
+        )}
+
+        {/* footer */}
+        <div style={{display:"flex",alignItems:"center",gap:6,
+          paddingTop:9,borderTop:"1px solid #F3F4F6",marginTop:"auto",flexWrap:"wrap"}}>
+          <span style={{fontSize:11,color:"#9CA3AF"}}>{readTime(item.s)} {t.read}</span>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{marginLeft:"auto",color:"#6D28D9",fontSize:11,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ── Section row ─── */
-function Section({
-  title,
-  items,
-  lang,
-  t,
-  variant = "default"
-}) {
-  if (!items?.length) return null;
-  const accentLeft = {
-    default: RED,
-    issue: "#DC2626",
-    release: "#2563EB",
-    social: "#059669"
-  }[variant];
-  return /*#__PURE__*/React.createElement("section", {
-    style: {
-      marginBottom: 44
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 14,
-      paddingBottom: 12,
-      borderBottom: `2px solid #E5E7EB`,
-      borderLeft: `4px solid ${accentLeft}`,
-      paddingLeft: 12
-    }
-  }, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontSize: 19,
-      fontWeight: 700,
-      color: "#111"
-    }
-  }, title), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      color: accentLeft,
-      fontWeight: 600
-    }
-  }, items.length, " ", t.insights)), /*#__PURE__*/React.createElement("div", {
-    className: "card-grid"
-  }, items.map((it, i) => /*#__PURE__*/React.createElement(NewsCard, {
-    key: i,
-    item: it,
-    lang: lang,
-    t: t,
-    variant: variant
-  }))));
+function Section({title,items,lang,t,variant="default"}){
+  if(!items?.length)return null;
+  const accentLeft={default:RED,issue:"#DC2626",release:"#2563EB",social:"#059669"}[variant];
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,
+        borderBottom:`2px solid #E5E7EB`,
+        borderLeft:`4px solid ${accentLeft}`,
+        paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{title}</h2>
+        <span style={{fontSize:12,color:accentLeft,fontWeight:600}}>
+          {items.length} {t.insights}
+        </span>
+      </div>
+      <div className="card-grid">
+        {items.map((it,i)=>(
+          <NewsCard key={i} item={it} lang={lang} t={t} variant={variant}/>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 /* ── Technology Radar — tabela 4 colunas ─── */
-function TechRadar({
-  radarData,
-  t
-}) {
-  if (!radarData) return null;
-  const cols = [{
-    id: "adopt",
-    label: t.radar_adopt,
-    icon: "✅",
-    c: "#059669",
-    bg: "#F0FDF4",
-    border: "#BBF7D0"
-  }, {
-    id: "trial",
-    label: t.radar_trial,
-    icon: "🧪",
-    c: "#2563EB",
-    bg: "#EFF6FF",
-    border: "#BFDBFE"
-  }, {
-    id: "assess",
-    label: t.radar_assess,
-    icon: "🔭",
-    c: "#7C3AED",
-    bg: "#F5F3FF",
-    border: "#DDD6FE"
-  }, {
-    id: "hold",
-    label: t.radar_hold,
-    icon: "⚠️",
-    c: "#DC2626",
-    bg: "#FEF2F2",
-    border: "#FECACA"
-  }];
-  return /*#__PURE__*/React.createElement("section", {
-    style: {
-      marginBottom: 44
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 14,
-      paddingBottom: 12,
-      borderBottom: "2px solid #E5E7EB",
-      borderLeft: "4px solid #7C3AED",
-      paddingLeft: 12
-    }
-  }, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontSize: 19,
-      fontWeight: 700,
-      color: "#111"
-    }
-  }, t.sec_radar), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      color: "#7C3AED",
-      fontWeight: 600
-    }
-  }, t.radar_sub)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))",
-      gap: 14
-    }
-  }, cols.map(col => {
-    const names = radarData[col.id] || [];
-    return /*#__PURE__*/React.createElement("div", {
-      key: col.id,
-      style: {
-        background: col.bg,
-        borderRadius: 12,
-        border: `1px solid ${col.border}`,
-        padding: "14px 16px"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        alignItems: "center",
-        gap: 7,
-        marginBottom: 12
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 16
-      }
-    }, col.icon), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 13,
-        fontWeight: 700,
-        color: col.c
-      }
-    }, col.label)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        gap: 6
-      }
-    }, names.map((name, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        display: "flex",
-        alignItems: "center",
-        gap: 8
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: 6,
-        height: 6,
-        borderRadius: "50%",
-        background: col.c,
-        flexShrink: 0
-      }
-    }), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 12.5,
-        color: "#374151",
-        lineHeight: 1.4
-      }
-    }, name))), names.length === 0 && /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 11.5,
-        color: "#9CA3AF",
-        fontStyle: "italic"
-      }
-    }, "\u2014")));
-  })));
+function TechRadar({radarData,t}){
+  if(!radarData)return null;
+  const cols=[
+    {id:"adopt", label:t.radar_adopt, icon:"✅", c:"#059669", bg:"#F0FDF4", border:"#BBF7D0"},
+    {id:"trial", label:t.radar_trial, icon:"🧪", c:"#2563EB", bg:"#EFF6FF", border:"#BFDBFE"},
+    {id:"assess",label:t.radar_assess,icon:"🔭", c:"#7C3AED", bg:"#F5F3FF", border:"#DDD6FE"},
+    {id:"hold",  label:t.radar_hold,  icon:"⚠️", c:"#DC2626", bg:"#FEF2F2", border:"#FECACA"},
+  ];
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,borderBottom:"2px solid #E5E7EB",
+        borderLeft:"4px solid #7C3AED",paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{t.sec_radar}</h2>
+        <span style={{fontSize:12,color:"#7C3AED",fontWeight:600}}>{t.radar_sub}</span>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:14}}>
+        {cols.map(col=>{
+          const names=radarData[col.id]||[];
+          return(
+            <div key={col.id} style={{background:col.bg,borderRadius:12,
+              border:`1px solid ${col.border}`,padding:"14px 16px"}}>
+              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:12}}>
+                <span style={{fontSize:16}}>{col.icon}</span>
+                <span style={{fontSize:13,fontWeight:700,color:col.c}}>{col.label}</span>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                {names.map((name,i)=>(
+                  <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
+                    <div style={{width:6,height:6,borderRadius:"50%",
+                      background:col.c,flexShrink:0}}/>
+                    <span style={{fontSize:12.5,color:"#374151",lineHeight:1.4}}>{name}</span>
+                  </div>
+                ))}
+                {names.length===0&&(
+                  <span style={{fontSize:11.5,color:"#9CA3AF",fontStyle:"italic"}}>
+                    —
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
 /* ──────────────────────────────────────────
    App
 ────────────────────────────────────────── */
-function App() {
-  const [feed, setFeed] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [track, setTrack] = useState("all");
-  const [search, setSearch] = useState("");
-  const [audFilter, setAudFilter] = useState(null);
-  const [periodDays, setPeriodDays] = useState(90);
-  const [lang, setLang] = useState("pt");
-  const t = I18N[lang] || I18N.pt;
-  useEffect(() => {
-    fetch(FEED + "?v=" + Date.now()).then(r => {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    }).then(d => {
-      setFeed(d);
-      setLoading(false);
-    }).catch(e => {
-      setError(e.message);
-      setLoading(false);
-    });
-  }, []);
-  const items = useMemo(() => allFeedItems(feed), [feed]);
-  const featured = useMemo(() => items.find(i => i.alert) || items[0], [items]);
-  const alertCount = useMemo(() => items.filter(i => i.alert).length, [items]);
-  const genAt = feed?.generatedAt ? new Date(feed.generatedAt).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  }) : "";
-  const visibleSections = useMemo(() => {
-    if (!feed) return [];
-    return TRACK_IDS.filter(id => id !== "all").map((id, i) => ({
+function App(){
+  const [feed,setFeed]=useState(null);
+  const [loading,setLoading]=useState(true);
+  const [error,setError]=useState(null);
+  const [track,setTrack]=useState("all");
+  const [search,setSearch]=useState("");
+  const [audFilter,setAudFilter]=useState(null);
+  const [lang,setLang]=useState("pt");
+
+  const t=I18N[lang]||I18N.pt;
+
+  useEffect(()=>{
+    fetch(FEED+"?v="+Date.now())
+      .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+      .then(d=>{setFeed(d);setLoading(false);})
+      .catch(e=>{setError(e.message);setLoading(false);});
+  },[]);
+
+  const items=useMemo(()=>allFeedItems(feed),[feed]);
+  const featured=useMemo(()=>items.find(i=>i.alert)||items[0],[items]);
+  const alertCount=useMemo(()=>items.filter(i=>i.alert).length,[items]);
+  const genAt=feed?.generatedAt
+    ?new Date(feed.generatedAt).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})
+    :"";
+
+  const visibleSections=useMemo(()=>{
+    if(!feed)return[];
+    return TRACK_IDS.filter(id=>id!=="all").map((id,i)=>({
       id,
-      label: t.tracks[i + 1] || id,
-      items: (() => {
-        let list = getTrackItems(feed, id);
-        if (periodDays < 90) {
-          const cutoff = new Date();
-          cutoff.setDate(cutoff.getDate() - periodDays);
-          list = list.filter(it => !it.dt || new Date(it.dt) >= cutoff);
-        }
-        if (audFilter) list = list.filter(it => (it.aud || []).includes(audFilter));
-        if (search.trim()) {
-          const q = search.toLowerCase();
-          list = list.filter(it => (it.t + it.s + (it.tag || "") + it.f || "").toLowerCase().includes(q));
-        }
+      label:t.tracks[i+1]||id,
+      items:(() => {
+        let list=getTrackItems(feed,id);
+        if(audFilter)list=list.filter(it=>(it.aud||[]).includes(audFilter));
+        if(search.trim()){const q=search.toLowerCase();list=list.filter(it=>(it.t+it.s+(it.tag||"")+it.f||"").toLowerCase().includes(q));}
         return list;
       })(),
-      variant: id === "issues" ? "issue" : id === "releases" ? "release" : id === "social" ? "social" : "default"
-    })).filter(s => s.items.length > 0);
-  }, [feed, search, audFilter, periodDays, lang, t]);
-  const visible = useMemo(() => track === "all" ? visibleSections : visibleSections.filter(s => s.id === track), [visibleSections, track]);
-  const trackCounts = useMemo(() => {
-    const m = {
-      all: items.length
-    };
-    TRACK_IDS.filter(id => id !== "all").forEach(id => {
-      m[id] = getTrackItems(feed, id).length;
-    });
-    return m;
-  }, [feed, items]);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#F3F4F6",
-      minHeight: "100vh"
-    }
-  }, /*#__PURE__*/React.createElement("header", {
-    style: {
-      background: "#FFF",
-      borderBottom: "1px solid #E5E7EB",
-      position: "sticky",
-      top: 0,
-      zIndex: 30,
-      boxShadow: "0 1px 4px rgba(0,0,0,.05)"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 1360,
-      margin: "0 auto",
-      padding: "0 14px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      paddingTop: 10,
-      paddingBottom: 6,
-      gap: 6,
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "serif",
-    style: {
-      fontSize: 20,
-      fontWeight: 800,
-      color: RED,
-      letterSpacing: "-0.5px",
-      flexShrink: 0
-    }
-  }, "Intelligence Digest"), alertCount > 0 && /*#__PURE__*/React.createElement("span", {
-    style: {
-      background: "#FEF2F2",
-      color: RED,
-      fontSize: 11,
-      fontWeight: 700,
-      padding: "3px 9px",
-      borderRadius: 99,
-      border: `1px solid ${RED}28`,
-      flexShrink: 0
-    }
-  }, "\u26A1 ", alertCount, " ", t.alerts), genAt && /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 10,
-      color: "#9CA3AF",
-      display: "flex",
-      alignItems: "center",
-      gap: 4,
-      flexShrink: 0
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 6,
-      height: 6,
-      borderRadius: "50%",
-      background: "#10B981",
-      display: "inline-block",
-      animation: "pulse 2s infinite"
-    }
-  }), genAt)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-      paddingBottom: 8,
-      borderBottom: "1px solid #F3F4F6",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "search",
-    placeholder: t.search,
-    value: search,
-    onChange: e => setSearch(e.target.value),
-    style: {
-      padding: "6px 13px",
-      borderRadius: 99,
-      border: "1px solid #E5E7EB",
-      background: "#F9FAFB",
-      color: "#111",
-      fontFamily: "inherit",
-      fontSize: 12.5,
-      flex: 1,
-      minWidth: 120,
-      outline: "none"
-    }
-  }), ["pt", "en", "es"].map(l => /*#__PURE__*/React.createElement("button", {
-    key: l,
-    onClick: () => setLang(l),
-    style: {
-      padding: "5px 10px",
-      borderRadius: 6,
-      border: "1px solid #E5E7EB",
-      background: lang === l ? RED : "transparent",
-      color: lang === l ? "#FFF" : "#6B7280",
-      fontSize: 12,
-      fontWeight: 600,
-      transition: "all .15s",
-      flexShrink: 0
-    }
-  }, l.toUpperCase()))), /*#__PURE__*/React.createElement("div", {
-    className: "hscroll",
-    style: {
-      height: 42,
-      alignItems: "center",
-      gap: 1,
-      padding: "0"
-    }
-  }, TRACK_IDS.map((id, i) => {
-    const cnt = trackCounts[id] || 0;
-    const on = track === id;
-    return /*#__PURE__*/React.createElement("button", {
-      key: id,
-      onClick: () => setTrack(id),
-      style: {
-        padding: "4px 12px",
-        borderRadius: 99,
-        border: "none",
-        background: on ? RED : "transparent",
-        color: on ? "#FFF" : "#4B5563",
-        fontSize: 12.5,
-        fontWeight: on ? 600 : 400,
-        whiteSpace: "nowrap",
-        transition: "all .15s",
-        flexShrink: 0
-      }
-    }, t.tracks[i], feed && cnt > 0 && /*#__PURE__*/React.createElement("span", {
-      style: {
-        marginLeft: 4,
-        opacity: .55,
-        fontSize: 11
-      }
-    }, "(", cnt, ")"));
-  })))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#FFF",
-      borderBottom: "1px solid #E5E7EB"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 1360,
-      margin: "0 auto",
-      padding: "8px 14px",
-      display: "flex",
-      flexDirection: "column",
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 5,
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 9.5,
-      color: "#9CA3AF",
-      fontWeight: 700,
-      textTransform: "uppercase",
-      letterSpacing: "1.2px",
-      flexShrink: 0,
-      minWidth: 44
-    }
-  }, t.roles_lbl), [null, ...Object.keys(AUD)].map(r => {
-    const a = r ? AUD[r] : null;
-    const on = audFilter === r;
-    return /*#__PURE__*/React.createElement("button", {
-      key: r || "all",
-      onClick: () => setAudFilter(r),
-      style: {
-        background: on ? a ? a.b : "rgba(0,0,0,.06)" : "transparent",
-        border: `1px solid ${on ? a ? a.c + "55" : "rgba(0,0,0,.15)" : "#E5E7EB"}`,
-        borderRadius: 99,
-        padding: "3px 11px",
-        flexShrink: 0,
-        color: on ? a ? a.c : "#111" : "#6B7280",
-        fontSize: 11.5,
-        fontWeight: on ? 700 : 400,
-        transition: "all .15s"
-      }
-    }, r ? a.l : t.all_roles);
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 5,
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 9.5,
-      color: "#9CA3AF",
-      fontWeight: 700,
-      textTransform: "uppercase",
-      letterSpacing: "1.2px",
-      flexShrink: 0,
-      minWidth: 44
-    }
-  }, "Per\xEDodo"), [{
-    v: 7,
-    l: "7 dias"
-  }, {
-    v: 30,
-    l: "30 dias"
-  }, {
-    v: 60,
-    l: "60 dias"
-  }, {
-    v: 90,
-    l: "3 meses"
-  }].map(p => {
-    const on = periodDays === p.v;
-    return /*#__PURE__*/React.createElement("button", {
-      key: p.v,
-      onClick: () => setPeriodDays(p.v),
-      style: {
-        background: on ? "#1D4ED8" : "transparent",
-        border: `1px solid ${on ? "#1D4ED8" : "#E5E7EB"}`,
-        borderRadius: 99,
-        padding: "3px 11px",
-        flexShrink: 0,
-        color: on ? "#FFF" : "#6B7280",
-        fontSize: 11.5,
-        fontWeight: on ? 700 : 400,
-        transition: "all .15s"
-      }
-    }, p.l);
-  })))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#FFF",
-      borderBottom: "1px solid #EBEBEB",
-      padding: "14px 28px",
-      textAlign: "center"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 14,
-      fontWeight: 300,
-      color: "#374151",
-      lineHeight: 1.6
-    }
-  }, "RSS + Gemini \xB7 ", t.automatic, " \xB7", " ", /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: RED,
-      fontWeight: 600
-    }
-  }, "6h BRT"), lang !== "pt" && /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: 12,
-      fontSize: 11.5,
-      color: "#9CA3AF",
-      background: "#F3F4F6",
-      padding: "2px 8px",
-      borderRadius: 99
-    }
-  }, "\u2139\uFE0F ", t.content_note))), /*#__PURE__*/React.createElement("main", {
-    style: {
-      maxWidth: 1360,
-      margin: "0 auto",
-      padding: "32px 28px 60px"
-    }
-  }, loading && /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center",
-      padding: "80px 0"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 36,
-      height: 36,
-      border: "3px solid #E5E7EB",
-      borderTopColor: RED,
-      borderRadius: "50%",
-      animation: "spin .8s linear infinite",
-      margin: "0 auto 16px"
-    }
-  }), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: "#9CA3AF",
-      fontSize: 14
-    }
-  }, "Carregando feed\u2026")), error && /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center",
-      padding: "80px 0"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 36,
-      marginBottom: 12
-    }
-  }, "\u26A0\uFE0F"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 14,
-      color: "#6B7280",
-      marginBottom: 8
-    }
-  }, "Feed n\xE3o encontrado."), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 12,
-      color: "#9CA3AF"
-    }
-  }, error)), !loading && !error && /*#__PURE__*/React.createElement(React.Fragment, null, featured && track === "all" && !search && !audFilter && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: 40
-    }
-  }, /*#__PURE__*/React.createElement(Featured, {
-    item: featured,
-    lang: lang,
-    t: t
-  })), track === "all" && !search && !audFilter && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 24,
-      paddingBottom: 12,
-      borderBottom: "2px solid #E5E7EB",
-      borderLeft: `4px solid ${RED}`,
-      paddingLeft: 12
-    }
-  }, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontSize: 20,
-      fontWeight: 700,
-      color: "#111"
-    }
-  }, t.latest), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12.5,
-      color: RED,
-      fontWeight: 600
-    }
-  }, items.length, " ", t.insights)), visible.map(s => /*#__PURE__*/React.createElement(Section, {
-    key: s.id,
-    title: s.label,
-    items: s.items,
-    lang: lang,
-    t: t,
-    variant: s.variant
-  })), feed?.radar && (track === "all" || track === "arch") && !search && /*#__PURE__*/React.createElement(TechRadar, {
-    radarData: feed.radar,
-    t: t
-  }), visible.length === 0 && !feed?.radar && /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center",
-      padding: "60px 0"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 40,
-      marginBottom: 12
-    }
-  }, "\uD83D\uDD0D"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 14,
-      color: "#9CA3AF"
-    }
-  }, search ? `"${search}" — sem resultados` : audFilter ? `Nenhum item para ${AUD[audFilter]?.l}` : "Nenhum item.")))), !loading && !error && /*#__PURE__*/React.createElement("div", {
-    style: {
-      borderTop: "1px solid #E5E7EB",
-      background: "#FFF",
-      padding: "24px 28px 28px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 1360,
-      margin: "0 auto"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 10,
-      color: "#9CA3AF",
-      marginBottom: 16,
-      fontWeight: 600,
-      textTransform: "uppercase",
-      letterSpacing: "1.5px"
-    }
-  }, t.sources_title), /*#__PURE__*/React.createElement("div", {
-    className: "hscroll",
-    style: {
-      gap: 22
-    }
-  }, [{
-    l: "Salesforce",
-    c: "#0369A1",
-    b: "#DBEAFE"
-  }, {
-    l: "Anthropic",
-    c: "#92400E",
-    b: "#FEF3C7"
-  }, {
-    l: "OpenAI",
-    c: "#047857",
-    b: "#D1FAE5"
-  }, {
-    l: "Google AI",
-    c: "#1D4ED8",
-    b: "#DBEAFE"
-  }, {
-    l: "AWS",
-    c: "#9A3412",
-    b: "#FEE2E2"
-  }, {
-    l: "VentureBeat",
-    c: "#5B21B6",
-    b: "#EDE9FE"
-  }, {
-    l: "TechCrunch",
-    c: "#0E7490",
-    b: "#CFFAFE"
-  }, {
-    l: "MCP.io",
-    c: "#9D174D",
-    b: "#FCE7F3"
-  }, {
-    l: "LangChain",
-    c: "#047857",
-    b: "#D1FAE5"
-  }, {
-    l: "Langfuse",
-    c: "#0E7490",
-    b: "#CFFAFE"
-  }, {
-    l: "Reddit r/SF",
-    c: "#C2410C",
-    b: "#FEF3C7"
-  }, {
-    l: "Hacker News",
-    c: "#B45309",
-    b: "#FEF3C7"
-  }, {
-    l: "Dev.to",
-    c: "#1F2937",
-    b: "#F3F4F6"
-  }, {
-    l: "InfoWorld",
-    c: "#374151",
-    b: "#F3F4F6"
-  }].map(s => /*#__PURE__*/React.createElement("div", {
-    key: s.l,
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: 6,
-      flexShrink: 0
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 48,
-      height: 48,
-      borderRadius: "50%",
-      background: s.b,
-      color: s.c,
-      fontSize: 11,
-      fontWeight: 800,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      border: `2px solid ${s.c}22`,
-      boxShadow: `0 2px 8px ${s.c}16`,
-      letterSpacing: "-0.5px"
-    }
-  }, s.l.slice(0, 2).toUpperCase()), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 9.5,
-      color: "#9CA3AF",
-      whiteSpace: "nowrap"
-    }
-  }, s.l)))))), /*#__PURE__*/React.createElement("footer", {
-    style: {
-      borderTop: "1px solid #E5E7EB",
-      padding: "16px 28px",
-      textAlign: "center",
-      background: "#FAFAFA"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      color: "#D1D5DB"
-    }
-  }, "RSS \xB7 Gemini 1.5 Flash \xB7 Google Apps Script \xB7 6h BRT")));
-}
-ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
-</script>
+      variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":"default",
+    })).filter(s=>s.items.length>0);
+  },[feed,search,audFilter,lang,t]);
 
+  const visible=useMemo(()=>
+    track==="all"?visibleSections:visibleSections.filter(s=>s.id===track)
+  ,[visibleSections,track]);
+
+  const trackCounts=useMemo(()=>{
+    const m={all:items.length};
+    TRACK_IDS.filter(id=>id!=="all").forEach(id=>{m[id]=getTrackItems(feed,id).length;});
+    return m;
+  },[feed,items]);
+
+  return(
+    <div style={{background:"#F3F4F6",minHeight:"100vh"}}>
+
+      {/* ── HEADER ── */}
+      <header style={{background:"#FFF",borderBottom:"1px solid #E5E7EB",
+        position:"sticky",top:0,zIndex:30,boxShadow:"0 1px 4px rgba(0,0,0,.05)"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px"}}>
+
+          {/* LINHA 1: título + alertas + status */}
+          <div style={{display:"flex",alignItems:"center",paddingTop:10,paddingBottom:6,gap:6,flexWrap:"wrap"}}>
+            <span className="serif" style={{fontSize:20,fontWeight:800,color:RED,letterSpacing:"-0.5px",flexShrink:0}}>Intelligence Digest</span>
+            {alertCount>0&&(
+              <span style={{background:"#FEF2F2",color:RED,fontSize:11,fontWeight:700,
+                padding:"3px 9px",borderRadius:99,border:`1px solid ${RED}28`,flexShrink:0}}>
+                ⚡ {alertCount} {t.alerts}
+              </span>
+            )}
+            {genAt&&(
+              <span style={{fontSize:10,color:"#9CA3AF",display:"flex",alignItems:"center",gap:4,flexShrink:0}}>
+                <span style={{width:6,height:6,borderRadius:"50%",background:"#10B981",display:"inline-block",animation:"pulse 2s infinite"}}/>
+                {genAt}
+              </span>
+            )}
+          </div>
+          {/* LINHA 2: busca + idiomas */}
+          <div style={{display:"flex",alignItems:"center",gap:6,paddingBottom:8,borderBottom:"1px solid #F3F4F6",flexWrap:"wrap"}}>
+            <input type="search" placeholder={t.search} value={search}
+              onChange={e=>setSearch(e.target.value)}
+              style={{padding:"6px 13px",borderRadius:99,border:"1px solid #E5E7EB",
+                background:"#F9FAFB",color:"#111",fontFamily:"inherit",fontSize:12.5,
+                flex:1,minWidth:120,outline:"none"}}/>
+            {["pt","en","es"].map(l=>(
+              <button key={l} onClick={()=>setLang(l)} style={{
+                padding:"5px 10px",borderRadius:6,border:"1px solid #E5E7EB",
+                background:lang===l?RED:"transparent",
+                color:lang===l?"#FFF":"#6B7280",
+                fontSize:12,fontWeight:600,transition:"all .15s",flexShrink:0,
+              }}>
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
+
+          {/* track nav */}
+          <div className="hscroll" style={{height:42,alignItems:"center",gap:1,padding:"0"}}>
+            {TRACK_IDS.map((id,i)=>{
+              const cnt=trackCounts[id]||0;const on=track===id;
+              return(
+                <button key={id} onClick={()=>setTrack(id)} style={{
+                  padding:"4px 12px",borderRadius:99,border:"none",
+                  background:on?RED:"transparent",
+                  color:on?"#FFF":"#4B5563",
+                  fontSize:12.5,fontWeight:on?600:400,whiteSpace:"nowrap",
+                  transition:"all .15s",flexShrink:0}}>
+                  {t.tracks[i]}
+                  {feed&&cnt>0&&(
+                    <span style={{marginLeft:4,opacity:.55,fontSize:11}}>({cnt})</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </header>
+
+      {/* ── ROLE FILTER ── */}
+      <div style={{background:"#FFF",borderBottom:"1px solid #E5E7EB"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px",
+          display:"flex",alignItems:"center",height:38,gap:6,
+          overflowX:"auto",scrollbarWidth:"none"}}>
+          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
+            textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
+            {t.roles_lbl}
+          </span>
+          {[null,...Object.keys(AUD)].map(r=>{
+            const a=r?AUD[r]:null;const on=audFilter===r;
+            return(
+              <button key={r||"all"} onClick={()=>setAudFilter(r)} style={{
+                background:on?(a?a.b:"rgba(0,0,0,.06)"):"transparent",
+                border:`1px solid ${on?(a?a.c+"55":"rgba(0,0,0,.15)"):"#E5E7EB"}`,
+                borderRadius:99,padding:"3px 12px",flexShrink:0,
+                color:on?(a?a.c:"#111"):"#6B7280",
+                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                {r?a.l:t.all_roles}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── BANNER ── */}
+      <div style={{background:"#FFF",borderBottom:"1px solid #EBEBEB",
+        padding:"14px 28px",textAlign:"center"}}>
+        <p style={{fontSize:14,fontWeight:300,color:"#374151",lineHeight:1.6}}>
+          RSS + Gemini · {t.automatic} ·{" "}
+          <strong style={{color:RED,fontWeight:600}}>6h BRT</strong>
+          {lang!=="pt"&&(
+            <span style={{marginLeft:12,fontSize:11.5,color:"#9CA3AF",
+              background:"#F3F4F6",padding:"2px 8px",borderRadius:99}}>
+              ℹ️ {t.content_note}
+            </span>
+          )}
+        </p>
+      </div>
+
+      {/* ── MAIN ── */}
+      <main style={{maxWidth:1360,margin:"0 auto",padding:"32px 28px 60px"}}>
+
+        {loading&&(
+          <div style={{textAlign:"center",padding:"80px 0"}}>
+            <div style={{width:36,height:36,border:"3px solid #E5E7EB",
+              borderTopColor:RED,borderRadius:"50%",
+              animation:"spin .8s linear infinite",margin:"0 auto 16px"}}/>
+            <p style={{color:"#9CA3AF",fontSize:14}}>Carregando feed…</p>
+          </div>
+        )}
+
+        {error&&(
+          <div style={{textAlign:"center",padding:"80px 0"}}>
+            <p style={{fontSize:36,marginBottom:12}}>⚠️</p>
+            <p style={{fontSize:14,color:"#6B7280",marginBottom:8}}>
+              Feed não encontrado.
+            </p>
+            <p style={{fontSize:12,color:"#9CA3AF"}}>{error}</p>
+          </div>
+        )}
+
+        {!loading&&!error&&(
+          <>
+            {featured&&track==="all"&&!search&&!audFilter&&(
+              <div style={{marginBottom:40}}>
+                <Featured item={featured} lang={lang} t={t}/>
+              </div>
+            )}
+
+            {track==="all"&&!search&&!audFilter&&(
+              <div style={{display:"flex",justifyContent:"space-between",
+                alignItems:"center",marginBottom:24,paddingBottom:12,
+                borderBottom:"2px solid #E5E7EB",borderLeft:`4px solid ${RED}`,paddingLeft:12}}>
+                <h2 style={{fontSize:20,fontWeight:700,color:"#111"}}>
+                  {t.latest}
+                </h2>
+                <span style={{fontSize:12.5,color:RED,fontWeight:600}}>
+                  {items.length} {t.insights}
+                </span>
+              </div>
+            )}
+
+            {visible.map(s=>(
+              <Section key={s.id} title={s.label} items={s.items}
+                lang={lang} t={t} variant={s.variant}/>
+            ))}
+
+            {/* Technology Radar */}
+            {feed?.radar&&(track==="all"||track==="arch")&&!search&&(
+              <TechRadar radarData={feed.radar} t={t}/>
+            )}
+
+            {visible.length===0&&!feed?.radar&&(
+              <div style={{textAlign:"center",padding:"60px 0"}}>
+                <p style={{fontSize:40,marginBottom:12}}>🔍</p>
+                <p style={{fontSize:14,color:"#9CA3AF"}}>
+                  {search?`"${search}" — sem resultados`:
+                    audFilter?`Nenhum item para ${AUD[audFilter]?.l}`:"Nenhum item."}
+                </p>
+              </div>
+            )}
+          </>
+        )}
+      </main>
+
+      {/* ── SOURCE STRIP ── */}
+      {!loading&&!error&&(
+        <div style={{borderTop:"1px solid #E5E7EB",background:"#FFF",padding:"24px 28px 28px"}}>
+          <div style={{maxWidth:1360,margin:"0 auto"}}>
+            <p style={{fontSize:10,color:"#9CA3AF",marginBottom:16,fontWeight:600,
+              textTransform:"uppercase",letterSpacing:"1.5px"}}>{t.sources_title}</p>
+            <div className="hscroll" style={{gap:22}}>
+              {[
+                {l:"Salesforce",c:"#0369A1",b:"#DBEAFE"},{l:"Anthropic",c:"#92400E",b:"#FEF3C7"},
+                {l:"OpenAI",c:"#047857",b:"#D1FAE5"},{l:"Google AI",c:"#1D4ED8",b:"#DBEAFE"},
+                {l:"AWS",c:"#9A3412",b:"#FEE2E2"},{l:"VentureBeat",c:"#5B21B6",b:"#EDE9FE"},
+                {l:"TechCrunch",c:"#0E7490",b:"#CFFAFE"},{l:"MCP.io",c:"#9D174D",b:"#FCE7F3"},
+                {l:"LangChain",c:"#047857",b:"#D1FAE5"},{l:"Langfuse",c:"#0E7490",b:"#CFFAFE"},
+                {l:"Reddit r/SF",c:"#C2410C",b:"#FEF3C7"},{l:"Hacker News",c:"#B45309",b:"#FEF3C7"},
+                {l:"Dev.to",c:"#1F2937",b:"#F3F4F6"},{l:"InfoWorld",c:"#374151",b:"#F3F4F6"},
+              ].map(s=>(
+                <div key={s.l} style={{display:"flex",flexDirection:"column",
+                  alignItems:"center",gap:6,flexShrink:0}}>
+                  <div style={{width:48,height:48,borderRadius:"50%",
+                    background:s.b,color:s.c,fontSize:11,fontWeight:800,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`2px solid ${s.c}22`,boxShadow:`0 2px 8px ${s.c}16`,
+                    letterSpacing:"-0.5px"}}>
+                    {s.l.slice(0,2).toUpperCase()}
+                  </div>
+                  <span style={{fontSize:9.5,color:"#9CA3AF",whiteSpace:"nowrap"}}>{s.l}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── FOOTER ── */}
+      <footer style={{borderTop:"1px solid #E5E7EB",padding:"16px 28px",
+        textAlign:"center",background:"#FAFAFA"}}>
+        <p style={{fontSize:11,color:"#D1D5DB"}}>
+          RSS · Gemini 1.5 Flash · Google Apps Script · 6h BRT
+        </p>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
 </body>
 </html>
