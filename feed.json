@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-09T09:00:00.000Z",
-  "totalItems": 28,
+  "generatedAt": "2026-06-09T22:37:00.000Z",
+  "totalItems": 30,
   "radar": {
     "adopt": [
       "Agentforce",
@@ -108,6 +108,26 @@
           "urls": [],
           "aud": [
             "EA",
+            "TA",
+            "Build"
+          ]
+        },
+        {
+          "t": "Agent Broker GA — canvas visual para orquestração multi-agente",
+          "t_en": "Agent Broker GA — visual canvas for multi-agent orchestration",
+          "t_es": "Agent Broker GA — canvas visual para orquestación multi-agente",
+          "s": "Agent Broker saiu do beta com canvas visual de authoring para workflows multi-agente, suporte a modelos Salesforce nativos e MCP OAuth. Combinado com Agent Script, entrega determinismo guiado completo em produção.",
+          "s_en": "Agent Broker exited beta with visual authoring canvas for multi-agent workflows, native Salesforce model support and MCP OAuth. Combined with Agent Script, delivers full guided determinism in production.",
+          "s_es": "Agent Broker salió de beta con canvas visual de autoría para workflows multi-agente, soporte a modelos Salesforce nativos y MCP OAuth.",
+          "d": "Agent Broker GA muda o patamar de produção do Agent Fabric. Se você tem projetos planejados com orquestração multi-agente, o stack está maduro agora.",
+          "d_en": "Agent Broker GA raises Agent Fabric's production baseline. If you have multi-agent orchestration projects planned, the stack is mature now.",
+          "d_es": "Agent Broker GA eleva el nivel de producción del Agent Fabric.",
+          "f": "Salesforce/Vantagepoint",
+          "dt": "2026-06-01",
+          "tag": "Agent Fabric",
+          "alert": true,
+          "url": null,
+          "aud": [
             "TA",
             "Build"
           ]
@@ -819,8 +839,30 @@
             "CLevel",
             "SE"
           ]
+        },
+        {
+          "t": "Dreamforce 2025: \"Bifurcação entre adoção consumer e enterprise de IA\"",
+          "t_en": "Dreamforce 2025: \"Bifurcation between consumer and enterprise AI adoption\"",
+          "t_es": "Dreamforce 2025: \"Bifurcación entre adopción consumer y enterprise de IA\"",
+          "s": "No keynote do Dreamforce set/2025, Benioff reconheceu que existia uma \"bifurcação\" entre a rápida adoção de chatbots de IA pelo consumidor e a adoção mais lenta no enterprise. Salesforce lançou o Agentforce e projetou crescimento orgânico acima de 10% YoY em 2026.",
+          "s_en": "At Dreamforce Sep/2025 keynote, Benioff acknowledged a \"bifurcation\" between rapid consumer AI chatbot adoption and slower enterprise adoption. Salesforce launched Agentforce and projected >10% organic growth YoY in 2026.",
+          "s_es": "En el keynote del Dreamforce sep/2025, Benioff reconoció una \"bifurcación\" entre la rápida adopción de chatbots de IA por el consumidor y la adopción más lenta en el enterprise.",
+          "d": "A bifurcação que Benioff reconheceu em set/2025 está se fechando — 60% dos clientes já migraram de PoC para produção até jun/2026. Use essa evolução como linha do tempo em apresentações de roadmap.",
+          "d_en": "The bifurcation Benioff recognized in Sep/2025 is closing — 60% of customers already moved from PoC to production by Jun/2026.",
+          "d_es": "La bifurcación que Benioff reconoció en sep/2025 se está cerrando.",
+          "f": "Fortune / Salesforce Dreamforce",
+          "dt": "2025-09-17",
+          "tag": "Benioff",
+          "alert": false,
+          "url": "https://fortune.com/2025/10/21/salesforce-marc-benioff-ai-agents-dreamforce-agentforce-eye-on-ai/",
+          "aud": [
+            "CLevel",
+            "SE",
+            "EA"
+          ]
         }
       ]
     }
-  }
+  },
+  "historyMonths": 3
 }
