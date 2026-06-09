@@ -340,6 +340,7 @@ function Featured({item,lang,t}){
       <div style={{flex:1,padding:"20px 26px",display:"flex",flexDirection:"column",gap:10,overflow:"hidden"}}>
         <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
           <SrcBadge name={item.f} size={22}/>
+          {item.dt&&<span style={{background:"#F3F4F6",borderRadius:4,padding:"1px 6px",fontSize:10,color:"#6B7280",flexShrink:0}}>{new Date(item.dt).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"})}</span>}
           <span style={{fontSize:12.5,color:"#374151",fontWeight:500}}>{item.f}</span>
           <span style={{color:"#D1D5DB"}}>·</span>
           <span style={{fontSize:12.5,color:"#9CA3AF"}}>{item.dt}</span>
@@ -531,6 +532,7 @@ function App(){
   const [track,setTrack]=useState("all");
   const [search,setSearch]=useState("");
   const [audFilter,setAudFilter]=useState(null);
+  const [periodDays,setPeriodDays]=useState(90);
   const [lang,setLang]=useState("pt");
 
   const t=I18N[lang]||I18N.pt;
@@ -556,13 +558,14 @@ function App(){
       label:t.tracks[i+1]||id,
       items:(() => {
         let list=getTrackItems(feed,id);
+        if(periodDays<90){const cutoff=new Date();cutoff.setDate(cutoff.getDate()-periodDays);list=list.filter(it=>!it.dt||new Date(it.dt)>=cutoff);}
         if(audFilter)list=list.filter(it=>(it.aud||[]).includes(audFilter));
         if(search.trim()){const q=search.toLowerCase();list=list.filter(it=>(it.t+it.s+(it.tag||"")+it.f||"").toLowerCase().includes(q));}
         return list;
       })(),
       variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":"default",
     })).filter(s=>s.items.length>0);
-  },[feed,search,audFilter,lang,t]);
+  },[feed,search,audFilter,periodDays,lang,t]);
 
   const visible=useMemo(()=>
     track==="all"?visibleSections:visibleSections.filter(s=>s.id===track)
@@ -658,6 +661,23 @@ function App(){
                 color:on?(a?a.c:"#111"):"#6B7280",
                 fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
                 {r?a.l:t.all_roles}
+              </button>
+            );
+          })}
+          {/* PERIOD DIVIDER */}
+          <div style={{width:1,height:20,background:"#E5E7EB",flexShrink:0,margin:"0 4px"}}/>
+          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,textTransform:"uppercase",
+            letterSpacing:"1.2px",flexShrink:0}}>Período</span>
+          {[{v:7,l:"7d"},{v:30,l:"30d"},{v:60,l:"60d"},{v:90,l:"3m"}].map(p=>{
+            const on=periodDays===p.v;
+            return(
+              <button key={p.v} onClick={()=>setPeriodDays(p.v)} style={{
+                background:on?"#1D4ED8":"transparent",
+                border:`1px solid ${on?"#1D4ED8":"#E5E7EB"}`,
+                borderRadius:99,padding:"3px 10px",flexShrink:0,
+                color:on?"#FFF":"#6B7280",
+                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                {p.l}
               </button>
             );
           })}
