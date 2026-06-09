@@ -4,15 +4,19 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Intelligence Digest · Bússola para Arquitetos de IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:linear-gradient(160deg,#020817 0%,#0D1526 100%);min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#E2E8F0}
+body{background:linear-gradient(160deg,#020817 0%,#0D1526 100%);min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#D8E2FE}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(167,139,250,.25);border-radius:3px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4)}70%{box-shadow:0 0 0 5px rgba(251,191,36,0)}}
+@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.35)}70%{box-shadow:0 0 0 6px rgba(251,191,36,0)}}
+.serif{font-family:'Playfair Display',Georgia,serif}
 </style>
 </head>
 <body><div id="root"></div>
@@ -271,7 +275,7 @@ skills:{u:"Jun/2026",d:[
 };
 
 function AudBadge({r}){const a=AUD[r];return(
-  <span style={{background:a.b,color:a.c,border:`1px solid ${a.c}40`,borderRadius:12,padding:"1px 7px",fontSize:9.5,fontWeight:700,whiteSpace:"nowrap"}}>{a.l}</span>
+  <span style={{background:a.b,color:a.c,border:`1px solid ${a.c}50`,borderRadius:999,padding:"2px 9px",fontSize:10,fontWeight:600,whiteSpace:"nowrap",letterSpacing:"0.03em"}}>{a.l}</span>
 );}
 
 function Card({item}){
@@ -279,38 +283,38 @@ function Card({item}){
   const c=TC[item.tag]||"#6B7280";
   return(
     <div onClick={()=>setOpen(v=>!v)} style={{
-      background:"rgba(13,21,38,.88)",
-      border:`1px solid ${item.alert?"rgba(251,191,36,.3)":"rgba(255,255,255,.06)"}`,
+      background:"#0F1A2E",
+      border:`1px solid ${item.alert?"rgba(251,191,36,.35)":"#1E293B"}`,
       borderLeft:`3px solid ${item.alert?"#FBBF24":c}`,
-      borderRadius:10,padding:"13px 15px",cursor:"pointer",marginBottom:8,
-      transition:"transform .15s,box-shadow .15s",
+      borderRadius:8,padding:"16px",cursor:"pointer",marginBottom:10,
+      transition:"border-color .15s,box-shadow .15s",
       animation:item.alert?"alertglow 2.5s ease-in-out infinite":"none",
     }}
-    onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow=`0 4px 18px ${c}22`;}}
-    onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow="";}}>
-      <div style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:6}}>
+    onMouseEnter={e=>{e.currentTarget.style.borderColor=item.alert?"rgba(251,191,36,.6)":`${c}60`;e.currentTarget.style.boxShadow=`0 4px 20px ${c}18`;}}
+    onMouseLeave={e=>{e.currentTarget.style.borderColor=item.alert?"rgba(251,191,36,.35)":"#1E293B";e.currentTarget.style.boxShadow="";}}>
+      <div style={{display:"flex",gap:10,alignItems:"flex-start",marginBottom:8}}>
         <div style={{flex:1}}>
-          {item.alert&&<span style={{background:"rgba(251,191,36,.15)",color:"#FBBF24",border:"1px solid rgba(251,191,36,.35)",borderRadius:20,padding:"1px 8px",fontSize:9.5,fontWeight:700,marginBottom:4,display:"inline-block"}}>⚡ ALERTA</span>}
-          <h3 style={{margin:"2px 0 0",fontSize:13.5,fontWeight:600,color:"#E2E8F0",lineHeight:1.45}}>{item.t}</h3>
+          {item.alert&&<span style={{background:"rgba(251,191,36,.12)",color:"#FBBF24",border:"1px solid rgba(251,191,36,.35)",borderRadius:999,padding:"2px 9px",fontSize:10,fontWeight:700,marginBottom:6,display:"inline-block",letterSpacing:"0.04em"}}>⚡ ALERTA</span>}
+          <h3 className="serif" style={{margin:"2px 0 0",fontSize:15,fontWeight:700,color:"#EEF2FF",lineHeight:1.4}}>{item.t}</h3>
         </div>
-        <span style={{background:c+"18",color:c,border:`1px solid ${c}30`,borderRadius:20,padding:"2px 8px",fontSize:10,fontWeight:700,whiteSpace:"nowrap",flexShrink:0}}>{item.tag}</span>
+        <span style={{background:c+"15",color:c,border:`1px solid ${c}35`,borderRadius:999,padding:"2px 10px",fontSize:10,fontWeight:600,whiteSpace:"nowrap",flexShrink:0,letterSpacing:"0.04em"}}>{item.tag}</span>
       </div>
-      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:7}}>
+      <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}}>
         {item.aud.map(r=><AudBadge key={r} r={r}/>)}
       </div>
-      <p style={{margin:"0 0 8px",fontSize:12.5,color:"#94A3B8",lineHeight:1.6}}>{item.s}</p>
+      <p style={{margin:"0 0 10px",fontSize:13,color:"#94A3B8",lineHeight:1.65}}>{item.s}</p>
       {open&&(
-        <div style={{background:"rgba(168,85,247,.07)",border:"1px solid rgba(168,85,247,.2)",borderRadius:7,padding:"9px 12px",marginBottom:8}}>
-          <p style={{margin:0,fontSize:12,color:"#C4B5FD",lineHeight:1.55}}>
-            <strong style={{color:"#A78BFA"}}>🏛️ Decisão arquitetural: </strong>{item.d}
+        <div style={{background:"rgba(167,139,250,.06)",border:"1px solid rgba(167,139,250,.2)",borderRadius:6,padding:"10px 13px",marginBottom:10}}>
+          <p style={{margin:0,fontSize:12.5,color:"#C4B5FD",lineHeight:1.6}}>
+            <strong style={{color:"#A78BFA",fontFamily:"'Playfair Display',serif"}}>🏛 Decisão arquitetural — </strong>{item.d}
           </p>
         </div>
       )}
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:6}}>
-        <span style={{fontSize:10.5,color:"#2D3E55"}}>📰 {item.f} · {item.dt}</span>
-        <div style={{display:"flex",gap:8,alignItems:"center"}}>
-          {item.url&&<a href={item.url} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} style={{fontSize:10.5,color:"#38BDF8",textDecoration:"none"}}>🔗 fonte</a>}
-          <span style={{fontSize:10.5,color:"#A78BFA"}}>{open?"▲":"▼ decisão"}</span>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:6,paddingTop:6,borderTop:"1px solid #1E293B"}}>
+        <span style={{fontSize:11,color:"#475569"}}>📰 {item.f} · {item.dt}</span>
+        <div style={{display:"flex",gap:10,alignItems:"center"}}>
+          {item.url&&<a href={item.url} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} style={{fontSize:11,color:"#38BDF8",textDecoration:"none"}}>fonte ↗</a>}
+          <span style={{fontSize:11,color:"#A78BFA"}}>{open?"▲ fechar":"▼ decisão"}</span>
         </div>
       </div>
     </div>
@@ -328,20 +332,20 @@ function App(){
 
   return(
     <div style={{minHeight:"100vh",paddingBottom:48}}>
-      <div style={{background:"rgba(2,8,23,.95)",borderBottom:"1px solid rgba(255,255,255,.06)",padding:"13px 16px 13px",position:"sticky",top:0,zIndex:10,backdropFilter:"blur(16px)"}}>
+      <div style={{background:"rgba(2,8,23,.96)",borderBottom:"1px solid #1E293B",padding:"14px 16px 12px",position:"sticky",top:0,zIndex:10,backdropFilter:"blur(20px)"}}>
         <div style={{maxWidth:920,margin:"0 auto"}}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:11}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
             <div>
-              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:3}}>
-                <span style={{width:6,height:6,borderRadius:"50%",background:"#00A1E0",boxShadow:"0 0 6px #00A1E0",display:"inline-block",animation:"pulse 2s infinite"}}/>
-                <span style={{fontSize:"9.5px",color:"#38BDF8",fontWeight:700,letterSpacing:"1.8px",textTransform:"uppercase"}}>BÚSSOLA · PROFISSIONAIS DE IA E SALESFORCE</span>
+              <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
+                <span style={{width:7,height:7,borderRadius:"50%",background:"#EF4444",boxShadow:"0 0 8px #EF4444",display:"inline-block",animation:"pulse 2s infinite"}}/>
+                <span style={{fontSize:10,color:"#38BDF8",fontWeight:700,letterSpacing:"2px",textTransform:"uppercase"}}>AO VIVO · SALESFORCE & IA</span>
               </div>
-              <h1 style={{margin:0,fontSize:20,fontWeight:800,background:"linear-gradient(135deg,#E2E8F0,#A78BFA)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Intelligence Digest</h1>
-              <p style={{margin:"2px 0 0",fontSize:10,color:"#334155"}}>Curadoria proativa · inglês + fontes globais traduzidas · últimas 8 semanas</p>
+              <h1 className="serif" style={{margin:0,fontSize:24,fontWeight:700,color:"#EEF2FF",letterSpacing:"-0.01em",lineHeight:1.2}}>Intelligence Digest</h1>
+              <p style={{margin:"4px 0 0",fontSize:11,color:"#475569"}}>Bússola para Arquitetos de IA · curadoria proativa · Jun 2026</p>
             </div>
-            <div style={{textAlign:"right"}}>
-              <div style={{fontSize:10,color:"#1E293B",marginBottom:4}}>{new Date().toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})}</div>
-              <div style={{background:"rgba(251,191,36,.12)",border:"1px solid rgba(251,191,36,.35)",borderRadius:20,padding:"2px 9px",fontSize:10.5,color:"#FBBF24",fontWeight:700,display:"inline-block"}}>⚡ {totalAlerts} alertas · {totalItems} insights</div>
+            <div style={{textAlign:"right",flexShrink:0,paddingTop:2}}>
+              <div style={{fontSize:10.5,color:"#475569",marginBottom:5}}>{new Date().toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})}</div>
+              <div style={{background:"rgba(251,191,36,.1)",border:"1px solid rgba(251,191,36,.3)",borderRadius:999,padding:"3px 10px",fontSize:10.5,color:"#FBBF24",fontWeight:700,display:"inline-block"}}>⚡ {totalAlerts} alertas · {totalItems} insights</div>
             </div>
           </div>
           <div style={{display:"flex",flexWrap:"wrap",gap:5,marginBottom:9}}>
@@ -366,16 +370,16 @@ function App(){
             })}
           </div>
           <div style={{display:"flex",gap:5,alignItems:"center"}}>
-            <span style={{fontSize:10,color:"#334155",marginRight:2}}>Para:</span>
+            <span style={{fontSize:10,color:"#475569",marginRight:2,fontWeight:500}}>Audiência:</span>
             {[null,"SE","TA","Build","Exec"].map(r=>{
               const a=r?AUD[r]:null;const on=aud===r;
               return(
                 <button key={r||"all"} onClick={()=>setAud(r)} style={{
-                  background:on?(a?a.b:"rgba(255,255,255,.08)"):"transparent",
-                  border:`1px solid ${on?(a?a.c:"rgba(255,255,255,.2)"):"rgba(255,255,255,.08)"}`,
-                  borderRadius:14,padding:"3px 10px",
-                  color:on?(a?a.c:"#E2E8F0"):"#475569",
-                  fontSize:10.5,fontWeight:on?700:400,cursor:"pointer",transition:"all .15s",
+                  background:on?(a?a.b:"rgba(238,242,255,.08)"):"transparent",
+                  border:`1px solid ${on?(a?a.c:"rgba(238,242,255,.25)"):"#1E293B"}`,
+                  borderRadius:999,padding:"3px 11px",
+                  color:on?(a?a.c:"#EEF2FF"):"#475569",
+                  fontSize:11,fontWeight:on?700:400,cursor:"pointer",transition:"all .15s",
                 }}>{r?a.l:"Todos"}</button>
               );
             })}
@@ -383,12 +387,12 @@ function App(){
         </div>
       </div>
       <div style={{maxWidth:920,margin:"0 auto",padding:"18px 16px 0"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14,paddingBottom:12,borderBottom:"1px solid #1E293B"}}>
           <div>
-            <h2 style={{margin:0,fontSize:16,fontWeight:700,color:"#E2E8F0"}}>{tr.label}</h2>
-            <p style={{margin:"3px 0 0",fontSize:11,color:"#2D3E55"}}>{items.length} insight{items.length!==1?"s":""} · curadoria {data.u}{aud?` · ${AUD[aud].l}`:""}</p>
+            <h2 className="serif" style={{margin:0,fontSize:20,fontWeight:700,color:"#EEF2FF",lineHeight:1.2}}>{tr.label}</h2>
+            <p style={{margin:"4px 0 0",fontSize:11,color:"#475569"}}>{items.length} insight{items.length!==1?"s":""} · curadoria {data.u}{aud?` · ${AUD[aud].l}`:""}</p>
           </div>
-          <span style={{background:tr.color+"14",border:`1px solid ${tr.color}30`,borderRadius:20,padding:"3px 11px",fontSize:10,color:tr.color,fontWeight:700}}>✓ curado</span>
+          <span style={{background:tr.color+"12",border:`1px solid ${tr.color}30`,borderRadius:999,padding:"3px 12px",fontSize:10,color:tr.color,fontWeight:700,letterSpacing:"0.04em"}}>✓ curado</span>
         </div>
         {items.length===0?(
           <div style={{textAlign:"center",padding:"40px",color:"#334155"}}>
@@ -396,9 +400,9 @@ function App(){
             <p style={{fontSize:13}}>Nenhum item para <strong style={{color:AUD[aud]?.c}}>{AUD[aud]?.l}</strong> nesta trilha.</p>
           </div>
         ):items.map((item,i)=><Card key={i} item={item}/>)}
-        <p style={{textAlign:"center",marginTop:12,fontSize:10.5,color:"#1A2535",lineHeight:1.8}}>
+        <p style={{textAlign:"center",marginTop:16,fontSize:11,color:"#334155",lineHeight:1.8}}>
           Clique em cada card para ver a decisão arquitetural ↑<br/>
-          <span style={{color:"#1E3A5F"}}>Fontes: inglês + PT · curadoria automática · últimas 8 semanas · Jun/2026</span>
+          <span style={{color:"#2D3E55"}}>Fontes: inglês + PT · curadoria proativa · últimas 8 semanas · Jun/2026</span>
         </p>
       </div>
     </div>
