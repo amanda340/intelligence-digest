@@ -642,42 +642,47 @@ function App(){
         </div>
       </header>
 
-      {/* ── ROLE FILTER ── */}
+      {/* ── FILTROS ── */}
       <div style={{background:"#FFF",borderBottom:"1px solid #E5E7EB"}}>
-        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px",
-          display:"flex",alignItems:"center",height:38,gap:6,
-          overflowX:"auto",scrollbarWidth:"none"}}>
-          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
-            textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
-            {t.roles_lbl}
-          </span>
-          {[null,...Object.keys(AUD)].map(r=>{
-            const a=r?AUD[r]:null;const on=audFilter===r;
-            return(
-              <button key={r||"all"} onClick={()=>setAudFilter(r)} style={{
-                background:on?(a?a.b:"rgba(0,0,0,.06)"):"transparent",
-                border:`1px solid ${on?(a?a.c+"55":"rgba(0,0,0,.15)"):"#E5E7EB"}`,
-                borderRadius:99,padding:"3px 12px",flexShrink:0,
-                color:on?(a?a.c:"#111"):"#6B7280",
-                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
-                {r?a.l:t.all_roles}
-              </button>
-            );
-          })}
-          {/* PERIOD DIVIDER */}
-          <div style={{width:1,height:20,background:"#E5E7EB",flexShrink:0,margin:"0 4px"}}/>
-          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,textTransform:"uppercase",
-            letterSpacing:"1.2px",flexShrink:0}}>Período</span>
-          {[{v:7,l:"7d"},{v:30,l:"30d"},{v:60,l:"60d"},{v:90,l:"3m"}].map(p=>{
-            const on=periodDays===p.v;
-            return(
-              <button key={p.v} onClick={()=>setPeriodDays(p.v)} style={{
-                background:on?"#1D4ED8":"transparent",
-                border:`1px solid ${on?"#1D4ED8":"#E5E7EB"}`,
-                borderRadius:99,padding:"3px 10px",flexShrink:0,
-                color:on?"#FFF":"#6B7280",
-                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
-                {p.l}
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"8px 14px",display:"flex",flexDirection:"column",gap:6}}>
+
+          {/* LINHA 1: Perfil */}
+          <div style={{display:"flex",alignItems:"center",gap:5,flexWrap:"wrap"}}>
+            <span style={{fontSize:9.5,color:"#9CA3AF",fontWeight:700,
+              textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0,minWidth:44}}>
+              {t.roles_lbl}
+            </span>
+            {[null,...Object.keys(AUD)].map(r=>{
+              const a=r?AUD[r]:null;const on=audFilter===r;
+              return(
+                <button key={r||"all"} onClick={()=>setAudFilter(r)} style={{
+                  background:on?(a?a.b:"rgba(0,0,0,.06)"):"transparent",
+                  border:`1px solid ${on?(a?a.c+"55":"rgba(0,0,0,.15)"):"#E5E7EB"}`,
+                  borderRadius:99,padding:"3px 11px",flexShrink:0,
+                  color:on?(a?a.c:"#111"):"#6B7280",
+                  fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                  {r?a.l:t.all_roles}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* LINHA 2: Período */}
+          <div style={{display:"flex",alignItems:"center",gap:5,flexWrap:"wrap"}}>
+            <span style={{fontSize:9.5,color:"#9CA3AF",fontWeight:700,
+              textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0,minWidth:44}}>
+              Período
+            </span>
+            {[{v:7,l:"7 dias"},{v:30,l:"30 dias"},{v:60,l:"60 dias"},{v:90,l:"3 meses"}].map(p=>{
+              const on=periodDays===p.v;
+              return(
+                <button key={p.v} onClick={()=>setPeriodDays(p.v)} style={{
+                  background:on?"#1D4ED8":"transparent",
+                  border:`1px solid ${on?"#1D4ED8":"#E5E7EB"}`,
+                  borderRadius:99,padding:"3px 11px",flexShrink:0,
+                  color:on?"#FFF":"#6B7280",
+                  fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                  {p.l}
               </button>
             );
           })}
