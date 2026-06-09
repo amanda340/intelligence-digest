@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Intelligence Digest · Arquitetos Salesforce</title>
+<title>Intelligence Digest · Bússola para Arquitetos de IA</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -12,7 +12,7 @@
 body{background:linear-gradient(160deg,#020817 0%,#0D1526 100%);min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#E2E8F0}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(167,139,250,.25);border-radius:3px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.5)}60%{box-shadow:0 0 8px 3px rgba(251,191,36,.15)}}
+@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4)}70%{box-shadow:0 0 0 5px rgba(251,191,36,0)}}
 </style>
 </head>
 <body><div id="root"></div>
@@ -20,205 +20,253 @@ body{background:linear-gradient(160deg,#020817 0%,#0D1526 100%);min-height:100vh
 const {useState,useMemo}=React;
 
 const AUD={
-  SE:    {l:"SE / AE",    c:"#38BDF8",b:"rgba(56,189,248,.13)"},
-  TA:    {l:"TA / EA",    c:"#A78BFA",b:"rgba(167,139,250,.13)"},
-  Build: {l:"Builder",   c:"#34D399",b:"rgba(52,211,153,.13)"},
-  Exec:  {l:"C-Level",   c:"#FB923C",b:"rgba(251,146,60,.13)"},
+  SE:    {l:"SE / AE",   c:"#38BDF8",b:"rgba(56,189,248,.13)"},
+  TA:    {l:"TA / EA",   c:"#A78BFA",b:"rgba(167,139,250,.13)"},
+  Build: {l:"Builder",  c:"#34D399",b:"rgba(52,211,153,.13)"},
+  Exec:  {l:"C-Level",  c:"#FB923C",b:"rgba(251,146,60,.13)"},
 };
 
 const TRACKS=[
-  {id:"hot",     label:"🔥 Hot Now",              color:"#FBBF24"},
-  {id:"fabric",  label:"🧵 Agent Fabric",          color:"#00A1E0"},
-  {id:"sf",      label:"☁️ Salesforce & Releases", color:"#0EA5E9"},
-  {id:"agnostic",label:"🌐 Mercado Agnóstico",     color:"#EC4899"},
-  {id:"rivals",  label:"⚔️ Concorrentes",          color:"#EF4444"},
-  {id:"crossref",label:"🔀 Cross-Reference",       color:"#F59E0B"},
-  {id:"arch",    label:"🏛️ Arquitetura & MCP/A2A", color:"#A855F7"},
-  {id:"tools",   label:"🛠️ LLMOps & Ferramentas",  color:"#06B6D4"},
-  {id:"skills",  label:"🎓 Skills & Carreira",     color:"#10B981"},
+  {id:"hot",      label:"🔥 Urgente Agora",            color:"#FBBF24"},
+  {id:"summer26", label:"☁️ Summer '26 Release",        color:"#00A1E0"},
+  {id:"fabric",   label:"🧵 Agent Fabric",              color:"#7B5EA7"},
+  {id:"agnostic", label:"🌐 Frameworks & Mercado",      color:"#EC4899"},
+  {id:"rivals",   label:"⚔️ Concorrentes",              color:"#EF4444"},
+  {id:"crossref", label:"🔀 Cross-Reference",           color:"#F59E0B"},
+  {id:"arch",     label:"🏛️ Arquitetura MCP / A2A",    color:"#A855F7"},
+  {id:"tools",    label:"🛠️ LLMOps & Observabilidade",  color:"#06B6D4"},
+  {id:"skills",   label:"🎓 Skills & Carreira",          color:"#10B981"},
 ];
 
-const TAG={
-  "FIFA":"#00A1E0","Agentforce":"#00A1E0","Release":"#0EA5E9","Agent Fabric":"#7B5EA7",
-  "LLM Gov":"#EC4899","Guided Det":"#A855F7","MCP Bridge":"#06B6D4",
+const TC={
+  "FIFA":"#00A1E0","Agentforce":"#00A1E0","Headless":"#38BDF8","Summer 26":"#0EA5E9",
+  "AgentExchange":"#7B5EA7","Agent Fabric":"#7B5EA7","LLM Gov":"#EC4899","MCP Bridge":"#06B6D4",
+  "Guided Det":"#A855F7","Agentforce Ops":"#0EA5E9","Multi-Agent":"#A855F7","Momentum":"#34D399",
+  "LangGraph":"#10B981","Claude SDK":"#FBBF24","CrewAI":"#34D399","Frameworks":"#EC4899",
   "OpenAI":"#10B981","Anthropic":"#FBBF24","Google":"#4285F4","Microsoft":"#00BCF2",
-  "ServiceNow":"#62D84E","AWS":"#FF9900","SAP":"#F0AB00",
+  "ServiceNow":"#62D84E","AWS":"#FF9900","SAP":"#F0AB00","Kore.ai":"#E879F9",
   "Build-vs-Buy":"#F59E0B","Decisão":"#FBBF24","Agent Wash":"#EF4444",
-  "MCP":"#EC4899","A2A":"#D946EF","Multi-Agent":"#A855F7","Padrão":"#8B5CF6",
+  "MCP":"#EC4899","A2A":"#D946EF","Padrão":"#8B5CF6","WebMCP":"#22D3EE",
   "Langfuse":"#06B6D4","LLMOps":"#0EA5E9","Observab":"#22D3EE",
   "Skill":"#10B981","Mercado":"#F472B6","Cert":"#34D399",
 };
 
 const N={
-// ══════════ HOT NOW (últimas 72h) ══════════
+
+// ═══════════════ 🔥 URGENTE AGORA ═══════════════
 hot:{u:"Jun/2026",d:[
-  {t:"Salesforce é Apoiador Oficial da FIFA World Cup 2026 e 2027",
-   s:"Anunciado em 5/jun: Agentforce 360 e Slack no centro das operações. Slack coordena workforce nas 16 cidades-sede (MX, CA, USA). Para a Women's World Cup 2027 no Brasil, agentes autônomos raciocinam sobre dados do torneio para suporte omnichannel personalizado.",
-   d:"Primeiro caso de produção pública de Agentforce em evento de 6bi de fãs. Use como âncora em deals de entretenimento, telco e eventos — Copa começa 11/jun.",
-   f:"Salesforce/BusinessWire",dt:"05/Jun/2026",tag:"FIFA",alert:true,aud:["SE","Exec","TA"],
-   url:"https://www.salesforce.com/news/press-releases/2026/06/05/salesforce-transforms-fifa-world-cup-engagement-and-operations/"},
-  {t:"Agent Fabric expande com LLM Governance e MCP Bridge (TDX 2026)",
-   s:"Salesforce anuncia 4 novas capacidades: Agent Script for Agent Broker (determinismo guiado), LLM Governance Layer no AI Gateway (controle de custo/routing de tokens), MCP Bridge (APIs existentes viram ferramentas agênticas sem código) e descoberta automática de agentes no Amazon Bedrock, Microsoft Foundry e GoDaddy.",
-   d:"LLM Governance é o argumento de governança central para deals enterprise — gerencia custos de tokens, compliance e routing entre modelos (OpenAI, Gemini, Claude). Inclua no SOW de qualquer projeto multi-LLM.",
-   f:"Salesforce/InfoWorld/TDX",dt:"Abr/2026",tag:"Agent Fabric",alert:true,aud:["TA","Build","Exec"],
-   url:"https://www.salesforce.com/news/stories/agent-fabric-control-plane-announcement/"},
-  {t:"BMS padroniza Claude Enterprise para 30.000 funcionários",
-   s:"Bristol Myers Squibb (top-5 farma) foi a primeira empresa a fazer compromisso público e company-wide com Claude Enterprise, embutindo agentes em pipelines de descoberta, desenvolvimento e entrega de medicamentos. OpenAI responde com Deployment Company recrutando 150+ engenheiros para enterprise.",
-   d:"Sinal claro: enterprise escolhe por governança e segurança, não só por capacidade de modelo. Claude/Anthropic ganha onde regulação e dados sensíveis importam — argumento válido para saúde, finanças e telco.",
-   f:"GitHub awesome-ai-agents-2026",dt:"Mai/2026",tag:"Anthropic",alert:true,aud:["Exec","SE","TA"],url:null},
+  {t:"🆕 Summer '26 disponível 15/jun — Headless 360 muda tudo para devs",
+   s:"A maior notícia técnica do release: Headless 360 torna CADA capacidade Salesforce disponível como API REST, tool MCP ou comando CLI — acessível por app, humano ou agente autônomo. Agent Script e Agentforce Builder saem do beta e viram GA. A partir de 13/jul, o botão 'New Agent' abrirá SOMENTE o novo builder. Migração de agentes legados: one-click upgrade converte subagentes, ações e conexões para Agent Script.",
+   d:"Headless 360 é a mudança arquitetural mais significativa do ano: qualquer sistema externo (Claude, Cursor, ChatGPT) pode interagir seguramente com dados e automações Salesforce via MCP. Revise integrações existentes que dependem de UI — muitas podem virar chamadas MCP.",
+   f:"Salesforce Developers Blog",dt:"Jun/2026",tag:"Headless",alert:true,
+   aud:["TA","Build","SE"],url:"https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release"},
+  {t:"🆕 Salesforce × FIFA — Agentforce em operação real para 6 bilhões de fãs",
+   s:"Parceria anunciada 5/jun: Agentforce 360 e Slack nas 16 cidades-sede da Copa 2026 (inicia 11/jun). Slack coordena workforce; Agentforce gerencia operações de torneio e stakeholders. Para Women's World Cup 2027 no Brasil: agentes autônomos entregam suporte omnichannel personalizado em escala.",
+   d:"Primeiro caso de produção pública de Agentforce em evento de escala global. Use como âncora em deals de entretenimento, telco e serviços ao cliente — Copa começa em dias.",
+   f:"Salesforce Press Release",dt:"05/Jun/2026",tag:"FIFA",alert:true,
+   aud:["SE","Exec","TA"],url:"https://www.salesforce.com/news/press-releases/2026/06/05/salesforce-transforms-fifa-world-cup-engagement-and-operations/"},
+  {t:"🆕 Agent Broker GA em junho — visual canvas + suporte a modelos Salesforce",
+   s:"Agent Broker (roteamento inteligente do Agent Fabric) sai do beta e vai a GA em junho com: canvas visual de authoring para workflows multi-agente, suporte a modelos Salesforce nativos e MCP OAuth. Combinado com Agent Script, entrega determinismo guiado completo em produção.",
+   d:"Agent Broker GA muda o patamar de produção do Agent Fabric — não é mais beta. Se você tem projetos planejados com orquestração multi-agente, o stack está maduro para produção agora.",
+   f:"Salesforce/Vantagepoint",dt:"Jun/2026",tag:"Agent Fabric",alert:true,
+   aud:["TA","Build"],url:null},
 ]},
 
-// ══════════ AGENT FABRIC ══════════
+// ═══════════════ ☁️ SUMMER '26 RELEASE ═══════════════
+summer26:{u:"Jun/2026",d:[
+  {t:"Headless 360: Salesforce vira plataforma API-first e agent-ready",
+   s:"Principal tema técnico do Summer '26 (API v67.0): todas as capacidades Salesforce expostas como API REST, tool MCP ou comando CLI. Qualquer caller autenticado — app, humano ou agente — acessa dados e automações. Claude, Cursor e ChatGPT podem interagir com o org via MCP de forma segura e governada.",
+   d:"Projete novas integrações como MCP tools em vez de REST calls customizadas — é o padrão que o Salesforce está convergindo. Revise quais integrações MuleSoft existentes podem ser simplificadas.",
+   f:"Salesforce Developers Blog / Vantagepoint",dt:"Jun/2026",tag:"Headless",alert:false,
+   aud:["TA","Build"],url:"https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release"},
+  {t:"Multi-Agent Orchestration GA: um único ponto de contato, contexto compartilhado",
+   s:"Agentforce Multi-Agent Orchestration sai do Summer '26 como GA: agentes trabalham como equipe unificada para resolver workflows end-to-end complexos. Cliente tem um único ponto de contato com contexto compartilhado entre canais — nunca precisa se repetir ou encontrar o agente certo.",
+   d:"A orquestração nativa elimina a necessidade de frameworks externos (LangGraph, CrewAI) para casos de uso dentro do ecossistema Salesforce. Avalie quando usar Agentforce Orchestration nativo vs Agent Fabric para multi-vendor.",
+   f:"Salesforce Summer '26 Announcement",dt:"Mai-Jun/2026",tag:"Multi-Agent",alert:false,
+   aud:["TA","SE","Exec"],url:"https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"},
+  {t:"Agentforce Operations: back-office sem gargalos (underwriting, sinistros, onboarding)",
+   s:"Novo produto anunciado abr/2026, GA junho. Agentes gerenciam processos end-to-end de back-office — extração de dados de documentos, follow-up de assinaturas, validação de compliance. Exemplos: underwriting bancário completo, resolução de sinistros de seguro, onboarding de parceiros via múltiplos sistemas. Acessível via email, Slack e MS Teams.",
+   d:"Agentforce Operations é o argumento para Financial Services, Insurance e Healthcare — processos regulados onde agentes autônomos com determinismo guiado têm ROI claro. Inclua no mapa de oportunidades de cada vertical.",
+   f:"Salesforce",dt:"Abr-Jun/2026",tag:"Agentforce Ops",alert:false,
+   aud:["SE","Exec","TA"],url:"https://www.salesforce.com/news/stories/agentforce-operations-announcement/"},
+  {t:"Momentum: captura toda conversa de vendas e alimenta Agentforce em tempo real",
+   s:"Nova capacidade do Summer '26: captura e estrutura automaticamente calls, emails e meetings, escrevendo os dados de volta ao Salesforce em tempo real — sem mudar como os reps trabalham. Resolve o problema central do Agentforce Sales: agentes trabalhando com dados incompletos de deals.",
+   d:"Momentum muda o argumento de ROI do Agentforce Sales: não é só automação de tasks, é completude de dados de pipeline que melhora forecasting e velocity. Use em demos para mostrar o loop completo.",
+   f:"Salesforce Summer '26",dt:"Jun/2026",tag:"Momentum",alert:false,
+   aud:["SE","Exec"],url:"https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"},
+  {t:"AgentExchange: marketplace de agentes, ações e templates de parceiros",
+   s:"Lançado no TDX 2026: marketplace para agentes pré-construídos, ações e templates de parceiros — o equivalente do AppExchange para o ecossistema agêntico. Permite que SIs e ISVs distribuam soluções de agentes reutilizáveis.",
+   d:"AgentExchange cria nova oportunidade de IP para SIs: construir e publicar agentes especializados por vertical (financeiro, saúde, telco) como produto recorrente. Avalie como posicionar offerings da sua prática.",
+   f:"Vantagepoint / Salesforce",dt:"Abr/2026",tag:"AgentExchange",alert:false,
+   aud:["SE","TA","Exec"],url:null},
+  {t:"Flow Orchestration agora incluso em todas as edições — sem custo adicional",
+   s:"A partir do Summer '26, Flow Orchestration runs incluídos no Enterprise, Performance, Unlimited e Developer editions sem limitações de uso. Remove barreira de adoção para automações complexas multi-step que antes tinham custo variável.",
+   d:"Argumento direto para clientes que evitavam Flow Orchestration por custo: agora é incluso. Revise projetos que optaram por soluções custom por limitações de pricing — podem ser simplificados.",
+   f:"Vantagepoint",dt:"Jun/2026",tag:"Summer 26",alert:false,
+   aud:["Build","TA","SE"],url:null},
+]},
+
+// ═══════════════ 🧵 AGENT FABRIC ═══════════════
 fabric:{u:"Jun/2026",d:[
-  {t:"Agent Fabric: control plane multi-vendor para IA empresarial",
-   s:"Lançado em set/2025, expandido no TDX abr/2026. Quatro pilares: Agent Registry (catálogo central), Agent Broker (roteamento inteligente), Agent Governance (permissões e data access) e Agent Visualizer (insights em tempo real de interações e fluxos). Enterprises como Capita, Alcon e Rush University já orquestram centenas de agentes multi-plataforma.",
-   d:"Posicione Agent Fabric como a resposta Salesforce para o 'agent sprawl' — problema real em contas grandes que acumularam agentes de múltiplos vendors. É o argumento de governança que justifica consolidar no stack Salesforce.",
-   f:"Salesforce/MuleSoft Docs",dt:"Set/2025",tag:"Agent Fabric",alert:false,aud:["TA","Exec","SE"],
-   url:"https://architect.salesforce.com/docs/architect/fundamentals/guide/mulesoft-agent-fabric-deep-dive"},
-  {t:"Guided Determinism: Salesforce admite que autonomia total não está pronta",
-   s:"Agent Script for Agent Broker permite definir regras fixas para handoffs críticos (escalada de reclamação, processos de reembolso) enquanto o LLM raciocina livremente entre os passos. Sirocco Group: 'É o reconhecimento público de que orquestração multi-agente totalmente autônoma não é enterprise-ready'.",
-   d:"Use guided determinism como argumento de maturidade: autonomia calibrada é mais vendável que autonomia total em contas enterprise com compliance. Documenta a decisão arquitetural Router + Agent Script no Projeto Solar.",
-   f:"Salesforce/UCToday/Sirocco",dt:"Abr/2026",tag:"Guided Det",alert:false,aud:["TA","Build"],url:null},
-  {t:"MCP Bridge: APIs existentes viram ferramentas agênticas sem código",
-   s:"Nova capacidade do Agent Fabric transforma APIs existentes (REST, SOAP, GraphQL) em MCP servers automaticamente — sem refatoração de código. Informatica-hosted MCPs aparecem automaticamente no Agent Registry, garantindo que cada interação de agente começa com dados governados.",
-   d:"MCP Bridge elimina o argumento 'precisamos refatorar tudo antes de ter agentes'. Qualquer API existente pode virar ferramenta de agente hoje — reduz drasticamente o tempo de integração em projetos Agentforce.",
-   f:"Salesforce/InfoWorld",dt:"Abr/2026",tag:"MCP Bridge",alert:false,aud:["TA","Build"],url:null},
-  {t:"Descoberta automática: Bedrock, Microsoft Foundry e GoDaddy no Registry",
-   s:"Agent Fabric agora descobre automaticamente agentes rodando no Amazon Bedrock, Microsoft Foundry e GoDaddy, além dos agents Salesforce nativos. Disponível nas novas regiões Canadá e Japão com suporte a Flex Gateway em Runtime Fabric.",
-   d:"A descoberta cross-vendor é o diferencial de plataforma vs framework. Torna o argumento 'single pane of glass' concreto — todos os agentes da empresa visíveis e governados, independente de onde foram construídos.",
-   f:"Salesforce/TDX",dt:"Abr/2026",tag:"Agent Fabric",alert:false,aud:["TA","Exec"],url:null},
+  {t:"Agent Fabric: control plane multi-vendor para governar o 'agent sprawl'",
+   s:"Lançado set/2025, expandido TDX abr/2026. Quatro pilares: Agent Registry (catálogo central de todos os agentes e tools, incluindo MCP e A2A servers), Agent Broker (roteamento inteligente), Agent Governance (permissões e data access) e Agent Visualizer (insights em tempo real). Empresas como Capita, Alcon e Rush University já orquestram centenas de agentes multi-plataforma.",
+   d:"Posicione Agent Fabric como resposta ao 'agent sprawl' — o problema real de empresas que acumularam agentes de múltiplos vendors sem governança central. É o argumento que justifica consolidar no stack Salesforce/MuleSoft.",
+   f:"Salesforce / MuleSoft Docs",dt:"Set/2025",tag:"Agent Fabric",alert:false,
+   aud:["TA","Exec","SE"],url:"https://architect.salesforce.com/docs/architect/fundamentals/guide/mulesoft-agent-fabric-deep-dive"},
+  {t:"Guided Determinism: autonomia calibrada em vez de autonomia total",
+   s:"Agent Script for Agent Broker: regras fixas para handoffs críticos (escalada de reclamação, processos de reembolso, compliance) enquanto o LLM raciocina livremente entre os passos. Sirocco Group: 'É o reconhecimento público de que orquestração multi-agente totalmente autônoma não é enterprise-ready'. Guided determinism é a posição oficial do Salesforce.",
+   d:"Use guided determinism como argumento de maturidade com clientes: autonomia calibrada é mais vendável que autonomia total em enterprise. Documenta a decisão do FinDiagAgent — Router + Agent Script substitui os 7 subagentes hardcoded.",
+   f:"Salesforce / UCToday / Sirocco Group",dt:"Abr/2026",tag:"Guided Det",alert:false,
+   aud:["TA","Build","SE"],url:null},
+  {t:"MCP Bridge: qualquer API existente vira tool de agente sem código",
+   s:"APIs REST, SOAP e GraphQL existentes transformadas em MCP servers automaticamente. Informatica-hosted MCPs aparecem no Agent Registry garantindo que agentes começam com dados governados. Suporte a OAuth chega em junho. Elimina o argumento 'precisamos refatorar antes de ter agentes'.",
+   d:"MCP Bridge muda o argumento de entrada para projetos Agentforce: qualquer API legada já existente pode ser exposta como tool de agente hoje — reduz drasticamente o escopo de integração e o tempo até valor.",
+   f:"Salesforce / InfoWorld",dt:"Abr/2026",tag:"MCP Bridge",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"LLM Governance Layer: controle central de tokens, custo e routing de modelos",
+   s:"Novo layer no AI Gateway: um ponto central para gerenciar uso de tokens, enforçar regras de routing, rastrear spend e garantir compliance em múltiplos LLMs (OpenAI, Gemini, Claude). Scott Bickley (Info-Tech): 'Sem isso, times diferentes escolhem modelos diferentes, negociam contratos de API separados e gerenciam token budgets localmente'.",
+   d:"LLM Governance é o argumento de governança enterprise para contas multi-LLM. Inclua no SOW de qualquer projeto que usa mais de um modelo — é o que transforma proof-of-concept em governança de produção.",
+   f:"Salesforce / InfoWorld",dt:"Abr/2026",tag:"LLM Gov",alert:false,
+   aud:["TA","Exec"],url:null},
 ]},
 
-// ══════════ SALESFORCE & RELEASES ══════════
-sf:{u:"Jun/2026",d:[
-  {t:"Agentforce 360 GA: Builder, Agent Script, Voice e Intelligent Context",
-   s:"Quatro capacidades em GA: Agentforce Builder, Agent Script (controle de fluxo determinístico), Agentforce Voice e Intelligent Context (grounding em dados não estruturados). Plataforma unificada: Agentforce 360 + Data 360 + Customer 360 Apps + Slack. 29k deals, ~US$800M ARR, 60% dos clientes em produção.",
-   d:"Agent Script substitui Flow wrappers síncronos — reavalie arquiteturas legadas. Intelligent Context abre RAG sobre documentos como diferencial. Flex Credits: modele consumo desde o design da solução.",
-   f:"Salesforce Monday/Zacks",dt:"Jan/2026",tag:"Agentforce",alert:false,aud:["TA","Build","SE"],url:null},
-  {t:"Agentforce in Setup (beta): prompt bar em todas as páginas de configuração",
-   s:"Disponível em todo o Setup com prompt bar, recomendações contextuais e métricas acionáveis do próprio org. Vai além de reset de senha — apoia decisões complexas de configuração de permissões, validações e automações.",
-   d:"Impacta estimativas de esforço de projetos: tarefas de admin que levavam horas podem virar minutos. Inclua na proposta como redução de TCO operacional pós go-live.",
-   f:"Salesforce Ben",dt:"Jan/2026",tag:"Agentforce",alert:false,aud:["Build","TA"],url:null},
-  {t:"Spring '26: Sales Workspace, rollout em 3 fases e governança de automação",
-   s:"Sales Workspace unifica insights de reps, tasks e orientação preditiva de Agentforce em uma interface. Rollout: 16/jan, 13/fev, 20/fev por instance group. Reforço de governança de automação para times globais.",
-   d:"Verifique data de upgrade no Trust Maintenance Calendar. Revise Lightning Pages e customizações de home que conflitam com Sales Workspace — é comum gerar bloqueios em clientes com layouts muito customizados.",
-   f:"Cyntexa/Salesforce Ben",dt:"Jan-Fev/2026",tag:"Release",alert:false,aud:["Build","TA","SE"],url:null},
-]},
-
-// ══════════ MERCADO AGNÓSTICO (bombando!) ══════════
+// ═══════════════ 🌐 FRAMEWORKS AGNÓSTICOS & MERCADO ═══════════════
 agnostic:{u:"Jun/2026",d:[
-  {t:"Google Cloud Next 2026: A2A nativo em LangGraph, CrewAI, AutoGen e Semantic Kernel",
-   s:"Google declara 'The Agentic Cloud'. A2A protocol agora integrado nativamente em LangGraph, CrewAI, LlamaIndex Agents, Semantic Kernel e AutoGen. Google ADK v1.0 estável em Python, Go, Java e TypeScript — model-agnostic, deployável em container/Kubernetes. Project Mariner (browser agent) foi descontinuado e absorvido pelo Gemini Agent.",
-   d:"A2A virou padrão multi-framework — não é mais só Google. Qualquer stack que usa LangGraph ou CrewAI já tem A2A. Isso acelera a adoção do protocolo e reforça o argumento de interoperabilidade do Agent Fabric.",
-   f:"The Next Web",dt:"Mai/2026",tag:"Google",alert:true,aud:["TA","Build"],url:null},
-  {t:"Anthropic vs OpenAI: batalha pelo control plane de agentes enterprise",
-   s:"VentureBeat rastreia que Microsoft lidera em orquestração enterprise, OpenAI cresce (23→25% market share Q1). Anthropic tem primeiro foothold mensurável no orchestration layer. Bristol Myers Squibb, Snowflake e parceiros como Cognizant e CGI estão no centro da disputa. Claude ganha onde safety, long context e governance importam.",
-   d:"A briga não é mais pelo melhor modelo — é por quem controla onde o agente roda e quão difícil é sair. Posicione Agentforce como o layer de aplicação sobre o modelo, com a Einstein Trust Layer como moat.",
-   f:"VentureBeat/MarketingProfs",dt:"Mai/2026",tag:"Anthropic",alert:false,aud:["Exec","SE","TA"],url:null},
-  {t:"OpenAI lança modelos de voz em tempo real e Guaranteed Capacity anual",
-   s:"GPT-Realtime-2 (conversação), GPT-Realtime-Translate (70+ idiomas) e GPT-Realtime-Whisper (live transcription). Novo modelo de Guaranteed Capacity: reservas de compute de 1/2/3 anos com desconto — resposta ao Anthropic Priority Tier. Enterprise revenue já é 40% da receita total da OpenAI.",
-   d:"Voz em tempo real com tradução multilingual é diferencial para casos de uso de atendimento global — área onde Agentforce Voice compete diretamente. Monitore para posicionamento no próximo ciclo de deals.",
-   f:"MarketingProfs/GitHub",dt:"Mai/2026",tag:"OpenAI",alert:false,aud:["SE","Exec","TA"],url:null},
-  {t:"WebMCP: origem trial no Chrome 149 começa a moldar o padrão open",
-   s:"Google I/O 2026: origin trial do WebMCP no Chrome 149 abre coleta de feedback para o standard de acesso a tools por agentes via browser. Se aprovado, qualquer página web poderá expor tools para agentes — extensão natural do MCP para o ambiente web.",
-   d:"WebMCP pode transformar qualquer interface web em ponto de integração para agentes. Monitore para avaliar impacto em automações RPA e cenários de web automation que hoje dependem de Playwright/Selenium.",
-   f:"Jeffrey Stop/Google Blog",dt:"Mai/2026",tag:"Padrão",alert:false,aud:["Build","TA"],url:null},
-  {t:"Kore.ai Artemis: desafiante do Copilot Studio e Agentforce no Azure",
-   s:"Lançado em mai/2026 no Azure. Plataforma agent-native com Agent Blueprint Language (ABL) — linguagem YAML declarativa para workflows multi-agente. Posicionado como desafio estrutural ao Copilot Studio e Agentforce em médias empresas.",
-   d:"Novo entrante enterprise com posicionamento declarativo vs low-code. Monitore especialmente em contas Azure-first que ainda não têm Salesforce. A ABL pode influenciar como standards de definição de agentes evoluem.",
-   f:"GitHub awesome-ai-agents-2026",dt:"Mai/2026",tag:"Microsoft",alert:false,aud:["TA","SE"],url:null},
-  {t:"Gartner: primeiro Magic Quadrant para AI Coding Agents — mercado atinge maturidade",
-   s:"Primeiro MQ da Gartner para Enterprise AI Coding Agents (2026). Cursor e OpenAI Codex como Líderes; Cline e Windsurf como Desafiantes. Claude Code da Anthropic é o motivo pelo qual OpenAI e Microsoft/Google aceleraram investimento em coding agents.",
-   d:"O surgimento de um MQ sinaliza maturidade de mercado. Para consultores Salesforce: coding agents (especialmente Claude Code) estão mudando o velocity de desenvolvimento em projetos — inclua nas estimativas.",
-   f:"Gartner/GitHub",dt:"2026",tag:"Mercado",alert:false,aud:["Exec","SE","TA"],url:null},
+  {t:"Ranking de frameworks agnósticos 2026: LangGraph #1, Claude SDK #2, CrewAI #3",
+   s:"Baseado em 18+ deploys de produção (Alice Labs): LangGraph lidera para workflows stateful complexos com branching, retries e human-in-the-loop. Claude Agent SDK #2 — a mesma arquitetura que roda Claude Code, melhor para agentes Anthropic-nativos com MCP, skills e subagentes. CrewAI #3 para protótipos role-based rápidos. Pydantic AI ganhou tração para type safety (8/10 DX vs LangChain 5/10).",
+   d:"O Claude Agent SDK não é só para apps Anthropic — é o framework de referência para qualquer agente que precisa de MCP nativo, safety hooks e extended thinking. Avalie para implementações Agentforce custom onde o Agent Framework nativo não atende.",
+   f:"Alice Labs / QubitTool / GuruSup",dt:"Mai/2026",tag:"Claude SDK",alert:false,
+   aud:["TA","Build"],url:"https://alicelabs.ai/en/insights/best-ai-agent-frameworks-2026"},
+  {t:"Google A2A v1.0 nativo em LangGraph, CrewAI, AutoGen e Semantic Kernel",
+   s:"Google Cloud Next 2026 ('The Agentic Cloud'): A2A protocol integrado nativamente nos 5 principais frameworks. Google ADK v1.0 estável em Python, Go, Java e TypeScript — model-agnostic, deployável em qualquer container. Project Mariner (browser agent) descontinuado e absorvido pelo Gemini Agent. Managed MCP servers disponíveis em todos os serviços Google Cloud.",
+   d:"A2A é agora padrão multi-framework de fato — não é só protocolo do Google. Qualquer stack que usa LangGraph ou CrewAI tem A2A. Isso reforça a interoperabilidade do Agent Fabric e o argumento MCP/A2A como padrão aberto.",
+   f:"The Next Web",dt:"Mai/2026",tag:"Google",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"AWS lança Strands Agents — framework model-driven nativo no Bedrock",
+   s:"Strands Agents: framework open-source da AWS, profundamente integrado ao Amazon Bedrock. Filosofia model-driven: o modelo decide o fluxo de execução. Junto com Claude Agent SDK + Bedrock, vira o stack preferido para builds custom acima de 1M conversas/ano. Inclui streaming nativo e integração direta com Lambda e ECS.",
+   d:"Strands + Bedrock é o stack agnóstico de referência para builds do lado da infra. Conheça para a conversa técnica em contas AWS-native — e para avaliar quando o Agent Fabric do Salesforce é mais adequado que um build custom.",
+   f:"QubitTool / GitHub",dt:"Abr/2026",tag:"AWS",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"80% de casos de uso não precisa de multi-agente — a armadilha do over-engineering",
+   s:"Daily.dev e Alice Labs documentam o padrão: Single-agent resolve ~80% dos casos de uso. A armadilha é ir para multi-agente porque 'soa mais capaz'. Mixing de frameworks dentro de um mesmo domínio de produção gera dores operacionais e monitoramento fragmentado. Para workflows com 2-3 tools lineares, SDKs simples (OpenAI, Vercel) são suficientes.",
+   d:"Use esse número como filtro em discovery: antes de propor multi-agente, valide se a complexidade justifica. Multi-agente mal justificado gera retrabalho e desconfiança — é o erro mais comum em projetos Agentforce.",
+   f:"Daily.dev / Alice Labs",dt:"Mai/2026",tag:"Frameworks",alert:false,
+   aud:["TA","Build","SE"],url:"https://daily.dev/blog/ai-agents-guide-for-developers-langchain-crewai/"},
+  {t:"BMS, Snowflake e parceiros: Anthropic avança no control plane enterprise",
+   s:"Bristol Myers Squibb padroniza Claude Enterprise para 30k funcionários (drug discovery). VentureBeat rastreia: Microsoft lidera em orquestração enterprise (38%), OpenAI cresce (25,7%), Anthropic registra primeiro foothold mensurável. A disputa não é pelo melhor modelo — é por quem controla onde o agente roda e quão difícil é sair.",
+   d:"Agentforce já usa Claude como motor de raciocínio via Einstein Trust Layer. O crescimento de Anthropic no enterprise reforça o moat — mas também significa que o argumento de vendor lock-in precisa incluir a camada de modelo, não só a plataforma.",
+   f:"VentureBeat / GitHub awesome-ai-agents",dt:"Mai/2026",tag:"Anthropic",alert:false,
+   aud:["Exec","SE","TA"],url:null},
+  {t:"Kore.ai Artemis: desafiante no Azure com Agent Blueprint Language declarativa",
+   s:"Lançado mai/2026 no Azure. Plataforma agent-native com ABL (Agent Blueprint Language) — YAML declarativo para workflows multi-agente. Posicionado como desafio estrutural ao Copilot Studio e Agentforce em médias empresas. Força a discussão sobre abordagem declarativa (Kore.ai, n8n) vs imperativa (LangGraph, Claude SDK).",
+   d:"Monitore Kore.ai em contas Azure-first que ainda não têm Salesforce. A ABL pode influenciar standards de definição de agentes — assim como Terraform influenciou infra-as-code.",
+   f:"GitHub awesome-ai-agents-2026",dt:"Mai/2026",tag:"Kore.ai",alert:false,
+   aud:["TA","SE"],url:null},
 ]},
 
-// ══════════ CONCORRENTES ══════════
+// ═══════════════ ⚔️ CONCORRENTES ═══════════════
 rivals:{u:"Jun/2026",d:[
-  {t:"Microsoft Copilot Studio: 160 mil orgs, 400 mil+ agentes — o benchmark de adoção",
-   s:"Maior volume de adoção low-code. M365/Teams/SharePoint/Dynamics integrados nativamente. Azure AI Foundry cuida da lógica de IA; Copilot Studio é o front-end de deploy. Microsoft perdeu momentum de desenvolvimento conforme Anthropic e OpenAI aceleraram, mas base instalada é enorme.",
-   d:"Prospect já conhece Copilot. Argumento: onde vive o dado de cliente? Se no Salesforce, Trust Layer + Data 360 ganham em contexto e governança de CRM. Proponha coexistência via MCP/A2A.",
-   f:"MarkTechPost/CNBC",dt:"Mai/2026",tag:"Microsoft",alert:false,aud:["SE","TA","Exec"],url:null},
-  {t:"ServiceNow reestrutura pricing inteiro em tiers de autonomia de IA",
-   s:"Modelo comercial redesenhado em torno de Now Assist com tiers de autonomia crescente. Junto com IBM watsonx, lidera em indústrias reguladas (EU AI Act): audit trails, explicabilidade e proveniência como features centrais. Foco absoluto em ITSM, HR e orquestração de processos internos.",
-   d:"Em contas com forte back-office/ITSM, ServiceNow compete pelo employee-facing. A fronteira precisa estar no SOW — overlaps de escopo viram problemas de governança em projetos multi-plataforma.",
-   f:"TTMS/MarkTechPost",dt:"Mai/2026",tag:"ServiceNow",alert:false,aud:["TA","SE","Exec"],url:null},
-  {t:"SAP Joule roda Claude como motor primário — e vem bundled nas assinaturas",
-   s:"Joule Studio com agentes nativos para ERP, HCM, SCM, finanças e CX. Tanto Joule quanto Agentforce convergem no mesmo modelo (Claude) — diferença é proximidade ao dado de negócio. Em SAP-houses: custo marginal zero.",
-   d:"Em contas SAP-native, não compete pela tech de agente — justifique pelo dado de cliente no CRM e pela jornada de vendas/serviço. Salesforce + SAP via MCP Bridge é a proposta de coexistência mais forte.",
-   f:"DigitalApplied",dt:"Mai/2026",tag:"SAP",alert:false,aud:["TA","SE","Exec"],url:null},
-  {t:"AWS Bedrock + Claude SDK: o stack de build custom para >1M conversas/ano",
-   s:"Q Business (US$20/user/mês, 40+ conectores). Bedrock: Claude, Titan, Llama. Para builds acima de 1M conversas/ano, Claude Agent SDK + Bedrock tem TCO menor que qualquer plataforma pacote. OpenAI Codex cresce: 3 milhões de usuários semanais, Cognizant e CGI como SIs.",
-   d:"Bedrock compete na camada de infra — não diretamente com Agentforce. Onde o cliente quer BYOLLM ou residência de dados estrita, conheça para ser o arquiteto que não perde a conversa técnica.",
-   f:"EPC Group/DigitalApplied",dt:"Mai/2026",tag:"AWS",alert:false,aud:["TA","Exec"],url:null},
+  {t:"Microsoft Copilot Studio: 160k orgs, 400k+ agentes — mas perdendo ritmo de inovação",
+   s:"Maior volume de adoção low-code. Integração nativa M365/Teams/SharePoint/Dynamics. CNBC (jun/2026): 'Microsoft perdeu seu caminho na corrida de IA' — Anthropic e OpenAI aceleraram enquanto a Microsoft focou no ecossistema. Azure AI Foundry cuida da lógica profunda; Copilot Studio é o front-end de deploy para business users.",
+   d:"Prospect já conhece Copilot. Argumento: onde vive o dado de cliente? Se no Salesforce, Trust Layer + Data 360 ganham em contexto de CRM. Em contas Microsoft-heavy, proponha Agentforce no customer-facing + coexistência via MCP.",
+   f:"MarkTechPost / CNBC",dt:"Jun/2026",tag:"Microsoft",alert:false,
+   aud:["SE","TA","Exec"],url:null},
+  {t:"ServiceNow reestrutura pricing em tiers de autonomia — EU AI Act como diferencial",
+   s:"Novo modelo comercial baseado em tiers de autonomia crescente do Now Assist. Com IBM watsonx, lidera em indústrias reguladas sob o EU AI Act: audit trails, explicabilidade e proveniência como features nativas. Domínio absoluto em ITSM, HR e orquestração de processos internos.",
+   d:"Em contas com forte ITSM/back-office, ServiceNow compete pelo employee-facing. A fronteira precisa estar no SOW — sobreposição de escopo vira problema de governança. Agentforce ganha no customer-facing e Agentforce Operations no back-office financeiro.",
+   f:"TTMS / MarkTechPost",dt:"Mai/2026",tag:"ServiceNow",alert:false,
+   aud:["TA","SE","Exec"],url:null},
+  {t:"SAP Joule roda Claude como motor primário — bundled nas assinaturas SAP",
+   s:"Agentes nativos para ERP, HCM, SCM, finanças e CX. Joule e Agentforce convergem no mesmo modelo base (Claude) — diferença é proximidade ao dado de negócio. Em SAP-houses: custo marginal zero. Joule Studio GA em jun/2026 com novos conectores para SAP S/4HANA.",
+   d:"Em contas SAP-native, não compete pela tech de agente. Justifique Agentforce pelo dado de cliente no CRM e pela jornada comercial — não pelo modelo de IA. Salesforce + SAP via MCP Bridge é a proposta de coexistência mais forte.",
+   f:"DigitalApplied",dt:"Mai/2026",tag:"SAP",alert:false,
+   aud:["TA","SE","Exec"],url:null},
+  {t:"OpenAI Codex + Deployment Company: 3M usuários semanais, Cognizant e CGI como SIs",
+   s:"OpenAI avança no enterprise com Codex (coding agent), Deployment Company (150+ engenheiros para transformação enterprise) e Guaranteed Capacity (reservas de compute 1/2/3 anos). Enterprise revenue = 40% da receita total. Anthropic responde aumentando limites do Claude Code em 50% até julho.",
+   d:"A corrida de coding agents (Claude Code vs Codex) está mudando velocity de desenvolvimento em projetos Salesforce. Inclua nas estimativas de projeto — equipes que adotam coding agents entregam 2-3x mais rápido em fases de config e apex.",
+   f:"GitHub awesome-ai-agents / MarketingProfs",dt:"Mai/2026",tag:"OpenAI",alert:false,
+   aud:["TA","Exec","Build"],url:null},
 ]},
 
-// ══════════ CROSS-REFERENCE ══════════
+// ═══════════════ 🔀 CROSS-REFERENCE ═══════════════
 crossref:{u:"Jun/2026",d:[
-  {t:"Build-vs-Buy: o ponto de virada está em ~1 milhão de conversas/ano",
-   s:"Abaixo de 100K/ano: plataformas pacote vencem — overhead de engenharia não amortiza em 3 anos. Acima de 2M/ano: Claude SDK + Bedrock ou OpenAI + Azure ganham na convexidade de preço por conversa. SAP/ServiceNow/Oracle: custo marginal zero (bundled). Resultado: a decisão buy-vs-build depende de volume, não de preferência de vendor.",
-   d:"Leve esse modelo para toda conversa de arquitetura. Em deals Agentforce, estimar volume de conversas não é só pricing — é o argumento que determina a estratégia de implementação.",
-   f:"DigitalApplied",dt:"Mai/2026",tag:"Build-vs-Buy",alert:true,aud:["Exec","TA","SE"],url:null},
-  {t:"Mapa de fit por workflow 2026: quem vai para qual plataforma",
-   s:"Customer-facing → Agentforce/Kore.ai. Employee IT/HR → ServiceNow/Copilot Studio. Back-office → UiPath. Custom produção → LangGraph. Multimodal/A2A → Gemini Enterprise. SAP-native → Joule Studio. Regulado → watsonx/ServiceNow. Infra custom → Claude SDK + Bedrock.",
-   d:"Em RFPs multi-domínio, proponha arquitetura híbrida: Agentforce no customer-facing integrado via Agent Fabric/MCP aos demais. Isso diferencia TA de implementador e gera SOW maior.",
-   f:"MarkTechPost",dt:"Mai/2026",tag:"Decisão",alert:false,aud:["TA","SE","Exec"],url:null},
+  {t:"Build-vs-Buy: virada em ~1M conversas/ano — o cálculo que muda a proposta",
+   s:"Abaixo de 100K/ano: plataformas pacote vencem — overhead de engenharia não amortiza em 3 anos. Acima de 2M/ano: Claude SDK + Bedrock ou OpenAI + Azure vencem na convexidade de preço/conversa. SAP/ServiceNow/Oracle: bundled = custo marginal zero. 1M conversas/ano é o número que o arquiteto precisa dominar.",
+   d:"Leve esse cálculo para toda conversa de arquitetura. Volume de conversas não é só pricing — determina a estratégia de implementação. Abaixo de 1M: venda Agentforce com Flex Credits. Acima: proponha arquitetura híbrida.",
+   f:"DigitalApplied",dt:"Mai/2026",tag:"Build-vs-Buy",alert:false,
+   aud:["Exec","TA","SE"],url:null},
+  {t:"Mapa de fit por workflow 2026: quem usa qual plataforma",
+   s:"Customer-facing → Agentforce/Kore.ai. Employee IT/HR → ServiceNow/Copilot Studio. Back-office financeiro → Agentforce Operations/UiPath. Custom produção → LangGraph/Claude SDK. Multimodal/A2A → Gemini Enterprise. SAP-native → Joule Studio. Regulado → watsonx/ServiceNow. Infra custom → Strands/Bedrock.",
+   d:"Em RFPs multi-domínio, proponha arquitetura híbrida: Agentforce no customer-facing, outros nos domínios nativos, integrados via Agent Fabric ou MCP. Esse mapa diferencia TA de implementador.",
+   f:"MarkTechPost",dt:"Mai/2026",tag:"Decisão",alert:false,
+   aud:["TA","SE","Exec"],url:null},
   {t:"'Agent Washing': menos de 30% dos produtos no mercado é agente de verdade",
-   s:"Praticantes documentam que a maioria renomeia chatbots e RPA como agentes. IA agêntica genuína: decisão autônoma, raciocínio multi-step, tratamento dinâmico de erro. Salesforce chamou esse padrão de 'Guided Determinism' — reconhecimento público de que autonomia total ainda não é enterprise-ready.",
-   d:"Em avaliações competitivas, teste com tarefa ambígua multi-step sem script. Veja se há replanejamento. É o teste mais honesto e diferencia Agentforce (com mecanismos reais de reasoning) de concorrentes que fazem agent washing.",
-   f:"MarkTechPost",dt:"Mai/2026",tag:"Agent Wash",alert:false,aud:["SE","TA"],url:null},
+   s:"IA agêntica genuína: decisão autônoma, raciocínio multi-step, tratamento dinâmico de erro. A maioria do mercado renomeia chatbots e RPA. O próprio Salesforce reconhece com 'Guided Determinism': autonomia total ainda não é enterprise-ready. Gartner: primeiro MQ de AI Coding Agents em 2026 sinaliza maturidade de mercado.",
+   d:"Teste competitivo honesto: tarefa ambígua multi-step sem script. Veja se há replanejamento quando algo falha. É o diferenciador real do Agentforce com Agent Script vs concorrentes que entregam determinismo disfarçado de IA.",
+   f:"MarkTechPost / Gartner",dt:"Mai/2026",tag:"Agent Wash",alert:false,
+   aud:["SE","TA"],url:null},
 ]},
 
-// ══════════ ARQUITETURA & MCP/A2A ══════════
+// ═══════════════ 🏛️ ARQUITETURA MCP / A2A ═══════════════
 arch:{u:"Jun/2026",d:[
-  {t:"MCP + A2A: Agentic AI Foundation sob a Linux Foundation (neutralidade garantida)",
-   s:"Dez/2025: Anthropic, Block e OpenAI criam AAF sob Linux Foundation. MCP = como agentes acessam tools (Tools, Resources, Prompts via JSON-RPC 2.0, OAuth 2.1). A2A = como agentes colaboram (delegação, negociação, coordenação). Complementares. Em 2026, A2A integrado nativamente em LangGraph, CrewAI, AutoGen, Semantic Kernel.",
-   d:"Padronize acesso a tools via MCP e comunicação via A2A. Governança da Linux Foundation elimina lock-in. Salesforce Agent Fabric (Registry, Broker, MCP Bridge) implementa esse padrão — use isso no argumento de abertura.",
-   f:"DEV Community",dt:"Dez/2025",tag:"MCP",alert:false,aud:["TA","Build"],url:null},
-  {t:"Padrão multi-agent de produção: orquestrador + registro dinâmico de agentes",
-   s:"Validado em produção (Oracle/Rush University): orquestrador detecta intenção e roteia para sub-agentes especializados via registro dinâmico. Novos agentes se registram e ficam disponíveis sem reescrever código. Falhas isoladas não cascateiam. Bancos e APIs expõem tools via MCP sem virar agentes.",
-   d:"Adote registro dinâmico em vez de roteamento hardcoded. Esse é exatamente o padrão do FinDiagAgent v12: Router + SF_AgenticGateway + subagente consolidado em vez dos 7 subagentes misturados do legado IBM.",
-   f:"Oracle Blogs",dt:"Abr/2026",tag:"Multi-Agent",alert:false,aud:["TA","Build"],url:null},
-  {t:"Gap crítico de observabilidade: stack de 3 camadas, 3 streams de log diferentes",
-   s:"WebMCP → MCP → A2A exige instrumentação separada. Quando task A2A falha: foi roteamento de delegação, tool MCP ou acesso WebMCP? Hoje = 3 streams distintos. Nenhuma ferramenta unifica as 3 camadas em trace único — identificado como o maior gap de produção em 2026.",
-   d:"Exija observabilidade unificada como requisito de produção — não nice-to-have. É o argumento técnico para Langfuse/LandCrest no escopo. Sem isso, não tem SLA possível em produção.",
-   f:"DEV Community",dt:"Mar/2026",tag:"A2A",alert:true,aud:["TA","Build"],url:null},
-  {t:"MCP 2026 roadmap: stateless, Server Cards e descoberta automática",
-   s:"H2/2026: operação stateless, Server Cards para auto-discovery, OAuth 2.1 obrigatório, Streamable HTTP como transporte remoto padrão. MCP evolui de conexão de tool individual para infraestrutura de orquestração multi-agente. WebMCP (Chrome 149) estende o protocolo para o browser.",
-   d:"Projete integrações MCP já stateless — arquiteturas com sessão stateful hoje precisarão de refactor. Alinhe com o MCP Connector da Salesforce e o MCP Bridge do Agent Fabric.",
-   f:"DEV / x4nent",dt:"Abr/2026",tag:"Padrão",alert:false,aud:["TA","Build"],url:null},
+  {t:"MCP + A2A: padrão aberto sob Linux Foundation — neutralidade confirmada",
+   s:"Dez/2025: Anthropic, Block e OpenAI criam Agentic AI Foundation sob Linux Foundation. MCP = como agentes acessam tools/dados (Tools, Resources, Prompts via JSON-RPC 2.0, OAuth 2.1, Streamable HTTP). A2A = como agentes colaboram (delegação, negociação, coordenação). A2A v1.0 integrado nativamente em LangGraph, CrewAI, AutoGen, Semantic Kernel e LlamaIndex.",
+   d:"Padronize acesso a tools via MCP e comunicação via A2A em todos os projetos. Governança da Linux Foundation elimina o argumento de lock-in. O Headless 360 do Salesforce implementa exatamente esse padrão.",
+   f:"DEV Community / Google Cloud Next",dt:"Dez/2025",tag:"MCP",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"Padrão multi-agent de produção: registro dinâmico de agentes (sem hardcode)",
+   s:"Padrão validado em produção (Oracle, Rush University, Agent Fabric): orquestrador detecta intenção e roteia para sub-agentes via registro dinâmico — novos agentes se adicionam sem reescrever o orquestrador. Falhas ficam isoladas. APIs expõem tools via MCP sem virar agentes completos.",
+   d:"Adote registro dinâmico em vez de roteamento hardcoded. Para FinDiagAgent (Projeto Solar): Router + SF_AgenticGateway + subagente consolidado é esse padrão — documenta como arquitetura de referência, não como exceção.",
+   f:"Oracle Blogs / Agent Fabric Docs",dt:"Abr/2026",tag:"Multi-Agent",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"Gap de observabilidade: 3 camadas, 3 streams — ainda o maior risco de produção",
+   s:"Stack WebMCP → MCP → A2A exige instrumentação separada por camada. Quando task falha: foi roteamento A2A, tool MCP ou acesso WebMCP? Hoje = 3 streams de log distintos. Langfuse MCP Server (jun/2026) aproxima a unificação — mas a solução end-to-end ainda não existe.",
+   d:"Exija observabilidade unificada como requisito de produção em qualquer projeto multi-agente. Sem isso não há SLA, não há diagnóstico e não há otimização de Flex Credits. É o argumento técnico para Langfuse/LandCrest no escopo.",
+   f:"DEV Community / GitHub",dt:"Mar/2026",tag:"A2A",alert:true,
+   aud:["TA","Build"],url:null},
+  {t:"WebMCP (Chrome 149): qualquer página web pode virar tool de agente",
+   s:"Origin trial do WebMCP no Chrome 149 (mai/2026): especificação aberta que permite páginas web exporem tools para agentes de browser. Se aprovado como padrão, qualquer interface web poderá ser acessada por agentes sem scraping ou automação de browser.",
+   d:"WebMCP pode tornar obsoletos muitos casos de uso de RPA baseados em browser automation. Monitore para avaliar impacto em integrações que dependem de Playwright/Selenium ou Agentforce para automação de web.",
+   f:"Jeffrey Stop / Google Blog",dt:"Mai/2026",tag:"WebMCP",alert:false,
+   aud:["Build","TA"],url:null},
 ]},
 
-// ══════════ LLMOPS & FERRAMENTAS ══════════
+// ═══════════════ 🛠️ LLMOPS & OBSERVABILIDADE ═══════════════
 tools:{u:"Jun/2026",d:[
-  {t:"Langfuse vira camada de trace obrigatória em redes multi-agente de produção",
-   s:"Plataformas de produção (Oracle, Rush University, clientes enterprise) usam Langfuse para trace end-to-end: detecção de intenção → roteamento de sub-agentes → invocações MCP. Cada agente tem spans individuais com latência e custo de tokens visíveis. Langfuse MCP server (jun/2026) permite que agentes auto-diagnostiquem traces.",
-   d:"Inclua Langfuse ou LandCrest desde o PoC. Sem trace por agente, não há diagnóstico em produção nem argumento de otimização de Flex Credits. É o requisito que separa PoC de arquitetura production-ready.",
-   f:"Oracle Blogs/GitHub",dt:"Jun/2026",tag:"Langfuse",alert:false,aud:["TA","Build"],url:null},
-  {t:"Stack de referência 2026: LangGraph + MCP + A2A + Langfuse + DeepEval",
-   s:"Arquitetura completa documentada como production-ready (freeCodeCamp, abr/2026): LangGraph orquestra, MCP acessa tools, A2A delega cross-framework (incluindo CrewAI), Langfuse captura traces, DeepEval roda quality checks automáticos. Cada camada previne um modo de falha específico.",
-   d:"Use como checklist de maturidade de arquitetura: orquestração / tools / colaboração / observabilidade / avaliação automática. Camada faltando = risco de produção nomeável — argumento para expandir escopo.",
-   f:"freeCodeCamp",dt:"Abr/2026",tag:"LLMOps",alert:false,aud:["TA","Build"],url:null},
-  {t:"Anthropic endurece limites de uso de agentes por custos computacionais",
-   s:"Mai/2026: Anthropic introduz restrições e limites de crédito para usuários Claude que usam agent tools de terceiros. Workflows autônomos multi-step elevam drasticamente consumo de tokens. Backlash de power users. OpenAI responde com incentivos de uso gratuito do Codex.",
-   d:"Sinal de mercado: a economia de agentes autônomos está sob pressão em modelos 'ilimitados'. Em propostas Agentforce, o modelo de Flex Credits (pay-per-use) é mais sustentável para o cliente do que assinatura flat — use isso.",
-   f:"MarketingProfs",dt:"Mai/2026",tag:"Anthropic",alert:false,aud:["Exec","SE","TA"],url:null},
+  {t:"Langfuse vira camada de trace obrigatória em redes multi-agente",
+   s:"Plataformas de produção (Oracle, Rush University) usam Langfuse para trace end-to-end: detecção de intenção → roteamento → invocações MCP. Cada agente tem spans individuais com latência e custo de tokens. Novo Langfuse MCP Server (jun/2026): agentes consultam os próprios traces para auto-debugging sem sair do workflow.",
+   d:"Inclua Langfuse ou LandCrest no escopo desde o PoC. Sem trace por agente, não há diagnóstico em produção nem argumento de otimização de Flex Credits. É o requisito que separa PoC de produção.",
+   f:"Oracle Blogs / GitHub avivsinai",dt:"Jun/2026",tag:"Langfuse",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"Stack de referência completo 2026: LangGraph + MCP + A2A + Langfuse + DeepEval",
+   s:"Arquitetura production-ready documentada (freeCodeCamp abr/2026): LangGraph orquestra, MCP acessa tools, A2A delega cross-framework (incluindo CrewAI e AG2), Langfuse captura todos os traces, DeepEval roda quality checks automáticos. Cada camada previne um modo de falha específico de produção.",
+   d:"Use como checklist de maturidade: orquestração / acesso a tools / colaboração cross-framework / observabilidade / avaliação automática. Camada faltando = risco nomeável = argumento para expandir escopo.",
+   f:"freeCodeCamp",dt:"Abr/2026",tag:"LLMOps",alert:false,
+   aud:["TA","Build"],url:null},
+  {t:"Anthropic endurece limites de agentes — economia de tokens sob pressão",
+   s:"Mai/2026: Anthropic introduz restrições de crédito para usuarios Claude com agent tools de terceiros. Workflows multi-step autônomos elevam drasticamente consumo de tokens tornando 'ilimitado' economicamente insustentável. OpenAI responde com incentivos gratuitos no Codex. Anthropic aumenta limites do Claude Code em 50% até jul/2026 como anti-move.",
+   d:"Sinal de mercado relevante: a economia de agentes autônomos está sendo recalibrada. Flex Credits do Agentforce (pay-per-use) é mais sustentável para o cliente do que assinatura flat de modelos — use esse argumento em comparativos.",
+   f:"MarketingProfs",dt:"Mai/2026",tag:"Anthropic",alert:false,
+   aud:["Exec","SE","TA"],url:null},
 ]},
 
-// ══════════ SKILLS & CARREIRA ══════════
+// ═══════════════ 🎓 SKILLS & CARREIRA ═══════════════
 skills:{u:"Jun/2026",d:[
-  {t:"Agent Skills: pacotes instaláveis de conhecimento para agentes",
-   s:"Padrão emergente (jun/2026): skills como pacotes instaláveis com playbooks de debugging e investigação prontos. O agente carrega a skill sob demanda sem inflar o contexto. Langfuse Agent Skill inclui rotinas de triage de exceptions, análise de sessões e análise de latência.",
-   d:"Estruturar e distribuir Agent Skills vira diferencial de TA/EA. É a próxima camada de produtividade acima de construir agentes individuais — equivalente a criar Apex libraries ou Flow templates reutilizáveis.",
-   f:"GitHub avivsinai",dt:"Jun/2026",tag:"Skill",alert:true,aud:["TA","Build"],url:null},
-  {t:"Competência central de EA/TA: desenhar a fronteira entre plataformas",
-   s:"Com build-vs-buy real, mapa de fit por workflow e Agent Fabric como control plane multi-vendor, o valor do arquiteto está em decidir quais workflows vão para qual plataforma e como se integram. Não é mais 'tudo Salesforce'. VentureBeat: a disputa não é pelo melhor modelo, é por quem controla onde o agente roda.",
-   d:"Desenvolva narrativa de arquitetura híbrida e multi-plataforma — é o que diferencia TA sênior de implementador. Saiba quando não usar Salesforce: isso aumenta credibilidade técnica e gera deals maiores.",
-   f:"VentureBeat/Síntese",dt:"Mai/2026",tag:"Mercado",alert:false,aud:["TA","Exec","SE"],url:null},
-  {t:"Certificações 2026: Agent Script, Data 360, MCP Connector são os novos eixos",
-   s:"Com Agentforce 360 e Agent Fabric em GA, as trilhas de certificação (Integration Arch, Data Arch, Agentforce Specialist) evoluíram. Agent Script, Data 360, Trust Layer e MCP Connector são os temas técnicos que aparecem em decisões reais de produção agora.",
-   d:"Priorize Agent Script + Data 360 + Trust Layer nas revisões. São os gaps que aparecem em projetos de produção e que sustentam a convergência para CTA — e que clientes enterprise avaliam em RFPs técnicos.",
-   f:"Salesforce Monday",dt:"Jan/2026",tag:"Cert",alert:false,aud:["TA","Build","SE"],url:null},
+  {t:"Agent Skills: pacotes instaláveis de conhecimento — o próximo nível depois de agentes",
+   s:"Padrão emergente jun/2026: skills como pacotes instaláveis com playbooks de debugging, investigação e operação prontos. O agente carrega a skill sob demanda sem inflar contexto. Anthropic Academy publica 13 cursos gratuitos sobre Claude Code, API, MCP e Agent Skills (atualizado abr/2026).",
+   d:"Estruturar Agent Skills vira diferencial de TA/EA — é a evolução de Topics/Actions para conhecimento operacional reutilizável e distribuível. Profissionais que publicam skills em AgentExchange têm novo canal de receita recorrente.",
+   f:"GitHub / Anthropic Academy",dt:"Jun/2026",tag:"Skill",alert:true,
+   aud:["TA","Build"],url:null},
+  {t:"A competência central de EA/TA em 2026: desenhar a fronteira entre plataformas",
+   s:"VentureBeat: a disputa não é pelo melhor modelo, é por quem controla onde o agente roda. Com build-vs-buy real, mapa de fit por workflow e Agent Fabric como control plane multi-vendor, o valor do arquiteto está em decidir quais workflows vão para qual plataforma e como se integram. Não é mais 'tudo Salesforce' — é arquitetura híbrida.",
+   d:"Desenvolva narrativa de arquitetura multi-plataforma e saiba quando não usar Salesforce — isso aumenta credibilidade e gera deals maiores. É o que diferencia TA sênior de implementador em qualquer processo seletivo.",
+   f:"VentureBeat / MarkTechPost",dt:"Mai/2026",tag:"Mercado",alert:false,
+   aud:["TA","Exec","SE"],url:null},
+  {t:"Certificações: Agent Script, Headless 360, Data 360 e MCP Connector são os eixos",
+   s:"Com Summer '26 em GA (15/jun), as trilhas de certificação evoluíram: Agent Script, Headless 360, Data 360, Trust Layer e MCP Connector são os temas que aparecem em arquiteturas reais agora. A migração obrigatória de agentes legados para o novo builder (13/jul) cria urgência de atualização.",
+   d:"Priorize Agent Script + Headless 360 + Data 360 nas revisões de certificação. São os temas de decisão arquitetural em 2026 e os que sustentam a convergência para CTA — e os que clientes enterprise avaliam em RFPs técnicos.",
+   f:"Salesforce / Salesforce Dictionary",dt:"Jun/2026",tag:"Cert",alert:false,
+   aud:["TA","Build","SE"],url:null},
 ]},
 };
 
@@ -228,7 +276,7 @@ function AudBadge({r}){const a=AUD[r];return(
 
 function Card({item}){
   const [open,setOpen]=useState(false);
-  const c=TAG[item.tag]||"#6B7280";
+  const c=TC[item.tag]||"#6B7280";
   return(
     <div onClick={()=>setOpen(v=>!v)} style={{
       background:"rgba(13,21,38,.88)",
@@ -279,33 +327,32 @@ function App(){
   const totalItems=useMemo(()=>Object.values(N).reduce((s,t)=>s+t.d.length,0),[]);
 
   return(
-    <div style={{minHeight:"100vh",paddingBottom:40}}>
-      {/* HEADER */}
-      <div style={{background:"rgba(2,8,23,.94)",borderBottom:"1px solid rgba(255,255,255,.06)",padding:"13px 16px 13px",position:"sticky",top:0,zIndex:10,backdropFilter:"blur(16px)"}}>
-        <div style={{maxWidth:900,margin:"0 auto"}}>
+    <div style={{minHeight:"100vh",paddingBottom:48}}>
+      <div style={{background:"rgba(2,8,23,.95)",borderBottom:"1px solid rgba(255,255,255,.06)",padding:"13px 16px 13px",position:"sticky",top:0,zIndex:10,backdropFilter:"blur(16px)"}}>
+        <div style={{maxWidth:920,margin:"0 auto"}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:11}}>
             <div>
               <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:3}}>
                 <span style={{width:6,height:6,borderRadius:"50%",background:"#00A1E0",boxShadow:"0 0 6px #00A1E0",display:"inline-block",animation:"pulse 2s infinite"}}/>
-                <span style={{fontSize:"9.5px",color:"#38BDF8",fontWeight:700,letterSpacing:"1.8px",textTransform:"uppercase"}}>RADAR · ARQUITETOS SALESFORCE · Jun 2026</span>
+                <span style={{fontSize:"9.5px",color:"#38BDF8",fontWeight:700,letterSpacing:"1.8px",textTransform:"uppercase"}}>BÚSSOLA · PROFISSIONAIS DE IA E SALESFORCE</span>
               </div>
               <h1 style={{margin:0,fontSize:20,fontWeight:800,background:"linear-gradient(135deg,#E2E8F0,#A78BFA)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Intelligence Digest</h1>
+              <p style={{margin:"2px 0 0",fontSize:10,color:"#334155"}}>Curadoria proativa · inglês + fontes globais traduzidas · últimas 8 semanas</p>
             </div>
             <div style={{textAlign:"right"}}>
               <div style={{fontSize:10,color:"#1E293B",marginBottom:4}}>{new Date().toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})}</div>
               <div style={{background:"rgba(251,191,36,.12)",border:"1px solid rgba(251,191,36,.35)",borderRadius:20,padding:"2px 9px",fontSize:10.5,color:"#FBBF24",fontWeight:700,display:"inline-block"}}>⚡ {totalAlerts} alertas · {totalItems} insights</div>
             </div>
           </div>
-          {/* TABS */}
           <div style={{display:"flex",flexWrap:"wrap",gap:5,marginBottom:9}}>
             {TRACKS.map(t=>{
               const on=tid===t.id;
               const cnt=N[t.id]?.d.length||0;
-              const alerts=N[t.id]?.d.filter(i=>i.alert).length||0;
+              const al=N[t.id]?.d.filter(i=>i.alert).length||0;
               return(
                 <button key={t.id} onClick={()=>{setTid(t.id);setAud(null);}} style={{
                   background:on?`linear-gradient(135deg,${t.color},${t.color}99)`:t.color+"12",
-                  border:`1px solid ${on?t.color:alerts>0?"rgba(251,191,36,.4)":t.color+"35"}`,
+                  border:`1px solid ${on?t.color:al>0?"rgba(251,191,36,.4)":t.color+"35"}`,
                   borderRadius:18,padding:"6px 12px",color:on?"#fff":t.color,
                   fontSize:11.5,fontWeight:on?700:500,cursor:"pointer",
                   display:"flex",alignItems:"center",gap:5,transition:"all .15s",
@@ -313,12 +360,11 @@ function App(){
                 }}>
                   {t.label}
                   <span style={{fontSize:9,background:on?"rgba(255,255,255,.22)":t.color+"22",borderRadius:10,padding:"1px 6px",fontWeight:700,color:on?"#fff":t.color}}>{cnt}</span>
-                  {alerts>0&&!on&&<span style={{position:"absolute",top:-4,right:-4,width:14,height:14,borderRadius:"50%",background:"#FBBF24",color:"#000",fontSize:8,fontWeight:900,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 6px #FBBF24"}}>!</span>}
+                  {al>0&&!on&&<span style={{position:"absolute",top:-4,right:-4,width:14,height:14,borderRadius:"50%",background:"#FBBF24",color:"#000",fontSize:8,fontWeight:900,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 6px #FBBF24"}}>!</span>}
                 </button>
               );
             })}
           </div>
-          {/* AUDIENCE FILTER */}
           <div style={{display:"flex",gap:5,alignItems:"center"}}>
             <span style={{fontSize:10,color:"#334155",marginRight:2}}>Para:</span>
             {[null,"SE","TA","Build","Exec"].map(r=>{
@@ -330,36 +376,29 @@ function App(){
                   borderRadius:14,padding:"3px 10px",
                   color:on?(a?a.c:"#E2E8F0"):"#475569",
                   fontSize:10.5,fontWeight:on?700:400,cursor:"pointer",transition:"all .15s",
-                }}>
-                  {r?a.l:"Todos"}
-                </button>
+                }}>{r?a.l:"Todos"}</button>
               );
             })}
           </div>
         </div>
       </div>
-      {/* CONTENT */}
-      <div style={{maxWidth:900,margin:"0 auto",padding:"18px 16px 0"}}>
+      <div style={{maxWidth:920,margin:"0 auto",padding:"18px 16px 0"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
           <div>
             <h2 style={{margin:0,fontSize:16,fontWeight:700,color:"#E2E8F0"}}>{tr.label}</h2>
-            <p style={{margin:"3px 0 0",fontSize:11,color:"#2D3E55"}}>
-              {items.length} insight{items.length!==1?"s":""} · curadoria {data.u}{aud?` · ${AUD[aud].l}`:""}
-            </p>
+            <p style={{margin:"3px 0 0",fontSize:11,color:"#2D3E55"}}>{items.length} insight{items.length!==1?"s":""} · curadoria {data.u}{aud?` · ${AUD[aud].l}`:""}</p>
           </div>
-          <span style={{background:tr.color+"14",border:`1px solid ${tr.color}30`,borderRadius:20,padding:"3px 11px",fontSize:10,color:tr.color,fontWeight:700}}>✓ curadoria</span>
+          <span style={{background:tr.color+"14",border:`1px solid ${tr.color}30`,borderRadius:20,padding:"3px 11px",fontSize:10,color:tr.color,fontWeight:700}}>✓ curado</span>
         </div>
         {items.length===0?(
-          <div style={{textAlign:"center",padding:"40px 20px",color:"#334155"}}>
+          <div style={{textAlign:"center",padding:"40px",color:"#334155"}}>
             <div style={{fontSize:36,marginBottom:10}}>🔍</div>
             <p style={{fontSize:13}}>Nenhum item para <strong style={{color:AUD[aud]?.c}}>{AUD[aud]?.l}</strong> nesta trilha.</p>
           </div>
-        ):(
-          items.map((item,i)=><Card key={i} item={item}/>)
-        )}
-        <p style={{textAlign:"center",marginTop:10,fontSize:10.5,color:"#1A2535",lineHeight:1.7}}>
+        ):items.map((item,i)=><Card key={i} item={item}/>)}
+        <p style={{textAlign:"center",marginTop:12,fontSize:10.5,color:"#1A2535",lineHeight:1.8}}>
           Clique em cada card para ver a decisão arquitetural ↑<br/>
-          <span style={{color:"#1E3A5F"}}>Curadoria: notícias dos últimos 2 meses · atualizado Jun/2026</span>
+          <span style={{color:"#1E3A5F"}}>Fontes: inglês + PT · curadoria automática · últimas 8 semanas · Jun/2026</span>
         </p>
       </div>
     </div>
