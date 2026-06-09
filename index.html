@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Intelligence Digest · Bússola para Arquitetos de IA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -12,22 +12,52 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:linear-gradient(160deg,#020817 0%,#0D1526 100%);min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#D8E2FE}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(167,139,250,.25);border-radius:3px}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.35)}70%{box-shadow:0 0 0 6px rgba(251,191,36,0)}}
+html,body,#root{height:100%}
+body{
+  background:#081327;
+  font-family:'Inter',-apple-system,sans-serif;
+  color:#D8E2FE;
+  /* center on desktop, full width on mobile */
+  display:flex;justify-content:center;
+}
+#root{width:100%;max-width:430px;display:flex;flex-direction:column;position:relative;background:#081327;}
+::-webkit-scrollbar{width:0}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4)}70%{box-shadow:0 0 0 6px rgba(251,191,36,0)}}
 .serif{font-family:'Playfair Display',Georgia,serif}
+/* smooth scroll */
+.scroll-x{display:flex;gap:6px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.scroll-x::-webkit-scrollbar{display:none}
+.scroll-y{overflow-y:auto;flex:1;padding-bottom:80px}
+.scroll-y::-webkit-scrollbar{display:none}
+/* track chip button */
+.track-chip{border:none;border-radius:999px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0}
+/* card hover */
+.card{transition:border-color .18s,box-shadow .18s}
+.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+/* aud pill */
+.aud-pill{border-radius:999px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.03em}
+/* tag chip */
+.tag-chip{border-radius:999px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.04em}
+/* bottom nav */
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;padding:10px 0;cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:#475569;transition:color .15s}
+.nav-item.active{color:#38BDF8}
+/* desktop shadow */
+@media(min-width:430px){
+  #root{box-shadow:0 0 60px rgba(0,0,0,.6);min-height:100vh}
+}
 </style>
 </head>
-<body><div id="root"></div>
+<body>
+<div id="root"></div>
 <script type="text/babel">
-const {useState,useMemo}=React;
+const {useState,useMemo,useRef}=React;
 
 const AUD={
-  SE:    {l:"SE / AE",   c:"#38BDF8",b:"rgba(56,189,248,.13)"},
-  TA:    {l:"TA / EA",   c:"#A78BFA",b:"rgba(167,139,250,.13)"},
-  Build: {l:"Builder",  c:"#34D399",b:"rgba(52,211,153,.13)"},
-  Exec:  {l:"C-Level",  c:"#FB923C",b:"rgba(251,146,60,.13)"},
+  SE:    {l:"SE / AE",   c:"#38BDF8",b:"rgba(56,189,248,.12)"},
+  TA:    {l:"TA / EA",   c:"#A78BFA",b:"rgba(167,139,250,.12)"},
+  Build: {l:"Builder",  c:"#34D399",b:"rgba(52,211,153,.12)"},
+  Exec:  {l:"C-Level",  c:"#FB923C",b:"rgba(251,146,60,.12)"},
 };
 
 const TRACKS=[
@@ -56,7 +86,6 @@ const TC={
 };
 
 const N={
-
 // ═══════════════ 🔥 URGENTE AGORA ═══════════════
 hot:{u:"Jun/2026",d:[
   {t:"🆕 Summer '26 disponível 15/jun — Headless 360 muda tudo para devs",
@@ -75,7 +104,6 @@ hot:{u:"Jun/2026",d:[
    f:"Salesforce/Vantagepoint",dt:"Jun/2026",tag:"Agent Fabric",alert:true,
    aud:["TA","Build"],url:null},
 ]},
-
 // ═══════════════ ☁️ SUMMER '26 RELEASE ═══════════════
 summer26:{u:"Jun/2026",d:[
   {t:"Headless 360: Salesforce vira plataforma API-first e agent-ready",
@@ -89,241 +117,269 @@ summer26:{u:"Jun/2026",d:[
    f:"Salesforce Summer '26 Announcement",dt:"Mai-Jun/2026",tag:"Multi-Agent",alert:false,
    aud:["TA","SE","Exec"],url:"https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"},
   {t:"Agentforce Operations: back-office sem gargalos (underwriting, sinistros, onboarding)",
-   s:"Novo produto anunciado abr/2026, GA junho. Agentes gerenciam processos end-to-end de back-office — extração de dados de documentos, follow-up de assinaturas, validação de compliance. Exemplos: underwriting bancário completo, resolução de sinistros de seguro, onboarding de parceiros via múltiplos sistemas. Acessível via email, Slack e MS Teams.",
+   s:"Novo produto anunciado abr/2026, GA junho. Agentes gerenciam processos end-to-end de back-office — extração de dados de documentos, follow-up de assinaturas, validação de compliance. Exemplos: underwriting bancário completo, resolução de sinistros de seguro, onboarding de parceiros via múltiplos sistemas.",
    d:"Agentforce Operations é o argumento para Financial Services, Insurance e Healthcare — processos regulados onde agentes autônomos com determinismo guiado têm ROI claro. Inclua no mapa de oportunidades de cada vertical.",
    f:"Salesforce",dt:"Abr-Jun/2026",tag:"Agentforce Ops",alert:false,
    aud:["SE","Exec","TA"],url:"https://www.salesforce.com/news/stories/agentforce-operations-announcement/"},
   {t:"Momentum: captura toda conversa de vendas e alimenta Agentforce em tempo real",
-   s:"Nova capacidade do Summer '26: captura e estrutura automaticamente calls, emails e meetings, escrevendo os dados de volta ao Salesforce em tempo real — sem mudar como os reps trabalham. Resolve o problema central do Agentforce Sales: agentes trabalhando com dados incompletos de deals.",
+   s:"Nova capacidade do Summer '26: captura e estrutura automaticamente calls, emails e meetings, escrevendo os dados de volta ao Salesforce em tempo real — sem mudar como os reps trabalham.",
    d:"Momentum muda o argumento de ROI do Agentforce Sales: não é só automação de tasks, é completude de dados de pipeline que melhora forecasting e velocity. Use em demos para mostrar o loop completo.",
    f:"Salesforce Summer '26",dt:"Jun/2026",tag:"Momentum",alert:false,
    aud:["SE","Exec"],url:"https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"},
   {t:"AgentExchange: marketplace de agentes, ações e templates de parceiros",
-   s:"Lançado no TDX 2026: marketplace para agentes pré-construídos, ações e templates de parceiros — o equivalente do AppExchange para o ecossistema agêntico. Permite que SIs e ISVs distribuam soluções de agentes reutilizáveis.",
-   d:"AgentExchange cria nova oportunidade de IP para SIs: construir e publicar agentes especializados por vertical (financeiro, saúde, telco) como produto recorrente. Avalie como posicionar offerings da sua prática.",
+   s:"Lançado no TDX 2026: marketplace para agentes pré-construídos, ações e templates de parceiros — o equivalente do AppExchange para o ecossistema agêntico.",
+   d:"AgentExchange cria nova oportunidade de IP para SIs: construir e publicar agentes especializados por vertical (financeiro, saúde, telco) como produto recorrente.",
    f:"Vantagepoint / Salesforce",dt:"Abr/2026",tag:"AgentExchange",alert:false,
    aud:["SE","TA","Exec"],url:null},
   {t:"Flow Orchestration agora incluso em todas as edições — sem custo adicional",
-   s:"A partir do Summer '26, Flow Orchestration runs incluídos no Enterprise, Performance, Unlimited e Developer editions sem limitações de uso. Remove barreira de adoção para automações complexas multi-step que antes tinham custo variável.",
-   d:"Argumento direto para clientes que evitavam Flow Orchestration por custo: agora é incluso. Revise projetos que optaram por soluções custom por limitações de pricing — podem ser simplificados.",
+   s:"A partir do Summer '26, Flow Orchestration runs incluídos no Enterprise, Performance, Unlimited e Developer editions sem limitações de uso.",
+   d:"Argumento direto para clientes que evitavam Flow Orchestration por custo: agora é incluso. Revise projetos que optaram por soluções custom — podem ser simplificados.",
    f:"Vantagepoint",dt:"Jun/2026",tag:"Summer 26",alert:false,
    aud:["Build","TA","SE"],url:null},
 ]},
-
 // ═══════════════ 🧵 AGENT FABRIC ═══════════════
 fabric:{u:"Jun/2026",d:[
   {t:"Agent Fabric: control plane multi-vendor para governar o 'agent sprawl'",
-   s:"Lançado set/2025, expandido TDX abr/2026. Quatro pilares: Agent Registry (catálogo central de todos os agentes e tools, incluindo MCP e A2A servers), Agent Broker (roteamento inteligente), Agent Governance (permissões e data access) e Agent Visualizer (insights em tempo real). Empresas como Capita, Alcon e Rush University já orquestram centenas de agentes multi-plataforma.",
-   d:"Posicione Agent Fabric como resposta ao 'agent sprawl' — o problema real de empresas que acumularam agentes de múltiplos vendors sem governança central. É o argumento que justifica consolidar no stack Salesforce/MuleSoft.",
+   s:"Lançado set/2025, expandido TDX abr/2026. Quatro pilares: Agent Registry, Agent Broker, Agent Governance e Agent Visualizer. Empresas como Capita, Alcon e Rush University já orquestram centenas de agentes multi-plataforma.",
+   d:"Posicione Agent Fabric como resposta ao 'agent sprawl' — o problema real de empresas que acumularam agentes de múltiplos vendors sem governança central.",
    f:"Salesforce / MuleSoft Docs",dt:"Set/2025",tag:"Agent Fabric",alert:false,
    aud:["TA","Exec","SE"],url:"https://architect.salesforce.com/docs/architect/fundamentals/guide/mulesoft-agent-fabric-deep-dive"},
   {t:"Guided Determinism: autonomia calibrada em vez de autonomia total",
-   s:"Agent Script for Agent Broker: regras fixas para handoffs críticos (escalada de reclamação, processos de reembolso, compliance) enquanto o LLM raciocina livremente entre os passos. Sirocco Group: 'É o reconhecimento público de que orquestração multi-agente totalmente autônoma não é enterprise-ready'. Guided determinism é a posição oficial do Salesforce.",
-   d:"Use guided determinism como argumento de maturidade com clientes: autonomia calibrada é mais vendável que autonomia total em enterprise. Documenta a decisão do FinDiagAgent — Router + Agent Script substitui os 7 subagentes hardcoded.",
+   s:"Agent Script for Agent Broker: regras fixas para handoffs críticos enquanto o LLM raciocina livremente entre os passos. Sirocco Group: 'É o reconhecimento público de que orquestração multi-agente totalmente autônoma não é enterprise-ready'.",
+   d:"Use guided determinism como argumento de maturidade com clientes: autonomia calibrada é mais vendável que autonomia total em enterprise.",
    f:"Salesforce / UCToday / Sirocco Group",dt:"Abr/2026",tag:"Guided Det",alert:false,
    aud:["TA","Build","SE"],url:null},
   {t:"MCP Bridge: qualquer API existente vira tool de agente sem código",
-   s:"APIs REST, SOAP e GraphQL existentes transformadas em MCP servers automaticamente. Informatica-hosted MCPs aparecem no Agent Registry garantindo que agentes começam com dados governados. Suporte a OAuth chega em junho. Elimina o argumento 'precisamos refatorar antes de ter agentes'.",
-   d:"MCP Bridge muda o argumento de entrada para projetos Agentforce: qualquer API legada já existente pode ser exposta como tool de agente hoje — reduz drasticamente o escopo de integração e o tempo até valor.",
+   s:"APIs REST, SOAP e GraphQL existentes transformadas em MCP servers automaticamente. Suporte a OAuth chega em junho. Elimina o argumento 'precisamos refatorar antes de ter agentes'.",
+   d:"MCP Bridge muda o argumento de entrada para projetos Agentforce: qualquer API legada já existente pode ser exposta como tool de agente hoje.",
    f:"Salesforce / InfoWorld",dt:"Abr/2026",tag:"MCP Bridge",alert:false,
    aud:["TA","Build"],url:null},
   {t:"LLM Governance Layer: controle central de tokens, custo e routing de modelos",
-   s:"Novo layer no AI Gateway: um ponto central para gerenciar uso de tokens, enforçar regras de routing, rastrear spend e garantir compliance em múltiplos LLMs (OpenAI, Gemini, Claude). Scott Bickley (Info-Tech): 'Sem isso, times diferentes escolhem modelos diferentes, negociam contratos de API separados e gerenciam token budgets localmente'.",
-   d:"LLM Governance é o argumento de governança enterprise para contas multi-LLM. Inclua no SOW de qualquer projeto que usa mais de um modelo — é o que transforma proof-of-concept em governança de produção.",
+   s:"Novo layer no AI Gateway: um ponto central para gerenciar uso de tokens, enforçar regras de routing, rastrear spend e garantir compliance em múltiplos LLMs (OpenAI, Gemini, Claude).",
+   d:"LLM Governance é o argumento de governança enterprise para contas multi-LLM. Inclua no SOW de qualquer projeto que usa mais de um modelo.",
    f:"Salesforce / InfoWorld",dt:"Abr/2026",tag:"LLM Gov",alert:false,
    aud:["TA","Exec"],url:null},
 ]},
-
 // ═══════════════ 🌐 FRAMEWORKS AGNÓSTICOS & MERCADO ═══════════════
 agnostic:{u:"Jun/2026",d:[
   {t:"Ranking de frameworks agnósticos 2026: LangGraph #1, Claude SDK #2, CrewAI #3",
-   s:"Baseado em 18+ deploys de produção (Alice Labs): LangGraph lidera para workflows stateful complexos com branching, retries e human-in-the-loop. Claude Agent SDK #2 — a mesma arquitetura que roda Claude Code, melhor para agentes Anthropic-nativos com MCP, skills e subagentes. CrewAI #3 para protótipos role-based rápidos. Pydantic AI ganhou tração para type safety (8/10 DX vs LangChain 5/10).",
-   d:"O Claude Agent SDK não é só para apps Anthropic — é o framework de referência para qualquer agente que precisa de MCP nativo, safety hooks e extended thinking. Avalie para implementações Agentforce custom onde o Agent Framework nativo não atende.",
+   s:"Baseado em 18+ deploys de produção (Alice Labs): LangGraph lidera para workflows stateful complexos. Claude Agent SDK #2 — melhor para agentes Anthropic-nativos com MCP, skills e subagentes. CrewAI #3 para protótipos role-based rápidos.",
+   d:"O Claude Agent SDK não é só para apps Anthropic — é o framework de referência para qualquer agente que precisa de MCP nativo, safety hooks e extended thinking.",
    f:"Alice Labs / QubitTool / GuruSup",dt:"Mai/2026",tag:"Claude SDK",alert:false,
    aud:["TA","Build"],url:"https://alicelabs.ai/en/insights/best-ai-agent-frameworks-2026"},
   {t:"Google A2A v1.0 nativo em LangGraph, CrewAI, AutoGen e Semantic Kernel",
-   s:"Google Cloud Next 2026 ('The Agentic Cloud'): A2A protocol integrado nativamente nos 5 principais frameworks. Google ADK v1.0 estável em Python, Go, Java e TypeScript — model-agnostic, deployável em qualquer container. Project Mariner (browser agent) descontinuado e absorvido pelo Gemini Agent. Managed MCP servers disponíveis em todos os serviços Google Cloud.",
-   d:"A2A é agora padrão multi-framework de fato — não é só protocolo do Google. Qualquer stack que usa LangGraph ou CrewAI tem A2A. Isso reforça a interoperabilidade do Agent Fabric e o argumento MCP/A2A como padrão aberto.",
+   s:"Google Cloud Next 2026: A2A protocol integrado nativamente nos 5 principais frameworks. Google ADK v1.0 estável em Python, Go, Java e TypeScript — model-agnostic.",
+   d:"A2A é agora padrão multi-framework de fato. Isso reforça a interoperabilidade do Agent Fabric e o argumento MCP/A2A como padrão aberto.",
    f:"The Next Web",dt:"Mai/2026",tag:"Google",alert:false,
    aud:["TA","Build"],url:null},
   {t:"AWS lança Strands Agents — framework model-driven nativo no Bedrock",
-   s:"Strands Agents: framework open-source da AWS, profundamente integrado ao Amazon Bedrock. Filosofia model-driven: o modelo decide o fluxo de execução. Junto com Claude Agent SDK + Bedrock, vira o stack preferido para builds custom acima de 1M conversas/ano. Inclui streaming nativo e integração direta com Lambda e ECS.",
-   d:"Strands + Bedrock é o stack agnóstico de referência para builds do lado da infra. Conheça para a conversa técnica em contas AWS-native — e para avaliar quando o Agent Fabric do Salesforce é mais adequado que um build custom.",
+   s:"Strands Agents: framework open-source da AWS, profundamente integrado ao Amazon Bedrock. Filosofia model-driven: o modelo decide o fluxo de execução.",
+   d:"Strands + Bedrock é o stack agnóstico de referência para builds do lado da infra. Conheça para a conversa técnica em contas AWS-native.",
    f:"QubitTool / GitHub",dt:"Abr/2026",tag:"AWS",alert:false,
    aud:["TA","Build"],url:null},
   {t:"80% de casos de uso não precisa de multi-agente — a armadilha do over-engineering",
-   s:"Daily.dev e Alice Labs documentam o padrão: Single-agent resolve ~80% dos casos de uso. A armadilha é ir para multi-agente porque 'soa mais capaz'. Mixing de frameworks dentro de um mesmo domínio de produção gera dores operacionais e monitoramento fragmentado. Para workflows com 2-3 tools lineares, SDKs simples (OpenAI, Vercel) são suficientes.",
-   d:"Use esse número como filtro em discovery: antes de propor multi-agente, valide se a complexidade justifica. Multi-agente mal justificado gera retrabalho e desconfiança — é o erro mais comum em projetos Agentforce.",
+   s:"Daily.dev e Alice Labs documentam o padrão: Single-agent resolve ~80% dos casos de uso. A armadilha é ir para multi-agente porque 'soa mais capaz'.",
+   d:"Use esse número como filtro em discovery: antes de propor multi-agente, valide se a complexidade justifica.",
    f:"Daily.dev / Alice Labs",dt:"Mai/2026",tag:"Frameworks",alert:false,
    aud:["TA","Build","SE"],url:"https://daily.dev/blog/ai-agents-guide-for-developers-langchain-crewai/"},
   {t:"BMS, Snowflake e parceiros: Anthropic avança no control plane enterprise",
-   s:"Bristol Myers Squibb padroniza Claude Enterprise para 30k funcionários (drug discovery). VentureBeat rastreia: Microsoft lidera em orquestração enterprise (38%), OpenAI cresce (25,7%), Anthropic registra primeiro foothold mensurável. A disputa não é pelo melhor modelo — é por quem controla onde o agente roda e quão difícil é sair.",
-   d:"Agentforce já usa Claude como motor de raciocínio via Einstein Trust Layer. O crescimento de Anthropic no enterprise reforça o moat — mas também significa que o argumento de vendor lock-in precisa incluir a camada de modelo, não só a plataforma.",
+   s:"Bristol Myers Squibb padroniza Claude Enterprise para 30k funcionários. VentureBeat: Microsoft lidera em orquestração enterprise (38%), OpenAI cresce (25,7%), Anthropic registra primeiro foothold mensurável.",
+   d:"Agentforce já usa Claude como motor de raciocínio via Einstein Trust Layer. O crescimento de Anthropic no enterprise reforça o moat.",
    f:"VentureBeat / GitHub awesome-ai-agents",dt:"Mai/2026",tag:"Anthropic",alert:false,
    aud:["Exec","SE","TA"],url:null},
   {t:"Kore.ai Artemis: desafiante no Azure com Agent Blueprint Language declarativa",
-   s:"Lançado mai/2026 no Azure. Plataforma agent-native com ABL (Agent Blueprint Language) — YAML declarativo para workflows multi-agente. Posicionado como desafio estrutural ao Copilot Studio e Agentforce em médias empresas. Força a discussão sobre abordagem declarativa (Kore.ai, n8n) vs imperativa (LangGraph, Claude SDK).",
-   d:"Monitore Kore.ai em contas Azure-first que ainda não têm Salesforce. A ABL pode influenciar standards de definição de agentes — assim como Terraform influenciou infra-as-code.",
+   s:"Lançado mai/2026 no Azure. Plataforma agent-native com ABL — YAML declarativo para workflows multi-agente. Posicionado como desafio ao Copilot Studio e Agentforce em médias empresas.",
+   d:"Monitore Kore.ai em contas Azure-first que ainda não têm Salesforce.",
    f:"GitHub awesome-ai-agents-2026",dt:"Mai/2026",tag:"Kore.ai",alert:false,
    aud:["TA","SE"],url:null},
 ]},
-
 // ═══════════════ ⚔️ CONCORRENTES ═══════════════
 rivals:{u:"Jun/2026",d:[
   {t:"Microsoft Copilot Studio: 160k orgs, 400k+ agentes — mas perdendo ritmo de inovação",
-   s:"Maior volume de adoção low-code. Integração nativa M365/Teams/SharePoint/Dynamics. CNBC (jun/2026): 'Microsoft perdeu seu caminho na corrida de IA' — Anthropic e OpenAI aceleraram enquanto a Microsoft focou no ecossistema. Azure AI Foundry cuida da lógica profunda; Copilot Studio é o front-end de deploy para business users.",
-   d:"Prospect já conhece Copilot. Argumento: onde vive o dado de cliente? Se no Salesforce, Trust Layer + Data 360 ganham em contexto de CRM. Em contas Microsoft-heavy, proponha Agentforce no customer-facing + coexistência via MCP.",
+   s:"Maior volume de adoção low-code. CNBC (jun/2026): 'Microsoft perdeu seu caminho na corrida de IA' — Anthropic e OpenAI aceleraram enquanto a Microsoft focou no ecossistema.",
+   d:"Prospect já conhece Copilot. Argumento: onde vive o dado de cliente? Se no Salesforce, Trust Layer + Data 360 ganham em contexto de CRM.",
    f:"MarkTechPost / CNBC",dt:"Jun/2026",tag:"Microsoft",alert:false,
    aud:["SE","TA","Exec"],url:null},
   {t:"ServiceNow reestrutura pricing em tiers de autonomia — EU AI Act como diferencial",
-   s:"Novo modelo comercial baseado em tiers de autonomia crescente do Now Assist. Com IBM watsonx, lidera em indústrias reguladas sob o EU AI Act: audit trails, explicabilidade e proveniência como features nativas. Domínio absoluto em ITSM, HR e orquestração de processos internos.",
-   d:"Em contas com forte ITSM/back-office, ServiceNow compete pelo employee-facing. A fronteira precisa estar no SOW — sobreposição de escopo vira problema de governança. Agentforce ganha no customer-facing e Agentforce Operations no back-office financeiro.",
+   s:"Novo modelo comercial baseado em tiers de autonomia crescente do Now Assist. Com IBM watsonx, lidera em indústrias reguladas sob o EU AI Act.",
+   d:"Em contas com forte ITSM/back-office, ServiceNow compete pelo employee-facing. A fronteira precisa estar no SOW.",
    f:"TTMS / MarkTechPost",dt:"Mai/2026",tag:"ServiceNow",alert:false,
    aud:["TA","SE","Exec"],url:null},
   {t:"SAP Joule roda Claude como motor primário — bundled nas assinaturas SAP",
-   s:"Agentes nativos para ERP, HCM, SCM, finanças e CX. Joule e Agentforce convergem no mesmo modelo base (Claude) — diferença é proximidade ao dado de negócio. Em SAP-houses: custo marginal zero. Joule Studio GA em jun/2026 com novos conectores para SAP S/4HANA.",
-   d:"Em contas SAP-native, não compete pela tech de agente. Justifique Agentforce pelo dado de cliente no CRM e pela jornada comercial — não pelo modelo de IA. Salesforce + SAP via MCP Bridge é a proposta de coexistência mais forte.",
+   s:"Agentes nativos para ERP, HCM, SCM, finanças e CX. Joule e Agentforce convergem no mesmo modelo base (Claude). Joule Studio GA em jun/2026.",
+   d:"Em contas SAP-native, não compete pela tech de agente. Justifique Agentforce pelo dado de cliente no CRM.",
    f:"DigitalApplied",dt:"Mai/2026",tag:"SAP",alert:false,
    aud:["TA","SE","Exec"],url:null},
   {t:"OpenAI Codex + Deployment Company: 3M usuários semanais, Cognizant e CGI como SIs",
-   s:"OpenAI avança no enterprise com Codex (coding agent), Deployment Company (150+ engenheiros para transformação enterprise) e Guaranteed Capacity (reservas de compute 1/2/3 anos). Enterprise revenue = 40% da receita total. Anthropic responde aumentando limites do Claude Code em 50% até julho.",
-   d:"A corrida de coding agents (Claude Code vs Codex) está mudando velocity de desenvolvimento em projetos Salesforce. Inclua nas estimativas de projeto — equipes que adotam coding agents entregam 2-3x mais rápido em fases de config e apex.",
+   s:"OpenAI avança no enterprise com Codex (coding agent) e Guaranteed Capacity. Enterprise revenue = 40% da receita total. Anthropic aumenta limites do Claude Code em 50% até jul/2026.",
+   d:"A corrida de coding agents está mudando velocity de desenvolvimento. Equipes que adotam coding agents entregam 2-3x mais rápido.",
    f:"GitHub awesome-ai-agents / MarketingProfs",dt:"Mai/2026",tag:"OpenAI",alert:false,
    aud:["TA","Exec","Build"],url:null},
 ]},
-
 // ═══════════════ 🔀 CROSS-REFERENCE ═══════════════
 crossref:{u:"Jun/2026",d:[
   {t:"Build-vs-Buy: virada em ~1M conversas/ano — o cálculo que muda a proposta",
-   s:"Abaixo de 100K/ano: plataformas pacote vencem — overhead de engenharia não amortiza em 3 anos. Acima de 2M/ano: Claude SDK + Bedrock ou OpenAI + Azure vencem na convexidade de preço/conversa. SAP/ServiceNow/Oracle: bundled = custo marginal zero. 1M conversas/ano é o número que o arquiteto precisa dominar.",
-   d:"Leve esse cálculo para toda conversa de arquitetura. Volume de conversas não é só pricing — determina a estratégia de implementação. Abaixo de 1M: venda Agentforce com Flex Credits. Acima: proponha arquitetura híbrida.",
+   s:"Abaixo de 100K/ano: plataformas pacote vencem. Acima de 2M/ano: Claude SDK + Bedrock vencem na convexidade de preço/conversa. 1M conversas/ano é o número que o arquiteto precisa dominar.",
+   d:"Leve esse cálculo para toda conversa de arquitetura. Abaixo de 1M: venda Agentforce com Flex Credits. Acima: proponha arquitetura híbrida.",
    f:"DigitalApplied",dt:"Mai/2026",tag:"Build-vs-Buy",alert:false,
    aud:["Exec","TA","SE"],url:null},
   {t:"Mapa de fit por workflow 2026: quem usa qual plataforma",
-   s:"Customer-facing → Agentforce/Kore.ai. Employee IT/HR → ServiceNow/Copilot Studio. Back-office financeiro → Agentforce Operations/UiPath. Custom produção → LangGraph/Claude SDK. Multimodal/A2A → Gemini Enterprise. SAP-native → Joule Studio. Regulado → watsonx/ServiceNow. Infra custom → Strands/Bedrock.",
-   d:"Em RFPs multi-domínio, proponha arquitetura híbrida: Agentforce no customer-facing, outros nos domínios nativos, integrados via Agent Fabric ou MCP. Esse mapa diferencia TA de implementador.",
+   s:"Customer-facing → Agentforce/Kore.ai. Employee IT/HR → ServiceNow/Copilot Studio. Back-office financeiro → Agentforce Operations/UiPath. Custom produção → LangGraph/Claude SDK.",
+   d:"Em RFPs multi-domínio, proponha arquitetura híbrida. Esse mapa diferencia TA de implementador.",
    f:"MarkTechPost",dt:"Mai/2026",tag:"Decisão",alert:false,
    aud:["TA","SE","Exec"],url:null},
   {t:"'Agent Washing': menos de 30% dos produtos no mercado é agente de verdade",
-   s:"IA agêntica genuína: decisão autônoma, raciocínio multi-step, tratamento dinâmico de erro. A maioria do mercado renomeia chatbots e RPA. O próprio Salesforce reconhece com 'Guided Determinism': autonomia total ainda não é enterprise-ready. Gartner: primeiro MQ de AI Coding Agents em 2026 sinaliza maturidade de mercado.",
-   d:"Teste competitivo honesto: tarefa ambígua multi-step sem script. Veja se há replanejamento quando algo falha. É o diferenciador real do Agentforce com Agent Script vs concorrentes que entregam determinismo disfarçado de IA.",
+   s:"IA agêntica genuína: decisão autônoma, raciocínio multi-step, tratamento dinâmico de erro. A maioria do mercado renomeia chatbots e RPA.",
+   d:"Teste competitivo honesto: tarefa ambígua multi-step sem script. Veja se há replanejamento quando algo falha.",
    f:"MarkTechPost / Gartner",dt:"Mai/2026",tag:"Agent Wash",alert:false,
    aud:["SE","TA"],url:null},
 ]},
-
 // ═══════════════ 🏛️ ARQUITETURA MCP / A2A ═══════════════
 arch:{u:"Jun/2026",d:[
   {t:"MCP + A2A: padrão aberto sob Linux Foundation — neutralidade confirmada",
-   s:"Dez/2025: Anthropic, Block e OpenAI criam Agentic AI Foundation sob Linux Foundation. MCP = como agentes acessam tools/dados (Tools, Resources, Prompts via JSON-RPC 2.0, OAuth 2.1, Streamable HTTP). A2A = como agentes colaboram (delegação, negociação, coordenação). A2A v1.0 integrado nativamente em LangGraph, CrewAI, AutoGen, Semantic Kernel e LlamaIndex.",
-   d:"Padronize acesso a tools via MCP e comunicação via A2A em todos os projetos. Governança da Linux Foundation elimina o argumento de lock-in. O Headless 360 do Salesforce implementa exatamente esse padrão.",
+   s:"Dez/2025: Anthropic, Block e OpenAI criam Agentic AI Foundation. MCP = como agentes acessam tools/dados. A2A = como agentes colaboram. A2A v1.0 integrado nativamente em LangGraph, CrewAI, AutoGen e outros.",
+   d:"Padronize acesso a tools via MCP e comunicação via A2A em todos os projetos. Governança da Linux Foundation elimina o argumento de lock-in.",
    f:"DEV Community / Google Cloud Next",dt:"Dez/2025",tag:"MCP",alert:false,
    aud:["TA","Build"],url:null},
   {t:"Padrão multi-agent de produção: registro dinâmico de agentes (sem hardcode)",
-   s:"Padrão validado em produção (Oracle, Rush University, Agent Fabric): orquestrador detecta intenção e roteia para sub-agentes via registro dinâmico — novos agentes se adicionam sem reescrever o orquestrador. Falhas ficam isoladas. APIs expõem tools via MCP sem virar agentes completos.",
-   d:"Adote registro dinâmico em vez de roteamento hardcoded. Para FinDiagAgent (Projeto Solar): Router + SF_AgenticGateway + subagente consolidado é esse padrão — documenta como arquitetura de referência, não como exceção.",
+   s:"Padrão validado em produção (Oracle, Rush University): orquestrador detecta intenção e roteia para sub-agentes via registro dinâmico — novos agentes se adicionam sem reescrever o orquestrador.",
+   d:"Adote registro dinâmico em vez de roteamento hardcoded.",
    f:"Oracle Blogs / Agent Fabric Docs",dt:"Abr/2026",tag:"Multi-Agent",alert:false,
    aud:["TA","Build"],url:null},
   {t:"Gap de observabilidade: 3 camadas, 3 streams — ainda o maior risco de produção",
-   s:"Stack WebMCP → MCP → A2A exige instrumentação separada por camada. Quando task falha: foi roteamento A2A, tool MCP ou acesso WebMCP? Hoje = 3 streams de log distintos. Langfuse MCP Server (jun/2026) aproxima a unificação — mas a solução end-to-end ainda não existe.",
-   d:"Exija observabilidade unificada como requisito de produção em qualquer projeto multi-agente. Sem isso não há SLA, não há diagnóstico e não há otimização de Flex Credits. É o argumento técnico para Langfuse/LandCrest no escopo.",
+   s:"Stack WebMCP → MCP → A2A exige instrumentação separada por camada. Langfuse MCP Server (jun/2026) aproxima a unificação — mas a solução end-to-end ainda não existe.",
+   d:"Exija observabilidade unificada como requisito de produção em qualquer projeto multi-agente.",
    f:"DEV Community / GitHub",dt:"Mar/2026",tag:"A2A",alert:true,
    aud:["TA","Build"],url:null},
   {t:"WebMCP (Chrome 149): qualquer página web pode virar tool de agente",
-   s:"Origin trial do WebMCP no Chrome 149 (mai/2026): especificação aberta que permite páginas web exporem tools para agentes de browser. Se aprovado como padrão, qualquer interface web poderá ser acessada por agentes sem scraping ou automação de browser.",
-   d:"WebMCP pode tornar obsoletos muitos casos de uso de RPA baseados em browser automation. Monitore para avaliar impacto em integrações que dependem de Playwright/Selenium ou Agentforce para automação de web.",
+   s:"Origin trial do WebMCP no Chrome 149: especificação aberta que permite páginas web exporem tools para agentes de browser.",
+   d:"WebMCP pode tornar obsoletos muitos casos de uso de RPA baseados em browser automation.",
    f:"Jeffrey Stop / Google Blog",dt:"Mai/2026",tag:"WebMCP",alert:false,
    aud:["Build","TA"],url:null},
 ]},
-
 // ═══════════════ 🛠️ LLMOPS & OBSERVABILIDADE ═══════════════
 tools:{u:"Jun/2026",d:[
   {t:"Langfuse vira camada de trace obrigatória em redes multi-agente",
-   s:"Plataformas de produção (Oracle, Rush University) usam Langfuse para trace end-to-end: detecção de intenção → roteamento → invocações MCP. Cada agente tem spans individuais com latência e custo de tokens. Novo Langfuse MCP Server (jun/2026): agentes consultam os próprios traces para auto-debugging sem sair do workflow.",
-   d:"Inclua Langfuse ou LandCrest no escopo desde o PoC. Sem trace por agente, não há diagnóstico em produção nem argumento de otimização de Flex Credits. É o requisito que separa PoC de produção.",
+   s:"Plataformas de produção (Oracle, Rush University) usam Langfuse para trace end-to-end. Novo Langfuse MCP Server (jun/2026): agentes consultam os próprios traces para auto-debugging.",
+   d:"Inclua Langfuse ou LandCrest no escopo desde o PoC. Sem trace por agente, não há diagnóstico em produção.",
    f:"Oracle Blogs / GitHub avivsinai",dt:"Jun/2026",tag:"Langfuse",alert:false,
    aud:["TA","Build"],url:null},
   {t:"Stack de referência completo 2026: LangGraph + MCP + A2A + Langfuse + DeepEval",
-   s:"Arquitetura production-ready documentada (freeCodeCamp abr/2026): LangGraph orquestra, MCP acessa tools, A2A delega cross-framework (incluindo CrewAI e AG2), Langfuse captura todos os traces, DeepEval roda quality checks automáticos. Cada camada previne um modo de falha específico de produção.",
-   d:"Use como checklist de maturidade: orquestração / acesso a tools / colaboração cross-framework / observabilidade / avaliação automática. Camada faltando = risco nomeável = argumento para expandir escopo.",
+   s:"Arquitetura production-ready: LangGraph orquestra, MCP acessa tools, A2A delega cross-framework, Langfuse captura traces, DeepEval roda quality checks automáticos.",
+   d:"Use como checklist de maturidade: orquestração / acesso a tools / colaboração cross-framework / observabilidade / avaliação automática.",
    f:"freeCodeCamp",dt:"Abr/2026",tag:"LLMOps",alert:false,
    aud:["TA","Build"],url:null},
   {t:"Anthropic endurece limites de agentes — economia de tokens sob pressão",
-   s:"Mai/2026: Anthropic introduz restrições de crédito para usuarios Claude com agent tools de terceiros. Workflows multi-step autônomos elevam drasticamente consumo de tokens tornando 'ilimitado' economicamente insustentável. OpenAI responde com incentivos gratuitos no Codex. Anthropic aumenta limites do Claude Code em 50% até jul/2026 como anti-move.",
-   d:"Sinal de mercado relevante: a economia de agentes autônomos está sendo recalibrada. Flex Credits do Agentforce (pay-per-use) é mais sustentável para o cliente do que assinatura flat de modelos — use esse argumento em comparativos.",
+   s:"Mai/2026: Anthropic introduz restrições de crédito para usuarios Claude com agent tools de terceiros. Anthropic aumenta limites do Claude Code em 50% até jul/2026 como anti-move.",
+   d:"Flex Credits do Agentforce (pay-per-use) é mais sustentável para o cliente do que assinatura flat de modelos.",
    f:"MarketingProfs",dt:"Mai/2026",tag:"Anthropic",alert:false,
    aud:["Exec","SE","TA"],url:null},
 ]},
-
 // ═══════════════ 🎓 SKILLS & CARREIRA ═══════════════
 skills:{u:"Jun/2026",d:[
   {t:"Agent Skills: pacotes instaláveis de conhecimento — o próximo nível depois de agentes",
-   s:"Padrão emergente jun/2026: skills como pacotes instaláveis com playbooks de debugging, investigação e operação prontos. O agente carrega a skill sob demanda sem inflar contexto. Anthropic Academy publica 13 cursos gratuitos sobre Claude Code, API, MCP e Agent Skills (atualizado abr/2026).",
-   d:"Estruturar Agent Skills vira diferencial de TA/EA — é a evolução de Topics/Actions para conhecimento operacional reutilizável e distribuível. Profissionais que publicam skills em AgentExchange têm novo canal de receita recorrente.",
+   s:"Padrão emergente jun/2026: skills como pacotes instaláveis com playbooks prontos. O agente carrega a skill sob demanda sem inflar contexto. Anthropic Academy publica 13 cursos gratuitos.",
+   d:"Estruturar Agent Skills vira diferencial de TA/EA — é a evolução de Topics/Actions para conhecimento operacional reutilizável e distribuível.",
    f:"GitHub / Anthropic Academy",dt:"Jun/2026",tag:"Skill",alert:true,
    aud:["TA","Build"],url:null},
   {t:"A competência central de EA/TA em 2026: desenhar a fronteira entre plataformas",
-   s:"VentureBeat: a disputa não é pelo melhor modelo, é por quem controla onde o agente roda. Com build-vs-buy real, mapa de fit por workflow e Agent Fabric como control plane multi-vendor, o valor do arquiteto está em decidir quais workflows vão para qual plataforma e como se integram. Não é mais 'tudo Salesforce' — é arquitetura híbrida.",
-   d:"Desenvolva narrativa de arquitetura multi-plataforma e saiba quando não usar Salesforce — isso aumenta credibilidade e gera deals maiores. É o que diferencia TA sênior de implementador em qualquer processo seletivo.",
+   s:"VentureBeat: a disputa não é pelo melhor modelo, é por quem controla onde o agente roda. Com build-vs-buy real e Agent Fabric como control plane, o valor do arquiteto está em decidir quais workflows vão para qual plataforma.",
+   d:"Desenvolva narrativa de arquitetura multi-plataforma e saiba quando não usar Salesforce — isso aumenta credibilidade.",
    f:"VentureBeat / MarkTechPost",dt:"Mai/2026",tag:"Mercado",alert:false,
    aud:["TA","Exec","SE"],url:null},
   {t:"Certificações: Agent Script, Headless 360, Data 360 e MCP Connector são os eixos",
-   s:"Com Summer '26 em GA (15/jun), as trilhas de certificação evoluíram: Agent Script, Headless 360, Data 360, Trust Layer e MCP Connector são os temas que aparecem em arquiteturas reais agora. A migração obrigatória de agentes legados para o novo builder (13/jul) cria urgência de atualização.",
-   d:"Priorize Agent Script + Headless 360 + Data 360 nas revisões de certificação. São os temas de decisão arquitetural em 2026 e os que sustentam a convergência para CTA — e os que clientes enterprise avaliam em RFPs técnicos.",
+   s:"Com Summer '26 em GA (15/jun), as trilhas de certificação evoluíram. A migração obrigatória de agentes legados para o novo builder (13/jul) cria urgência de atualização.",
+   d:"Priorize Agent Script + Headless 360 + Data 360 nas revisões de certificação.",
    f:"Salesforce / Salesforce Dictionary",dt:"Jun/2026",tag:"Cert",alert:false,
    aud:["TA","Build","SE"],url:null},
 ]},
 };
 
-function AudBadge({r}){const a=AUD[r];return(
-  <span style={{background:a.b,color:a.c,border:`1px solid ${a.c}50`,borderRadius:999,padding:"2px 9px",fontSize:10,fontWeight:600,whiteSpace:"nowrap",letterSpacing:"0.03em"}}>{a.l}</span>
-);}
+/* ─── NAV ICONS ─── */
+const IconFeed=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>;
+const IconSaved=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>;
+const IconArch=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>;
+const IconProfile=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
+const IconChevron=({open})=><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{transition:"transform .2s",transform:open?"rotate(180deg)":"rotate(0deg)"}}><polyline points="6 9 12 15 18 9"/></svg>;
+const IconLink=()=><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
 
+/* ─── BADGE ─── */
+function AudBadge({r}){
+  const a=AUD[r];
+  return <span className="aud-pill" style={{background:a.b,color:a.c,border:`1px solid ${a.c}40`}}>{a.l}</span>;
+}
+
+/* ─── CARD ─── */
 function Card({item}){
   const [open,setOpen]=useState(false);
   const c=TC[item.tag]||"#6B7280";
   return(
-    <div onClick={()=>setOpen(v=>!v)} style={{
+    <article className="card" onClick={()=>setOpen(v=>!v)} style={{
       background:"#0F1A2E",
-      border:`1px solid ${item.alert?"rgba(251,191,36,.35)":"#1E293B"}`,
-      borderLeft:`3px solid ${item.alert?"#FBBF24":c}`,
-      borderRadius:8,padding:"16px",cursor:"pointer",marginBottom:10,
-      transition:"border-color .15s,box-shadow .15s",
-      animation:item.alert?"alertglow 2.5s ease-in-out infinite":"none",
-    }}
-    onMouseEnter={e=>{e.currentTarget.style.borderColor=item.alert?"rgba(251,191,36,.6)":`${c}60`;e.currentTarget.style.boxShadow=`0 4px 20px ${c}18`;}}
-    onMouseLeave={e=>{e.currentTarget.style.borderColor=item.alert?"rgba(251,191,36,.35)":"#1E293B";e.currentTarget.style.boxShadow="";}}>
-      <div style={{display:"flex",gap:10,alignItems:"flex-start",marginBottom:8}}>
-        <div style={{flex:1}}>
-          {item.alert&&<span style={{background:"rgba(251,191,36,.12)",color:"#FBBF24",border:"1px solid rgba(251,191,36,.35)",borderRadius:999,padding:"2px 9px",fontSize:10,fontWeight:700,marginBottom:6,display:"inline-block",letterSpacing:"0.04em"}}>⚡ ALERTA</span>}
-          <h3 className="serif" style={{margin:"2px 0 0",fontSize:15,fontWeight:700,color:"#EEF2FF",lineHeight:1.4}}>{item.t}</h3>
+      border:`1px solid ${item.alert?"rgba(251,191,36,.3)":"#1E293B"}`,
+      borderRadius:12,
+      overflow:"hidden",
+      cursor:"pointer",
+      animation:item.alert?"alertglow 2.8s ease-in-out infinite":"none",
+      position:"relative",
+    }}>
+      {/* left accent bar */}
+      <div style={{position:"absolute",left:0,top:0,bottom:0,width:3,background:item.alert?"#FBBF24":c,borderRadius:"12px 0 0 12px"}}/>
+
+      <div style={{padding:"14px 14px 14px 18px"}}>
+        {/* top row: alert + tag */}
+        <div style={{display:"flex",gap:7,alignItems:"center",marginBottom:9,flexWrap:"wrap"}}>
+          {item.alert&&(
+            <span className="tag-chip" style={{background:"rgba(251,191,36,.12)",color:"#FBBF24",border:"1px solid rgba(251,191,36,.3)"}}>⚡ URGENTE</span>
+          )}
+          <span className="tag-chip" style={{background:c+"14",color:c,border:`1px solid ${c}30`}}>{item.tag}</span>
+          <div style={{flex:1}}/>
+          <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
+            {item.aud.map(r=><AudBadge key={r} r={r}/>)}
+          </div>
         </div>
-        <span style={{background:c+"15",color:c,border:`1px solid ${c}35`,borderRadius:999,padding:"2px 10px",fontSize:10,fontWeight:600,whiteSpace:"nowrap",flexShrink:0,letterSpacing:"0.04em"}}>{item.tag}</span>
-      </div>
-      <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}}>
-        {item.aud.map(r=><AudBadge key={r} r={r}/>)}
-      </div>
-      <p style={{margin:"0 0 10px",fontSize:13,color:"#94A3B8",lineHeight:1.65}}>{item.s}</p>
-      {open&&(
-        <div style={{background:"rgba(167,139,250,.06)",border:"1px solid rgba(167,139,250,.2)",borderRadius:6,padding:"10px 13px",marginBottom:10}}>
-          <p style={{margin:0,fontSize:12.5,color:"#C4B5FD",lineHeight:1.6}}>
-            <strong style={{color:"#A78BFA",fontFamily:"'Playfair Display',serif"}}>🏛 Decisão arquitetural — </strong>{item.d}
-          </p>
+
+        {/* headline */}
+        <h3 className="serif" style={{fontSize:15,fontWeight:700,color:"#EEF2FF",lineHeight:1.38,margin:"0 0 8px",letterSpacing:"-0.01em"}}>{item.t}</h3>
+
+        {/* summary */}
+        <p style={{fontSize:13,color:"#94A3B8",lineHeight:1.65,margin:"0 0 10px"}}>{item.s}</p>
+
+        {/* decisão expandida */}
+        {open&&(
+          <div style={{background:"rgba(167,139,250,.07)",border:"1px solid rgba(167,139,250,.2)",borderRadius:8,padding:"11px 13px",margin:"0 0 10px"}}>
+            <p style={{margin:0,fontSize:12.5,color:"#C4B5FD",lineHeight:1.62}}>
+              <span className="serif" style={{color:"#A78BFA",fontWeight:700,fontSize:13}}>🏛 Decisão — </span>{item.d}
+            </p>
+          </div>
+        )}
+
+        {/* footer */}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:9,borderTop:"1px solid #1A2840",flexWrap:"wrap",gap:6}}>
+          <span style={{fontSize:11,color:"#334155",lineHeight:1.4}}>{item.f}<br/><span style={{color:"#2D3E55"}}>{item.dt}</span></span>
+          <div style={{display:"flex",gap:10,alignItems:"center"}}>
+            {item.url&&(
+              <a href={item.url} target="_blank" rel="noopener noreferrer"
+                 onClick={e=>e.stopPropagation()}
+                 style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:"#38BDF8",textDecoration:"none",padding:"4px 8px",border:"1px solid rgba(56,189,248,.25)",borderRadius:6}}>
+                fonte <IconLink/>
+              </a>
+            )}
+            <span style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:"#A78BFA"}}>
+              {open?"fechar":"decisão"} <IconChevron open={open}/>
+            </span>
+          </div>
         </div>
-      )}
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:6,paddingTop:6,borderTop:"1px solid #1E293B"}}>
-        <span style={{fontSize:11,color:"#475569"}}>📰 {item.f} · {item.dt}</span>
-        <div style={{display:"flex",gap:10,alignItems:"center"}}>
-          {item.url&&<a href={item.url} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} style={{fontSize:11,color:"#38BDF8",textDecoration:"none"}}>fonte ↗</a>}
-          <span style={{fontSize:11,color:"#A78BFA"}}>{open?"▲ fechar":"▼ decisão"}</span>
-        </div>
       </div>
-    </div>
+    </article>
   );
 }
 
+/* ─── APP ─── */
 function App(){
   const [tid,setTid]=useState("hot");
   const [aud,setAud]=useState(null);
+  const [navTab,setNavTab]=useState("feed");
   const tr=TRACKS.find(t=>t.id===tid);
   const data=N[tid];
   const items=useMemo(()=>aud?data.d.filter(i=>i.aud.includes(aud)):data.d,[tid,aud]);
@@ -331,83 +387,112 @@ function App(){
   const totalItems=useMemo(()=>Object.values(N).reduce((s,t)=>s+t.d.length,0),[]);
 
   return(
-    <div style={{minHeight:"100vh",paddingBottom:48}}>
-      <div style={{background:"rgba(2,8,23,.96)",borderBottom:"1px solid #1E293B",padding:"14px 16px 12px",position:"sticky",top:0,zIndex:10,backdropFilter:"blur(20px)"}}>
-        <div style={{maxWidth:920,margin:"0 auto"}}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
-            <div>
-              <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
-                <span style={{width:7,height:7,borderRadius:"50%",background:"#EF4444",boxShadow:"0 0 8px #EF4444",display:"inline-block",animation:"pulse 2s infinite"}}/>
-                <span style={{fontSize:10,color:"#38BDF8",fontWeight:700,letterSpacing:"2px",textTransform:"uppercase"}}>AO VIVO · SALESFORCE & IA</span>
-              </div>
-              <h1 className="serif" style={{margin:0,fontSize:24,fontWeight:700,color:"#EEF2FF",letterSpacing:"-0.01em",lineHeight:1.2}}>Intelligence Digest</h1>
-              <p style={{margin:"4px 0 0",fontSize:11,color:"#475569"}}>Bússola para Arquitetos de IA · curadoria proativa · Jun 2026</p>
-            </div>
-            <div style={{textAlign:"right",flexShrink:0,paddingTop:2}}>
-              <div style={{fontSize:10.5,color:"#475569",marginBottom:5}}>{new Date().toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})}</div>
-              <div style={{background:"rgba(251,191,36,.1)",border:"1px solid rgba(251,191,36,.3)",borderRadius:999,padding:"3px 10px",fontSize:10.5,color:"#FBBF24",fontWeight:700,display:"inline-block"}}>⚡ {totalAlerts} alertas · {totalItems} insights</div>
-            </div>
-          </div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:5,marginBottom:9}}>
-            {TRACKS.map(t=>{
-              const on=tid===t.id;
-              const cnt=N[t.id]?.d.length||0;
-              const al=N[t.id]?.d.filter(i=>i.alert).length||0;
-              return(
-                <button key={t.id} onClick={()=>{setTid(t.id);setAud(null);}} style={{
-                  background:on?`linear-gradient(135deg,${t.color},${t.color}99)`:t.color+"12",
-                  border:`1px solid ${on?t.color:al>0?"rgba(251,191,36,.4)":t.color+"35"}`,
-                  borderRadius:18,padding:"6px 12px",color:on?"#fff":t.color,
-                  fontSize:11.5,fontWeight:on?700:500,cursor:"pointer",
-                  display:"flex",alignItems:"center",gap:5,transition:"all .15s",
-                  boxShadow:on?`0 3px 12px ${t.color}40`:"none",position:"relative",
-                }}>
-                  {t.label}
-                  <span style={{fontSize:9,background:on?"rgba(255,255,255,.22)":t.color+"22",borderRadius:10,padding:"1px 6px",fontWeight:700,color:on?"#fff":t.color}}>{cnt}</span>
-                  {al>0&&!on&&<span style={{position:"absolute",top:-4,right:-4,width:14,height:14,borderRadius:"50%",background:"#FBBF24",color:"#000",fontSize:8,fontWeight:900,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 6px #FBBF24"}}>!</span>}
-                </button>
-              );
-            })}
-          </div>
-          <div style={{display:"flex",gap:5,alignItems:"center"}}>
-            <span style={{fontSize:10,color:"#475569",marginRight:2,fontWeight:500}}>Audiência:</span>
-            {[null,"SE","TA","Build","Exec"].map(r=>{
-              const a=r?AUD[r]:null;const on=aud===r;
-              return(
-                <button key={r||"all"} onClick={()=>setAud(r)} style={{
-                  background:on?(a?a.b:"rgba(238,242,255,.08)"):"transparent",
-                  border:`1px solid ${on?(a?a.c:"rgba(238,242,255,.25)"):"#1E293B"}`,
-                  borderRadius:999,padding:"3px 11px",
-                  color:on?(a?a.c:"#EEF2FF"):"#475569",
-                  fontSize:11,fontWeight:on?700:400,cursor:"pointer",transition:"all .15s",
-                }}>{r?a.l:"Todos"}</button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <div style={{maxWidth:920,margin:"0 auto",padding:"18px 16px 0"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14,paddingBottom:12,borderBottom:"1px solid #1E293B"}}>
+    <div style={{display:"flex",flexDirection:"column",height:"100%",background:"#081327"}}>
+
+      {/* ── HEADER ── */}
+      <header style={{background:"rgba(5,14,33,.97)",borderBottom:"1px solid #1A2840",padding:"14px 16px 0",flexShrink:0,backdropFilter:"blur(20px)",position:"sticky",top:0,zIndex:20}}>
+        {/* title row */}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
           <div>
-            <h2 className="serif" style={{margin:0,fontSize:20,fontWeight:700,color:"#EEF2FF",lineHeight:1.2}}>{tr.label}</h2>
-            <p style={{margin:"4px 0 0",fontSize:11,color:"#475569"}}>{items.length} insight{items.length!==1?"s":""} · curadoria {data.u}{aud?` · ${AUD[aud].l}`:""}</p>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
+              <span style={{width:6,height:6,borderRadius:"50%",background:"#EF4444",boxShadow:"0 0 8px #EF444488",display:"inline-block",animation:"livepulse 2s infinite"}}/>
+              <span style={{fontSize:10,color:"#38BDF8",fontWeight:700,letterSpacing:"2.5px",textTransform:"uppercase"}}>AO VIVO</span>
+            </div>
+            <h1 className="serif" style={{fontSize:22,fontWeight:700,color:"#EEF2FF",letterSpacing:"-0.02em",lineHeight:1}}>Intelligence Digest</h1>
+            <p style={{marginTop:4,fontSize:10.5,color:"#475569",fontWeight:400}}>Bússola para Arquitetos de IA · Jun 2026</p>
           </div>
-          <span style={{background:tr.color+"12",border:`1px solid ${tr.color}30`,borderRadius:999,padding:"3px 12px",fontSize:10,color:tr.color,fontWeight:700,letterSpacing:"0.04em"}}>✓ curado</span>
+          <div style={{background:"rgba(251,191,36,.1)",border:"1px solid rgba(251,191,36,.25)",borderRadius:999,padding:"5px 11px",textAlign:"center",flexShrink:0,marginTop:2}}>
+            <div style={{fontSize:13,fontWeight:700,color:"#FBBF24",lineHeight:1}}>⚡ {totalAlerts}</div>
+            <div style={{fontSize:9,color:"rgba(251,191,36,.6)",marginTop:2,fontWeight:500}}>ALERTAS</div>
+          </div>
         </div>
-        {items.length===0?(
-          <div style={{textAlign:"center",padding:"40px",color:"#334155"}}>
-            <div style={{fontSize:36,marginBottom:10}}>🔍</div>
-            <p style={{fontSize:13}}>Nenhum item para <strong style={{color:AUD[aud]?.c}}>{AUD[aud]?.l}</strong> nesta trilha.</p>
+
+        {/* track chips */}
+        <div className="scroll-x" style={{paddingBottom:1}}>
+          {TRACKS.map(t=>{
+            const on=tid===t.id;
+            const al=N[t.id]?.d.filter(i=>i.alert).length||0;
+            return(
+              <button key={t.id} className="track-chip"
+                onClick={()=>{setTid(t.id);setAud(null);}}
+                style={{
+                  background:on?t.color:"#0F1A2E",
+                  color:on?"#020817":t.color,
+                  border:`1px solid ${on?t.color:al>0?"rgba(251,191,36,.35)":t.color+"30"}`,
+                  boxShadow:on?`0 2px 12px ${t.color}50`:"none",
+                  position:"relative",
+                }}>
+                {t.label}
+                {al>0&&!on&&<span style={{position:"absolute",top:-3,right:-3,width:13,height:13,borderRadius:"50%",background:"#FBBF24",fontSize:8,fontWeight:900,color:"#000",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 6px #FBBF24"}}>{al}</span>}
+              </button>
+            );
+          })}
+          <div style={{flexShrink:0,width:8}}/>
+        </div>
+
+        {/* audience filter */}
+        <div style={{display:"flex",gap:5,alignItems:"center",padding:"10px 0 12px",overflowX:"auto",scrollbarWidth:"none"}}>
+          <span style={{fontSize:10,color:"#334155",fontWeight:600,letterSpacing:"0.05em",textTransform:"uppercase",flexShrink:0,paddingLeft:2}}>Para</span>
+          {[null,"SE","TA","Build","Exec"].map(r=>{
+            const a=r?AUD[r]:null;const on=aud===r;
+            return(
+              <button key={r||"all"} onClick={()=>setAud(r)} style={{
+                background:on?(a?a.b:"rgba(238,242,255,.1)"):"transparent",
+                border:`1px solid ${on?(a?a.c:"rgba(238,242,255,.3)"):"#1E293B"}`,
+                borderRadius:999,padding:"4px 12px",flexShrink:0,
+                color:on?(a?a.c:"#EEF2FF"):"#334155",
+                fontFamily:"inherit",fontSize:11,fontWeight:on?600:400,cursor:"pointer",transition:"all .15s",
+              }}>{r?a.l:"Todos"}</button>
+            );
+          })}
+        </div>
+      </header>
+
+      {/* ── FEED ── */}
+      <main className="scroll-y" style={{flex:1,overflowY:"auto",padding:"16px 12px 0"}}>
+        {/* section label */}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,paddingBottom:10,borderBottom:"1px solid #1A2840"}}>
+          <div>
+            <h2 className="serif" style={{fontSize:18,fontWeight:700,color:"#EEF2FF",lineHeight:1.2}}>{tr.label}</h2>
+            <p style={{marginTop:3,fontSize:11,color:"#334155"}}>{items.length} insight{items.length!==1?"s":""} · {data.u}{aud?` · ${AUD[aud].l}`:""}</p>
           </div>
-        ):items.map((item,i)=><Card key={i} item={item}/>)}
-        <p style={{textAlign:"center",marginTop:16,fontSize:11,color:"#334155",lineHeight:1.8}}>
-          Clique em cada card para ver a decisão arquitetural ↑<br/>
-          <span style={{color:"#2D3E55"}}>Fontes: inglês + PT · curadoria proativa · últimas 8 semanas · Jun/2026</span>
+          <span style={{background:tr.color+"10",border:`1px solid ${tr.color}25`,borderRadius:999,padding:"4px 10px",fontSize:10,color:tr.color,fontWeight:600,letterSpacing:"0.05em",flexShrink:0}}>curado</span>
+        </div>
+
+        {/* cards */}
+        <div style={{display:"flex",flexDirection:"column",gap:10}}>
+          {items.length===0?(
+            <div style={{textAlign:"center",padding:"48px 24px",color:"#1E293B"}}>
+              <div style={{fontSize:40,marginBottom:12}}>🔍</div>
+              <p style={{fontSize:13,color:"#334155"}}>Nenhum item para <strong style={{color:AUD[aud]?.c}}>{AUD[aud]?.l}</strong> nesta trilha.</p>
+            </div>
+          ):items.map((item,i)=><Card key={i} item={item}/>)}
+        </div>
+
+        <p style={{textAlign:"center",padding:"20px 0 8px",fontSize:10.5,color:"#1A2535",lineHeight:1.9}}>
+          Toque para ver a decisão arquitetural<br/>
+          <span style={{color:"#152030"}}>curadoria proativa · inglês + fontes globais · Jun 2026</span>
         </p>
-      </div>
+      </main>
+
+      {/* ── BOTTOM NAV ── */}
+      <nav style={{background:"rgba(5,14,33,.97)",borderTop:"1px solid #1A2840",display:"flex",flexShrink:0,backdropFilter:"blur(20px)",paddingBottom:"env(safe-area-inset-bottom,0px)"}}>
+        {[
+          {id:"feed",    label:"Feed",        Icon:IconFeed},
+          {id:"saved",   label:"Salvo",       Icon:IconSaved},
+          {id:"arch",    label:"Arquitetura", Icon:IconArch},
+          {id:"profile", label:"Perfil",      Icon:IconProfile},
+        ].map(({id,label,Icon})=>(
+          <button key={id} className={`nav-item${navTab===id?" active":""}`} onClick={()=>setNavTab(id)}>
+            <Icon/>
+            <span>{label}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }
+
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
