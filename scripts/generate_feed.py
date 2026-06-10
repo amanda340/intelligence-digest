@@ -171,12 +171,21 @@ def fetch_rss(feed: Dict) -> List[Dict]:
 
 
 BENIOFF_FILTER = re.compile(r"benioff|marc\b", re.I)
-# Allow only Latin-script content (EN/PT/ES/FR/DE/IT) — blocks Thai, Arabic, Chinese, etc.
-LATIN_ONLY = re.compile(r"^[\x00-\x024F\s\d\W]+$")
+# Block non-Latin scripts (Thai, Arabic, CJK, Korean, Cyrillic) instead of
+# allow-listing Latin — \x escapes only take 2 hex digits, so \x024F was a bug
+# that rejected every title containing letters (feed went to 0 items).
+NON_LATIN = re.compile(
+    r"[\u0E00-\u0E7F"   # Thai
+    r"\u0600-\u06FF"    # Arabic
+    r"\u4E00-\u9FFF"    # CJK (Chinese)
+    r"\u3040-\u30FF"    # Japanese kana
+    r"\uAC00-\uD7AF"    # Korean Hangul
+    r"\u0400-\u04FF]"   # Cyrillic
+)
 
 
 def is_latin(text: str) -> bool:
-    return bool(LATIN_ONLY.match(text)) if text else True
+    return not NON_LATIN.search(text) if text else True
 
 
 def deduplicate(items: List[Dict]) -> List[Dict]:
