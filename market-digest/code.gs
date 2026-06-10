@@ -21,6 +21,28 @@ const PROPS       = PropertiesService.getScriptProperties();
 const MAX_PER_FEED = 5;
 const MAX_TOTAL    = 80;
 
+/* ─── Tickers monitorados ──────────────────────────────────── */
+const TICKERS = [
+  { ticker:"CRM",  name:"Salesforce",        sector:"Enterprise SaaS" },
+  { ticker:"MSFT", name:"Microsoft",          sector:"Cloud / AI" },
+  { ticker:"GOOGL",name:"Alphabet / Google",  sector:"Cloud / AI" },
+  { ticker:"AMZN", name:"Amazon / AWS",        sector:"Cloud / AI" },
+  { ticker:"NOW",  name:"ServiceNow",          sector:"Enterprise AI" },
+];
+
+/* ─── Entidades para matching de sinais ────────────────────── */
+const ENTITY_SIGNALS = [
+  { pattern:/salesforce|agentforce|crm/i,  stock:"CRM",  hn:"Agentforce", reddit:"salesforce" },
+  { pattern:/microsoft|copilot|azure/i,    stock:"MSFT", hn:"Microsoft Copilot", reddit:"MachineLearning" },
+  { pattern:/google|gemini|gcp/i,          stock:"GOOGL",hn:"Google AI", reddit:"MachineLearning" },
+  { pattern:/amazon|aws|bedrock/i,         stock:"AMZN", hn:"AWS Bedrock", reddit:"MachineLearning" },
+  { pattern:/servicenow|now platform/i,    stock:"NOW",  hn:"ServiceNow", reddit:"salesforce" },
+  { pattern:/anthropic|claude/i,           stock:null,   hn:"Anthropic Claude", reddit:"LocalLLaMA" },
+  { pattern:/langfuse|langchain|langgraph/i,stock:null,  hn:"LangChain", reddit:"LocalLLaMA" },
+  { pattern:/mcp|model context protocol/i, stock:null,   hn:"MCP protocol", reddit:"MachineLearning" },
+  { pattern:/openai|gpt/i,                 stock:null,   hn:"OpenAI", reddit:"MachineLearning" },
+];
+
 /* ─── Fontes por track ─────────────────────────────────────── */
 const FEEDS = [
   // Salesforce (releases + general)
@@ -48,6 +70,9 @@ const FEEDS = [
   { url:"https://langfuse.com/blog/rss",                          track:"tools",    category:"Langfuse Blog",          tags:["Langfuse","LLMOps"] },
   // Skills & carreira
   { url:"https://trailhead.salesforce.com/today/feed/",           track:"skills",   category:"Trailhead",              tags:["Skill","Cert"] },
+  // Aquisições (M&A news)
+  { url:"https://techcrunch.com/tag/acquisitions/feed/",           track:"acquisitions", category:"TechCrunch M&A",   tags:["Acquisition","M&A"] },
+  { url:"https://feeds.bloomberg.com/technology/news.rss",         track:"acquisitions", category:"Bloomberg Tech",   tags:["M&A","Mercado"] },
   // Social / debates (Reddit RSS, HN, Dev.to)
   { url:"https://www.reddit.com/r/salesforce/new/.rss",           track:"social",   category:"Reddit r/salesforce",    tags:["Comunidade","Reddit"] },
   { url:"https://www.reddit.com/r/MachineLearning/new/.rss",      track:"social",   category:"Reddit r/ML",            tags:["Comunidade","Reddit"] },
@@ -76,8 +101,11 @@ function runAll() {
   Logger.log(`Total após dedup: ${deduped.length}`);
 
   const enriched = enrichWithGemini(deduped.slice(0, MAX_TOTAL));
-  const output   = buildFeed(enriched);
-  output.radar   = buildRadar(enriched);
+  const withSignals = attachSignals(enriched);
+  const output   = buildFeed(withSignals);
+  output.radar   = buildRadar(withSignals);
+  output.stocks  = buildStocks();
+  output.acquisitions = buildAcquisitionsTrack(withSignals);
 
   publishToGitHub(output);
   Logger.log(`✅ Concluído: ${enriched.length} itens publicados`);
@@ -299,6 +327,7 @@ function buildFeed(items) {
       url:         item.url,
       urls:        item.urls || [item.url],
       aud:         Array.isArray(item.aud) && item.aud.length ? item.aud : inferAud(item),
+      signals:     item.signals || null,
     });
   });
   return {
@@ -335,6 +364,138 @@ function buildRadar(items) {
     v.forEach(n=>{ if(!seen.has(n)&&radar[k].length<8){ radar[k].push(n); seen.add(n); } });
   });
   return radar;
+}
+
+/* ─── Busca sinais sociais do HN via Algolia ───────────────── */
+function fetchHnSignals(query) {
+  try {
+    const url = `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(query)}&tags=story&hitsPerPage=3`;
+    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions:true });
+    if (resp.getResponseCode() !== 200) return null;
+    const data = JSON.parse(resp.getContentText());
+    const hits = data?.hits || [];
+    if (!hits.length) return null;
+    const top = hits[0];
+    return {
+      hn_comments: top.num_comments || 0,
+      hn_url: `https://news.ycombinator.com/item?id=${top.objectID}`,
+    };
+  } catch (_) { return null; }
+}
+
+/* ─── Busca cotação via Yahoo Finance RSS ──────────────────── */
+function fetchStockQuote(ticker) {
+  try {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=5d`;
+    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions:true, headers:{"User-Agent":"IntelligenceDigestBot/1.0"} });
+    if (resp.getResponseCode() !== 200) return null;
+    const data = JSON.parse(resp.getContentText());
+    const meta = data?.chart?.result?.[0]?.meta;
+    if (!meta) return null;
+    const price = meta.regularMarketPrice;
+    const prev  = meta.chartPreviousClose || meta.previousClose;
+    const change = prev ? ((price - prev) / prev * 100) : 0;
+    return {
+      price:  `$${price.toFixed(2)}`,
+      change: parseFloat(change.toFixed(2)),
+    };
+  } catch (_) { return null; }
+}
+
+/* ─── Monta seção de stocks com análise do Gemini ─────────── */
+function buildStocks() {
+  const apiKey = PROPS.getProperty("GEMINI_API_KEY");
+  const results = [];
+  TICKERS.forEach(ticker => {
+    const quote = fetchStockQuote(ticker.ticker);
+    if (!quote) return;
+    const comment = apiKey ? callGeminiStockComment(apiKey, ticker, quote) : "";
+    results.push({ ...ticker, ...quote, comment });
+  });
+  return results;
+}
+
+function callGeminiStockComment(apiKey, ticker, quote) {
+  try {
+    const direction = quote.change >= 0 ? "subiu" : "caiu";
+    const prompt = `Você é analista de mercado sênior especializado em tecnologia enterprise e IA.
+A ação ${ticker.ticker} (${ticker.name}, setor: ${ticker.sector}) ${direction} ${Math.abs(quote.change)}% hoje.
+Escreva em PT-BR uma análise concisa (máximo 180 caracteres) explicando as prováveis causas desta movimentação,
+considerando o contexto atual de IA enterprise (Salesforce Agentforce, Microsoft Copilot, Google Gemini, AWS Bedrock).
+Responda APENAS com o texto da análise, sem prefixos ou explicações.`;
+
+    const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.3, maxOutputTokens: 120 },
+    });
+    const resp = UrlFetchApp.fetch(url, {
+      method:"post", contentType:"application/json",
+      payload:body, muteHttpExceptions:true,
+    });
+    if (resp.getResponseCode() !== 200) return "";
+    const data = JSON.parse(resp.getContentText());
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+  } catch (_) { return ""; }
+}
+
+/* ─── Anexa sinais sociais a cada item relevante ───────────── */
+function attachSignals(items) {
+  const hnCache = {};
+  return items.map(item => {
+    const text = `${item.title} ${item.rawSummary}`;
+    const match = ENTITY_SIGNALS.find(e => e.pattern.test(text));
+    if (!match) return item;
+
+    // busca HN (com cache para não repetir mesma query)
+    const hnKey = match.hn;
+    if (!hnCache[hnKey]) {
+      hnCache[hnKey] = fetchHnSignals(match.hn) || {};
+      Utilities.sleep(400);
+    }
+    const hn = hnCache[hnKey];
+
+    return {
+      ...item,
+      signals: {
+        hn_comments:   hn.hn_comments || 0,
+        hn_url:        hn.hn_url || null,
+        reddit_posts:  0, // Reddit throttles — deixado para futuro
+        stock:         match.stock || null,
+        stock_change:  null, // preenchido depois pelo buildFeed com dados de stocks
+        stock_comment: null,
+      },
+    };
+  });
+}
+
+/* ─── Monta track de aquisições ────────────────────────────── */
+function buildAcquisitionsTrack(items) {
+  // extrai itens do track acquisitions diretamente
+  const acqItems = items.filter(i => i.track === "acquisitions");
+  return { u: formatMonth(), d: acqItems.map(item => ({
+    t:           item.title,
+    t_en:        item.t_en || item.title,
+    t_es:        item.t_es || item.title,
+    s:           item.summary    || item.rawSummary.slice(0, 250),
+    s_en:        item.summary_en || item.summary || "",
+    s_es:        item.summary_es || item.summary || "",
+    d:           item.decision    || "",
+    d_en:        item.decision_en || "",
+    d_es:        item.decision_es || "",
+    critical:    item.critical    || "",
+    critical_en: item.critical_en || "",
+    critical_es: item.critical_es || "",
+    f:           item.category,
+    dt:          item.pubDate,
+    tag:         "Acquisition",
+    alert:       !!item.alert,
+    url:         item.url,
+    urls:        item.urls || [item.url],
+    aud:         Array.isArray(item.aud) && item.aud.length ? item.aud : ["EA","Exec"],
+    acquirer_deals:   [],
+    competitor_deals: [],
+  }))};
 }
 
 /* ─── Publica feed.json no GitHub ──────────────────────────── */

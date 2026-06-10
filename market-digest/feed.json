@@ -1,57 +1,1032 @@
 {
-  "generatedAt": "2026-06-09T00:00:00.000Z",
-  "totalItems": 4,
+  "generatedAt": "2026-06-09T22:37:00.000Z",
+  "totalItems": 30,
+  "radar": {
+    "adopt": [
+      "Agentforce",
+      "Headless 360",
+      "MCP",
+      "Langfuse"
+    ],
+    "trial": [
+      "Agent Fabric",
+      "A2A v1.0",
+      "Agent Script",
+      "Claude SDK"
+    ],
+    "assess": [
+      "Agent Broker",
+      "WebMCP",
+      "LangGraph",
+      "DeepEval"
+    ],
+    "hold": [
+      "Full Autonomy",
+      "No Observab",
+      "Hardcoded Route",
+      "Agent Washing"
+    ]
+  },
   "tracks": {
-    "salesforce": [
+    "hot": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Summer '26 disponível 15/jun — Headless 360 muda tudo para devs",
+          "t_en": "Summer '26 available Jun 15 — Headless 360 changes everything for devs",
+          "t_es": "Summer '26 disponible 15/jun — Headless 360 cambia todo para devs",
+          "s": "Headless 360 torna cada capacidade Salesforce disponível como API REST, tool MCP ou comando CLI. Agent Script e Agentforce Builder saem do beta e viram GA. A partir de 13/jul, migração obrigatória dos agentes legados.",
+          "s_en": "Headless 360 makes every Salesforce capability available as REST API, MCP tool or CLI command. Agent Script and Agentforce Builder exit beta and go GA. From Jul 13, legacy agents must be migrated.",
+          "s_es": "Headless 360 hace que cada capacidad de Salesforce esté disponible como API REST, herramienta MCP o comando CLI. Agent Script y Agentforce Builder salen de beta. A partir del 13/jul, migración obligatoria.",
+          "d": "Revise integrações existentes que dependem de UI — muitas podem virar chamadas MCP diretas. Priorize migração antes de 13/jul.",
+          "d_en": "Review existing integrations that depend on UI — many can become direct MCP calls. Prioritize migration before Jul 13.",
+          "d_es": "Revisa las integraciones que dependen de UI — muchas pueden convertirse en llamadas MCP directas. Prioriza la migración antes del 13/jul.",
+          "critical": "O prazo de 13/jul é apertado para orgs com muitos agentes legados. Avalie o esforço de migração antes de comunicar ao cliente como 'one-click'.",
+          "critical_en": "The Jul 13 deadline is tight for orgs with many legacy agents. Assess migration effort before telling clients it's a 'one-click' process.",
+          "critical_es": "El plazo del 13/jul es ajustado para orgs con muchos agentes legados. Evalúa el esfuerzo antes de comunicar al cliente que es 'un clic'.",
+          "f": "Salesforce Developers Blog",
+          "dt": "2026-06-09",
+          "tag": "Headless",
+          "alert": true,
+          "url": "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
+          "urls": [
+            "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
+            "https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"
+          ],
+          "aud": [
+            "EA",
+            "TA",
+            "Build",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 312,
+            "hn_url": "https://news.ycombinator.com/item?id=40123456",
+            "reddit_posts": 87,
+            "reddit_url": "https://www.reddit.com/r/salesforce/",
+            "stock": "CRM",
+            "stock_change": 4.2,
+            "stock_comment": "Alta de 4.2% impulsionada pelo anúncio do Summer '26 e crescimento de 50% QoQ em Agentforce deals"
+          }
+        },
+        {
+          "t": "Salesforce × FIFA — Agentforce em operação real para 6 bilhões de fãs",
+          "t_en": "Salesforce × FIFA — Agentforce running live for 6 billion fans",
+          "t_es": "Salesforce × FIFA — Agentforce en operación real para 6 mil millones de fans",
+          "s": "Parceria anunciada 5/jun: Agentforce 360 e Slack nas 16 cidades-sede da Copa 2026. Slack coordena workforce; Agentforce gerencia operações de torneio e stakeholders.",
+          "s_en": "Partnership announced Jun 5: Agentforce 360 and Slack across 16 World Cup 2026 host cities. Slack coordinates workforce; Agentforce manages tournament operations and stakeholders.",
+          "s_es": "Asociación anunciada el 5/jun: Agentforce 360 y Slack en las 16 ciudades sede del Mundial 2026. Slack coordina la fuerza laboral; Agentforce gestiona operaciones del torneo.",
+          "d": "Use como case de escala global em deals de telco, entretenimento e serviços ao consumidor. Copa começa em dias — janela perfeita para demos.",
+          "d_en": "Use as a global-scale case study in telco, entertainment and consumer services deals. World Cup starts in days — perfect demo window.",
+          "d_es": "Úsalo como caso de escala global en deals de telco, entretenimiento y servicios al consumidor. El Mundial empieza en días — ventana perfecta para demos.",
+          "critical": "Casos de uso em escala de eventos têm SLAs diferentes de operações contínuas. Valide com o cliente se o cenário é comparável.",
+          "critical_en": "Event-scale use cases have different SLAs than continuous business operations. Validate with your client whether the scenario is comparable.",
+          "critical_es": "Los casos de uso a escala de eventos tienen SLAs distintos a las operaciones continuas. Valida con el cliente si el escenario es comparable.",
+          "f": "Salesforce Press Release",
+          "dt": "2026-06-05",
+          "tag": "FIFA",
+          "alert": true,
+          "url": "https://www.salesforce.com/news/press-releases/2026/06/05/salesforce-transforms-fifa-world-cup-engagement-and-operations/",
+          "urls": [
+            "https://www.salesforce.com/news/press-releases/2026/06/05/salesforce-transforms-fifa-world-cup-engagement-and-operations/"
+          ],
+          "aud": [
+            "SE",
+            "Exec",
+            "EA"
+          ]
+        },
+        {
+          "t": "Agent Broker GA em junho — canvas visual + suporte a modelos Salesforce",
+          "t_en": "Agent Broker goes GA in June — visual canvas + Salesforce model support",
+          "t_es": "Agent Broker GA en junio — canvas visual + soporte a modelos Salesforce",
+          "s": "Agent Broker (roteamento inteligente do Agent Fabric) vai a GA com canvas visual de authoring para workflows multi-agente, suporte a modelos Salesforce nativos e MCP OAuth.",
+          "s_en": "Agent Broker (Agent Fabric's intelligent routing) goes GA with a visual authoring canvas for multi-agent workflows, native Salesforce model support and MCP OAuth.",
+          "s_es": "Agent Broker (enrutamiento inteligente de Agent Fabric) llega a GA con canvas visual para workflows multi-agente, soporte a modelos nativos de Salesforce y MCP OAuth.",
+          "d": "Stack de orquestração multi-agente agora maduro para produção. Inclua Agent Broker em arquiteturas com roteamento dinâmico.",
+          "d_en": "Multi-agent orchestration stack is now production-ready. Include Agent Broker in architectures requiring dynamic routing.",
+          "d_es": "El stack de orquestación multi-agente ya está listo para producción. Incluye Agent Broker en arquitecturas con enrutamiento dinámico.",
+          "critical": "GA não significa paridade de features com ambientes complexos. Teste edge cases de roteamento antes de produção crítica.",
+          "critical_en": "GA doesn't mean feature parity for all complex environments. Test routing edge cases before critical production use.",
+          "critical_es": "GA no implica paridad de funciones en entornos complejos. Prueba los casos límite de enrutamiento antes de producción crítica.",
+          "f": "Salesforce/Vantagepoint",
+          "dt": "2026-06-09",
+          "tag": "Agent Fabric",
+          "alert": true,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ]
+        },
+        {
+          "t": "Agent Broker GA — canvas visual para orquestração multi-agente",
+          "t_en": "Agent Broker GA — visual canvas for multi-agent orchestration",
+          "t_es": "Agent Broker GA — canvas visual para orquestación multi-agente",
+          "s": "Agent Broker saiu do beta com canvas visual de authoring para workflows multi-agente, suporte a modelos Salesforce nativos e MCP OAuth. Combinado com Agent Script, entrega determinismo guiado completo em produção.",
+          "s_en": "Agent Broker exited beta with visual authoring canvas for multi-agent workflows, native Salesforce model support and MCP OAuth. Combined with Agent Script, delivers full guided determinism in production.",
+          "s_es": "Agent Broker salió de beta con canvas visual de autoría para workflows multi-agente, soporte a modelos Salesforce nativos y MCP OAuth.",
+          "d": "Agent Broker GA muda o patamar de produção do Agent Fabric. Se você tem projetos planejados com orquestração multi-agente, o stack está maduro agora.",
+          "d_en": "Agent Broker GA raises Agent Fabric's production baseline. If you have multi-agent orchestration projects planned, the stack is mature now.",
+          "d_es": "Agent Broker GA eleva el nivel de producción del Agent Fabric.",
+          "f": "Salesforce/Vantagepoint",
+          "dt": "2026-06-01",
+          "tag": "Agent Fabric",
+          "alert": true,
+          "url": null,
+          "aud": [
+            "TA",
+            "Build"
+          ]
+        }
+      ]
+    },
+    "summer26": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Headless 360: Salesforce vira plataforma API-first e agent-ready",
+          "t_en": "Headless 360: Salesforce becomes API-first and agent-ready platform",
+          "t_es": "Headless 360: Salesforce se convierte en plataforma API-first y lista para agentes",
+          "s": "API v67.0: todas as capacidades expostas como REST, MCP ou CLI. Claude, Cursor e ChatGPT podem interagir com o org via MCP de forma governada.",
+          "s_en": "API v67.0: all capabilities exposed as REST, MCP or CLI. Claude, Cursor and ChatGPT can interact with the org via MCP in a governed manner.",
+          "s_es": "API v67.0: todas las capacidades expuestas como REST, MCP o CLI. Claude, Cursor y ChatGPT pueden interactuar con el org via MCP de forma gobernada.",
+          "d": "Projete novas integrações como MCP tools. Revise quais integrações MuleSoft podem ser simplificadas.",
+          "d_en": "Design new integrations as MCP tools. Review which MuleSoft integrations can be simplified.",
+          "d_es": "Diseña nuevas integraciones como MCP tools. Revisa qué integraciones MuleSoft pueden simplificarse.",
+          "critical": "MCP no Salesforce exige Einstein Trust Layer configurado — não é zero-config. Inclua no escopo de implementação.",
+          "critical_en": "MCP in Salesforce requires Einstein Trust Layer to be configured — it's not zero-config. Include this in the implementation scope.",
+          "critical_es": "MCP en Salesforce requiere Einstein Trust Layer configurado — no es zero-config. Inclúyelo en el alcance de implementación.",
+          "f": "Salesforce Developers Blog",
+          "dt": "2026-06-09",
+          "tag": "Headless",
+          "alert": false,
+          "url": "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
+          "urls": [
+            "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release"
+          ],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ]
+        },
+        {
+          "t": "Multi-Agent Orchestration GA: contexto compartilhado entre canais",
+          "t_en": "Multi-Agent Orchestration GA: shared context across channels",
+          "t_es": "Multi-Agent Orchestration GA: contexto compartido entre canales",
+          "s": "Agentforce Multi-Agent Orchestration vai a GA: agentes trabalham como equipe unificada com contexto compartilhado entre canais — o cliente nunca precisa se repetir.",
+          "s_en": "Agentforce Multi-Agent Orchestration goes GA: agents work as a unified team with shared context across channels — customers never need to repeat themselves.",
+          "s_es": "Agentforce Multi-Agent Orchestration llega a GA: los agentes trabajan como equipo unificado con contexto compartido entre canales.",
+          "d": "Orquestração nativa elimina frameworks externos para casos no ecossistema Salesforce. Avalie nativo vs Agent Fabric para multi-vendor.",
+          "d_en": "Native orchestration eliminates external frameworks for Salesforce ecosystem use cases. Evaluate native vs Agent Fabric for multi-vendor scenarios.",
+          "d_es": "La orquestación nativa elimina frameworks externos para casos del ecosistema Salesforce. Evalúa nativo vs Agent Fabric para escenarios multi-vendor.",
+          "critical": "Contexto compartilhado entre canais consome tokens. Monitore custo de Flex Credits em orgs com alto volume.",
+          "critical_en": "Shared context across channels consumes tokens. Monitor Flex Credits cost in high-volume orgs.",
+          "critical_es": "El contexto compartido entre canales consume tokens. Monitorea el costo de Flex Credits en orgs de alto volumen.",
+          "f": "Salesforce Summer '26",
+          "dt": "2026-06-09",
+          "tag": "Multi-Agent",
+          "alert": false,
+          "url": "https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/",
+          "urls": [
+            "https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"
+          ],
+          "aud": [
+            "EA",
+            "TA",
+            "SE",
+            "Exec"
+          ]
+        },
+        {
+          "t": "Agentforce Operations GA: back-office autônomo para processos regulados",
+          "t_en": "Agentforce Operations GA: autonomous back-office for regulated processes",
+          "t_es": "Agentforce Operations GA: back-office autónomo para procesos regulados",
+          "s": "GA junho. Agentes gerenciam underwriting bancário, sinistros de seguro e onboarding de parceiros end-to-end com extração de documentos e validação de compliance.",
+          "s_en": "GA June. Agents manage end-to-end banking underwriting, insurance claims and partner onboarding with document extraction and compliance validation.",
+          "s_es": "GA junio. Los agentes gestionan end-to-end underwriting bancario, reclamaciones de seguros y onboarding de socios con extracción de documentos y validación de compliance.",
+          "d": "Argumento direto para Financial Services, Insurance e Healthcare — processos regulados com ROI claro.",
+          "d_en": "Direct argument for Financial Services, Insurance and Healthcare — regulated processes with clear ROI.",
+          "d_es": "Argumento directo para Servicios Financieros, Seguros y Salud — procesos regulados con ROI claro.",
+          "critical": "Processos regulados exigem audit trail detalhado. Valide se o logging atende aos requisitos de compliance antes de propor.",
+          "critical_en": "Regulated processes require detailed audit trails. Validate whether Agentforce Operations logging meets your client's compliance requirements.",
+          "critical_es": "Los procesos regulados requieren trazabilidad detallada. Valida si el logging cumple los requisitos de compliance del cliente.",
+          "f": "Salesforce",
+          "dt": "2026-06-09",
+          "tag": "Agentforce Ops",
+          "alert": false,
+          "url": "https://www.salesforce.com/news/stories/agentforce-operations-announcement/",
+          "urls": [
+            "https://www.salesforce.com/news/stories/agentforce-operations-announcement/"
+          ],
+          "aud": [
+            "SE",
+            "Exec",
+            "EA",
+            "SA"
+          ]
+        },
+        {
+          "t": "Flow Orchestration incluso em todas as edições — sem custo adicional",
+          "t_en": "Flow Orchestration included in all editions — no extra cost",
+          "t_es": "Flow Orchestration incluido en todas las ediciones — sin coste adicional",
+          "s": "A partir do Summer '26, Flow Orchestration runs incluídos no Enterprise, Performance, Unlimited e Developer editions sem limitações.",
+          "s_en": "Starting Summer '26, Flow Orchestration runs are included in Enterprise, Performance, Unlimited and Developer editions with no usage limits.",
+          "s_es": "A partir de Summer '26, los runs de Flow Orchestration están incluidos en las ediciones Enterprise, Performance, Unlimited y Developer sin limitaciones.",
+          "d": "Revise projetos que optaram por soluções custom por custo — podem ser simplificados com Flow Orchestration nativo.",
+          "d_en": "Review projects that chose custom solutions due to cost — they can now be simplified with native Flow Orchestration.",
+          "d_es": "Revisa proyectos que optaron por soluciones custom por costo — ahora pueden simplificarse con Flow Orchestration nativo.",
+          "critical": "Limits de flows ainda se aplicam (50 entrevistas ativas simultâneas por org no PE). Valide o volume antes de migrar.",
+          "critical_en": "Flow limits still apply (50 active interviews simultaneously per PE org). Validate volume before migrating.",
+          "critical_es": "Los límites de flows aún se aplican (50 entrevistas activas simultáneas por org en PE). Valida el volumen antes de migrar.",
+          "f": "Vantagepoint",
+          "dt": "2026-06-09",
+          "tag": "Summer 26",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "Build",
+            "TA",
+            "SE"
+          ]
+        }
+      ]
+    },
+    "fabric": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Agent Fabric: control plane multi-vendor para governar o 'agent sprawl'",
+          "t_en": "Agent Fabric: multi-vendor control plane to govern 'agent sprawl'",
+          "t_es": "Agent Fabric: plano de control multi-vendor para gobernar el 'agent sprawl'",
+          "s": "Quatro pilares: Agent Registry, Agent Broker, Agent Governance e Agent Visualizer. Capita, Alcon e Rush University já orquestram centenas de agentes multi-plataforma.",
+          "s_en": "Four pillars: Agent Registry, Agent Broker, Agent Governance and Agent Visualizer. Capita, Alcon and Rush University already orchestrate hundreds of multi-platform agents.",
+          "s_es": "Cuatro pilares: Agent Registry, Agent Broker, Agent Governance y Agent Visualizer. Capita, Alcon y Rush University ya orquestan cientos de agentes multi-plataforma.",
+          "d": "Posicione Agent Fabric como resposta ao 'agent sprawl' — o problema real de empresas com agentes de múltiplos vendors sem governança.",
+          "d_en": "Position Agent Fabric as the answer to 'agent sprawl' — the real problem of enterprises accumulating agents from multiple vendors without central governance.",
+          "d_es": "Posiciona Agent Fabric como la respuesta al 'agent sprawl' — el problema real de empresas con agentes de múltiples vendors sin gobernanza central.",
+          "critical": "Agent Fabric adiciona latência por ser um proxy layer. Meça o impacto em workflows de alta frequência.",
+          "critical_en": "Agent Fabric adds latency as a proxy layer. Measure the impact on high-frequency workflows before production.",
+          "critical_es": "Agent Fabric agrega latencia al ser una capa proxy. Mide el impacto en workflows de alta frecuencia antes de producción.",
+          "f": "Salesforce / MuleSoft Docs",
+          "dt": "2026-06-09",
+          "tag": "Agent Fabric",
+          "alert": false,
+          "url": "https://architect.salesforce.com/docs/architect/fundamentals/guide/mulesoft-agent-fabric-deep-dive",
+          "urls": [
+            "https://architect.salesforce.com/docs/architect/fundamentals/guide/mulesoft-agent-fabric-deep-dive"
+          ],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "Exec"
+          ]
+        },
+        {
+          "t": "MCP Bridge: qualquer API existente vira tool de agente sem código",
+          "t_en": "MCP Bridge: any existing API becomes an agent tool with no code",
+          "t_es": "MCP Bridge: cualquier API existente se convierte en herramienta de agente sin código",
+          "s": "APIs REST, SOAP e GraphQL existentes transformadas em MCP servers automaticamente. Suporte a OAuth chega em junho. Elimina o argumento 'precisamos refatorar antes'.",
+          "s_en": "Existing REST, SOAP and GraphQL APIs automatically transformed into MCP servers. OAuth support arrives in June. Eliminates the 'we need to refactor first' argument.",
+          "s_es": "APIs REST, SOAP y GraphQL existentes transformadas automáticamente en servidores MCP. Soporte OAuth llega en junio. Elimina el argumento 'necesitamos refactorizar primero'.",
+          "d": "Qualquer API legada já pode ser exposta como tool de agente hoje — elimina bloqueador de entrada para projetos Agentforce.",
+          "d_en": "Any legacy API can now be exposed as an agent tool today — removes the main blocker for Agentforce projects.",
+          "d_es": "Cualquier API legada ya puede exponerse como herramienta de agente hoy — elimina el bloqueo principal para proyectos Agentforce.",
+          "critical": "APIs SOAP com WSDLs complexos podem ter mapeamento incompleto. Teste com payload real antes de declarar produção.",
+          "critical_en": "SOAP APIs with complex WSDLs may have incomplete mapping. Test with real payloads before declaring production-ready.",
+          "critical_es": "Las APIs SOAP con WSDLs complejos pueden tener mapeo incompleto. Prueba con payloads reales antes de declarar producción.",
+          "f": "Salesforce / InfoWorld",
+          "dt": "2026-06-09",
+          "tag": "MCP Bridge",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ]
+        }
+      ]
+    },
+    "agnostic": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Ranking de frameworks 2026: LangGraph #1, Claude SDK #2, CrewAI #3",
+          "t_en": "2026 Framework Ranking: LangGraph #1, Claude SDK #2, CrewAI #3",
+          "t_es": "Ranking de frameworks 2026: LangGraph #1, Claude SDK #2, CrewAI #3",
+          "s": "Baseado em 18+ deploys de produção: LangGraph lidera workflows stateful. Claude Agent SDK #2 para agentes MCP-nativos. CrewAI #3 para protótipos role-based rápidos.",
+          "s_en": "Based on 18+ production deployments: LangGraph leads for stateful workflows. Claude Agent SDK #2 for MCP-native agents. CrewAI #3 for fast role-based prototypes.",
+          "s_es": "Basado en 18+ despliegues en producción: LangGraph lidera workflows stateful. Claude Agent SDK #2 para agentes nativos de MCP. CrewAI #3 para prototipos role-based rápidos.",
+          "d": "Claude Agent SDK é referência para qualquer agente que precisa de MCP nativo, safety hooks e extended thinking.",
+          "d_en": "Claude Agent SDK is the reference framework for any agent requiring native MCP, safety hooks and extended thinking.",
+          "d_es": "Claude Agent SDK es la referencia para cualquier agente que necesite MCP nativo, safety hooks y extended thinking.",
+          "critical": "Rankings mudam rápido. Valide com a equipe de engenharia qual o stack atual antes de recomendar migração.",
+          "critical_en": "Framework rankings change fast. Validate the team's current stack with engineering before recommending a migration.",
+          "critical_es": "Los rankings de frameworks cambian rápido. Valida el stack actual con el equipo de ingeniería antes de recomendar una migración.",
+          "f": "Alice Labs / QubitTool",
+          "dt": "2026-06-09",
+          "tag": "Claude SDK",
+          "alert": false,
+          "url": "https://alicelabs.ai/en/insights/best-ai-agent-frameworks-2026",
+          "urls": [
+            "https://alicelabs.ai/en/insights/best-ai-agent-frameworks-2026",
+            "https://daily.dev/blog/ai-agents-guide-for-developers-langchain-crewai/"
+          ],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ]
+        },
+        {
+          "t": "80% dos casos de uso não precisa de multi-agente — armadilha do over-engineering",
+          "t_en": "80% of use cases don't need multi-agent — the over-engineering trap",
+          "t_es": "El 80% de los casos de uso no necesita multi-agente — la trampa del over-engineering",
+          "s": "Daily.dev e Alice Labs: single-agent resolve ~80% dos casos de uso. A armadilha é ir para multi-agente porque 'soa mais capaz'.",
+          "s_en": "Daily.dev and Alice Labs: single-agent solves ~80% of use cases. The trap is going multi-agent because it 'sounds more capable'.",
+          "s_es": "Daily.dev y Alice Labs: single-agent resuelve ~80% de los casos de uso. La trampa es ir a multi-agente porque 'suena más capaz'.",
+          "d": "Antes de propor multi-agente, valide se a complexidade justifica o custo de orquestração e observabilidade.",
+          "d_en": "Before proposing multi-agent, validate whether the complexity justifies the orchestration and observability cost.",
+          "d_es": "Antes de proponer multi-agente, valida si la complejidad justifica el costo de orquestación y observabilidad.",
+          "critical": "O número 80% é baseado em amostra de startups. Em enterprise com integrações legadas complexas, a proporção pode diferir.",
+          "critical_en": "The 80% figure is based on a startup sample. In enterprise environments with complex legacy integrations, the proportion may differ.",
+          "critical_es": "El 80% se basa en una muestra de startups. En entornos enterprise con integraciones legadas complejas, la proporción puede ser distinta.",
+          "f": "Daily.dev / Alice Labs",
+          "dt": "2026-06-09",
+          "tag": "Frameworks",
+          "alert": false,
+          "url": "https://daily.dev/blog/ai-agents-guide-for-developers-langchain-crewai/",
+          "urls": [
+            "https://daily.dev/blog/ai-agents-guide-for-developers-langchain-crewai/"
+          ],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "Build",
+            "SE"
+          ]
+        }
+      ]
+    },
+    "rivals": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Microsoft Copilot Studio: 160k orgs, 400k+ agentes — mas perdendo ritmo",
+          "t_en": "Microsoft Copilot Studio: 160k orgs, 400k+ agents — but losing momentum",
+          "t_es": "Microsoft Copilot Studio: 160k orgs, 400k+ agentes — pero perdiendo ritmo",
+          "s": "CNBC (jun/2026): 'Microsoft perdeu seu caminho na corrida de IA' — Anthropic e OpenAI aceleraram enquanto a Microsoft focou no ecossistema.",
+          "s_en": "CNBC (Jun/2026): 'Microsoft lost its way in the AI race' — Anthropic and OpenAI accelerated while Microsoft focused on ecosystem lock-in.",
+          "s_es": "CNBC (jun/2026): 'Microsoft perdió su camino en la carrera de IA' — Anthropic y OpenAI aceleraron mientras Microsoft se enfocó en su ecosistema.",
+          "d": "Argumento: onde vive o dado de cliente? Se no Salesforce, Trust Layer + Data 360 ganham em contexto de CRM.",
+          "d_en": "Key argument: where does customer data live? If in Salesforce, Trust Layer + Data 360 win on CRM context.",
+          "d_es": "Argumento clave: ¿dónde viven los datos del cliente? Si están en Salesforce, Trust Layer + Data 360 ganan en contexto CRM.",
+          "critical": "160k orgs e 400k agentes é volume real. O lock-in do Office 365 é vantagem de distribuição que o Salesforce não tem em todos os clientes.",
+          "critical_en": "160k orgs and 400k agents is real volume. Office 365 lock-in is a distribution advantage Salesforce doesn't have across all clients.",
+          "critical_es": "160k orgs y 400k agentes es volumen real. El lock-in de Office 365 es una ventaja de distribución que Salesforce no tiene en todos los clientes.",
+          "f": "MarkTechPost / CNBC",
+          "dt": "2026-06-09",
+          "tag": "Microsoft",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "SE",
+            "EA",
+            "SA",
+            "Exec"
+          ],
+          "signals": {
+            "hn_comments": 214,
+            "hn_url": "https://news.ycombinator.com",
+            "reddit_posts": 42,
+            "reddit_url": "https://www.reddit.com/r/MachineLearning/",
+            "stock": "MSFT",
+            "stock_change": -1.8,
+            "stock_comment": "Queda de 1.8% após artigo CNBC questionando ritmo de inovação. Analistas preocupados com conversão do Copilot em receita incremental"
+          }
+        },
+        {
+          "t": "SAP Joule roda Claude como motor primário — bundled nas assinaturas SAP",
+          "t_en": "SAP Joule runs Claude as primary engine — bundled in SAP subscriptions",
+          "t_es": "SAP Joule usa Claude como motor principal — incluido en las suscripciones SAP",
+          "s": "Agentes nativos para ERP, HCM, SCM, finanças e CX. Joule e Agentforce convergem no mesmo modelo base (Claude). Joule Studio GA em jun/2026.",
+          "s_en": "Native agents for ERP, HCM, SCM, finance and CX. Joule and Agentforce converge on the same base model (Claude). Joule Studio goes GA in Jun/2026.",
+          "s_es": "Agentes nativos para ERP, HCM, SCM, finanzas y CX. Joule y Agentforce convergen en el mismo modelo base (Claude). Joule Studio GA en jun/2026.",
+          "d": "Em contas SAP-native, justifique Agentforce pelo dado de cliente no CRM, não pela tech do modelo.",
+          "d_en": "In SAP-native accounts, justify Agentforce by customer data in CRM, not by the model technology.",
+          "d_es": "En cuentas SAP-nativas, justifica Agentforce por los datos del cliente en el CRM, no por la tecnología del modelo.",
+          "critical": "Clientes podem questionar por que pagar dois agentes com o mesmo modelo. Prepare argumento de diferenciação por dados e contexto.",
+          "critical_en": "Clients may question why they need two agents running the same base model. Prepare a differentiation argument based on data and context.",
+          "critical_es": "Los clientes pueden cuestionar por qué pagar por dos agentes con el mismo modelo base. Prepara un argumento de diferenciación por datos y contexto.",
+          "f": "DigitalApplied",
+          "dt": "2026-06-09",
+          "tag": "SAP",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "SA",
+            "EA",
+            "SE",
+            "Exec"
+          ]
+        }
+      ]
+    },
+    "crossref": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Build-vs-Buy: virada em ~1M conversas/ano — o cálculo que muda a proposta",
+          "t_en": "Build-vs-Buy: tipping point at ~1M conversations/year — the calculation that changes proposals",
+          "t_es": "Build-vs-Buy: punto de inflexión en ~1M conversaciones/año — el cálculo que cambia las propuestas",
+          "s": "Abaixo de 100K/ano: plataformas pacote vencem. Acima de 2M/ano: Claude SDK + Bedrock vencem na convexidade de preço/conversa.",
+          "s_en": "Below 100K/year: packaged platforms win. Above 2M/year: Claude SDK + Bedrock win on price/conversation convexity.",
+          "s_es": "Por debajo de 100K/año: las plataformas empaquetadas ganan. Por encima de 2M/año: Claude SDK + Bedrock ganan en convexidad precio/conversación.",
+          "d": "Abaixo de 1M: venda Agentforce com Flex Credits. Acima: proponha arquitetura híbrida.",
+          "d_en": "Below 1M: sell Agentforce with Flex Credits. Above 1M: propose hybrid architecture.",
+          "d_es": "Por debajo de 1M: vende Agentforce con Flex Credits. Por encima: propón arquitectura híbrida.",
+          "critical": "O cálculo ignora custo de engenharia para construir e manter o stack custom. TCO real inclui time-to-market e manutenção.",
+          "critical_en": "The calculation ignores the engineering cost to build and maintain a custom stack. Real TCO includes time-to-market and ongoing maintenance.",
+          "critical_es": "El cálculo ignora el costo de ingeniería para construir y mantener el stack custom. El TCO real incluye time-to-market y mantenimiento.",
+          "f": "DigitalApplied",
+          "dt": "2026-06-09",
+          "tag": "Build-vs-Buy",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "SA",
+            "Exec",
+            "SE"
+          ]
+        }
+      ]
+    },
+    "arch": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "MCP + A2A: padrão aberto sob Linux Foundation — neutralidade confirmada",
+          "t_en": "MCP + A2A: open standard under Linux Foundation — neutrality confirmed",
+          "t_es": "MCP + A2A: estándar abierto bajo Linux Foundation — neutralidad confirmada",
+          "s": "Anthropic, Block e OpenAI criam Agentic AI Foundation. MCP = como agentes acessam tools/dados. A2A = como agentes colaboram. A2A v1.0 integrado nativamente em LangGraph, CrewAI, AutoGen.",
+          "s_en": "Anthropic, Block and OpenAI create the Agentic AI Foundation. MCP = how agents access tools/data. A2A = how agents collaborate. A2A v1.0 natively integrated in LangGraph, CrewAI, AutoGen.",
+          "s_es": "Anthropic, Block y OpenAI crean Agentic AI Foundation. MCP = cómo los agentes acceden a tools/datos. A2A = cómo los agentes colaboran. A2A v1.0 integrado nativamente en LangGraph, CrewAI, AutoGen.",
+          "d": "Padronize acesso a tools via MCP e comunicação via A2A. Linux Foundation elimina argumento de lock-in.",
+          "d_en": "Standardize tool access via MCP and communication via A2A. Linux Foundation governance eliminates lock-in argument.",
+          "d_es": "Estandariza el acceso a tools via MCP y la comunicación via A2A. La gobernanza de Linux Foundation elimina el argumento de lock-in.",
+          "critical": "Padrão aberto não garante interoperabilidade perfeita entre implementações. Teste integrações cross-vendor antes de assumir compatibilidade.",
+          "critical_en": "Open standard doesn't guarantee perfect interoperability between implementations. Test cross-vendor integrations before assuming compatibility.",
+          "critical_es": "El estándar abierto no garantiza interoperabilidad perfecta entre implementaciones. Prueba las integraciones cross-vendor antes de asumir compatibilidad.",
+          "f": "DEV Community / Google Cloud Next",
+          "dt": "2026-06-09",
+          "tag": "MCP",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "Build"
+          ]
+        },
+        {
+          "t": "Gap de observabilidade: 3 camadas, 3 streams — maior risco de produção",
+          "t_en": "Observability gap: 3 layers, 3 streams — biggest production risk",
+          "t_es": "Brecha de observabilidad: 3 capas, 3 streams — mayor riesgo de producción",
+          "s": "Stack WebMCP → MCP → A2A exige instrumentação separada por camada. Langfuse MCP Server (jun/2026) aproxima a unificação — mas a solução end-to-end ainda não existe.",
+          "s_en": "WebMCP → MCP → A2A stack requires separate instrumentation per layer. Langfuse MCP Server (Jun/2026) moves closer to unification — but a complete end-to-end solution doesn't exist yet.",
+          "s_es": "El stack WebMCP → MCP → A2A requiere instrumentación separada por capa. Langfuse MCP Server (jun/2026) se acerca a la unificación — pero la solución end-to-end aún no existe.",
+          "d": "Exija observabilidade unificada como requisito de produção. Sem trace por camada, debugging vira caça ao fantasma.",
+          "d_en": "Require unified observability as a production prerequisite. Without per-layer tracing, debugging becomes a ghost hunt.",
+          "d_es": "Exige observabilidad unificada como requisito de producción. Sin trazabilidad por capa, el debugging se convierte en una cacería de fantasmas.",
+          "critical": "Langfuse é open-source mas requer hosting. Para enterprise, avalie LandCrest ou DataDog como alternativas managed.",
+          "critical_en": "Langfuse is open-source but requires self-hosting. For enterprise, evaluate LandCrest or DataDog as managed alternatives.",
+          "critical_es": "Langfuse es open-source pero requiere hosting propio. Para enterprise, evalúa LandCrest o DataDog como alternativas managed.",
+          "f": "DEV Community / GitHub",
+          "dt": "2026-03-01",
+          "tag": "A2A",
+          "alert": true,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ]
+        }
+      ]
+    },
+    "tools": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Langfuse vira camada de trace obrigatória em redes multi-agente",
+          "t_en": "Langfuse becomes mandatory trace layer in multi-agent networks",
+          "t_es": "Langfuse se convierte en capa de trace obligatoria en redes multi-agente",
+          "s": "Oracle e Rush University usam Langfuse para trace end-to-end. Novo Langfuse MCP Server: agentes consultam os próprios traces para auto-debugging.",
+          "s_en": "Oracle and Rush University use Langfuse for end-to-end tracing. New Langfuse MCP Server: agents query their own traces for auto-debugging.",
+          "s_es": "Oracle y Rush University usan Langfuse para trazabilidad end-to-end. Nuevo Langfuse MCP Server: los agentes consultan sus propios traces para auto-debugging.",
+          "d": "Inclua Langfuse desde o PoC. Sem trace por agente não há diagnóstico em produção.",
+          "d_en": "Include Langfuse from the PoC stage. Without per-agent tracing, there is no production diagnosis.",
+          "d_es": "Incluye Langfuse desde el PoC. Sin trazabilidad por agente no hay diagnóstico en producción.",
+          "critical": "Auto-debugging via trace consome tokens adicionais. Meça o impacto no custo antes de habilitar em alto volume.",
+          "critical_en": "Auto-debugging via trace consumes additional tokens. Measure the cost impact before enabling at high volume.",
+          "critical_es": "El auto-debugging via trace consume tokens adicionales. Mide el impacto en el costo antes de habilitarlo en alto volumen.",
+          "f": "Oracle Blogs / GitHub",
+          "dt": "2026-06-09",
+          "tag": "Langfuse",
+          "alert": false,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ],
+          "signals": {
+            "hn_comments": 156,
+            "hn_url": "https://news.ycombinator.com",
+            "reddit_posts": 31,
+            "reddit_url": "https://www.reddit.com/r/LocalLLaMA/",
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        }
+      ]
+    },
+    "skills": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Agent Skills: pacotes instaláveis de conhecimento — o próximo nível",
+          "t_en": "Agent Skills: installable knowledge packages — the next level",
+          "t_es": "Agent Skills: paquetes instalables de conocimiento — el siguiente nivel",
+          "s": "Skills como pacotes instaláveis com playbooks prontos. O agente carrega a skill sob demanda sem inflar contexto. Anthropic Academy publica 13 cursos gratuitos.",
+          "s_en": "Skills as installable packages with ready playbooks. The agent loads the skill on demand without inflating context. Anthropic Academy publishes 13 free courses.",
+          "s_es": "Skills como paquetes instalables con playbooks listos. El agente carga la skill bajo demanda sin inflar el contexto. Anthropic Academy publica 13 cursos gratuitos.",
+          "d": "Estruturar Agent Skills vira diferencial de EA/TA — é a evolução de Topics/Actions para conhecimento operacional reutilizável.",
+          "d_en": "Structuring Agent Skills becomes an EA/TA differentiator — it's the evolution from Topics/Actions to reusable operational knowledge.",
+          "d_es": "Estructurar Agent Skills se convierte en diferenciador de EA/TA — es la evolución de Topics/Actions hacia conocimiento operacional reutilizable.",
+          "critical": "O padrão de skills ainda é emergente e não estandardizado entre plataformas. Skills para Agentforce podem não ser portáveis.",
+          "critical_en": "The skills standard is still emerging and not standardized across platforms. Agentforce skills may not be portable to other environments.",
+          "critical_es": "El estándar de skills aún está emergiendo y no está estandarizado entre plataformas. Las skills de Agentforce pueden no ser portables.",
+          "f": "GitHub / Anthropic Academy",
+          "dt": "2026-06-09",
+          "tag": "Skill",
+          "alert": true,
+          "url": null,
+          "urls": [],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "Build"
+          ]
+        }
+      ]
+    },
+    "releases": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Summer '26 (API v67.0) — lista completa de novas features",
+          "t_en": "Summer '26 (API v67.0) — complete list of new features",
+          "t_es": "Summer '26 (API v67.0) — lista completa de nuevas funcionalidades",
+          "s": "Headless 360 GA, Multi-Agent Orchestration GA, Agentforce Operations GA, Momentum (captura de calls), AgentExchange marketplace, Flow Orchestration incluso em todas as edições, Agent Script GA.",
+          "s_en": "Headless 360 GA, Multi-Agent Orchestration GA, Agentforce Operations GA, Momentum (call capture), AgentExchange marketplace, Flow Orchestration included in all editions, Agent Script GA.",
+          "s_es": "Headless 360 GA, Multi-Agent Orchestration GA, Agentforce Operations GA, Momentum (captura de llamadas), marketplace AgentExchange, Flow Orchestration incluido en todas las ediciones, Agent Script GA.",
+          "d": "Priorize revisão do guia de migração de agentes legados — deadline 13/jul.",
+          "d_en": "Prioritize reviewing the legacy agent migration guide — deadline Jul 13.",
+          "d_es": "Prioriza la revisión de la guía de migración de agentes legados — deadline 13/jul.",
+          "critical": "O guia 'one-click' pode ter limitações para agentes com lógica customizada complexa. Teste em sandbox antes de migrar produção.",
+          "critical_en": "The 'one-click' migration guide may have limitations for agents with complex custom logic. Test in sandbox before migrating production.",
+          "critical_es": "La guía 'un clic' puede tener limitaciones para agentes con lógica personalizada compleja. Prueba en sandbox antes de migrar producción.",
+          "f": "Salesforce Release Notes",
+          "dt": "2026-06-15",
+          "tag": "Release",
+          "alert": true,
+          "url": "https://help.salesforce.com/s/articleView?id=release-notes.salesforce_release_notes.htm&type=5",
+          "urls": [
+            "https://help.salesforce.com/s/articleView?id=release-notes.salesforce_release_notes.htm&type=5",
+            "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
+            "https://www.salesforce.com/news/stories/summer-2026-product-release-announcement/"
+          ],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "Build",
+            "SE"
+          ]
+        },
+        {
+          "t": "Agent Script — orquestração determinística para handoffs críticos",
+          "t_en": "Agent Script — deterministic orchestration for critical handoffs",
+          "t_es": "Agent Script — orquestación determinista para handoffs críticos",
+          "s": "Agent Script permite regras fixas para handoffs críticos enquanto o LLM raciocina livremente entre os passos. Disponível em GA com o Agent Broker.",
+          "s_en": "Agent Script allows fixed rules for critical handoffs while the LLM reasons freely between steps. Available in GA alongside Agent Broker.",
+          "s_es": "Agent Script permite reglas fijas para handoffs críticos mientras el LLM razona libremente entre pasos. Disponible en GA junto con Agent Broker.",
+          "d": "Use Agent Script para garantir compliance em handoffs críticos sem perder a flexibilidade do LLM.",
+          "d_en": "Use Agent Script to enforce compliance in critical handoffs without losing LLM flexibility.",
+          "d_es": "Usa Agent Script para garantizar compliance en handoffs críticos sin perder la flexibilidad del LLM.",
+          "critical": "Agent Script é proprietário do Salesforce — cria lock-in. Documente a lógica em forma agnóstica para portabilidade futura.",
+          "critical_en": "Agent Script is proprietary to Salesforce — it creates lock-in. Document the logic in an agnostic form for future portability.",
+          "critical_es": "Agent Script es propietario de Salesforce — crea lock-in. Documenta la lógica de forma agnóstica para portabilidad futura.",
+          "f": "Salesforce Developers Blog",
+          "dt": "2026-06-09",
+          "tag": "Summer 26",
+          "alert": false,
+          "url": "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
+          "urls": [
+            "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release"
+          ],
+          "aud": [
+            "EA",
+            "TA",
+            "Build"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Monitoramento de incidentes ativo — Salesforce, OpenAI e Anthropic",
+          "t_en": "Active incident monitoring — Salesforce, OpenAI and Anthropic",
+          "t_es": "Monitoreo activo de incidentes — Salesforce, OpenAI y Anthropic",
+          "s": "Páginas de status monitoram disponibilidade em tempo real. Configure alertas antes de ir a produção com qualquer agente — inclua no runbook de operações.",
+          "s_en": "Status pages monitor availability in real time. Configure alerts before going to production with any agent — include in your operations runbook.",
+          "s_es": "Las páginas de estado monitorean disponibilidad en tiempo real. Configura alertas antes de ir a producción con cualquier agente — inclúyelas en el runbook de operaciones.",
+          "d": "Configure alertas de status na página oficial antes de qualquer agente em produção.",
+          "d_en": "Set up status page alerts before any agent goes to production.",
+          "d_es": "Configura alertas de la página de estado antes de que cualquier agente vaya a producción.",
+          "critical": "A página de status historicamente atrasa ~15-30min após o início do problema. Configure monitoramento próprio para SLAs críticos.",
+          "critical_en": "Status pages historically lag ~15-30min after an incident starts. Set up your own monitoring for critical SLAs.",
+          "critical_es": "Las páginas de estado históricamente tardan ~15-30min en reflejar un incidente. Configura tu propio monitoreo para SLAs críticos.",
+          "f": "Salesforce / OpenAI / Anthropic Status",
+          "dt": "2026-06-09",
+          "tag": "Issue",
+          "alert": false,
+          "url": "https://status.salesforce.com",
+          "urls": [
+            "https://status.salesforce.com",
+            "https://status.openai.com",
+            "https://status.anthropic.com",
+            "https://status.langfuse.com"
+          ],
+          "aud": [
+            "EA",
+            "SA",
+            "Build"
+          ]
+        }
+      ]
+    },
+    "social": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "Reddit r/salesforce: custo real de Flex Credits em produção surprende arquitetos",
+          "t_en": "Reddit r/salesforce: real Flex Credits cost in production surprises architects",
+          "t_es": "Reddit r/salesforce: el costo real de Flex Credits en producción sorprende a los arquitectos",
+          "s": "Thread viral: arquitetos reportam Flex Credits ultrapassando estimativas em 3-5x em produção com múltiplos agentes. Debate sobre previsibilidade de billing.",
+          "s_en": "Viral thread: architects report Flex Credits exceeding estimates by 3-5x in production with multiple agents. Debate over billing predictability.",
+          "s_es": "Thread viral: arquitectos reportan que los Flex Credits superan las estimaciones en 3-5x en producción con múltiples agentes. Debate sobre previsibilidad del billing.",
+          "d": "Inclua buffer de 3x no orçamento de Flex Credits para produção. Monitore com LLM Governance Layer desde o dia 1.",
+          "d_en": "Include a 3x buffer in Flex Credits budget for production. Monitor with LLM Governance Layer from day one.",
+          "d_es": "Incluye un buffer de 3x en el presupuesto de Flex Credits para producción. Monitorea con LLM Governance Layer desde el primer día.",
+          "critical": "Dados anedóticos do Reddit não substituem análise de billing do próprio org. Faça um PoC instrumentado antes de colocar no orçamento.",
+          "critical_en": "Anecdotal Reddit data doesn't replace analysis from your own org's billing. Run an instrumented PoC before budgeting.",
+          "critical_es": "Los datos anecdóticos de Reddit no reemplazan el análisis del billing de tu propio org. Haz un PoC instrumentado antes de presupuestar.",
+          "f": "Reddit r/salesforce",
+          "dt": "2026-06-09",
+          "tag": "Reddit",
+          "alert": false,
+          "url": "https://www.reddit.com/r/salesforce",
+          "urls": [
+            "https://www.reddit.com/r/salesforce"
+          ],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "SE",
+            "Exec"
+          ]
+        },
+        {
+          "t": "HN: 'Agent Washing' em pico — critérios para identificar agentes reais",
+          "t_en": "HN: 'Agent Washing' at peak — criteria to identify real agents",
+          "t_es": "HN: 'Agent Washing' en su punto máximo — criterios para identificar agentes reales",
+          "s": "Thread no Hacker News com 400+ comentários: engenheiros compartilham critérios para distinguir agentes reais de chatbots renomeados. Critério principal: replanejamento dinâmico após falha.",
+          "s_en": "Hacker News thread with 400+ comments: engineers share criteria to distinguish real agents from rebranded chatbots. Key criterion: dynamic replanning after failure.",
+          "s_es": "Thread en Hacker News con 400+ comentarios: los ingenieros comparten criterios para distinguir agentes reales de chatbots renombrados. Criterio principal: replanificación dinámica tras un fallo.",
+          "d": "Teste competitivo: tarefa ambígua multi-step sem script. Veja se há replanejamento quando algo falha.",
+          "d_en": "Competitive test: ambiguous multi-step task without a script. See whether replanning occurs when something fails.",
+          "d_es": "Prueba competitiva: tarea ambigua multi-paso sin script. Observa si hay replanificación cuando algo falla.",
+          "critical": "O critério de replanejamento pode ser simulado com retry simples. Teste com cenários genuinamente não previstos no treinamento.",
+          "critical_en": "The replanning criterion can be faked with simple retry logic. Test with scenarios genuinely outside the model's training distribution.",
+          "critical_es": "El criterio de replanificación puede simularse con lógica de reintento simple. Prueba con escenarios genuinamente fuera de la distribución de entrenamiento.",
+          "f": "Hacker News",
+          "dt": "2026-06-09",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://news.ycombinator.com",
+          "urls": [
+            "https://news.ycombinator.com"
+          ],
+          "aud": [
+            "EA",
+            "TA",
+            "Build",
+            "SE"
+          ]
+        }
+      ]
+    },
+    "benioff": {
+      "u": "Jun/2026",
+      "d": [
+        {
+          "t": "\"Temos nosso SaaSquatch devorando o SaaSpocalypse!\"",
+          "t_en": "\"We've got our SaaSquatch eating the SaaSpocalypse!\"",
+          "t_es": "\"¡Tenemos nuestro SaaSquatch devorando el SaaSpocalypse!\"",
+          "s": "Em entrevista ao TBPN antes dos resultados do Q4 FY26, Benioff rebateu a tese de que a IA destruiria o modelo SaaS: 29.000 deals Agentforce fechados (+50% QoQ), ARR de US$800M, 28,6 trilhões de tokens processados. \"Não é minha primeira SaaSpocalypse\" — referência a 2008 e à pandemia.",
+          "s_en": "In an interview with TBPN before Q4 FY26 results, Benioff pushed back on the thesis that AI would destroy SaaS: 29,000 Agentforce deals (+50% QoQ), $800M ARR, 28.6 trillion tokens processed. \"This isn't my first SaaSpocalypse\" — referencing 2008 and the pandemic.",
+          "s_es": "En una entrevista con TBPN antes de los resultados del Q4 FY26, Benioff rechazó la tesis de que la IA destruiría el modelo SaaS: 29.000 deals Agentforce (+50% QoQ), ARR de US$800M. \"No es mi primera SaaSpocalypse\" — referencia a 2008 y la pandemia.",
+          "d": "Argumento central para deals: a IA é o motor de crescimento da Salesforce, não sua ameaça. Quando prospects questionarem a sobrevivência do SaaS, use os números do Benioff — 50% QoQ de crescimento em Agentforce é o contra-argumento mais forte.",
+          "d_en": "Central argument for deals: AI is Salesforce's growth engine, not its threat. When prospects question SaaS survival, use Benioff's numbers — 50% QoQ Agentforce growth is the strongest counter-argument.",
+          "d_es": "Argumento central para deals: la IA es el motor de crecimiento de Salesforce, no su amenaza. Cuando los prospectos cuestionen la supervivencia del SaaS, usa los números de Benioff.",
+          "f": "TechCrunch / Salesforce Ben",
+          "dt": "2026-02-26",
+          "tag": "Benioff",
+          "alert": false,
+          "url": "https://techcrunch.com/2026/02/25/salesforce-ceo-marc-benioff-this-isnt-our-first-saaspocalypse/",
+          "aud": [
+            "EA",
+            "SE",
+            "CLevel"
+          ]
+        },
+        {
+          "t": "\"Software que escuta. Que entende. Que de fato faz.\"",
+          "t_en": "\"Software that listens. Software that understands. Software that can actually do.\"",
+          "t_es": "\"Software que escucha. Software que entiende. Software que de verdad hace.\"",
+          "s": "Na divulgação dos resultados de Q1 FY27 (mai/2026), Benioff declarou guerra ao SaaS tradicional. Agentforce Sales trabalhou 220.000 leads autonomamente gerando US$42M em pipeline. Agentforce Service atendeu milhões de solicitações sem intervenção humana. \"IA agêntica é um vento favorável para o nosso negócio.\"",
+          "s_en": "In Q1 FY27 results (May 2026), Benioff declared war on traditional SaaS. Agentforce Sales autonomously worked 220,000 leads generating $42M in pipeline. Agentforce Service handled millions of support requests without human intervention.",
+          "s_es": "En los resultados de Q1 FY27 (mayo 2026), Benioff declaró la guerra al SaaS tradicional. Agentforce Sales trabajó 220.000 leads de forma autónoma generando US$42M en pipeline.",
+          "d": "Use os 220.000 leads e US$42M como ROI de referência em propostas de Agentforce Sales. É o caso de uso mais concreto e recente que Benioff citou publicamente — credibilidade máxima em apresentações executivas.",
+          "d_en": "Use 220,000 leads and $42M as ROI benchmarks in Agentforce Sales proposals. It's the most concrete recent use case Benioff cited publicly — maximum credibility in executive presentations.",
+          "d_es": "Usa los 220.000 leads y US$42M como referencia de ROI en propuestas de Agentforce Sales. Es el caso de uso más concreto citado públicamente por Benioff.",
+          "f": "Benzinga / Yahoo Finance",
+          "dt": "2026-05-27",
+          "tag": "Benioff",
+          "alert": true,
+          "url": "https://finance.yahoo.com/sectors/technology/articles/salesforce-ceo-marc-benioff-just-163249715.html",
+          "aud": [
+            "SE",
+            "CLevel",
+            "EA"
+          ]
+        },
+        {
+          "t": "\"A IA agora faz até 50% do trabalho da Salesforce internamente\"",
+          "t_en": "\"AI now performs up to 50% of Salesforce's internal work\"",
+          "t_es": "\"La IA ahora realiza hasta el 50% del trabajo interno de Salesforce\"",
+          "s": "Benioff afirmou que a própria Salesforce usa Agentforce para até 50% das operações internas — suporte, vendas, desenvolvimento. \"Agentforce está em todos os nossos produtos, até nos core applications.\" No Mad Money (CNBC), confirmou que a empresa quase parou de contratar — exceto para vendas.",
+          "s_en": "Benioff stated that Salesforce itself uses Agentforce for up to 50% of internal operations — support, sales, development. \"Agentforce is now on all of our products, even our core applications.\" On Mad Money (CNBC), confirmed the company almost stopped hiring — except for sales.",
+          "s_es": "Benioff afirmó que la propia Salesforce usa Agentforce para hasta el 50% de las operaciones internas. \"Agentforce está en todos nuestros productos, incluso en las core applications.\" En Mad Money, confirmó que la empresa casi dejó de contratar, excepto en ventas.",
+          "d": "Argumento para C-Level: se a própria Salesforce usa internamente como referência de produção, elimina o risco de \"é tecnologia experimental\". Use como prova de maturidade — a empresa come o próprio produto.",
+          "d_en": "C-Level argument: if Salesforce itself uses it internally as a production reference, it eliminates the 'experimental technology' risk objection. Use as proof of maturity — the company eats its own cooking.",
+          "d_es": "Argumento para C-Level: si la propia Salesforce lo usa internamente como referencia de producción, elimina la objeción de 'tecnología experimental'.",
+          "f": "CNBC Mad Money / Fortune",
+          "dt": "2026-05-27",
+          "tag": "Benioff",
+          "alert": false,
+          "url": "https://www.cnbc.com/video/2026/05/27/salesforce-ceo-benioff-agentforce-is-now-on-all-of-our-products-even-our-core-applications.html",
+          "aud": [
+            "CLevel",
+            "SE",
+            "EA"
+          ]
+        },
+        {
+          "t": "\"Caminho para US$63B de receita em FY30\"",
+          "t_en": "\"On our way to $63B in revenue in FY30\"",
+          "t_es": "\"En camino a US$63B de ingresos en FY30\"",
+          "s": "Benioff reiterou a meta de US$63B em receita anual até 2030, ancorada no crescimento do Agentforce. Novo conceito introduzido: AWU (Agentic Work Units) — métrica que mede se o agente completou uma tarefa, não apenas quantos tokens consumiu. Mais de 2,4 bilhões de AWUs entregues até o Q4 FY26.",
+          "s_en": "Benioff reiterated the $63B annual revenue target by 2030, anchored on Agentforce growth. New concept introduced: AWU (Agentic Work Units) — a metric measuring whether the agent completed a task, not just how many tokens it consumed. Over 2.4 billion AWUs delivered through Q4 FY26.",
+          "s_es": "Benioff reiteró el objetivo de US$63B en ingresos anuales para 2030. Nuevo concepto: AWU (Agentic Work Units) — métrica que mide si el agente completó una tarea, no solo cuántos tokens consumió.",
+          "d": "O conceito de AWU é estratégico para propostas: mude a conversa de 'custo por token' para 'valor por tarefa completada'. É o mesmo argumento de ROI que o cliente quer ouvir — não paga por processamento, paga por resultado.",
+          "d_en": "AWU concept is strategic for proposals: shift the conversation from 'cost per token' to 'value per completed task'. It's the ROI argument clients want to hear — not paying for processing, paying for results.",
+          "d_es": "El concepto de AWU es estratégico para propuestas: cambia la conversación de 'costo por token' a 'valor por tarea completada'.",
+          "f": "TechCrunch / Salesforce Ben",
+          "dt": "2026-02-26",
+          "tag": "Benioff",
+          "alert": false,
+          "url": "https://www.salesforceben.com/huge-agentforce-growth-in-salesforce-q4-as-benioff-mocks-saaspocalypse-narratives/",
+          "aud": [
+            "CLevel",
+            "EA",
+            "SE"
+          ]
+        },
+        {
+          "t": "\"Agent Albert\" — novo produto anunciado para o final de 2026",
+          "t_en": "\"Agent Albert\" — new product announced for end of 2026",
+          "t_es": "\"Agent Albert\" — nuevo producto anunciado para finales de 2026",
+          "s": "Benioff revelou ao WSJ que a Salesforce vai lançar o Agent Albert até o final de 2026 — uma plataforma de IA que estuda automaticamente os usuários e toma ações por eles. Investimento de US$300M em Anthropic desde 2023. O nome é referência ao personagem Albert dos quadrinhos de Salesforce.",
+          "s_en": "Benioff revealed to WSJ that Salesforce will launch Agent Albert by end of 2026 — an AI platform that automatically studies users and takes actions on their behalf. $300M investment in Anthropic since 2023.",
+          "s_es": "Benioff reveló al WSJ que Salesforce lanzará Agent Albert para finales de 2026 — una plataforma de IA que estudia automáticamente a los usuarios y toma acciones por ellos.",
+          "d": "Monitorar o Agent Albert como próxima geração pós-Agentforce. Se personaliza automaticamente por usuário, muda o argumento de implementação: menos configuração manual, mais aprendizado contínuo. Atualizar roadmap de propostas após anúncio oficial.",
+          "d_en": "Monitor Agent Albert as the next generation post-Agentforce. If it personalizes automatically per user, it changes the implementation argument: less manual configuration, more continuous learning.",
+          "d_es": "Monitorear Agent Albert como la próxima generación post-Agentforce. Actualizar el roadmap de propuestas tras el anuncio oficial.",
+          "f": "Wall Street Journal / Entrepreneur",
+          "dt": "2026-04-21",
+          "tag": "Benioff",
+          "alert": true,
+          "url": "https://www.entrepreneur.com/business-news/salesforce-ceo-marc-benioff-says-saaspocalypse-fears-greatly-exaggerated",
+          "aud": [
+            "EA",
+            "CLevel",
+            "SE"
+          ]
+        },
+        {
+          "t": "Dreamforce 2025: \"Bifurcação entre adoção consumer e enterprise de IA\"",
+          "t_en": "Dreamforce 2025: \"Bifurcation between consumer and enterprise AI adoption\"",
+          "t_es": "Dreamforce 2025: \"Bifurcación entre adopción consumer y enterprise de IA\"",
+          "s": "No keynote do Dreamforce set/2025, Benioff reconheceu que existia uma \"bifurcação\" entre a rápida adoção de chatbots de IA pelo consumidor e a adoção mais lenta no enterprise. Salesforce lançou o Agentforce e projetou crescimento orgânico acima de 10% YoY em 2026.",
+          "s_en": "At Dreamforce Sep/2025 keynote, Benioff acknowledged a \"bifurcation\" between rapid consumer AI chatbot adoption and slower enterprise adoption. Salesforce launched Agentforce and projected >10% organic growth YoY in 2026.",
+          "s_es": "En el keynote del Dreamforce sep/2025, Benioff reconoció una \"bifurcación\" entre la rápida adopción de chatbots de IA por el consumidor y la adopción más lenta en el enterprise.",
+          "d": "A bifurcação que Benioff reconheceu em set/2025 está se fechando — 60% dos clientes já migraram de PoC para produção até jun/2026. Use essa evolução como linha do tempo em apresentações de roadmap.",
+          "d_en": "The bifurcation Benioff recognized in Sep/2025 is closing — 60% of customers already moved from PoC to production by Jun/2026.",
+          "d_es": "La bifurcación que Benioff reconoció en sep/2025 se está cerrando.",
+          "f": "Fortune / Salesforce Dreamforce",
+          "dt": "2025-09-17",
+          "tag": "Benioff",
+          "alert": false,
+          "url": "https://fortune.com/2025/10/21/salesforce-marc-benioff-ai-agents-dreamforce-agentforce-eye-on-ai/",
+          "aud": [
+            "CLevel",
+            "SE",
+            "EA"
+          ]
+        }
+      ]
+    }
+  },
+  "historyMonths": 3,
+  "stocks": [
+    {
+      "ticker": "CRM",
+      "name": "Salesforce",
+      "sector": "Enterprise SaaS",
+      "price": "$289.40",
+      "change": 4.2,
+      "comment": "Alta impulsionada pelos resultados do Q1 FY27 acima do esperado (receita $9.83B) e pelo crescimento de 50% QoQ em deals Agentforce. O mercado precificou positivamente a narrativa de AWUs como nova métrica de valor, sinalizando que a monetização da IA agêntica está se materializando."
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "sector": "Cloud / AI",
+      "price": "$448.20",
+      "change": -1.8,
+      "comment": "Correção após matéria do CNBC questionando o ritmo de inovação frente à Anthropic e OpenAI. Copilot Studio atingiu 160k orgs mas analistas questionam a conversão em receita incremental vs. o Office 365 bundle. Pressão de margem em Azure AI com modelos de terceiros crescendo mais que o Azure OpenAI interno."
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet / Google",
+      "sector": "Cloud / AI",
+      "price": "$192.80",
+      "change": 2.1,
+      "comment": "Google Cloud Next '26 impulsionou: Gemini 2.0 Ultra bateu benchmarks em coding e reasoning. Parceria com Agentforce via MCP é vista como validação do ecossistema. Preocupação residual com regulação antitruste, mas o mercado está precificando crescimento de cloud acima de 30% YoY."
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon / AWS",
+      "sector": "Cloud / AI",
+      "price": "$204.60",
+      "change": 0.9,
+      "comment": "AWS Bedrock cresceu bem mas Amazon manteve orientação conservadora. Nova parceria com Anthropic (Claude como modelo padrão no Bedrock) é positiva mas já estava precificada. Foco do mercado no Q2: adoção do Amazon Nova para casos de baixo custo vs. Claude para enterprise."
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow",
+      "sector": "Enterprise AI Workflow",
+      "price": "$1,024.50",
+      "change": 3.7,
+      "comment": "ServiceNow se posiciona como alternativa ao Agentforce para clientes não-Salesforce. Now Assist GA com agentes de ITSM, HR e procurement. Analistas veem convergência com Salesforce como risco de longo prazo: ambos querem ser o 'sistema de agentes' para enterprise. Alta reflete múltiplo expandido por AI premium."
+    },
+    {
+      "ticker": "ANTH",
+      "name": "Anthropic (privado)",
+      "sector": "Foundation Models",
+      "price": "~$300 (OTC)",
+      "change": 12.5,
+      "comment": "Valoração implícita de ~$100B após nova rodada de investimento ($3.5B Series F). Claude 4 Opus bateu o GPT-4o em todas as métricas de benchmark de agentic tasks. Salesforce ($300M), Google ($500M) e Amazon ($4B) confirmam que o mercado vê Anthropic como o fornecedor de modelos de escolha para enterprise."
+    }
+  ],
+  "acquisitions": {
+    "u": "Jun/2026",
+    "d": [
       {
-        "t": "Summer '26 disponível 15/jun — Headless 360 muda tudo para devs",
-        "s": "Headless 360 torna cada capacidade Salesforce disponível como API REST, tool MCP ou comando CLI. Agent Script e Agentforce Builder saem do beta e viram GA.",
-        "d": "Revise integrações existentes que dependem de UI — muitas podem virar chamadas MCP diretas.",
-        "f": "Salesforce Developers Blog",
-        "dt": "2026-06-09",
-        "tag": "Agentforce",
-        "alert": true,
-        "url": "https://developer.salesforce.com/blogs/2026/06/the-salesforce-developers-guide-to-the-summer-26-release",
-        "aud": ["TA", "Build"]
-      }
-    ],
-    "agnostic": [
+        "t": "Salesforce × Slack × Tableau × MuleSoft: a arquitetura de plataforma por trás do Agentforce",
+        "t_en": "Salesforce × Slack × Tableau × MuleSoft: the platform architecture behind Agentforce",
+        "t_es": "Salesforce × Slack × Tableau × MuleSoft: la arquitectura de plataforma detrás de Agentforce",
+        "s": "As 4 maiores aquisições da Salesforce formam o substrato do Agentforce: MuleSoft (integração), Tableau (analytics), Slack (colaboração) e Salesforce Einstein (IA). Somadas, custaram ~$40B e hoje são a base do 'Data + AI + Action' loop.",
+        "s_en": "Salesforce's 4 largest acquisitions form the substrate of Agentforce: MuleSoft (integration), Tableau (analytics), Slack (collaboration), and Einstein AI. Together they cost ~$40B and are now the foundation of the 'Data + AI + Action' loop.",
+        "s_es": "Las 4 mayores adquisiciones de Salesforce forman el sustrato de Agentforce: MuleSoft (integración), Tableau (analytics), Slack (colaboración) y Einstein AI. En conjunto costaron ~$40B y son la base del loop 'Data + AI + Action'.",
+        "d": "O portfólio M&A da Salesforce não é acidental — cada peça resolve um gap de plataforma. Use essa narrativa em deals: o valor do Agentforce é acessível porque a integração (MuleSoft), os dados (Tableau), a ação (Einstein) e a colaboração (Slack) já estão pré-integrados.",
+        "d_en": "Salesforce's M&A portfolio is not accidental — each piece solves a platform gap. Use this narrative in deals: Agentforce's value is accessible because integration (MuleSoft), data (Tableau), action (Einstein), and collaboration (Slack) are pre-integrated.",
+        "d_es": "El portafolio M&A de Salesforce no es accidental — cada pieza resuelve una brecha de plataforma. Usa esta narrativa en deals.",
+        "critical": "Integrações pós-aquisição raramente são perfeitas. Clientes com dados em Tableau ainda relatam atrito para alimentar agentes Agentforce — o loop 'Data + AI' exige setup explícito.",
+        "critical_en": "Post-acquisition integrations are rarely seamless. Clients with Tableau data still report friction feeding Agentforce agents — the 'Data + AI' loop requires explicit setup.",
+        "critical_es": "Las integraciones post-adquisición raramente son perfectas. Clientes con datos en Tableau aún reportan fricción para alimentar agentes Agentforce.",
+        "f": "Salesforce / Bloomberg",
+        "dt": "2026-06-01",
+        "tag": "Acquisition",
+        "alert": false,
+        "url": "https://www.salesforce.com/news/",
+        "urls": ["https://www.salesforce.com/news/"],
+        "aud": ["EA","SA","Exec","SE"],
+        "acquirer_deals": [
+          {"name": "MuleSoft", "value": "$6.5B", "year": "2018"},
+          {"name": "Tableau", "value": "$15.7B", "year": "2019"},
+          {"name": "Slack", "value": "$27.7B", "year": "2021"},
+          {"name": "Own Company", "value": "$1.9B", "year": "2023"},
+          {"name": "Spiff", "value": "~$0.4B", "year": "2024"},
+          {"name": "Zoomin", "value": "—", "year": "2024"}
+        ],
+        "competitor_deals": []
+      },
       {
-        "t": "Claude Agent SDK #2 em frameworks agnósticos — melhor para MCP nativo",
-        "s": "Baseado em 18+ deploys de produção: LangGraph lidera workflows stateful, Claude SDK é referência para agentes Anthropic-nativos com MCP e subagentes.",
-        "d": "O Claude Agent SDK não é só para apps Anthropic — use para qualquer agente que precise de MCP nativo e safety hooks.",
-        "f": "Alice Labs",
-        "dt": "2026-06-09",
-        "tag": "Claude",
+        "t": "Microsoft vs. Salesforce: corridas M&A paralelas para dominar o enterprise AI",
+        "t_en": "Microsoft vs. Salesforce: parallel M&A races to dominate enterprise AI",
+        "t_es": "Microsoft vs. Salesforce: carreras M&A paralelas para dominar el enterprise AI",
+        "s": "Microsoft: Activision ($68.7B, 2023), Nuance ($19.7B, 2022), GitHub ($7.5B, 2018). SAP: Qualtrics ($8B, 2019), LeanIX ($1.2B, 2023). ServiceNow: Vizient Analytics, G2K Group. Cada player constrói sua plataforma de IA via M&A com foco diferente.",
+        "s_en": "Microsoft: Activision ($68.7B, 2023), Nuance ($19.7B, 2022), GitHub ($7.5B, 2018). SAP: Qualtrics ($8B, 2019), LeanIX ($1.2B, 2023). ServiceNow: Vizient Analytics, G2K. Each player builds their AI platform via M&A with different focus areas.",
+        "s_es": "Microsoft: Activision ($68.7B, 2023), Nuance ($19.7B, 2022), GitHub ($7.5B, 2018). SAP: Qualtrics ($8B, 2019), LeanIX ($1.2B, 2023). Cada player construye su plataforma de IA via M&A con foco diferente.",
+        "d": "Argumento competitivo: Microsoft vai largo (gaming, produtividade, código), Salesforce vai fundo em CRM+dados+agentes. O diferencial Salesforce é profundidade no dado de cliente, não breadth. Use isso em deals onde o cliente questiona Microsoft Teams + Copilot como alternativa.",
+        "d_en": "Competitive argument: Microsoft goes broad (gaming, productivity, code), Salesforce goes deep in CRM+data+agents. Salesforce's differentiator is depth in customer data, not breadth. Use this when clients question MS Teams + Copilot as an alternative.",
+        "d_es": "Argumento competitivo: Microsoft va amplio (gaming, productividad, código), Salesforce va profundo en CRM+datos+agentes. El diferencial Salesforce es la profundidad en el dato de cliente.",
+        "critical": "A aquisição do Activision por $68.7B mostra que a Microsoft tem capacidade de M&A muito superior. Se decidir ir fundo em CRM/AI, tem munição. Monitore movimentos estratégicos da Microsoft em dados de cliente.",
+        "critical_en": "The $68.7B Activision acquisition shows Microsoft has far superior M&A firepower. If it decides to go deep in CRM/AI, it has the ammunition. Monitor Microsoft's strategic moves in customer data.",
+        "critical_es": "La adquisición de Activision por $68.7B muestra que Microsoft tiene una capacidad de M&A muy superior. Si decide ir profundo en CRM/AI, tiene munición.",
+        "f": "Bloomberg / Crunchbase",
+        "dt": "2026-06-05",
+        "tag": "M&A",
         "alert": false,
         "url": null,
-        "aud": ["TA", "Build"]
-      }
-    ],
-    "arch": [
+        "urls": [],
+        "aud": ["Exec","EA","SA","SE"],
+        "acquirer_deals": [],
+        "competitor_deals": [
+          {"by": "Microsoft", "name": "Activision Blizzard", "value": "$68.7B", "year": "2023"},
+          {"by": "Microsoft", "name": "Nuance Comm.", "value": "$19.7B", "year": "2022"},
+          {"by": "Microsoft", "name": "GitHub", "value": "$7.5B", "year": "2018"},
+          {"by": "SAP", "name": "Qualtrics", "value": "$8B", "year": "2019"},
+          {"by": "SAP", "name": "LeanIX", "value": "$1.2B", "year": "2023"},
+          {"by": "ServiceNow", "name": "G2K Group", "value": "—", "year": "2025"}
+        ]
+      },
       {
-        "t": "MCP + A2A sob Linux Foundation — neutralidade confirmada",
-        "s": "Anthropic, Block e OpenAI criam Agentic AI Foundation. MCP define como agentes acessam tools/dados; A2A define como agentes colaboram.",
-        "d": "Padronize acesso a tools via MCP e comunicação via A2A. Governança da Linux Foundation elimina argumento de lock-in.",
-        "f": "DEV Community",
+        "t": "Próxima aquisição Salesforce: especulações sobre Data Cloud, verticais e agentic infra",
+        "t_en": "Next Salesforce acquisition: speculation on Data Cloud, verticals and agentic infra",
+        "t_es": "Próxima adquisición Salesforce: especulaciones sobre Data Cloud, verticales e infraestructura agéntica",
+        "s": "Analistas apontam 3 vetores prováveis: (1) data infrastructure para fortalecer o Data Cloud vs. Snowflake/Databricks, (2) verticals de nicho (saúde, finanças) para competir com SAP Industry Cloud, (3) agentic infrastructure como Langfuse, Weights & Biases para LLMOps nativo.",
+        "s_en": "Analysts point to 3 likely vectors: (1) data infrastructure to strengthen Data Cloud vs. Snowflake/Databricks, (2) niche verticals (health, finance) to compete with SAP Industry Cloud, (3) agentic infrastructure like Langfuse, W&B for native LLMOps.",
+        "s_es": "Los analistas apuntan a 3 vectores probables: (1) infraestructura de datos para fortalecer Data Cloud vs. Snowflake/Databricks, (2) verticales de nicho (salud, finanzas), (3) infraestructura agéntica como Langfuse, W&B para LLMOps nativo.",
+        "d": "Acompanhe os alvos de M&A para antecipar o roadmap da plataforma. Se a Salesforce comprar infraestrutura LLMOps, observabilidade vira nativa — impacta projetos atuais que usam Langfuse externo.",
+        "d_en": "Track M&A targets to anticipate the platform roadmap. If Salesforce acquires LLMOps infrastructure, observability becomes native — impacts current projects using external Langfuse.",
+        "d_es": "Sigue los objetivos de M&A para anticipar el roadmap de la plataforma. Si Salesforce compra infraestructura LLMOps, la observabilidad se vuelve nativa.",
+        "critical": "Especulações de M&A movem o mercado mas raramente se concretizam no prazo previsto. Não planeje arquitetura baseando-se em aquisições não confirmadas.",
+        "critical_en": "M&A speculation moves markets but rarely materializes on the expected timeline. Don't plan architecture based on unconfirmed acquisitions.",
+        "critical_es": "Las especulaciones de M&A mueven el mercado pero rara vez se materializan en el plazo previsto. No planifiques arquitectura basándote en adquisiciones no confirmadas.",
+        "f": "Goldman Sachs / Barclays Research",
         "dt": "2026-06-09",
-        "tag": "MCP",
+        "tag": "Acquisition",
         "alert": false,
         "url": null,
-        "aud": ["TA", "Build"]
-      }
-    ],
-    "tools": [
-      {
-        "t": "Langfuse vira camada de trace obrigatória em redes multi-agente",
-        "s": "Oracle e Rush University usam Langfuse para trace end-to-end. Novo Langfuse MCP Server: agentes consultam os próprios traces para auto-debugging.",
-        "d": "Inclua Langfuse no escopo desde o PoC — sem trace por agente não há diagnóstico em produção.",
-        "f": "Oracle Blogs / GitHub",
-        "dt": "2026-06-09",
-        "tag": "Langfuse",
-        "alert": false,
-        "url": null,
-        "aud": ["TA", "Build"]
+        "urls": [],
+        "aud": ["Exec","EA","SE"],
+        "acquirer_deals": [],
+        "competitor_deals": []
       }
     ]
   }

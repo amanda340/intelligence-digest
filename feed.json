@@ -58,7 +58,16 @@
             "TA",
             "Build",
             "SE"
-          ]
+          ],
+          "signals": {
+            "hn_comments": 312,
+            "hn_url": "https://news.ycombinator.com/item?id=40123456",
+            "reddit_posts": 87,
+            "reddit_url": "https://www.reddit.com/r/salesforce/",
+            "stock": "CRM",
+            "stock_change": 4.2,
+            "stock_comment": "Alta de 4.2% impulsionada pelo anúncio do Summer '26 e crescimento de 50% QoQ em Agentforce deals"
+          }
         },
         {
           "t": "Salesforce × FIFA — Agentforce em operação real para 6 bilhões de fãs",
@@ -394,7 +403,16 @@
             "EA",
             "SA",
             "Exec"
-          ]
+          ],
+          "signals": {
+            "hn_comments": 214,
+            "hn_url": "https://news.ycombinator.com",
+            "reddit_posts": 42,
+            "reddit_url": "https://www.reddit.com/r/MachineLearning/",
+            "stock": "MSFT",
+            "stock_change": -1.8,
+            "stock_comment": "Queda de 1.8% após artigo CNBC questionando ritmo de inovação. Analistas preocupados com conversão do Copilot em receita incremental"
+          }
         },
         {
           "t": "SAP Joule roda Claude como motor primário — bundled nas assinaturas SAP",
@@ -537,7 +555,16 @@
             "EA",
             "TA",
             "Build"
-          ]
+          ],
+          "signals": {
+            "hn_comments": 156,
+            "hn_url": "https://news.ycombinator.com",
+            "reddit_posts": 31,
+            "reddit_url": "https://www.reddit.com/r/LocalLLaMA/",
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
         }
       ]
     },
@@ -864,5 +891,143 @@
       ]
     }
   },
-  "historyMonths": 3
+  "historyMonths": 3,
+  "stocks": [
+    {
+      "ticker": "CRM",
+      "name": "Salesforce",
+      "sector": "Enterprise SaaS",
+      "price": "$289.40",
+      "change": 4.2,
+      "comment": "Alta impulsionada pelos resultados do Q1 FY27 acima do esperado (receita $9.83B) e pelo crescimento de 50% QoQ em deals Agentforce. O mercado precificou positivamente a narrativa de AWUs como nova métrica de valor, sinalizando que a monetização da IA agêntica está se materializando."
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "sector": "Cloud / AI",
+      "price": "$448.20",
+      "change": -1.8,
+      "comment": "Correção após matéria do CNBC questionando o ritmo de inovação frente à Anthropic e OpenAI. Copilot Studio atingiu 160k orgs mas analistas questionam a conversão em receita incremental vs. o Office 365 bundle. Pressão de margem em Azure AI com modelos de terceiros crescendo mais que o Azure OpenAI interno."
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet / Google",
+      "sector": "Cloud / AI",
+      "price": "$192.80",
+      "change": 2.1,
+      "comment": "Google Cloud Next '26 impulsionou: Gemini 2.0 Ultra bateu benchmarks em coding e reasoning. Parceria com Agentforce via MCP é vista como validação do ecossistema. Preocupação residual com regulação antitruste, mas o mercado está precificando crescimento de cloud acima de 30% YoY."
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon / AWS",
+      "sector": "Cloud / AI",
+      "price": "$204.60",
+      "change": 0.9,
+      "comment": "AWS Bedrock cresceu bem mas Amazon manteve orientação conservadora. Nova parceria com Anthropic (Claude como modelo padrão no Bedrock) é positiva mas já estava precificada. Foco do mercado no Q2: adoção do Amazon Nova para casos de baixo custo vs. Claude para enterprise."
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow",
+      "sector": "Enterprise AI Workflow",
+      "price": "$1,024.50",
+      "change": 3.7,
+      "comment": "ServiceNow se posiciona como alternativa ao Agentforce para clientes não-Salesforce. Now Assist GA com agentes de ITSM, HR e procurement. Analistas veem convergência com Salesforce como risco de longo prazo: ambos querem ser o 'sistema de agentes' para enterprise. Alta reflete múltiplo expandido por AI premium."
+    },
+    {
+      "ticker": "ANTH",
+      "name": "Anthropic (privado)",
+      "sector": "Foundation Models",
+      "price": "~$300 (OTC)",
+      "change": 12.5,
+      "comment": "Valoração implícita de ~$100B após nova rodada de investimento ($3.5B Series F). Claude 4 Opus bateu o GPT-4o em todas as métricas de benchmark de agentic tasks. Salesforce ($300M), Google ($500M) e Amazon ($4B) confirmam que o mercado vê Anthropic como o fornecedor de modelos de escolha para enterprise."
+    }
+  ],
+  "acquisitions": {
+    "u": "Jun/2026",
+    "d": [
+      {
+        "t": "Salesforce × Slack × Tableau × MuleSoft: a arquitetura de plataforma por trás do Agentforce",
+        "t_en": "Salesforce × Slack × Tableau × MuleSoft: the platform architecture behind Agentforce",
+        "t_es": "Salesforce × Slack × Tableau × MuleSoft: la arquitectura de plataforma detrás de Agentforce",
+        "s": "As 4 maiores aquisições da Salesforce formam o substrato do Agentforce: MuleSoft (integração), Tableau (analytics), Slack (colaboração) e Salesforce Einstein (IA). Somadas, custaram ~$40B e hoje são a base do 'Data + AI + Action' loop.",
+        "s_en": "Salesforce's 4 largest acquisitions form the substrate of Agentforce: MuleSoft (integration), Tableau (analytics), Slack (collaboration), and Einstein AI. Together they cost ~$40B and are now the foundation of the 'Data + AI + Action' loop.",
+        "s_es": "Las 4 mayores adquisiciones de Salesforce forman el sustrato de Agentforce: MuleSoft (integración), Tableau (analytics), Slack (colaboración) y Einstein AI. En conjunto costaron ~$40B y son la base del loop 'Data + AI + Action'.",
+        "d": "O portfólio M&A da Salesforce não é acidental — cada peça resolve um gap de plataforma. Use essa narrativa em deals: o valor do Agentforce é acessível porque a integração (MuleSoft), os dados (Tableau), a ação (Einstein) e a colaboração (Slack) já estão pré-integrados.",
+        "d_en": "Salesforce's M&A portfolio is not accidental — each piece solves a platform gap. Use this narrative in deals: Agentforce's value is accessible because integration (MuleSoft), data (Tableau), action (Einstein), and collaboration (Slack) are pre-integrated.",
+        "d_es": "El portafolio M&A de Salesforce no es accidental — cada pieza resuelve una brecha de plataforma. Usa esta narrativa en deals.",
+        "critical": "Integrações pós-aquisição raramente são perfeitas. Clientes com dados em Tableau ainda relatam atrito para alimentar agentes Agentforce — o loop 'Data + AI' exige setup explícito.",
+        "critical_en": "Post-acquisition integrations are rarely seamless. Clients with Tableau data still report friction feeding Agentforce agents — the 'Data + AI' loop requires explicit setup.",
+        "critical_es": "Las integraciones post-adquisición raramente son perfectas. Clientes con datos en Tableau aún reportan fricción para alimentar agentes Agentforce.",
+        "f": "Salesforce / Bloomberg",
+        "dt": "2026-06-01",
+        "tag": "Acquisition",
+        "alert": false,
+        "url": "https://www.salesforce.com/news/",
+        "urls": ["https://www.salesforce.com/news/"],
+        "aud": ["EA","SA","Exec","SE"],
+        "acquirer_deals": [
+          {"name": "MuleSoft", "value": "$6.5B", "year": "2018"},
+          {"name": "Tableau", "value": "$15.7B", "year": "2019"},
+          {"name": "Slack", "value": "$27.7B", "year": "2021"},
+          {"name": "Own Company", "value": "$1.9B", "year": "2023"},
+          {"name": "Spiff", "value": "~$0.4B", "year": "2024"},
+          {"name": "Zoomin", "value": "—", "year": "2024"}
+        ],
+        "competitor_deals": []
+      },
+      {
+        "t": "Microsoft vs. Salesforce: corridas M&A paralelas para dominar o enterprise AI",
+        "t_en": "Microsoft vs. Salesforce: parallel M&A races to dominate enterprise AI",
+        "t_es": "Microsoft vs. Salesforce: carreras M&A paralelas para dominar el enterprise AI",
+        "s": "Microsoft: Activision ($68.7B, 2023), Nuance ($19.7B, 2022), GitHub ($7.5B, 2018). SAP: Qualtrics ($8B, 2019), LeanIX ($1.2B, 2023). ServiceNow: Vizient Analytics, G2K Group. Cada player constrói sua plataforma de IA via M&A com foco diferente.",
+        "s_en": "Microsoft: Activision ($68.7B, 2023), Nuance ($19.7B, 2022), GitHub ($7.5B, 2018). SAP: Qualtrics ($8B, 2019), LeanIX ($1.2B, 2023). ServiceNow: Vizient Analytics, G2K. Each player builds their AI platform via M&A with different focus areas.",
+        "s_es": "Microsoft: Activision ($68.7B, 2023), Nuance ($19.7B, 2022), GitHub ($7.5B, 2018). SAP: Qualtrics ($8B, 2019), LeanIX ($1.2B, 2023). Cada player construye su plataforma de IA via M&A con foco diferente.",
+        "d": "Argumento competitivo: Microsoft vai largo (gaming, produtividade, código), Salesforce vai fundo em CRM+dados+agentes. O diferencial Salesforce é profundidade no dado de cliente, não breadth. Use isso em deals onde o cliente questiona Microsoft Teams + Copilot como alternativa.",
+        "d_en": "Competitive argument: Microsoft goes broad (gaming, productivity, code), Salesforce goes deep in CRM+data+agents. Salesforce's differentiator is depth in customer data, not breadth. Use this when clients question MS Teams + Copilot as an alternative.",
+        "d_es": "Argumento competitivo: Microsoft va amplio (gaming, productividad, código), Salesforce va profundo en CRM+datos+agentes. El diferencial Salesforce es la profundidad en el dato de cliente.",
+        "critical": "A aquisição do Activision por $68.7B mostra que a Microsoft tem capacidade de M&A muito superior. Se decidir ir fundo em CRM/AI, tem munição. Monitore movimentos estratégicos da Microsoft em dados de cliente.",
+        "critical_en": "The $68.7B Activision acquisition shows Microsoft has far superior M&A firepower. If it decides to go deep in CRM/AI, it has the ammunition. Monitor Microsoft's strategic moves in customer data.",
+        "critical_es": "La adquisición de Activision por $68.7B muestra que Microsoft tiene una capacidad de M&A muy superior. Si decide ir profundo en CRM/AI, tiene munición.",
+        "f": "Bloomberg / Crunchbase",
+        "dt": "2026-06-05",
+        "tag": "M&A",
+        "alert": false,
+        "url": null,
+        "urls": [],
+        "aud": ["Exec","EA","SA","SE"],
+        "acquirer_deals": [],
+        "competitor_deals": [
+          {"by": "Microsoft", "name": "Activision Blizzard", "value": "$68.7B", "year": "2023"},
+          {"by": "Microsoft", "name": "Nuance Comm.", "value": "$19.7B", "year": "2022"},
+          {"by": "Microsoft", "name": "GitHub", "value": "$7.5B", "year": "2018"},
+          {"by": "SAP", "name": "Qualtrics", "value": "$8B", "year": "2019"},
+          {"by": "SAP", "name": "LeanIX", "value": "$1.2B", "year": "2023"},
+          {"by": "ServiceNow", "name": "G2K Group", "value": "—", "year": "2025"}
+        ]
+      },
+      {
+        "t": "Próxima aquisição Salesforce: especulações sobre Data Cloud, verticais e agentic infra",
+        "t_en": "Next Salesforce acquisition: speculation on Data Cloud, verticals and agentic infra",
+        "t_es": "Próxima adquisición Salesforce: especulaciones sobre Data Cloud, verticales e infraestructura agéntica",
+        "s": "Analistas apontam 3 vetores prováveis: (1) data infrastructure para fortalecer o Data Cloud vs. Snowflake/Databricks, (2) verticals de nicho (saúde, finanças) para competir com SAP Industry Cloud, (3) agentic infrastructure como Langfuse, Weights & Biases para LLMOps nativo.",
+        "s_en": "Analysts point to 3 likely vectors: (1) data infrastructure to strengthen Data Cloud vs. Snowflake/Databricks, (2) niche verticals (health, finance) to compete with SAP Industry Cloud, (3) agentic infrastructure like Langfuse, W&B for native LLMOps.",
+        "s_es": "Los analistas apuntan a 3 vectores probables: (1) infraestructura de datos para fortalecer Data Cloud vs. Snowflake/Databricks, (2) verticales de nicho (salud, finanzas), (3) infraestructura agéntica como Langfuse, W&B para LLMOps nativo.",
+        "d": "Acompanhe os alvos de M&A para antecipar o roadmap da plataforma. Se a Salesforce comprar infraestrutura LLMOps, observabilidade vira nativa — impacta projetos atuais que usam Langfuse externo.",
+        "d_en": "Track M&A targets to anticipate the platform roadmap. If Salesforce acquires LLMOps infrastructure, observability becomes native — impacts current projects using external Langfuse.",
+        "d_es": "Sigue los objetivos de M&A para anticipar el roadmap de la plataforma. Si Salesforce compra infraestructura LLMOps, la observabilidad se vuelve nativa.",
+        "critical": "Especulações de M&A movem o mercado mas raramente se concretizam no prazo previsto. Não planeje arquitetura baseando-se em aquisições não confirmadas.",
+        "critical_en": "M&A speculation moves markets but rarely materializes on the expected timeline. Don't plan architecture based on unconfirmed acquisitions.",
+        "critical_es": "Las especulaciones de M&A mueven el mercado pero rara vez se materializan en el plazo previsto. No planifiques arquitectura basándote en adquisiciones no confirmadas.",
+        "f": "Goldman Sachs / Barclays Research",
+        "dt": "2026-06-09",
+        "tag": "Acquisition",
+        "alert": false,
+        "url": null,
+        "urls": [],
+        "aud": ["Exec","EA","SE"],
+        "acquirer_deals": [],
+        "competitor_deals": []
+      }
+    ]
+  }
 }

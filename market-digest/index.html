@@ -2,38 +2,35 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>Market Digest · Radar Global de IA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Intelligence Digest · Bússola para Arquitetos de IA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#081327}
-body{font-family:'Inter',-apple-system,sans-serif;color:#D8E2FE}
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:#0F1A2E}
-::-webkit-scrollbar-thumb{background:#1E293B;border-radius:99px}
-@keyframes livepulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-@keyframes alertglow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4)}70%{box-shadow:0 0 0 6px rgba(251,191,36,0)}}
+html,body{background:#F3F4F6;font-family:'Inter',-apple-system,sans-serif;color:#1A1A1A}
+::-webkit-scrollbar{height:3px;width:3px}
+::-webkit-scrollbar-track{background:#F0F0F0}
+::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:99px}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .serif{font-family:'Playfair Display',Georgia,serif}
-.scroll-x{display:flex;gap:6px;overflow-x:auto;padding:0 4px;scrollbar-width:none}
-.scroll-x::-webkit-scrollbar{display:none}
-.track-chip{border:none;border-radius:999px;padding:6px 14px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0}
-.card{transition:border-color .18s,box-shadow .18s;cursor:pointer}
-.card:hover{box-shadow:0 6px 28px rgba(0,0,0,.45)}
-.aud-pill{border-radius:999px;padding:2px 9px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.03em}
-.tag-chip{border-radius:999px;padding:2px 9px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.04em}
-/* desktop grid */
-@media(min-width:900px){
-  .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-}
-@media(min-width:1400px){
-  .cards-grid{grid-template-columns:repeat(3,1fr)}
+.hscroll{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.hscroll::-webkit-scrollbar{display:none}
+/* responsive card grid — fills width, no orphan space */
+.card-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.lift{transition:transform .18s,box-shadow .18s;cursor:pointer}
+.lift:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.13)}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+  .hero-split{flex-direction:column!important}
+  .hero-img{width:100%!important;flex:none!important;min-height:160px!important;border-radius:14px 14px 0 0!important}
+  .card-grid{grid-template-columns:1fr!important}
 }
 </style>
 </head>
@@ -41,331 +38,1029 @@ body{font-family:'Inter',-apple-system,sans-serif;color:#D8E2FE}
 <div id="root"></div>
 <script type="text/babel">
 const {useState,useEffect,useMemo,useCallback}=React;
+const RED="#C8102E";
+const FEED="./feed.json";
 
-/* ─── TRACKS ─── */
-const TRACKS=[
-  {id:"all",        label:"🌐 Todos",               color:"#D8E2FE"},
-  {id:"salesforce", label:"☁️ Salesforce / Agentforce", color:"#00A1E0"},
-  {id:"agnostic",   label:"🤖 IA & Frameworks",      color:"#A78BFA"},
-  {id:"rivals",     label:"⚔️ Concorrentes",          color:"#EF4444"},
-  {id:"arch",       label:"🏛️ MCP / A2A / Arquitetura",color:"#EC4899"},
-  {id:"tools",      label:"🛠️ LLMOps & Observabilidade",color:"#06B6D4"},
-];
+/* ──────────────────────────────────────────
+   i18n
+────────────────────────────────────────── */
+const I18N={
+  pt:{
+    tagline:"Bússola para Arquitetos de IA",search:"Buscar insights…",
+    alerts:"alertas",live:"AO VIVO",updated:"Atualizado",
+    roles_lbl:"Para",all_roles:"Todos os perfis",
+    all_tracks:"Todos",insights:"insights",automatic:"automático",
+    decision:"Decisão arquitetural",critical:"Análise Crítica",
+    read:"min leitura",source:"Fonte",references:"Referências",
+    see:"▼ ver análise",close:"▲ fechar",
+    latest:"Latest Insights",
+    sec_releases:"🚀 Novas Features — Release Salesforce",
+    sec_issues:"⚠️ Incidentes & Issues Detectados",
+    sec_social:"💬 Debates & Opiniões",
+    sec_radar:"📊 Technology Radar",
+    sec_acquisitions:"🛒 Aquisições & Estratégia M&A",
+    sec_stocks:"📈 Mercado de Capitais",
+    radar_adopt:"Adotar",radar_trial:"Testar",
+    radar_assess:"Avaliar",radar_hold:"Cautela",
+    radar_sub:"Posicionamento baseado nas notícias monitoradas — atualizado diariamente",
+    sources_title:"Fontes monitoradas",
+    badge_adopt:"Adotar",badge_trial:"Testar",badge_assess:"Avaliar",badge_hold:"Cautela",
+    content_note:"Conteúdo disponível em PT-BR",
+    acq_vs:"vs. concorrentes",
+    stocks_analysis:"Análise de IA",
+    tracks:["Todos","🎤 Benioff","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
+            "⚔️ Concorrentes","🛒 Aquisições","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
+  en:{
+    tagline:"Compass for AI Architects",search:"Search insights…",
+    alerts:"alerts",live:"LIVE",updated:"Updated",
+    roles_lbl:"For",all_roles:"All profiles",
+    all_tracks:"All",insights:"insights",automatic:"automatic",
+    decision:"Architectural Decision",critical:"Critical Analysis",
+    read:"min read",source:"Source",references:"References",
+    see:"▼ see analysis",close:"▲ close",
+    latest:"Latest Insights",
+    sec_releases:"🚀 New Features — Salesforce Release",
+    sec_issues:"⚠️ Incidents & Detected Issues",
+    sec_social:"💬 Debates & Opinions",
+    sec_radar:"📊 Technology Radar",
+    sec_acquisitions:"🛒 Acquisitions & M&A Strategy",
+    sec_stocks:"📈 Capital Markets",
+    radar_adopt:"Adopt",radar_trial:"Trial",
+    radar_assess:"Assess",radar_hold:"Hold",
+    radar_sub:"Positioning based on monitored news — updated daily",
+    sources_title:"Monitored sources",
+    badge_adopt:"Adopt",badge_trial:"Trial",badge_assess:"Assess",badge_hold:"Hold",
+    content_note:"Content in PT-BR · translations via Gemini in next release",
+    acq_vs:"vs. competitors",
+    stocks_analysis:"AI Analysis",
+    tracks:["All","🎤 Benioff","🔥 Urgent","☁️ Summer '26","🧵 Agent Fabric","🌐 Market & AI",
+            "⚔️ Competitors","🛒 Acquisitions","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
+  es:{
+    tagline:"Brújula para Arquitectos de IA",search:"Buscar insights…",
+    alerts:"alertas",live:"EN VIVO",updated:"Actualizado",
+    roles_lbl:"Para",all_roles:"Todos los perfiles",
+    all_tracks:"Todos",insights:"insights",automatic:"automático",
+    decision:"Decisión Arquitectónica",critical:"Análisis Crítico",
+    read:"min lectura",source:"Fuente",references:"Referencias",
+    see:"▼ ver análisis",close:"▲ cerrar",
+    latest:"Últimos Insights",
+    sec_releases:"🚀 Nuevas Features — Release Salesforce",
+    sec_issues:"⚠️ Incidentes y Problemas Detectados",
+    sec_social:"💬 Debates y Opiniones",
+    sec_radar:"📊 Radar Tecnológico",
+    sec_acquisitions:"🛒 Adquisiciones & Estrategia M&A",
+    sec_stocks:"📈 Mercados de Capitales",
+    radar_adopt:"Adoptar",radar_trial:"Probar",
+    radar_assess:"Evaluar",radar_hold:"Precaución",
+    radar_sub:"Posicionamiento basado en noticias monitoreadas — actualizado diariamente",
+    sources_title:"Fuentes monitoreadas",
+    badge_adopt:"Adoptar",badge_trial:"Probar",badge_assess:"Evaluar",badge_hold:"Precaución",
+    content_note:"Contenido en PT-BR · traducciones vía Gemini en próxima versión",
+    acq_vs:"vs. competidores",
+    stocks_analysis:"Análisis de IA",
+    tracks:["Todos","🎤 Benioff","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
+            "⚔️ Competidores","🛒 Adquisiciones","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "🚀 Releases","⚠️ Issues","💬 Social"],
+  },
+};
+
+/* ──────────────────────────────────────────
+   Constants
+────────────────────────────────────────── */
+const GRAD={
+  "Headless":       ["#0EA5E9","#6366F1"],
+  "FIFA":           ["#16A34A","#0D9488"],
+  "Agent Fabric":   ["#7C3AED","#DB2777"],
+  "Multi-Agent":    ["#4F46E5","#7C3AED"],
+  "Agentforce Ops": ["#0369A1","#0891B2"],
+  "Momentum":       ["#059669","#0F766E"],
+  "AgentExchange":  ["#7C3AED","#9333EA"],
+  "Summer 26":      ["#0284C7","#0EA5E9"],
+  "MCP Bridge":     ["#0E7490","#0891B2"],
+  "Guided Det":     ["#5B21B6","#7C3AED"],
+  "LLM Gov":        ["#9D174D","#BE185D"],
+  "Claude SDK":     ["#D97706","#92400E"],
+  "Google":         ["#1D4ED8","#4338CA"],
+  "Frameworks":     ["#6D28D9","#4F46E5"],
+  "Anthropic":      ["#B45309","#D97706"],
+  "Microsoft":      ["#1E40AF","#1D4ED8"],
+  "ServiceNow":     ["#065F46","#047857"],
+  "SAP":            ["#92400E","#B45309"],
+  "OpenAI":         ["#047857","#065F46"],
+  "Build-vs-Buy":   ["#9A3412","#B91C1C"],
+  "Decisão":        ["#92400E","#B45309"],
+  "Agent Wash":     ["#991B1B","#DC2626"],
+  "MCP":            ["#9D174D","#A21CAF"],
+  "A2A":            ["#5B21B6","#4F46E5"],
+  "WebMCP":         ["#0E7490","#0369A1"],
+  "Langfuse":       ["#0E7490","#0891B2"],
+  "LLMOps":         ["#1E40AF","#1D4ED8"],
+  "Skill":          ["#065F46","#047857"],
+  "Mercado":        ["#9D174D","#BE185D"],
+  "Cert":           ["#047857","#065F46"],
+  "AWS":            ["#9A3412","#D97706"],
+  "Acquisition":    ["#0369A1","#7C3AED"],
+  "M&A":            ["#0369A1","#6D28D9"],
+  "Kore.ai":        ["#A21CAF","#9333EA"],
+  "Release":        ["#0369A1","#4338CA"],
+  "Issue":          ["#B91C1C","#9A3412"],
+  "Reddit":         ["#C2410C","#EA580C"],
+  "HN":             ["#B45309","#D97706"],
+  "Dev.to":         ["#1F2937","#374151"],
+  "Comunidade":     ["#374151","#1F2937"],
+  "LLMs":           ["#6D28D9","#7C3AED"],
+  "_default":       ["#374151","#1F2937"],
+};
 
 const AUD={
-  TA:    {l:"TA / EA",   c:"#A78BFA",b:"rgba(167,139,250,.12)"},
-  Build: {l:"Builder",   c:"#34D399",b:"rgba(52,211,153,.12)"},
-  Exec:  {l:"C-Level",   c:"#FB923C",b:"rgba(251,146,60,.12)"},
-  SE:    {l:"SE / AE",   c:"#38BDF8",b:"rgba(56,189,248,.12)"},
+  EA:   {l:"EA",     c:"#6D28D9",b:"rgba(109,40,217,.1)"},
+  SA:   {l:"SA",     c:"#0369A1",b:"rgba(3,105,161,.1)"},
+  TA:   {l:"TA",     c:"#0891B2",b:"rgba(8,145,178,.1)"},
+  Build:{l:"Builder",c:"#059669",b:"rgba(5,150,105,.1)"},
+  SE:   {l:"SE",     c:"#D97706",b:"rgba(217,119,6,.1)"},
+  Exec: {l:"C-Level",c:"#DC2626",b:"rgba(220,38,38,.1)"},
 };
 
-const TAG_COLORS={
-  Salesforce:"#00A1E0",Agentforce:"#00A1E0",Claude:"#FBBF24",Anthropic:"#FBBF24",
-  OpenAI:"#10B981",Google:"#4285F4",Gemini:"#4285F4",AWS:"#FF9900",Bedrock:"#FF9900",
-  MCP:"#EC4899",Padrão:"#8B5CF6","A2A":"#D946EF",LangGraph:"#10B981",
-  Frameworks:"#EC4899",LLMOps:"#0EA5E9",Observab:"#22D3EE",Langfuse:"#06B6D4",
-  Mercado:"#F472B6",Enterprise:"#38BDF8",Comunidade:"#64748B",
-};
+const TRACK_IDS=["all","benioff","hot","summer26","fabric","agnostic","rivals","acquisitions","crossref","arch","tools","skills","releases","issues","social"];
 
-const FEED_URL="./feed.json";
+const SRC_MAP=[
+  {m:["salesforce","vantagepoint","agentforce","summer","sf dev"],s:"SF",c:"#0369A1",b:"#DBEAFE"},
+  {m:["anthropic","claude"],                                       s:"AN",c:"#92400E",b:"#FEF3C7"},
+  {m:["openai","codex","gpt"],                                     s:"OA",c:"#047857",b:"#D1FAE5"},
+  {m:["google","gemini"],                                          s:"G", c:"#1D4ED8",b:"#DBEAFE"},
+  {m:["aws","amazon","bedrock"],                                   s:"AW",c:"#9A3412",b:"#FEE2E2"},
+  {m:["venturebeat"],                                              s:"VB",c:"#5B21B6",b:"#EDE9FE"},
+  {m:["techcrunch"],                                               s:"TC",c:"#0E7490",b:"#CFFAFE"},
+  {m:["microsoft","copilot"],                                      s:"MS",c:"#1E40AF",b:"#DBEAFE"},
+  {m:["servicenow"],                                               s:"SN",c:"#065F46",b:"#D1FAE5"},
+  {m:["sap","joule"],                                              s:"SP",c:"#92400E",b:"#FEF3C7"},
+  {m:["langfuse","langchain","langgraph"],                         s:"LG",c:"#0E7490",b:"#CFFAFE"},
+  {m:["reddit"],                                                   s:"R", c:"#C2410C",b:"#FEF3C7"},
+  {m:["hacker news","hn","hnrss"],                                 s:"HN",c:"#B45309",b:"#FEF3C7"},
+  {m:["dev.to","devto"],                                           s:"DV",c:"#1F2937",b:"#F3F4F6"},
+  {m:["gartner","forrester","idc"],                                s:"GA",c:"#6D28D9",b:"#EDE9FE"},
+];
+function srcOf(n){const x=(n||"").toLowerCase();return SRC_MAP.find(s=>s.m.some(m=>x.includes(m)))||{s:"—",c:"#6B7280",b:"#F3F4F6"};}
 
-/* ─── Icons ─── */
-const IconRefresh=({spin})=>(
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
-       strokeLinecap="round" strokeLinejoin="round" style={{animation:spin?"spin 1s linear infinite":"none"}}>
-    <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-  </svg>
-);
-const IconLink=()=>(
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-       strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-  </svg>
-);
-const IconChevron=({open})=>(
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-       strokeLinecap="round" strokeLinejoin="round"
-       style={{transition:"transform .2s",transform:open?"rotate(180deg)":"rotate(0deg)"}}>
-    <polyline points="6 9 12 15 18 9"/>
-  </svg>
-);
-
-/* ─── AudBadge ─── */
-function AudBadge({r}){
-  const a=AUD[r];
-  if(!a)return null;
-  return <span className="aud-pill" style={{background:a.b,color:a.c,border:`1px solid ${a.c}40`}}>{a.l}</span>;
+/* ──────────────────────────────────────────
+   Helpers
+────────────────────────────────────────── */
+function readTime(t){return Math.max(1,Math.round((t||"").split(" ").length/200));}
+function getTrackItems(feed,id){
+  if(!feed?.tracks)return[];
+  const v=feed.tracks[id];
+  if(!v)return[];
+  return Array.isArray(v)?v:(v.d||[]);
+}
+function allFeedItems(feed){
+  if(!feed?.tracks)return[];
+  return Object.entries(feed.tracks).flatMap(([t,v])=>
+    (Array.isArray(v)?v:(v.d||[])).map(i=>({...i,_track:t}))
+  );
+}
+function tf(item,field,lang){
+  if(lang==="pt")return item[field]||"";
+  return item[`${field}_${lang}`]||item[field]||"";
 }
 
-/* ─── Card ─── */
-function Card({item}){
-  const [open,setOpen]=useState(false);
-  const c=TAG_COLORS[item.tag]||"#6B7280";
-  const auds=Array.isArray(item.aud)?item.aud:[];
+/* ──────────────────────────────────────────
+   Components — Cover
+────────────────────────────────────────── */
+function Cover({tag,h=170,rTop=true,rBottom=false,stretch=false}){
+  const [a,b]=GRAD[tag]||GRAD._default;
+  const r=[rTop?"14px":"0",rTop?"14px":"0",rBottom?"14px":"0",rBottom?"14px":"0"].join(" ");
   return(
-    <article className="card" onClick={()=>setOpen(v=>!v)} style={{
-      background:"#0F1A2E",
-      border:`1px solid ${item.alert?"rgba(251,191,36,.35)":"#1E293B"}`,
-      borderRadius:12,overflow:"hidden",
-      animation:item.alert?"alertglow 2.8s ease-in-out infinite":"none",
-      position:"relative",
-    }}>
-      <div style={{position:"absolute",left:0,top:0,bottom:0,width:3,background:item.alert?"#FBBF24":c,borderRadius:"12px 0 0 12px"}}/>
-      <div style={{padding:"13px 13px 13px 17px"}}>
-        {/* top row */}
-        <div style={{display:"flex",gap:6,alignItems:"center",marginBottom:8,flexWrap:"wrap"}}>
-          {item.alert&&(
-            <span className="tag-chip" style={{background:"rgba(251,191,36,.12)",color:"#FBBF24",border:"1px solid rgba(251,191,36,.3)"}}>⚡ URGENTE</span>
-          )}
-          <span className="tag-chip" style={{background:c+"14",color:c,border:`1px solid ${c}30`}}>{item.tag}</span>
-          <div style={{flex:1}}/>
-          <div style={{display:"flex",gap:3,flexWrap:"wrap"}}>
-            {auds.map(r=><AudBadge key={r} r={r}/>)}
-          </div>
+    <div style={{height:stretch?"100%":h,minHeight:h,
+      background:`linear-gradient(135deg,${a} 0%,${b} 100%)`,
+      borderRadius:r,position:"relative",overflow:"hidden",flexShrink:0}}>
+      {/* dot pattern */}
+      <div style={{position:"absolute",inset:0,
+        backgroundImage:"radial-gradient(rgba(255,255,255,.15) 1px,transparent 1px)",
+        backgroundSize:"20px 20px"}}/>
+      {/* deco circles */}
+      <div style={{position:"absolute",right:-60,top:-60,width:200,height:200,
+        borderRadius:"50%",background:"rgba(255,255,255,.12)"}}/>
+      <div style={{position:"absolute",left:-36,bottom:-36,width:140,height:140,
+        borderRadius:"50%",background:"rgba(0,0,0,.14)"}}/>
+      <div style={{position:"absolute",right:32,bottom:36,width:60,height:60,
+        borderRadius:"50%",background:"rgba(255,255,255,.08)"}}/>
+      {/* gradient overlay */}
+      <div style={{position:"absolute",inset:0,
+        background:"linear-gradient(to top,rgba(0,0,0,.48) 0%,transparent 60%)"}}/>
+      {/* tag pill */}
+      <div style={{position:"absolute",bottom:12,left:14}}>
+        <span style={{background:"rgba(255,255,255,.18)",backdropFilter:"blur(16px)",
+          WebkitBackdropFilter:"blur(16px)",color:"#FFF",fontSize:10.5,fontWeight:700,
+          letterSpacing:"1.4px",textTransform:"uppercase",padding:"4px 10px",
+          borderRadius:99,border:"1px solid rgba(255,255,255,.3)"}}>
+          {tag}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Role badge ─── */
+function RoleBadge({r}){
+  const a=AUD[r];if(!a)return null;
+  return(
+    <span style={{background:a.b,color:a.c,fontSize:10,fontWeight:700,
+      padding:"2px 7px",borderRadius:99,border:`1px solid ${a.c}28`,
+      whiteSpace:"nowrap",letterSpacing:"0.02em"}}>
+      {a.l}
+    </span>
+  );
+}
+
+/* ── Source badge ─── */
+function SrcBadge({name,size=20}){
+  const s=srcOf(name);
+  return(
+    <span style={{width:size,height:size,borderRadius:"50%",background:s.b,color:s.c,
+      fontSize:size*.38,fontWeight:800,display:"inline-flex",alignItems:"center",
+      justifyContent:"center",flexShrink:0,border:`1.5px solid ${s.c}22`,
+      letterSpacing:"-0.5px"}}>
+      {s.s}
+    </span>
+  );
+}
+
+/* ── Reference links ─── */
+function RefLinks({urls,url,t}){
+  const all=useMemo(()=>{
+    const list=Array.isArray(urls)?[...urls]:[];
+    if(url&&!list.includes(url))list.unshift(url);
+    return list.filter(Boolean);
+  },[urls,url]);
+  if(!all.length)return null;
+  return(
+    <div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:2}}>
+      {all.map((u,i)=>(
+        <a key={i} href={u} target="_blank" rel="noopener"
+           onClick={e=>e.stopPropagation()}
+           style={{display:"inline-flex",alignItems:"center",gap:3,
+             background:"#F3F4F6",border:"1px solid #E5E7EB",
+             borderRadius:6,padding:"3px 8px",
+             fontSize:11,color:"#374151",fontWeight:500,flexShrink:0}}>
+          {t.references} {all.length>1?`[${i+1}]`:"↗"}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+/* ── Expandable analysis panels ─── */
+function AnalysisPanels({item,lang,t,open}){
+  if(!open)return null;
+  const d=tf(item,"d",lang);
+  const c=tf(item,"critical",lang);
+  return(
+    <div style={{display:"flex",flexDirection:"column",gap:8}}>
+      {d&&(
+        <div style={{background:"#F5F3FF",border:"1px solid #DDD6FE",borderRadius:8,padding:"10px 13px"}}>
+          <p style={{margin:0,fontSize:12.5,color:"#5B21B6",lineHeight:1.65}}>
+            <strong style={{display:"block",marginBottom:3}}>🏛 {t.decision}</strong>{d}
+          </p>
         </div>
-        {/* headline */}
-        <h3 className="serif" style={{fontSize:14.5,fontWeight:700,color:"#EEF2FF",lineHeight:1.38,margin:"0 0 7px",letterSpacing:"-0.01em"}}>{item.t}</h3>
-        {/* summary */}
-        <p style={{fontSize:12.5,color:"#94A3B8",lineHeight:1.65,margin:"0 0 9px"}}>{item.s}</p>
-        {/* decisão */}
-        {open&&item.d&&(
-          <div style={{background:"rgba(167,139,250,.07)",border:"1px solid rgba(167,139,250,.2)",borderRadius:8,padding:"10px 12px",margin:"0 0 9px"}}>
-            <p style={{margin:0,fontSize:12,color:"#C4B5FD",lineHeight:1.62}}>
-              <span className="serif" style={{color:"#A78BFA",fontWeight:700,fontSize:12.5}}>🏛 Decisão — </span>{item.d}
-            </p>
+      )}
+      {c&&(
+        <div style={{background:"#FFF7ED",border:"1px solid #FED7AA",borderRadius:8,padding:"10px 13px"}}>
+          <p style={{margin:0,fontSize:12.5,color:"#9A3412",lineHeight:1.65}}>
+            <strong style={{display:"block",marginBottom:3}}>🔍 {t.critical}</strong>{c}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Featured hero card ─── */
+function Featured({item,lang,t}){
+  const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+  return(
+    <div className="lift hero-split" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{display:"flex",background:"#FFF",borderRadius:16,overflow:"hidden",
+        border:"1px solid #E5E7EB",boxShadow:"0 2px 8px rgba(0,0,0,.06)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+      <div className="hero-img" style={{flex:"0 0 36%",alignSelf:"stretch",borderRadius:"16px 0 0 16px",overflow:"hidden",maxHeight:220}}>
+        <Cover tag={item.tag} stretch h={220} rTop={false} rBottom={false}/>
+      </div>
+      <div style={{flex:1,padding:"20px 26px",display:"flex",flexDirection:"column",gap:10,overflow:"hidden"}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
+          <SrcBadge name={item.f} size={22}/>
+          <span style={{fontSize:12.5,color:"#374151",fontWeight:500}}>{item.f}</span>
+          <span style={{color:"#D1D5DB"}}>·</span>
+          <span style={{fontSize:12.5,color:"#9CA3AF"}}>{item.dt}</span>
+          {item.alert&&(
+            <span style={{marginLeft:"auto",background:"#FEF2F2",color:"#B91C1C",
+              fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:99,
+              border:"1px solid #FECACA",flexShrink:0,animation:"pulse 2s infinite"}}>
+              ⚡ URGENTE
+            </span>
+          )}
+        </div>
+        <h2 className="serif" style={{fontSize:22,fontWeight:700,color:"#111",lineHeight:1.32,
+          display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"t",lang)}
+        </h2>
+        <p style={{fontSize:13.5,color:"#4B5563",lineHeight:1.72,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
+        </p>
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",
+          marginTop:"auto",paddingTop:14,borderTop:"1px solid #F3F4F6"}}>
+          {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          <span style={{flex:1}}/>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{color:"#6D28D9",fontSize:12.5,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Social Signals bar ─── */
+function SocialSignals({signals}){
+  if(!signals)return null;
+  const {hn_comments,hn_url,reddit_posts,reddit_url,stock,stock_change,stock_comment,layoff}=signals;
+  const items=[];
+
+  if(hn_comments>0) items.push(
+    <a key="hn" href={hn_url||"#"} target="_blank" rel="noopener"
+       onClick={e=>e.stopPropagation()}
+       style={{display:"inline-flex",alignItems:"center",gap:3,
+         background:"#FEF3C7",color:"#92400E",border:"1px solid #FDE68A",
+         borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,
+         textDecoration:"none",flexShrink:0}}>
+      🔶 HN {hn_comments}
+    </a>
+  );
+
+  if(reddit_posts>0) items.push(
+    <a key="r" href={reddit_url||"#"} target="_blank" rel="noopener"
+       onClick={e=>e.stopPropagation()}
+       style={{display:"inline-flex",alignItems:"center",gap:3,
+         background:"#FEF2F2",color:"#C2410C",border:"1px solid #FECACA",
+         borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,
+         textDecoration:"none",flexShrink:0}}>
+      🔴 r/ {reddit_posts}
+    </a>
+  );
+
+  if(stock){
+    const up=stock_change>=0;
+    items.push(
+      <span key="stk" title={stock_comment||""}
+        style={{display:"inline-flex",alignItems:"center",gap:3,
+          background:up?"#F0FDF4":"#FEF2F2",
+          color:up?"#059669":"#DC2626",
+          border:`1px solid ${up?"#BBF7D0":"#FECACA"}`,
+          borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,flexShrink:0,
+          cursor:stock_comment?"help":"default"}}>
+        {stock} {up?"▲":"▼"}{Math.abs(stock_change).toFixed(1)}%
+        {stock_comment&&<span style={{fontSize:9,opacity:.7,maxWidth:80,overflow:"hidden",
+          textOverflow:"ellipsis",whiteSpace:"nowrap"}}> · {stock_comment}</span>}
+      </span>
+    );
+  }
+
+  if(layoff) items.push(
+    <span key="lay"
+      style={{display:"inline-flex",alignItems:"center",gap:3,
+        background:"#FFF7ED",color:"#9A3412",border:"1px solid #FED7AA",
+        borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,flexShrink:0}}>
+      📉 {layoff}
+    </span>
+  );
+
+  if(items.length===0)return null;
+  return(
+    <div style={{display:"flex",gap:5,flexWrap:"wrap",paddingTop:8,
+      borderTop:"1px solid #F3F4F6"}}>
+      {items}
+    </div>
+  );
+}
+
+/* ── Stock card (seção dedicada) ─── */
+function StockCard({s}){
+  const [open,setOpen]=useState(false);
+  const up=s.change>=0;
+  return(
+    <div className="lift" onClick={()=>s.comment&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,border:"1px solid #E5E7EB",
+        padding:"16px 18px",display:"flex",flexDirection:"column",gap:8,
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:s.comment?"pointer":"default"}}>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <div style={{width:36,height:36,borderRadius:8,
+          background:up?"#F0FDF4":"#FEF2F2",
+          display:"flex",alignItems:"center",justifyContent:"center",
+          fontSize:13,fontWeight:800,color:up?"#059669":"#DC2626",
+          border:`1px solid ${up?"#BBF7D0":"#FECACA"}`,flexShrink:0}}>
+          {s.ticker}
+        </div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:12.5,fontWeight:600,color:"#111",
+            overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
+            {s.name}
+          </div>
+          <div style={{fontSize:11,color:"#9CA3AF"}}>{s.sector}</div>
+        </div>
+        <div style={{textAlign:"right",flexShrink:0}}>
+          <div style={{fontSize:15,fontWeight:700,
+            color:up?"#059669":"#DC2626"}}>
+            {up?"▲":"▼"}{Math.abs(s.change).toFixed(2)}%
+          </div>
+          <div style={{fontSize:10.5,color:"#9CA3AF"}}>{s.price}</div>
+        </div>
+      </div>
+      {open&&s.comment&&(
+        <div style={{background:"#F8FAFC",border:"1px solid #E2E8F0",
+          borderRadius:8,padding:"9px 11px"}}>
+          <p style={{margin:0,fontSize:12,color:"#374151",lineHeight:1.6}}>
+            <strong>📊 Análise:</strong> {s.comment}
+          </p>
+        </div>
+      )}
+      {s.comment&&(
+        <div style={{fontSize:10.5,color:"#9CA3AF",display:"flex",
+          alignItems:"center",gap:3}}>
+          {open?"▲ fechar":"▼ ver análise"}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Acquisition card ─── */
+function AcquisitionCard({item,lang,t}){
+  const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const sfAcqs=item.acquirer_deals||[];
+  const compAcqs=item.competitor_deals||[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+  return(
+    <div className="lift" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,overflow:"hidden",
+        border:"1px solid #DDD6FE",
+        display:"flex",flexDirection:"column",
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+
+      <Cover tag={item.tag||"Acquisition"} h={130} rTop rBottom={false}/>
+
+      <div style={{padding:"12px 13px 13px",flex:1,display:"flex",flexDirection:"column",gap:8}}>
+        <div style={{display:"flex",alignItems:"center",gap:6}}>
+          <SrcBadge name={item.f} size={17}/>
+          <span style={{fontSize:11,color:"#9CA3AF",flex:1,overflow:"hidden",
+            textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.f}</span>
+          <span style={{fontSize:11,color:"#D1D5DB",flexShrink:0}}>{item.dt}</span>
+        </div>
+
+        <h3 style={{fontSize:13.5,fontWeight:700,color:"#111",lineHeight:1.42,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"t",lang)}
+        </h3>
+        <p style={{fontSize:12.5,color:"#6B7280",lineHeight:1.65,flex:1,
+          display:"-webkit-box",WebkitLineClamp:open?20:2,
+          WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
+        </p>
+
+        {/* Salesforce acquisitions */}
+        {sfAcqs.length>0&&(
+          <div style={{borderTop:"1px solid #F3F4F6",paddingTop:8}}>
+            <div style={{fontSize:10,fontWeight:700,color:"#6D28D9",marginBottom:5,
+              textTransform:"uppercase",letterSpacing:"1px"}}>Salesforce</div>
+            <div style={{display:"flex",flexDirection:"column",gap:4}}>
+              {sfAcqs.map((a,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:6}}>
+                  <span style={{width:6,height:6,borderRadius:"50%",background:"#6D28D9",flexShrink:0}}/>
+                  <span style={{fontSize:11.5,color:"#374151",fontWeight:600}}>{a.name}</span>
+                  {a.value&&<span style={{fontSize:10.5,color:"#9CA3AF"}}>· {a.value}</span>}
+                  {a.year&&<span style={{fontSize:10,color:"#D1D5DB",marginLeft:"auto"}}>{a.year}</span>}
+                </div>
+              ))}
+            </div>
           </div>
         )}
+
+        {/* Competitor acquisitions */}
+        {compAcqs.length>0&&(
+          <div style={{borderTop:"1px solid #F3F4F6",paddingTop:8}}>
+            <div style={{fontSize:10,fontWeight:700,color:"#DC2626",marginBottom:5,
+              textTransform:"uppercase",letterSpacing:"1px"}}>{t.acq_vs}</div>
+            <div style={{display:"flex",flexDirection:"column",gap:4}}>
+              {compAcqs.map((a,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}}>
+                  <span style={{width:6,height:6,borderRadius:"50%",background:"#DC2626",flexShrink:0}}/>
+                  <span style={{fontSize:11,color:"#DC2626",fontWeight:700,flexShrink:0}}>{a.by}</span>
+                  <span style={{fontSize:11.5,color:"#374151",fontWeight:600}}>{a.name}</span>
+                  {a.value&&<span style={{fontSize:10.5,color:"#9CA3AF"}}>· {a.value}</span>}
+                  {a.year&&<span style={{fontSize:10,color:"#D1D5DB",marginLeft:"auto"}}>{a.year}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+
+        <div style={{display:"flex",alignItems:"center",gap:6,
+          paddingTop:9,borderTop:"1px solid #F3F4F6",marginTop:"auto",flexWrap:"wrap"}}>
+          {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          <span style={{flex:1}}/>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{marginLeft:"auto",color:"#6D28D9",fontSize:11,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Stocks section ─── */
+function StocksSection({stocks,t,lang}){
+  if(!stocks?.length)return null;
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,
+        borderBottom:"2px solid #E5E7EB",
+        borderLeft:"4px solid #059669",
+        paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{t.sec_stocks}</h2>
+        <span style={{fontSize:12,color:"#059669",fontWeight:600}}>{t.automatic}</span>
+      </div>
+      <div className="card-grid">
+        {stocks.map((s,i)=><StockCard key={i} s={s}/>)}
+      </div>
+    </section>
+  );
+}
+
+/* ── News card ─── */
+function NewsCard({item,lang,t,variant="default"}){
+  const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+
+  const accentColor={
+    default:"#E5E7EB",
+    issue:"#FCA5A5",
+    release:"#93C5FD",
+    social:"#A7F3D0",
+  }[variant];
+
+  return(
+    <div className="lift" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,overflow:"hidden",
+        border:`1px solid ${accentColor}`,
+        display:"flex",flexDirection:"column",
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+
+      <Cover tag={item.tag} h={160} rTop rBottom={false}/>
+
+      <div style={{padding:"12px 13px 13px",flex:1,display:"flex",flexDirection:"column",gap:8}}>
+        {/* source */}
+        <div style={{display:"flex",alignItems:"center",gap:6}}>
+          <SrcBadge name={item.f} size={17}/>
+          <span style={{fontSize:11,color:"#9CA3AF",flex:1,overflow:"hidden",
+            textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.f}</span>
+          {item.alert&&<span style={{fontSize:12,flexShrink:0}}>⚡</span>}
+          <span style={{fontSize:11,color:"#D1D5DB",flexShrink:0}}>{item.dt}</span>
+        </div>
+
+        {/* title */}
+        <h3 style={{fontSize:13.5,fontWeight:700,color:"#111",lineHeight:1.42,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"t",lang)}
+        </h3>
+
+        {/* summary */}
+        <p style={{fontSize:12.5,color:"#6B7280",lineHeight:1.65,flex:1,
+          display:"-webkit-box",WebkitLineClamp:open?20:2,
+          WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
+        </p>
+
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+
+        <SocialSignals signals={item.signals}/>
+
+        {/* roles */}
+        {auds.length>0&&(
+          <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
+            {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          </div>
+        )}
+
         {/* footer */}
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:8,borderTop:"1px solid #1A2840",flexWrap:"wrap",gap:5}}>
-          <span style={{fontSize:10.5,color:"#334155",lineHeight:1.4}}>
-            {item.f}<br/><span style={{color:"#2D3E55"}}>{item.dt}</span>
-          </span>
-          <div style={{display:"flex",gap:8,alignItems:"center"}}>
-            {item.url&&(
-              <a href={item.url} target="_blank" rel="noopener noreferrer"
-                 onClick={e=>e.stopPropagation()}
-                 style={{display:"flex",alignItems:"center",gap:3,fontSize:11,color:"#38BDF8",textDecoration:"none",
-                         padding:"3px 7px",border:"1px solid rgba(56,189,248,.25)",borderRadius:6}}>
-                fonte <IconLink/>
-              </a>
+        <div style={{display:"flex",alignItems:"center",gap:6,
+          paddingTop:9,borderTop:"1px solid #F3F4F6",marginTop:"auto",flexWrap:"wrap"}}>
+          <span style={{fontSize:11,color:"#9CA3AF"}}>{readTime(item.s)} {t.read}</span>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{marginLeft:"auto",color:"#6D28D9",fontSize:11,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Section row ─── */
+function Section({title,items,lang,t,variant="default"}){
+  if(!items?.length)return null;
+  const accentLeft={default:RED,issue:"#DC2626",release:"#2563EB",social:"#059669",acquisitions:"#6D28D9"}[variant]||RED;
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,
+        borderBottom:`2px solid #E5E7EB`,
+        borderLeft:`4px solid ${accentLeft}`,
+        paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{title}</h2>
+        <span style={{fontSize:12,color:accentLeft,fontWeight:600}}>
+          {items.length} {t.insights}
+        </span>
+      </div>
+      <div className="card-grid">
+        {items.map((it,i)=>(
+          variant==="acquisitions"
+            ?<AcquisitionCard key={i} item={it} lang={lang} t={t}/>
+            :<NewsCard key={i} item={it} lang={lang} t={t} variant={variant}/>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Technology Radar — tabela 4 colunas ─── */
+function TechRadar({radarData,t}){
+  if(!radarData)return null;
+  const cols=[
+    {id:"adopt", label:t.radar_adopt, icon:"✅", c:"#059669", bg:"#F0FDF4", border:"#BBF7D0"},
+    {id:"trial", label:t.radar_trial, icon:"🧪", c:"#2563EB", bg:"#EFF6FF", border:"#BFDBFE"},
+    {id:"assess",label:t.radar_assess,icon:"🔭", c:"#7C3AED", bg:"#F5F3FF", border:"#DDD6FE"},
+    {id:"hold",  label:t.radar_hold,  icon:"⚠️", c:"#DC2626", bg:"#FEF2F2", border:"#FECACA"},
+  ];
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,borderBottom:"2px solid #E5E7EB",
+        borderLeft:"4px solid #7C3AED",paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{t.sec_radar}</h2>
+        <span style={{fontSize:12,color:"#7C3AED",fontWeight:600}}>{t.radar_sub}</span>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:14}}>
+        {cols.map(col=>{
+          const names=radarData[col.id]||[];
+          return(
+            <div key={col.id} style={{background:col.bg,borderRadius:12,
+              border:`1px solid ${col.border}`,padding:"14px 16px"}}>
+              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:12}}>
+                <span style={{fontSize:16}}>{col.icon}</span>
+                <span style={{fontSize:13,fontWeight:700,color:col.c}}>{col.label}</span>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                {names.map((name,i)=>(
+                  <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
+                    <div style={{width:6,height:6,borderRadius:"50%",
+                      background:col.c,flexShrink:0}}/>
+                    <span style={{fontSize:12.5,color:"#374151",lineHeight:1.4}}>{name}</span>
+                  </div>
+                ))}
+                {names.length===0&&(
+                  <span style={{fontSize:11.5,color:"#9CA3AF",fontStyle:"italic"}}>
+                    —
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────
+   App
+────────────────────────────────────────── */
+function App(){
+  const [feed,setFeed]=useState(null);
+  const [loading,setLoading]=useState(true);
+  const [error,setError]=useState(null);
+  const [track,setTrack]=useState("all");
+  const [search,setSearch]=useState("");
+  const [audFilter,setAudFilter]=useState(null);
+  const [period,setPeriod]=useState(null); // null=todos, 7=7d, 30=30d, 90=3m
+  const [lang,setLang]=useState("pt");
+
+  const t=I18N[lang]||I18N.pt;
+
+  useEffect(()=>{
+    fetch(FEED+"?v="+Date.now())
+      .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+      .then(d=>{setFeed(d);setLoading(false);})
+      .catch(e=>{setError(e.message);setLoading(false);});
+  },[]);
+
+  const items=useMemo(()=>allFeedItems(feed),[feed]);
+  const featured=useMemo(()=>items.find(i=>i.alert)||items[0],[items]);
+  const alertCount=useMemo(()=>items.filter(i=>i.alert).length,[items]);
+  const genAt=feed?.generatedAt
+    ?new Date(feed.generatedAt).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})
+    :"";
+
+  const visibleSections=useMemo(()=>{
+    if(!feed)return[];
+    return TRACK_IDS.filter(id=>id!=="all").map((id,i)=>({
+      id,
+      label:t.tracks[i+1]||id,
+      items:(() => {
+        let list=getTrackItems(feed,id);
+        if(period){
+          const cutoff=new Date();cutoff.setDate(cutoff.getDate()-period);
+          list=list.filter(it=>{
+            const d=new Date(it.dt);return!isNaN(d)&&d>=cutoff;
+          });
+        }
+        if(audFilter)list=list.filter(it=>(it.aud||[]).includes(audFilter));
+        if(search.trim()){const q=search.toLowerCase();list=list.filter(it=>(it.t+it.s+(it.tag||"")+it.f||"").toLowerCase().includes(q));}
+        return list;
+      })(),
+      variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":id==="acquisitions"?"acquisitions":"default",
+    })).filter(s=>s.items.length>0);
+  },[feed,search,audFilter,period,lang,t]);
+
+  const visible=useMemo(()=>
+    track==="all"?visibleSections:visibleSections.filter(s=>s.id===track)
+  ,[visibleSections,track]);
+
+  const trackCounts=useMemo(()=>{
+    const m={all:items.length};
+    TRACK_IDS.filter(id=>id!=="all").forEach(id=>{m[id]=getTrackItems(feed,id).length;});
+    return m;
+  },[feed,items]);
+
+  return(
+    <div style={{background:"#F3F4F6",minHeight:"100vh"}}>
+
+      {/* ── HEADER ── */}
+      <header style={{background:"#FFF",borderBottom:"1px solid #E5E7EB",
+        position:"sticky",top:0,zIndex:30,boxShadow:"0 1px 4px rgba(0,0,0,.05)"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px"}}>
+
+          {/* LINHA 1: título + alertas + status */}
+          <div style={{display:"flex",alignItems:"center",paddingTop:10,paddingBottom:6,gap:6,flexWrap:"wrap"}}>
+            <span className="serif" style={{fontSize:20,fontWeight:800,color:RED,letterSpacing:"-0.5px",flexShrink:0}}>Intelligence Digest</span>
+            {alertCount>0&&(
+              <span style={{background:"#FEF2F2",color:RED,fontSize:11,fontWeight:700,
+                padding:"3px 9px",borderRadius:99,border:`1px solid ${RED}28`,flexShrink:0}}>
+                ⚡ {alertCount} {t.alerts}
+              </span>
             )}
-            {item.d&&(
-              <span style={{display:"flex",alignItems:"center",gap:3,fontSize:11,color:"#A78BFA"}}>
-                {open?"fechar":"decisão"} <IconChevron open={open}/>
+            {genAt&&(
+              <span style={{fontSize:10,color:"#9CA3AF",display:"flex",alignItems:"center",gap:4,flexShrink:0}}>
+                <span style={{width:6,height:6,borderRadius:"50%",background:"#10B981",display:"inline-block",animation:"pulse 2s infinite"}}/>
+                {genAt}
               </span>
             )}
           </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-/* ─── LoadState ─── */
-function LoadState({error,onRetry}){
-  if(error)return(
-    <div style={{textAlign:"center",padding:"64px 24px",color:"#475569"}}>
-      <div style={{fontSize:36,marginBottom:12}}>⚠️</div>
-      <p style={{fontSize:14,marginBottom:16,color:"#64748B"}}>{error}</p>
-      <button onClick={onRetry} style={{padding:"8px 20px",borderRadius:8,border:"1px solid #334155",
-        background:"#0F1A2E",color:"#94A3B8",cursor:"pointer",fontFamily:"inherit",fontSize:13}}>
-        Tentar novamente
-      </button>
-    </div>
-  );
-  return(
-    <div style={{textAlign:"center",padding:"64px 24px",color:"#475569"}}>
-      <div style={{width:32,height:32,border:"3px solid #1E293B",borderTopColor:"#38BDF8",
-                   borderRadius:"50%",animation:"spin 1s linear infinite",margin:"0 auto 16px"}}/>
-      <p style={{fontSize:13,color:"#334155"}}>Carregando feed...</p>
-    </div>
-  );
-}
-
-/* ─── App ─── */
-function App(){
-  const [feed,setFeed]      = useState(null);
-  const [loading,setLoading]= useState(true);
-  const [error,setError]    = useState(null);
-  const [track,setTrack]    = useState("all");
-  const [aud,setAud]        = useState(null);
-  const [search,setSearch]  = useState("");
-
-  const loadFeed=useCallback(()=>{
-    setLoading(true);setError(null);
-    fetch(FEED_URL+"?t="+Date.now())
-      .then(r=>{ if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then(data=>{ setFeed(data); setLoading(false); })
-      .catch(e=>{ setError("Não foi possível carregar o feed. "+e.message); setLoading(false); });
-  },[]);
-
-  useEffect(()=>{ loadFeed(); },[]);
-
-  const allItems=useMemo(()=>{
-    if(!feed?.tracks) return [];
-    return Object.entries(feed.tracks).flatMap(([t,items])=>
-      items.map(i=>({...i,track:t}))
-    );
-  },[feed]);
-
-  const filtered=useMemo(()=>{
-    let items=track==="all"?allItems:(feed?.tracks?.[track]||[]).map(i=>({...i,track}));
-    if(aud) items=items.filter(i=>(i.aud||[]).includes(aud));
-    if(search.trim()){
-      const q=search.toLowerCase();
-      items=items.filter(i=>(i.t+i.s+i.tag+i.f).toLowerCase().includes(q));
-    }
-    return items;
-  },[allItems,track,aud,search,feed]);
-
-  const alerts=useMemo(()=>allItems.filter(i=>i.alert).length,[allItems]);
-  const genAt=feed?.generatedAt ? new Date(feed.generatedAt).toLocaleString("pt-BR",{
-    day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "";
-  const tr=TRACKS.find(t=>t.id===track)||TRACKS[0];
-
-  return(
-    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",background:"#081327"}}>
-
-      {/* ── HEADER ── */}
-      <header style={{background:"rgba(5,14,33,.97)",borderBottom:"1px solid #1A2840",
-                      padding:"14px 24px 0",flexShrink:0,backdropFilter:"blur(20px)",
-                      position:"sticky",top:0,zIndex:20}}>
-        <div style={{maxWidth:1400,margin:"0 auto"}}>
-          {/* title row */}
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14,flexWrap:"wrap",gap:10}}>
-            <div>
-              <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
-                <span style={{width:6,height:6,borderRadius:"50%",background:"#EF4444",
-                              boxShadow:"0 0 8px #EF444488",display:"inline-block",animation:"livepulse 2s infinite"}}/>
-                <span style={{fontSize:10,color:"#38BDF8",fontWeight:700,letterSpacing:"2.5px",textTransform:"uppercase"}}>AO VIVO</span>
-              </div>
-              <h1 className="serif" style={{fontSize:26,fontWeight:700,color:"#EEF2FF",letterSpacing:"-0.02em",lineHeight:1}}>Market Digest</h1>
-              <p style={{marginTop:4,fontSize:11,color:"#475569",fontWeight:400}}>Radar Global de IA · {genAt||"carregando..."}</p>
-            </div>
-            <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
-              {/* search */}
-              <input
-                type="search" placeholder="Buscar..." value={search}
-                onChange={e=>setSearch(e.target.value)}
-                style={{padding:"7px 14px",borderRadius:999,border:"1px solid #1E293B",
-                        background:"#0F1A2E",color:"#D8E2FE",fontFamily:"inherit",fontSize:13,
-                        width:200,outline:"none"}}
-              />
-              {/* alerts badge */}
-              {alerts>0&&(
-                <div style={{background:"rgba(251,191,36,.1)",border:"1px solid rgba(251,191,36,.25)",
-                             borderRadius:999,padding:"5px 11px",textAlign:"center",flexShrink:0}}>
-                  <div style={{fontSize:13,fontWeight:700,color:"#FBBF24",lineHeight:1}}>⚡ {alerts}</div>
-                  <div style={{fontSize:9,color:"rgba(251,191,36,.6)",marginTop:2,fontWeight:500}}>ALERTAS</div>
-                </div>
-              )}
-              {/* total badge */}
-              {feed&&(
-                <div style={{background:"rgba(56,189,248,.08)",border:"1px solid rgba(56,189,248,.2)",
-                             borderRadius:999,padding:"5px 11px",textAlign:"center",flexShrink:0}}>
-                  <div style={{fontSize:13,fontWeight:700,color:"#38BDF8",lineHeight:1}}>{allItems.length}</div>
-                  <div style={{fontSize:9,color:"rgba(56,189,248,.5)",marginTop:2,fontWeight:500}}>ITENS</div>
-                </div>
-              )}
-              {/* refresh */}
-              <button onClick={loadFeed} title="Atualizar feed"
-                style={{padding:"8px 14px",borderRadius:999,border:"1px solid #1E293B",
-                        background:"#0F1A2E",color:"#475569",cursor:"pointer",
-                        display:"flex",alignItems:"center",gap:6,fontSize:12,fontFamily:"inherit",
-                        transition:"all .15s"}}
-                onMouseEnter={e=>e.currentTarget.style.color="#38BDF8"}
-                onMouseLeave={e=>e.currentTarget.style.color="#475569"}>
-                <IconRefresh spin={loading}/> Atualizar
+          {/* LINHA 2: busca + idiomas */}
+          <div style={{display:"flex",alignItems:"center",gap:6,paddingBottom:8,borderBottom:"1px solid #F3F4F6",flexWrap:"wrap"}}>
+            <input type="search" placeholder={t.search} value={search}
+              onChange={e=>setSearch(e.target.value)}
+              style={{padding:"6px 13px",borderRadius:99,border:"1px solid #E5E7EB",
+                background:"#F9FAFB",color:"#111",fontFamily:"inherit",fontSize:12.5,
+                flex:1,minWidth:120,outline:"none"}}/>
+            {["pt","en","es"].map(l=>(
+              <button key={l} onClick={()=>setLang(l)} style={{
+                padding:"5px 10px",borderRadius:6,border:"1px solid #E5E7EB",
+                background:lang===l?RED:"transparent",
+                color:lang===l?"#FFF":"#6B7280",
+                fontSize:12,fontWeight:600,transition:"all .15s",flexShrink:0,
+              }}>
+                {l.toUpperCase()}
               </button>
-            </div>
+            ))}
           </div>
 
-          {/* track chips */}
-          <div className="scroll-x" style={{paddingBottom:2}}>
-            {TRACKS.map(t=>{
-              const on=track===t.id;
-              const cnt=t.id==="all"?allItems.length:(feed?.tracks?.[t.id]?.length||0);
+          {/* track nav */}
+          <div className="hscroll" style={{height:42,alignItems:"center",gap:1,padding:"0"}}>
+            {TRACK_IDS.map((id,i)=>{
+              const cnt=trackCounts[id]||0;const on=track===id;
               return(
-                <button key={t.id} className="track-chip"
-                  onClick={()=>{setTrack(t.id);setAud(null);}}
-                  style={{
-                    background:on?t.color:"#0F1A2E",
-                    color:on?"#020817":t.color,
-                    border:`1px solid ${on?t.color:t.color+"30"}`,
-                    boxShadow:on?`0 2px 12px ${t.color}50`:"none",
-                  }}>
-                  {t.label}
-                  {cnt>0&&<span style={{marginLeft:5,opacity:.7,fontSize:10}}>({cnt})</span>}
+                <button key={id} onClick={()=>setTrack(id)} style={{
+                  padding:"4px 12px",borderRadius:99,border:"none",
+                  background:on?RED:"transparent",
+                  color:on?"#FFF":"#4B5563",
+                  fontSize:12.5,fontWeight:on?600:400,whiteSpace:"nowrap",
+                  transition:"all .15s",flexShrink:0}}>
+                  {t.tracks[i]}
+                  {feed&&cnt>0&&(
+                    <span style={{marginLeft:4,opacity:.55,fontSize:11}}>({cnt})</span>
+                  )}
                 </button>
-              );
-            })}
-            <div style={{flexShrink:0,width:8}}/>
-          </div>
-
-          {/* audience filter */}
-          <div style={{display:"flex",gap:5,alignItems:"center",padding:"10px 0 12px",overflowX:"auto",scrollbarWidth:"none"}}>
-            <span style={{fontSize:10,color:"#334155",fontWeight:600,letterSpacing:"0.05em",textTransform:"uppercase",flexShrink:0}}>Para</span>
-            {[null,"SE","TA","Build","Exec"].map(r=>{
-              const a=r?AUD[r]:null;const on=aud===r;
-              return(
-                <button key={r||"all"} onClick={()=>setAud(r)} style={{
-                  background:on?(a?a.b:"rgba(238,242,255,.1)"):"transparent",
-                  border:`1px solid ${on?(a?a.c:"rgba(238,242,255,.3)"):"#1E293B"}`,
-                  borderRadius:999,padding:"4px 12px",flexShrink:0,
-                  color:on?(a?a.c:"#EEF2FF"):"#334155",
-                  fontFamily:"inherit",fontSize:11,fontWeight:on?600:400,cursor:"pointer",transition:"all .15s",
-                }}>{r?a.l:"Todos"}</button>
               );
             })}
           </div>
         </div>
       </header>
 
-      {/* ── MAIN ── */}
-      <main style={{flex:1,padding:"20px 24px 40px",maxWidth:1400,margin:"0 auto",width:"100%"}}>
-        {/* section label */}
-        {!loading&&!error&&(
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
-                       marginBottom:16,paddingBottom:12,borderBottom:"1px solid #1A2840",flexWrap:"wrap",gap:8}}>
-            <div>
-              <h2 className="serif" style={{fontSize:20,fontWeight:700,color:"#EEF2FF",lineHeight:1.2}}>{tr.label}</h2>
-              <p style={{marginTop:3,fontSize:11,color:"#334155"}}>
-                {filtered.length} insight{filtered.length!==1?"s":""}
-                {aud?` · ${AUD[aud]?.l}`:""}
-                {search?` · "${search}"`:""}
-              </p>
-            </div>
-            <span style={{background:tr.color+"10",border:`1px solid ${tr.color}25`,borderRadius:999,
-                          padding:"4px 12px",fontSize:10,color:tr.color,fontWeight:600,letterSpacing:"0.05em"}}>
-              ao vivo · automático
+      {/* ── FILTER BAR: roles + period ── */}
+      <div style={{background:"#FFF",borderBottom:"1px solid #E5E7EB"}}>
+        <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px",
+          display:"flex",alignItems:"center",minHeight:38,gap:6,
+          overflowX:"auto",scrollbarWidth:"none",flexWrap:"wrap",paddingTop:4,paddingBottom:4}}>
+
+          {/* roles */}
+          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
+            textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
+            {t.roles_lbl}
+          </span>
+          {[null,...Object.keys(AUD)].map(r=>{
+            const a=r?AUD[r]:null;const on=audFilter===r;
+            return(
+              <button key={r||"all"} onClick={()=>setAudFilter(r)} style={{
+                background:on?(a?a.b:"rgba(0,0,0,.06)"):"transparent",
+                border:`1px solid ${on?(a?a.c+"55":"rgba(0,0,0,.15)"):"#E5E7EB"}`,
+                borderRadius:99,padding:"3px 11px",flexShrink:0,
+                color:on?(a?a.c:"#111"):"#6B7280",
+                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                {r?a.l:t.all_roles}
+              </button>
+            );
+          })}
+
+          {/* separator */}
+          <div style={{width:1,height:16,background:"#E5E7EB",flexShrink:0,margin:"0 4px"}}/>
+
+          {/* period */}
+          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
+            textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
+            Período
+          </span>
+          {[{v:null,l:"Todos"},{v:7,l:"7d"},{v:30,l:"30d"},{v:90,l:"3m"}].map(p=>{
+            const on=period===p.v;
+            return(
+              <button key={String(p.v)} onClick={()=>setPeriod(p.v)} style={{
+                background:on?"#1F2937":"transparent",
+                border:`1px solid ${on?"#1F2937":"#E5E7EB"}`,
+                borderRadius:99,padding:"3px 11px",flexShrink:0,
+                color:on?"#FFF":"#6B7280",
+                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                {p.l}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── BANNER ── */}
+      <div style={{background:"#FFF",borderBottom:"1px solid #EBEBEB",
+        padding:"14px 28px",textAlign:"center"}}>
+        <p style={{fontSize:14,fontWeight:300,color:"#374151",lineHeight:1.6}}>
+          RSS + Gemini · {t.automatic} ·{" "}
+          <strong style={{color:RED,fontWeight:600}}>6h BRT</strong>
+          {lang!=="pt"&&(
+            <span style={{marginLeft:12,fontSize:11.5,color:"#9CA3AF",
+              background:"#F3F4F6",padding:"2px 8px",borderRadius:99}}>
+              ℹ️ {t.content_note}
             </span>
+          )}
+        </p>
+      </div>
+
+      {/* ── MAIN ── */}
+      <main style={{maxWidth:1360,margin:"0 auto",padding:"32px 28px 60px"}}>
+
+        {loading&&(
+          <div style={{textAlign:"center",padding:"80px 0"}}>
+            <div style={{width:36,height:36,border:"3px solid #E5E7EB",
+              borderTopColor:RED,borderRadius:"50%",
+              animation:"spin .8s linear infinite",margin:"0 auto 16px"}}/>
+            <p style={{color:"#9CA3AF",fontSize:14}}>Carregando feed…</p>
           </div>
         )}
 
-        {/* cards or state */}
-        {(loading||error)?(
-          <LoadState error={error} onRetry={loadFeed}/>
-        ):(
-          filtered.length===0?(
-            <div style={{textAlign:"center",padding:"64px 24px",color:"#334155"}}>
-              <div style={{fontSize:40,marginBottom:12}}>🔍</div>
-              <p style={{fontSize:13}}>Nenhum item encontrado.</p>
-            </div>
-          ):(
-            <div className="cards-grid" style={{display:"flex",flexDirection:"column",gap:10}}>
-              {filtered.map((item,i)=><Card key={i} item={item}/>)}
-            </div>
-          )
+        {error&&(
+          <div style={{textAlign:"center",padding:"80px 0"}}>
+            <p style={{fontSize:36,marginBottom:12}}>⚠️</p>
+            <p style={{fontSize:14,color:"#6B7280",marginBottom:8}}>
+              Feed não encontrado.
+            </p>
+            <p style={{fontSize:12,color:"#9CA3AF"}}>{error}</p>
+          </div>
+        )}
+
+        {!loading&&!error&&(
+          <>
+            {featured&&track==="all"&&!search&&!audFilter&&(
+              <div style={{marginBottom:40}}>
+                <Featured item={featured} lang={lang} t={t}/>
+              </div>
+            )}
+
+            {track==="all"&&!search&&!audFilter&&(
+              <div style={{display:"flex",justifyContent:"space-between",
+                alignItems:"center",marginBottom:24,paddingBottom:12,
+                borderBottom:"2px solid #E5E7EB",borderLeft:`4px solid ${RED}`,paddingLeft:12}}>
+                <h2 style={{fontSize:20,fontWeight:700,color:"#111"}}>
+                  {t.latest}
+                </h2>
+                <span style={{fontSize:12.5,color:RED,fontWeight:600}}>
+                  {items.length} {t.insights}
+                </span>
+              </div>
+            )}
+
+            {visible.map(s=>(
+              <Section key={s.id} title={s.label} items={s.items}
+                lang={lang} t={t} variant={s.variant}/>
+            ))}
+
+            {/* Technology Radar */}
+            {feed?.radar&&(track==="all"||track==="arch")&&!search&&(
+              <TechRadar radarData={feed.radar} t={t}/>
+            )}
+
+            {/* Stocks section */}
+            {feed?.stocks&&(track==="all"||track==="agnostic")&&!search&&(
+              <StocksSection stocks={feed.stocks} t={t} lang={lang}/>
+            )}
+
+            {visible.length===0&&!feed?.radar&&(
+              <div style={{textAlign:"center",padding:"60px 0"}}>
+                <p style={{fontSize:40,marginBottom:12}}>🔍</p>
+                <p style={{fontSize:14,color:"#9CA3AF"}}>
+                  {search?`"${search}" — sem resultados`:
+                    audFilter?`Nenhum item para ${AUD[audFilter]?.l}`:"Nenhum item."}
+                </p>
+              </div>
+            )}
+          </>
         )}
       </main>
 
+      {/* ── SOURCE STRIP ── */}
+      {!loading&&!error&&(
+        <div style={{borderTop:"1px solid #E5E7EB",background:"#FFF",padding:"24px 28px 28px"}}>
+          <div style={{maxWidth:1360,margin:"0 auto"}}>
+            <p style={{fontSize:10,color:"#9CA3AF",marginBottom:16,fontWeight:600,
+              textTransform:"uppercase",letterSpacing:"1.5px"}}>{t.sources_title}</p>
+            <div className="hscroll" style={{gap:22}}>
+              {[
+                {l:"Salesforce",c:"#0369A1",b:"#DBEAFE"},{l:"Anthropic",c:"#92400E",b:"#FEF3C7"},
+                {l:"OpenAI",c:"#047857",b:"#D1FAE5"},{l:"Google AI",c:"#1D4ED8",b:"#DBEAFE"},
+                {l:"AWS",c:"#9A3412",b:"#FEE2E2"},{l:"VentureBeat",c:"#5B21B6",b:"#EDE9FE"},
+                {l:"TechCrunch",c:"#0E7490",b:"#CFFAFE"},{l:"MCP.io",c:"#9D174D",b:"#FCE7F3"},
+                {l:"LangChain",c:"#047857",b:"#D1FAE5"},{l:"Langfuse",c:"#0E7490",b:"#CFFAFE"},
+                {l:"Reddit r/SF",c:"#C2410C",b:"#FEF3C7"},{l:"Hacker News",c:"#B45309",b:"#FEF3C7"},
+                {l:"Dev.to",c:"#1F2937",b:"#F3F4F6"},{l:"InfoWorld",c:"#374151",b:"#F3F4F6"},
+              ].map(s=>(
+                <div key={s.l} style={{display:"flex",flexDirection:"column",
+                  alignItems:"center",gap:6,flexShrink:0}}>
+                  <div style={{width:48,height:48,borderRadius:"50%",
+                    background:s.b,color:s.c,fontSize:11,fontWeight:800,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`2px solid ${s.c}22`,boxShadow:`0 2px 8px ${s.c}16`,
+                    letterSpacing:"-0.5px"}}>
+                    {s.l.slice(0,2).toUpperCase()}
+                  </div>
+                  <span style={{fontSize:9.5,color:"#9CA3AF",whiteSpace:"nowrap"}}>{s.l}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── FOOTER ── */}
-      <footer style={{background:"rgba(5,14,33,.97)",borderTop:"1px solid #1A2840",
-                      padding:"14px 24px",textAlign:"center"}}>
-        <p style={{fontSize:11,color:"#1A2535",lineHeight:1.9}}>
-          Alimentado por RSS · Sumarizado por Gemini · Atualizado a cada 6h<br/>
-          <span style={{color:"#152030"}}>Toque nos cards para ver o insight arquitetural</span>
+      <footer style={{borderTop:"1px solid #E5E7EB",padding:"16px 28px",
+        textAlign:"center",background:"#FAFAFA"}}>
+        <p style={{fontSize:11,color:"#D1D5DB"}}>
+          RSS · Gemini 1.5 Flash · Google Apps Script · 6h BRT
         </p>
       </footer>
     </div>

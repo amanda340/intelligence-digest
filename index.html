@@ -58,14 +58,18 @@ const I18N={
     sec_issues:"⚠️ Incidentes & Issues Detectados",
     sec_social:"💬 Debates & Opiniões",
     sec_radar:"📊 Technology Radar",
+    sec_acquisitions:"🛒 Aquisições & Estratégia M&A",
+    sec_stocks:"📈 Mercado de Capitais",
     radar_adopt:"Adotar",radar_trial:"Testar",
     radar_assess:"Avaliar",radar_hold:"Cautela",
     radar_sub:"Posicionamento baseado nas notícias monitoradas — atualizado diariamente",
     sources_title:"Fontes monitoradas",
     badge_adopt:"Adotar",badge_trial:"Testar",badge_assess:"Avaliar",badge_hold:"Cautela",
     content_note:"Conteúdo disponível em PT-BR",
+    acq_vs:"vs. concorrentes",
+    stocks_analysis:"Análise de IA",
     tracks:["Todos","🎤 Benioff","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
-            "⚔️ Concorrentes","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "⚔️ Concorrentes","🛒 Aquisições","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
             "🚀 Releases","⚠️ Issues","💬 Social"],
   },
   en:{
@@ -81,14 +85,18 @@ const I18N={
     sec_issues:"⚠️ Incidents & Detected Issues",
     sec_social:"💬 Debates & Opinions",
     sec_radar:"📊 Technology Radar",
+    sec_acquisitions:"🛒 Acquisitions & M&A Strategy",
+    sec_stocks:"📈 Capital Markets",
     radar_adopt:"Adopt",radar_trial:"Trial",
     radar_assess:"Assess",radar_hold:"Hold",
     radar_sub:"Positioning based on monitored news — updated daily",
     sources_title:"Monitored sources",
     badge_adopt:"Adopt",badge_trial:"Trial",badge_assess:"Assess",badge_hold:"Hold",
     content_note:"Content in PT-BR · translations via Gemini in next release",
+    acq_vs:"vs. competitors",
+    stocks_analysis:"AI Analysis",
     tracks:["All","🎤 Benioff","🔥 Urgent","☁️ Summer '26","🧵 Agent Fabric","🌐 Market & AI",
-            "⚔️ Competitors","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "⚔️ Competitors","🛒 Acquisitions","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
             "🚀 Releases","⚠️ Issues","💬 Social"],
   },
   es:{
@@ -104,14 +112,18 @@ const I18N={
     sec_issues:"⚠️ Incidentes y Problemas Detectados",
     sec_social:"💬 Debates y Opiniones",
     sec_radar:"📊 Radar Tecnológico",
+    sec_acquisitions:"🛒 Adquisiciones & Estrategia M&A",
+    sec_stocks:"📈 Mercados de Capitales",
     radar_adopt:"Adoptar",radar_trial:"Probar",
     radar_assess:"Evaluar",radar_hold:"Precaución",
     radar_sub:"Posicionamiento basado en noticias monitoreadas — actualizado diariamente",
     sources_title:"Fuentes monitoreadas",
     badge_adopt:"Adoptar",badge_trial:"Probar",badge_assess:"Evaluar",badge_hold:"Precaución",
     content_note:"Contenido en PT-BR · traducciones vía Gemini en próxima versión",
+    acq_vs:"vs. competidores",
+    stocks_analysis:"Análisis de IA",
     tracks:["Todos","🎤 Benioff","🔥 Urgente","☁️ Summer '26","🧵 Agent Fabric","🌐 Mercado & IA",
-            "⚔️ Competidores","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
+            "⚔️ Competidores","🛒 Adquisiciones","🔀 Cross-Ref","🏛️ MCP / A2A","🛠️ LLMOps","🎓 Skills",
             "🚀 Releases","⚠️ Issues","💬 Social"],
   },
 };
@@ -151,6 +163,8 @@ const GRAD={
   "Mercado":        ["#9D174D","#BE185D"],
   "Cert":           ["#047857","#065F46"],
   "AWS":            ["#9A3412","#D97706"],
+  "Acquisition":    ["#0369A1","#7C3AED"],
+  "M&A":            ["#0369A1","#6D28D9"],
   "Kore.ai":        ["#A21CAF","#9333EA"],
   "Release":        ["#0369A1","#4338CA"],
   "Issue":          ["#B91C1C","#9A3412"],
@@ -171,7 +185,7 @@ const AUD={
   Exec: {l:"C-Level",c:"#DC2626",b:"rgba(220,38,38,.1)"},
 };
 
-const TRACK_IDS=["all","benioff","hot","summer26","fabric","agnostic","rivals","crossref","arch","tools","skills","releases","issues","social"];
+const TRACK_IDS=["all","benioff","hot","summer26","fabric","agnostic","rivals","acquisitions","crossref","arch","tools","skills","releases","issues","social"];
 
 const SRC_MAP=[
   {m:["salesforce","vantagepoint","agentforce","summer","sf dev"],s:"SF",c:"#0369A1",b:"#DBEAFE"},
@@ -376,6 +390,230 @@ function Featured({item,lang,t}){
   );
 }
 
+/* ── Social Signals bar ─── */
+function SocialSignals({signals}){
+  if(!signals)return null;
+  const {hn_comments,hn_url,reddit_posts,reddit_url,stock,stock_change,stock_comment,layoff}=signals;
+  const items=[];
+
+  if(hn_comments>0) items.push(
+    <a key="hn" href={hn_url||"#"} target="_blank" rel="noopener"
+       onClick={e=>e.stopPropagation()}
+       style={{display:"inline-flex",alignItems:"center",gap:3,
+         background:"#FEF3C7",color:"#92400E",border:"1px solid #FDE68A",
+         borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,
+         textDecoration:"none",flexShrink:0}}>
+      🔶 HN {hn_comments}
+    </a>
+  );
+
+  if(reddit_posts>0) items.push(
+    <a key="r" href={reddit_url||"#"} target="_blank" rel="noopener"
+       onClick={e=>e.stopPropagation()}
+       style={{display:"inline-flex",alignItems:"center",gap:3,
+         background:"#FEF2F2",color:"#C2410C",border:"1px solid #FECACA",
+         borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,
+         textDecoration:"none",flexShrink:0}}>
+      🔴 r/ {reddit_posts}
+    </a>
+  );
+
+  if(stock){
+    const up=stock_change>=0;
+    items.push(
+      <span key="stk" title={stock_comment||""}
+        style={{display:"inline-flex",alignItems:"center",gap:3,
+          background:up?"#F0FDF4":"#FEF2F2",
+          color:up?"#059669":"#DC2626",
+          border:`1px solid ${up?"#BBF7D0":"#FECACA"}`,
+          borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,flexShrink:0,
+          cursor:stock_comment?"help":"default"}}>
+        {stock} {up?"▲":"▼"}{Math.abs(stock_change).toFixed(1)}%
+        {stock_comment&&<span style={{fontSize:9,opacity:.7,maxWidth:80,overflow:"hidden",
+          textOverflow:"ellipsis",whiteSpace:"nowrap"}}> · {stock_comment}</span>}
+      </span>
+    );
+  }
+
+  if(layoff) items.push(
+    <span key="lay"
+      style={{display:"inline-flex",alignItems:"center",gap:3,
+        background:"#FFF7ED",color:"#9A3412",border:"1px solid #FED7AA",
+        borderRadius:99,padding:"2px 8px",fontSize:10.5,fontWeight:600,flexShrink:0}}>
+      📉 {layoff}
+    </span>
+  );
+
+  if(items.length===0)return null;
+  return(
+    <div style={{display:"flex",gap:5,flexWrap:"wrap",paddingTop:8,
+      borderTop:"1px solid #F3F4F6"}}>
+      {items}
+    </div>
+  );
+}
+
+/* ── Stock card (seção dedicada) ─── */
+function StockCard({s}){
+  const [open,setOpen]=useState(false);
+  const up=s.change>=0;
+  return(
+    <div className="lift" onClick={()=>s.comment&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,border:"1px solid #E5E7EB",
+        padding:"16px 18px",display:"flex",flexDirection:"column",gap:8,
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:s.comment?"pointer":"default"}}>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <div style={{width:36,height:36,borderRadius:8,
+          background:up?"#F0FDF4":"#FEF2F2",
+          display:"flex",alignItems:"center",justifyContent:"center",
+          fontSize:13,fontWeight:800,color:up?"#059669":"#DC2626",
+          border:`1px solid ${up?"#BBF7D0":"#FECACA"}`,flexShrink:0}}>
+          {s.ticker}
+        </div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:12.5,fontWeight:600,color:"#111",
+            overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
+            {s.name}
+          </div>
+          <div style={{fontSize:11,color:"#9CA3AF"}}>{s.sector}</div>
+        </div>
+        <div style={{textAlign:"right",flexShrink:0}}>
+          <div style={{fontSize:15,fontWeight:700,
+            color:up?"#059669":"#DC2626"}}>
+            {up?"▲":"▼"}{Math.abs(s.change).toFixed(2)}%
+          </div>
+          <div style={{fontSize:10.5,color:"#9CA3AF"}}>{s.price}</div>
+        </div>
+      </div>
+      {open&&s.comment&&(
+        <div style={{background:"#F8FAFC",border:"1px solid #E2E8F0",
+          borderRadius:8,padding:"9px 11px"}}>
+          <p style={{margin:0,fontSize:12,color:"#374151",lineHeight:1.6}}>
+            <strong>📊 Análise:</strong> {s.comment}
+          </p>
+        </div>
+      )}
+      {s.comment&&(
+        <div style={{fontSize:10.5,color:"#9CA3AF",display:"flex",
+          alignItems:"center",gap:3}}>
+          {open?"▲ fechar":"▼ ver análise"}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Acquisition card ─── */
+function AcquisitionCard({item,lang,t}){
+  const [open,setOpen]=useState(false);
+  const auds=Array.isArray(item.aud)?item.aud:[];
+  const sfAcqs=item.acquirer_deals||[];
+  const compAcqs=item.competitor_deals||[];
+  const hasAnalysis=!!(tf(item,"d",lang)||tf(item,"critical",lang));
+  return(
+    <div className="lift" onClick={()=>hasAnalysis&&setOpen(v=>!v)}
+      style={{background:"#FFF",borderRadius:14,overflow:"hidden",
+        border:"1px solid #DDD6FE",
+        display:"flex",flexDirection:"column",
+        boxShadow:"0 1px 4px rgba(0,0,0,.05)",
+        cursor:hasAnalysis?"pointer":"default"}}>
+
+      <Cover tag={item.tag||"Acquisition"} h={130} rTop rBottom={false}/>
+
+      <div style={{padding:"12px 13px 13px",flex:1,display:"flex",flexDirection:"column",gap:8}}>
+        <div style={{display:"flex",alignItems:"center",gap:6}}>
+          <SrcBadge name={item.f} size={17}/>
+          <span style={{fontSize:11,color:"#9CA3AF",flex:1,overflow:"hidden",
+            textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.f}</span>
+          <span style={{fontSize:11,color:"#D1D5DB",flexShrink:0}}>{item.dt}</span>
+        </div>
+
+        <h3 style={{fontSize:13.5,fontWeight:700,color:"#111",lineHeight:1.42,
+          display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"t",lang)}
+        </h3>
+        <p style={{fontSize:12.5,color:"#6B7280",lineHeight:1.65,flex:1,
+          display:"-webkit-box",WebkitLineClamp:open?20:2,
+          WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+          {tf(item,"s",lang)}
+        </p>
+
+        {/* Salesforce acquisitions */}
+        {sfAcqs.length>0&&(
+          <div style={{borderTop:"1px solid #F3F4F6",paddingTop:8}}>
+            <div style={{fontSize:10,fontWeight:700,color:"#6D28D9",marginBottom:5,
+              textTransform:"uppercase",letterSpacing:"1px"}}>Salesforce</div>
+            <div style={{display:"flex",flexDirection:"column",gap:4}}>
+              {sfAcqs.map((a,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:6}}>
+                  <span style={{width:6,height:6,borderRadius:"50%",background:"#6D28D9",flexShrink:0}}/>
+                  <span style={{fontSize:11.5,color:"#374151",fontWeight:600}}>{a.name}</span>
+                  {a.value&&<span style={{fontSize:10.5,color:"#9CA3AF"}}>· {a.value}</span>}
+                  {a.year&&<span style={{fontSize:10,color:"#D1D5DB",marginLeft:"auto"}}>{a.year}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Competitor acquisitions */}
+        {compAcqs.length>0&&(
+          <div style={{borderTop:"1px solid #F3F4F6",paddingTop:8}}>
+            <div style={{fontSize:10,fontWeight:700,color:"#DC2626",marginBottom:5,
+              textTransform:"uppercase",letterSpacing:"1px"}}>{t.acq_vs}</div>
+            <div style={{display:"flex",flexDirection:"column",gap:4}}>
+              {compAcqs.map((a,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}}>
+                  <span style={{width:6,height:6,borderRadius:"50%",background:"#DC2626",flexShrink:0}}/>
+                  <span style={{fontSize:11,color:"#DC2626",fontWeight:700,flexShrink:0}}>{a.by}</span>
+                  <span style={{fontSize:11.5,color:"#374151",fontWeight:600}}>{a.name}</span>
+                  {a.value&&<span style={{fontSize:10.5,color:"#9CA3AF"}}>· {a.value}</span>}
+                  {a.year&&<span style={{fontSize:10,color:"#D1D5DB",marginLeft:"auto"}}>{a.year}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+
+        <div style={{display:"flex",alignItems:"center",gap:6,
+          paddingTop:9,borderTop:"1px solid #F3F4F6",marginTop:"auto",flexWrap:"wrap"}}>
+          {auds.map(r=><RoleBadge key={r} r={r}/>)}
+          <span style={{flex:1}}/>
+          <RefLinks urls={item.urls} url={item.url} t={t}/>
+          {hasAnalysis&&(
+            <span style={{marginLeft:"auto",color:"#6D28D9",fontSize:11,fontWeight:500}}>
+              {open?t.close:t.see}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Stocks section ─── */
+function StocksSection({stocks,t,lang}){
+  if(!stocks?.length)return null;
+  return(
+    <section style={{marginBottom:44}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+        marginBottom:14,paddingBottom:12,
+        borderBottom:"2px solid #E5E7EB",
+        borderLeft:"4px solid #059669",
+        paddingLeft:12}}>
+        <h2 style={{fontSize:19,fontWeight:700,color:"#111"}}>{t.sec_stocks}</h2>
+        <span style={{fontSize:12,color:"#059669",fontWeight:600}}>{t.automatic}</span>
+      </div>
+      <div className="card-grid">
+        {stocks.map((s,i)=><StockCard key={i} s={s}/>)}
+      </div>
+    </section>
+  );
+}
+
 /* ── News card ─── */
 function NewsCard({item,lang,t,variant="default"}){
   const [open,setOpen]=useState(false);
@@ -424,6 +662,8 @@ function NewsCard({item,lang,t,variant="default"}){
 
         <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
 
+        <SocialSignals signals={item.signals}/>
+
         {/* roles */}
         {auds.length>0&&(
           <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
@@ -450,7 +690,7 @@ function NewsCard({item,lang,t,variant="default"}){
 /* ── Section row ─── */
 function Section({title,items,lang,t,variant="default"}){
   if(!items?.length)return null;
-  const accentLeft={default:RED,issue:"#DC2626",release:"#2563EB",social:"#059669"}[variant];
+  const accentLeft={default:RED,issue:"#DC2626",release:"#2563EB",social:"#059669",acquisitions:"#6D28D9"}[variant]||RED;
   return(
     <section style={{marginBottom:44}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",
@@ -465,7 +705,9 @@ function Section({title,items,lang,t,variant="default"}){
       </div>
       <div className="card-grid">
         {items.map((it,i)=>(
-          <NewsCard key={i} item={it} lang={lang} t={t} variant={variant}/>
+          variant==="acquisitions"
+            ?<AcquisitionCard key={i} item={it} lang={lang} t={t}/>
+            :<NewsCard key={i} item={it} lang={lang} t={t} variant={variant}/>
         ))}
       </div>
     </section>
@@ -567,7 +809,7 @@ function App(){
         if(search.trim()){const q=search.toLowerCase();list=list.filter(it=>(it.t+it.s+(it.tag||"")+it.f||"").toLowerCase().includes(q));}
         return list;
       })(),
-      variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":"default",
+      variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":id==="acquisitions"?"acquisitions":"default",
     })).filter(s=>s.items.length>0);
   },[feed,search,audFilter,period,lang,t]);
 
@@ -761,6 +1003,11 @@ function App(){
             {/* Technology Radar */}
             {feed?.radar&&(track==="all"||track==="arch")&&!search&&(
               <TechRadar radarData={feed.radar} t={t}/>
+            )}
+
+            {/* Stocks section */}
+            {feed?.stocks&&(track==="all"||track==="agnostic")&&!search&&(
+              <StocksSection stocks={feed.stocks} t={t} lang={lang}/>
             )}
 
             {visible.length===0&&!feed?.radar&&(
