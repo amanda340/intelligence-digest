@@ -171,12 +171,21 @@ def fetch_rss(feed: Dict) -> List[Dict]:
 
 
 BENIOFF_FILTER = re.compile(r"benioff|marc\b", re.I)
+# Allow only Latin-script content (EN/PT/ES/FR/DE/IT) — blocks Thai, Arabic, Chinese, etc.
+LATIN_ONLY = re.compile(r"^[\x00-\x024F\s\d\W]+$")
+
+
+def is_latin(text: str) -> bool:
+    return bool(LATIN_ONLY.match(text)) if text else True
 
 
 def deduplicate(items: List[Dict]) -> List[Dict]:
     seen: set = set()
     out = []
     for i in items:
+        # drop non-Latin content (Thai, Arabic, Chinese, etc.)
+        if not is_latin(i.get("title", "")):
+            continue
         # filter benioff track: only keep items that actually mention him
         if i.get("track") == "benioff" and i.get("category") not in ("Hacker News", "Benioff Blog", "TechCrunch Benioff"):
             if not BENIOFF_FILTER.search(i["title"] + " " + i.get("rawSummary", "")):
