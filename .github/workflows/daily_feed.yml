@@ -1,0 +1,40 @@
+name: Daily Feed Update
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # 09:00 UTC = 06:00 BRT
+  workflow_dispatch:        # permite execução manual
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate feed.json
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/generate_feed.py
+
+      - name: Commit and push feed.json
+        run: |
+          git config user.name  "intelligence-digest-bot"
+          git config user.email "bot@intelligence-digest"
+          git add feed.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanças no feed"
+            exit 0
+          fi
+          TODAY=$(date -u +"%Y-%m-%d")
+          git commit -m "chore: feed ${TODAY} — dados reais"
+          git push
