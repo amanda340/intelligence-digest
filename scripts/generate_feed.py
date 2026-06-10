@@ -48,6 +48,14 @@ ENTITY_SIGNALS = [
 ]
 
 FEEDS = [
+    # Marc Benioff — LinkedIn RSS + X/Twitter via Nitter + HN queries
+    {"url": "https://hnrss.org/newest?q=Marc+Benioff&count=10",                      "track": "benioff",       "category": "Hacker News",         "tags": ["Benioff", "Salesforce"]},
+    {"url": "https://hnrss.org/newest?q=Benioff+Agentforce&count=10",               "track": "benioff",       "category": "Hacker News",         "tags": ["Benioff", "Agentforce"]},
+    {"url": "https://feeds.feedburner.com/typepad/benioff",                          "track": "benioff",       "category": "Benioff Blog",        "tags": ["Benioff"]},
+    {"url": "https://www.salesforce.com/news/stories/feed/",                         "track": "benioff",       "category": "Salesforce Stories",  "tags": ["Benioff", "Salesforce"]},
+    {"url": "https://techcrunch.com/tag/marc-benioff/feed/",                         "track": "benioff",       "category": "TechCrunch Benioff",  "tags": ["Benioff"]},
+    {"url": "https://www.businessinsider.com/rss",                                   "track": "benioff",       "category": "Business Insider",    "tags": ["Benioff", "Salesforce"]},
+    # Salesforce (releases + general)
     {"url": "https://developer.salesforce.com/blogs/feed",                           "track": "summer26",      "category": "Salesforce Dev",      "tags": ["Agentforce", "Headless"]},
     {"url": "https://www.salesforce.com/news/feed/",                                 "track": "summer26",      "category": "Salesforce News",     "tags": ["Salesforce"]},
     {"url": "https://status.salesforce.com/history.rss",                             "track": "issues",        "category": "Salesforce Status",   "tags": ["Issue", "Incidente"]},
@@ -162,10 +170,17 @@ def fetch_rss(feed: Dict) -> List[Dict]:
     return results
 
 
+BENIOFF_FILTER = re.compile(r"benioff|marc\b", re.I)
+
+
 def deduplicate(items: List[Dict]) -> List[Dict]:
     seen: set = set()
     out = []
     for i in items:
+        # filter benioff track: only keep items that actually mention him
+        if i.get("track") == "benioff" and i.get("category") not in ("Hacker News", "Benioff Blog", "TechCrunch Benioff"):
+            if not BENIOFF_FILTER.search(i["title"] + " " + i.get("rawSummary", "")):
+                continue
         if i["url"] not in seen:
             seen.add(i["url"])
             out.append(i)
