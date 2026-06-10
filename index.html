@@ -531,6 +531,7 @@ function App(){
   const [track,setTrack]=useState("all");
   const [search,setSearch]=useState("");
   const [audFilter,setAudFilter]=useState(null);
+  const [period,setPeriod]=useState(null); // null=todos, 7=7d, 30=30d, 90=3m
   const [lang,setLang]=useState("pt");
 
   const t=I18N[lang]||I18N.pt;
@@ -556,13 +557,19 @@ function App(){
       label:t.tracks[i+1]||id,
       items:(() => {
         let list=getTrackItems(feed,id);
+        if(period){
+          const cutoff=new Date();cutoff.setDate(cutoff.getDate()-period);
+          list=list.filter(it=>{
+            const d=new Date(it.dt);return!isNaN(d)&&d>=cutoff;
+          });
+        }
         if(audFilter)list=list.filter(it=>(it.aud||[]).includes(audFilter));
         if(search.trim()){const q=search.toLowerCase();list=list.filter(it=>(it.t+it.s+(it.tag||"")+it.f||"").toLowerCase().includes(q));}
         return list;
       })(),
       variant:id==="issues"?"issue":id==="releases"?"release":id==="social"?"social":"default",
     })).filter(s=>s.items.length>0);
-  },[feed,search,audFilter,lang,t]);
+  },[feed,search,audFilter,period,lang,t]);
 
   const visible=useMemo(()=>
     track==="all"?visibleSections:visibleSections.filter(s=>s.id===track)
@@ -639,11 +646,13 @@ function App(){
         </div>
       </header>
 
-      {/* ── ROLE FILTER ── */}
+      {/* ── FILTER BAR: roles + period ── */}
       <div style={{background:"#FFF",borderBottom:"1px solid #E5E7EB"}}>
         <div style={{maxWidth:1360,margin:"0 auto",padding:"0 14px",
-          display:"flex",alignItems:"center",height:38,gap:6,
-          overflowX:"auto",scrollbarWidth:"none"}}>
+          display:"flex",alignItems:"center",minHeight:38,gap:6,
+          overflowX:"auto",scrollbarWidth:"none",flexWrap:"wrap",paddingTop:4,paddingBottom:4}}>
+
+          {/* roles */}
           <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
             textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
             {t.roles_lbl}
@@ -654,10 +663,32 @@ function App(){
               <button key={r||"all"} onClick={()=>setAudFilter(r)} style={{
                 background:on?(a?a.b:"rgba(0,0,0,.06)"):"transparent",
                 border:`1px solid ${on?(a?a.c+"55":"rgba(0,0,0,.15)"):"#E5E7EB"}`,
-                borderRadius:99,padding:"3px 12px",flexShrink:0,
+                borderRadius:99,padding:"3px 11px",flexShrink:0,
                 color:on?(a?a.c:"#111"):"#6B7280",
                 fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
                 {r?a.l:t.all_roles}
+              </button>
+            );
+          })}
+
+          {/* separator */}
+          <div style={{width:1,height:16,background:"#E5E7EB",flexShrink:0,margin:"0 4px"}}/>
+
+          {/* period */}
+          <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,
+            textTransform:"uppercase",letterSpacing:"1.2px",flexShrink:0}}>
+            Período
+          </span>
+          {[{v:null,l:"Todos"},{v:7,l:"7d"},{v:30,l:"30d"},{v:90,l:"3m"}].map(p=>{
+            const on=period===p.v;
+            return(
+              <button key={String(p.v)} onClick={()=>setPeriod(p.v)} style={{
+                background:on?"#1F2937":"transparent",
+                border:`1px solid ${on?"#1F2937":"#E5E7EB"}`,
+                borderRadius:99,padding:"3px 11px",flexShrink:0,
+                color:on?"#FFF":"#6B7280",
+                fontSize:11.5,fontWeight:on?700:400,transition:"all .15s"}}>
+                {p.l}
               </button>
             );
           })}
