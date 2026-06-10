@@ -899,7 +899,9 @@
       "sector": "Enterprise SaaS",
       "price": "$289.40",
       "change": 4.2,
-      "comment": "Alta impulsionada pelos resultados do Q1 FY27 acima do esperado (receita $9.83B) e pelo crescimento de 50% QoQ em deals Agentforce. O mercado precificou positivamente a narrativa de AWUs como nova métrica de valor, sinalizando que a monetização da IA agêntica está se materializando."
+      "comment": "Alta impulsionada pelos resultados do Q1 FY27 acima do esperado (receita $9.83B) e pelo crescimento de 50% QoQ em deals Agentforce. O mercado precificou positivamente a narrativa de AWUs como nova métrica de valor, sinalizando que a monetização da IA agêntica está se materializando.",
+      "comment_en": "Rise driven by above-expected Q1 FY27 results ($9.83B revenue) and 50% QoQ Agentforce deal growth. The market priced in the AWU narrative as a new value metric, signaling that agentic AI monetization is materializing.",
+      "comment_es": "Alza impulsada por resultados del Q1 FY27 por encima de lo esperado ($9.83B de ingresos) y crecimiento del 50% QoQ en deals de Agentforce. El mercado valoró positivamente la narrativa de AWUs como nueva métrica de valor."
     },
     {
       "ticker": "MSFT",
@@ -907,7 +909,9 @@
       "sector": "Cloud / AI",
       "price": "$448.20",
       "change": -1.8,
-      "comment": "Correção após matéria do CNBC questionando o ritmo de inovação frente à Anthropic e OpenAI. Copilot Studio atingiu 160k orgs mas analistas questionam a conversão em receita incremental vs. o Office 365 bundle. Pressão de margem em Azure AI com modelos de terceiros crescendo mais que o Azure OpenAI interno."
+      "comment": "Correção após matéria do CNBC questionando o ritmo de inovação frente à Anthropic e OpenAI. Copilot Studio atingiu 160k orgs mas analistas questionam a conversão em receita incremental vs. o Office 365 bundle. Pressão de margem em Azure AI com modelos de terceiros crescendo mais que o Azure OpenAI interno.",
+      "comment_en": "Correction after CNBC article questioning innovation pace vs. Anthropic and OpenAI. Copilot Studio hit 160k orgs but analysts question incremental revenue conversion vs. the Office 365 bundle. Margin pressure in Azure AI as third-party models grow faster than internal Azure OpenAI.",
+      "comment_es": "Corrección tras artículo del CNBC cuestionando el ritmo de innovación frente a Anthropic y OpenAI. Copilot Studio alcanzó 160k orgs pero los analistas cuestionan la conversión en ingresos incrementales vs. el bundle de Office 365."
     },
     {
       "ticker": "GOOGL",
@@ -915,7 +919,9 @@
       "sector": "Cloud / AI",
       "price": "$192.80",
       "change": 2.1,
-      "comment": "Google Cloud Next '26 impulsionou: Gemini 2.0 Ultra bateu benchmarks em coding e reasoning. Parceria com Agentforce via MCP é vista como validação do ecossistema. Preocupação residual com regulação antitruste, mas o mercado está precificando crescimento de cloud acima de 30% YoY."
+      "comment": "Google Cloud Next '26 impulsionou: Gemini 2.0 Ultra bateu benchmarks em coding e reasoning. Parceria com Agentforce via MCP é vista como validação do ecossistema. Preocupação residual com regulação antitruste, mas o mercado está precificando crescimento de cloud acima de 30% YoY.",
+      "comment_en": "Google Cloud Next '26 boosted: Gemini 2.0 Ultra beat benchmarks on coding and reasoning. Agentforce partnership via MCP seen as ecosystem validation. Residual antitrust concerns, but market is pricing in >30% YoY cloud growth.",
+      "comment_es": "Google Cloud Next '26 impulsó las acciones: Gemini 2.0 Ultra superó benchmarks en coding y razonamiento. La asociación con Agentforce via MCP se ve como validación del ecosistema. Preocupación residual por regulación antimonopolio."
     },
     {
       "ticker": "AMZN",
@@ -923,7 +929,9 @@
       "sector": "Cloud / AI",
       "price": "$204.60",
       "change": 0.9,
-      "comment": "AWS Bedrock cresceu bem mas Amazon manteve orientação conservadora. Nova parceria com Anthropic (Claude como modelo padrão no Bedrock) é positiva mas já estava precificada. Foco do mercado no Q2: adoção do Amazon Nova para casos de baixo custo vs. Claude para enterprise."
+      "comment": "AWS Bedrock cresceu bem mas Amazon manteve orientação conservadora. Nova parceria com Anthropic (Claude como modelo padrão no Bedrock) é positiva mas já estava precificada. Foco do mercado no Q2: adoção do Amazon Nova para casos de baixo custo vs. Claude para enterprise.",
+      "comment_en": "AWS Bedrock grew well but Amazon kept conservative guidance. New Anthropic partnership (Claude as default Bedrock model) is positive but already priced in. Market focus for Q2: Amazon Nova adoption for low-cost use cases vs. Claude for enterprise.",
+      "comment_es": "AWS Bedrock creció bien pero Amazon mantuvo una orientación conservadora. La nueva asociación con Anthropic (Claude como modelo predeterminado en Bedrock) es positiva pero ya estaba descontada en el precio."
     },
     {
       "ticker": "NOW",
@@ -931,7 +939,9 @@
       "sector": "Enterprise AI Workflow",
       "price": "$1,024.50",
       "change": 3.7,
-      "comment": "ServiceNow se posiciona como alternativa ao Agentforce para clientes não-Salesforce. Now Assist GA com agentes de ITSM, HR e procurement. Analistas veem convergência com Salesforce como risco de longo prazo: ambos querem ser o 'sistema de agentes' para enterprise. Alta reflete múltiplo expandido por AI premium."
+      "comment": "ServiceNow se posiciona como alternativa ao Agentforce para clientes não-Salesforce. Now Assist GA com agentes de ITSM, HR e procurement. Analistas veem convergência com Salesforce como risco de longo prazo: ambos querem ser o 'sistema de agentes' para enterprise. Alta reflete múltiplo expandido por AI premium.",
+      "comment_en": "ServiceNow positions itself as an Agentforce alternative for non-Salesforce clients. Now Assist GA with ITSM, HR and procurement agents. Analysts see Salesforce convergence as a long-term risk: both want to be the enterprise 'agent system'. Rise reflects AI-premium expanded multiple.",
+      "comment_es": "ServiceNow se posiciona como alternativa a Agentforce para clientes no-Salesforce. Now Assist GA con agentes de ITSM, HR y procurement. Los analistas ven la convergencia con Salesforce como un riesgo a largo plazo: ambos quieren ser el 'sistema de agentes' enterprise."
     },
     {
       "ticker": "ANTH",
@@ -939,7 +949,29 @@
       "sector": "Foundation Models",
       "price": "~$300 (OTC)",
       "change": 12.5,
-      "comment": "Valoração implícita de ~$100B após nova rodada de investimento ($3.5B Series F). Claude 4 Opus bateu o GPT-4o em todas as métricas de benchmark de agentic tasks. Salesforce ($300M), Google ($500M) e Amazon ($4B) confirmam que o mercado vê Anthropic como o fornecedor de modelos de escolha para enterprise."
+      "comment": "Valoração implícita de ~$100B após nova rodada de investimento ($3.5B Series F). Claude 4 Opus bateu o GPT-4o em todas as métricas de benchmark de agentic tasks. Salesforce ($300M), Google ($500M) e Amazon ($4B) confirmam que o mercado vê Anthropic como o fornecedor de modelos de escolha para enterprise.",
+      "comment_en": "Implied valuation of ~$100B after new $3.5B Series F funding. Claude 4 Opus beat GPT-4o on all agentic task benchmarks. Salesforce ($300M), Google ($500M) and Amazon ($4B) confirm the market sees Anthropic as the preferred enterprise model provider.",
+      "comment_es": "Valoración implícita de ~$100B tras nueva ronda de inversión ($3.5B Series F). Claude 4 Opus superó a GPT-4o en todos los benchmarks de tareas agénticas. Salesforce ($300M), Google ($500M) y Amazon ($4B) confirman que el mercado ve a Anthropic como el proveedor de modelos preferido para enterprise."
+    },
+    {
+      "ticker": "SAP",
+      "name": "SAP SE",
+      "sector": "Enterprise ERP / AI",
+      "price": "$248.70",
+      "change": 1.4,
+      "comment": "Joule Studio GA em jun/2026 impulsionou o papel. Parceria com Anthropic (Claude como motor primário do Joule) foi bem recebida. Analistas veem SAP em posição forte em clientes com ERP central — mas questionam se o Joule consegue competir em inovação com Agentforce e Microsoft Copilot Studio no longo prazo.",
+      "comment_en": "Joule Studio GA in June 2026 boosted shares. Partnership with Anthropic (Claude as Joule's primary engine) was well received. Analysts see SAP in a strong position with ERP-centric customers — but question whether Joule can keep pace with Agentforce and Microsoft Copilot Studio on innovation.",
+      "comment_es": "Joule Studio GA en junio 2026 impulsó las acciones. La asociación con Anthropic (Claude como motor principal de Joule) fue bien recibida. Los analistas ven a SAP en posición sólida con clientes centrados en ERP, pero cuestionan si Joule puede mantenerse al ritmo de Agentforce y Microsoft Copilot Studio."
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle Corporation",
+      "sector": "Cloud / Database / AI",
+      "price": "$172.30",
+      "change": -0.6,
+      "comment": "Leve queda após reunião de analistas onde a Oracle não apresentou roadmap claro de agentes autônomos. Oracle Cloud Infrastructure (OCI) cresce bem mas o posicionamento em IA agêntica enterprise fica atrás de AWS, Azure e GCP. Uso de Langfuse por clientes Oracle é sinal de que o ecossistema de observabilidade ainda é externo — gap de plataforma.",
+      "comment_en": "Slight dip after analyst day where Oracle presented no clear autonomous agent roadmap. OCI growing well but agentic AI positioning lags behind AWS, Azure and GCP. Oracle clients using external Langfuse signals a platform gap in native observability.",
+      "comment_es": "Leve caída tras el investor day donde Oracle no presentó un roadmap claro de agentes autónomos. OCI crece bien pero el posicionamiento en IA agéntica enterprise está por detrás de AWS, Azure y GCP. El uso de Langfuse externo por clientes Oracle señala un gap de observabilidad nativa."
     }
   ],
   "acquisitions": {

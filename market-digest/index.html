@@ -374,6 +374,7 @@ function Featured({item,lang,t}){
           {tf(item,"s",lang)}
         </p>
         <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
+        <SocialSignals signals={item.signals} lang={lang}/>
         <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",
           marginTop:"auto",paddingTop:14,borderTop:"1px solid #F3F4F6"}}>
           {auds.map(r=><RoleBadge key={r} r={r}/>)}
@@ -391,9 +392,10 @@ function Featured({item,lang,t}){
 }
 
 /* ── Social Signals bar ─── */
-function SocialSignals({signals}){
+function SocialSignals({signals,lang}){
   if(!signals)return null;
-  const {hn_comments,hn_url,reddit_posts,reddit_url,stock,stock_change,stock_comment,layoff}=signals;
+  const {hn_comments,hn_url,reddit_posts,reddit_url,stock,stock_change,layoff}=signals;
+  const stock_comment=lang==="pt"?signals.stock_comment:(signals["stock_comment_"+lang]||signals.stock_comment);
   const items=[];
 
   if(hn_comments>0) items.push(
@@ -454,15 +456,17 @@ function SocialSignals({signals}){
 }
 
 /* ── Stock card (seção dedicada) ─── */
-function StockCard({s}){
+function StockCard({s,lang,t}){
   const [open,setOpen]=useState(false);
   const up=s.change>=0;
+  const comment=lang==="pt"?s.comment:(s["comment_"+lang]||s.comment);
+  const hasComment=!!comment;
   return(
-    <div className="lift" onClick={()=>s.comment&&setOpen(v=>!v)}
+    <div className="lift" onClick={()=>hasComment&&setOpen(v=>!v)}
       style={{background:"#FFF",borderRadius:14,border:"1px solid #E5E7EB",
         padding:"16px 18px",display:"flex",flexDirection:"column",gap:8,
         boxShadow:"0 1px 4px rgba(0,0,0,.05)",
-        cursor:s.comment?"pointer":"default"}}>
+        cursor:hasComment?"pointer":"default"}}>
       <div style={{display:"flex",alignItems:"center",gap:8}}>
         <div style={{width:36,height:36,borderRadius:8,
           background:up?"#F0FDF4":"#FEF2F2",
@@ -486,18 +490,18 @@ function StockCard({s}){
           <div style={{fontSize:10.5,color:"#9CA3AF"}}>{s.price}</div>
         </div>
       </div>
-      {open&&s.comment&&(
+      {open&&comment&&(
         <div style={{background:"#F8FAFC",border:"1px solid #E2E8F0",
           borderRadius:8,padding:"9px 11px"}}>
           <p style={{margin:0,fontSize:12,color:"#374151",lineHeight:1.6}}>
-            <strong>📊 Análise:</strong> {s.comment}
+            <strong>📊 {t.stocks_analysis}:</strong> {comment}
           </p>
         </div>
       )}
-      {s.comment&&(
+      {hasComment&&(
         <div style={{fontSize:10.5,color:"#9CA3AF",display:"flex",
           alignItems:"center",gap:3}}>
-          {open?"▲ fechar":"▼ ver análise"}
+          {open?t.close:t.see}
         </div>
       )}
     </div>
@@ -608,7 +612,7 @@ function StocksSection({stocks,t,lang}){
         <span style={{fontSize:12,color:"#059669",fontWeight:600}}>{t.automatic}</span>
       </div>
       <div className="card-grid">
-        {stocks.map((s,i)=><StockCard key={i} s={s}/>)}
+        {stocks.map((s,i)=><StockCard key={i} s={s} lang={lang} t={t}/>)}
       </div>
     </section>
   );
@@ -662,7 +666,7 @@ function NewsCard({item,lang,t,variant="default"}){
 
         <AnalysisPanels item={item} lang={lang} t={t} open={open}/>
 
-        <SocialSignals signals={item.signals}/>
+        <SocialSignals signals={item.signals} lang={lang}/>
 
         {/* roles */}
         {auds.length>0&&(

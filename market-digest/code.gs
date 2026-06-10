@@ -28,6 +28,8 @@ const TICKERS = [
   { ticker:"GOOGL",name:"Alphabet / Google",  sector:"Cloud / AI" },
   { ticker:"AMZN", name:"Amazon / AWS",        sector:"Cloud / AI" },
   { ticker:"NOW",  name:"ServiceNow",          sector:"Enterprise AI" },
+  { ticker:"SAP",  name:"SAP SE",              sector:"Enterprise ERP / AI" },
+  { ticker:"ORCL", name:"Oracle Corporation",  sector:"Cloud / Database / AI" },
 ];
 
 /* ─── Entidades para matching de sinais ────────────────────── */
@@ -41,6 +43,8 @@ const ENTITY_SIGNALS = [
   { pattern:/langfuse|langchain|langgraph/i,stock:null,  hn:"LangChain", reddit:"LocalLLaMA" },
   { pattern:/mcp|model context protocol/i, stock:null,   hn:"MCP protocol", reddit:"MachineLearning" },
   { pattern:/openai|gpt/i,                 stock:null,   hn:"OpenAI", reddit:"MachineLearning" },
+  { pattern:/sap|joule|s\/4hana/i,         stock:"SAP",  hn:"SAP AI", reddit:"sap" },
+  { pattern:/oracle|oci|autonomous db/i,   stock:"ORCL", hn:"Oracle Cloud", reddit:"oracle" },
 ];
 
 /* ─── Fontes por track ─────────────────────────────────────── */
@@ -409,8 +413,8 @@ function buildStocks() {
   TICKERS.forEach(ticker => {
     const quote = fetchStockQuote(ticker.ticker);
     if (!quote) return;
-    const comment = apiKey ? callGeminiStockComment(apiKey, ticker, quote) : "";
-    results.push({ ...ticker, ...quote, comment });
+    const commentData = apiKey ? callGeminiStockComment(apiKey, ticker, quote) : {};
+    results.push({ ...ticker, ...quote, ...commentData });
   });
   return results;
 }
@@ -420,23 +424,25 @@ function callGeminiStockComment(apiKey, ticker, quote) {
     const direction = quote.change >= 0 ? "subiu" : "caiu";
     const prompt = `Você é analista de mercado sênior especializado em tecnologia enterprise e IA.
 A ação ${ticker.ticker} (${ticker.name}, setor: ${ticker.sector}) ${direction} ${Math.abs(quote.change)}% hoje.
-Escreva em PT-BR uma análise concisa (máximo 180 caracteres) explicando as prováveis causas desta movimentação,
-considerando o contexto atual de IA enterprise (Salesforce Agentforce, Microsoft Copilot, Google Gemini, AWS Bedrock).
-Responda APENAS com o texto da análise, sem prefixos ou explicações.`;
+Retorne APENAS JSON válido (sem markdown) com análise concisa (máx 200 chars por campo) explicando as prováveis causas,
+considerando o contexto atual de IA enterprise (Salesforce Agentforce, Microsoft Copilot, Google Gemini, AWS Bedrock, SAP Joule, Oracle OCI):
+{"comment":"<análise em PT-BR>","comment_en":"<same in English>","comment_es":"<same in Spanish>"}`;
 
     const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
     const body = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.3, maxOutputTokens: 120 },
+      generationConfig: { temperature: 0.3, maxOutputTokens: 300 },
     });
     const resp = UrlFetchApp.fetch(url, {
       method:"post", contentType:"application/json",
       payload:body, muteHttpExceptions:true,
     });
-    if (resp.getResponseCode() !== 200) return "";
+    if (resp.getResponseCode() !== 200) return {};
     const data = JSON.parse(resp.getContentText());
-    return data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
-  } catch (_) { return ""; }
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+    const clean = text.replace(/```json\n?/g,"").replace(/```\n?/g,"").trim();
+    try { return JSON.parse(clean); } catch(_) { return { comment: text.trim() }; }
+  } catch (_) { return {}; }
 }
 
 /* ─── Anexa sinais sociais a cada item relevante ───────────── */
