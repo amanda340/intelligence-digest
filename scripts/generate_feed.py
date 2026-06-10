@@ -15,9 +15,11 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from xml.etree import ElementTree as ET
 
+import anthropic
 import requests
 
-GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
+ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
+_claude = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 MAX_PER_FEED = 5
 MAX_TOTAL = 80
 
@@ -170,17 +172,15 @@ def deduplicate(items: List[Dict]) -> List[Dict]:
     return out
 
 
-# ── Gemini ─────────────────────────────────────────────────────────────────────
+# ── Claude ────────────────────────────────────────────────────────────────────
 
-def call_gemini(prompt: str, max_tokens: int = 700, temperature: float = 0.25) -> str:
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
-    body = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": temperature, "maxOutputTokens": max_tokens},
-    }
-    resp = requests.post(url, json=body, timeout=30)
-    resp.raise_for_status()
-    text = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+def call_claude(prompt: str, max_tokens: int = 700) -> str:
+    msg = _claude.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=max_tokens,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    text = msg.content[0].text
     return re.sub(r"```json\n?|```\n?", "", text).strip()
 
 
@@ -215,7 +215,7 @@ Exact format (all fields required):
   "radar_name": "<short tech name for radar, max 20 chars>"
 }}"""
     try:
-        raw = call_gemini(prompt)
+        raw = call_claude(prompt)
         result = json.loads(raw)
         if "urls" not in result:
             result["urls"] = [item["url"]]
@@ -223,7 +223,7 @@ Exact format (all fields required):
             result["urls"].insert(0, item["url"])
         return {**item, **result}
     except Exception as e:
-        print(f"  Gemini error '{item['title'][:50]}': {e}")
+        print(f"  Claude error '{item['title'][:50]}': {e}")
         return {**item, "summary": item["rawSummary"][:250], "decision": "", "critical": "", "alert": False, "urls": [item["url"]]}
 
 
@@ -313,7 +313,7 @@ Retorne APENAS JSON válido (sem markdown) com análise concisa (máx 200 chars 
 considerando o contexto atual de IA enterprise (Salesforce Agentforce, Microsoft Copilot, Google Gemini, AWS Bedrock, SAP Joule, Oracle OCI):
 {{"comment":"<análise em PT-BR>","comment_en":"<same in English>","comment_es":"<same in Spanish>"}}"""
     try:
-        return json.loads(call_gemini(prompt, max_tokens=300, temperature=0.3))
+        return json.loads(call_claude(prompt, max_tokens=300, temperature=0.3))
     except Exception:
         return {}
 
