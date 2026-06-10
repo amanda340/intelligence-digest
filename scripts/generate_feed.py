@@ -174,25 +174,36 @@ def deduplicate(items: List[Dict]) -> List[Dict]:
 
 # ── Claude ────────────────────────────────────────────────────────────────────
 
-def call_claude(prompt: str, max_tokens: int = 700) -> str:
+def call_claude(prompt: str, max_tokens: int = 1024) -> str:
     msg = _claude.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=max_tokens,
         messages=[{"role": "user", "content": prompt}],
     )
     text = msg.content[0].text
-    return re.sub(r"```json\n?|```\n?", "", text).strip()
+    text = re.sub(r"```json\n?|```\n?", "", text).strip()
+    # extract first {...} block robustly
+    match = re.search(r"\{.*\}", text, re.DOTALL)
+    return match.group(0) if match else text
+
+
+def sanitize(text: str) -> str:
+    """Remove characters that break JSON strings in LLM responses."""
+    return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", text).replace("\\", " ")
 
 
 def enrich_item(item: Dict) -> Dict:
+    title = sanitize(item['title'])
+    content = sanitize(item['rawSummary'])
     prompt = f"""You are a senior analyst specializing in enterprise AI platforms, Salesforce, agent architecture and the technology market.
 
-Analyze this article and return ONLY valid JSON (no markdown, no explanations):
+Analyze this article and return ONLY valid JSON (no markdown, no explanations).
+IMPORTANT: All string values must be properly escaped. Do NOT include raw quotes, apostrophes or special chars inside string values.
 
-Title: {item['title']}
+Title: {title}
 Source: {item['category']}
 Track: {item['track']}
-Content: {item['rawSummary']}
+Content: {content}
 
 Exact format (all fields required):
 {{
@@ -216,7 +227,13 @@ Exact format (all fields required):
 }}"""
     try:
         raw = call_claude(prompt)
-        result = json.loads(raw)
+        try:
+            result = json.loads(raw)
+        except json.JSONDecodeError:
+            # fallback: try to repair common issues (trailing commas, unescaped quotes)
+            repaired = re.sub(r",\s*([}\]])", r"\1", raw)   # trailing commas
+            repaired = re.sub(r'(?<!\\)"(?=[^:,\}\]\s])', r'\\"', repaired)  # stray quotes
+            result = json.loads(repaired)
         if "urls" not in result:
             result["urls"] = [item["url"]]
         elif item["url"] not in result["urls"]:
@@ -305,15 +322,15 @@ def fetch_stock_quote(ticker: str) -> Optional[Dict]:
         return None
 
 
-def gemini_stock_comment(ticker: Dict, quote: Dict) -> Dict:
+def claude_stock_comment(ticker: Dict, quote: Dict) -> Dict:
     direction = "subiu" if quote["change"] >= 0 else "caiu"
-    prompt = f"""Você é analista de mercado sênior especializado em tecnologia enterprise e IA.
-A ação {ticker['ticker']} ({ticker['name']}, setor: {ticker['sector']}) {direction} {abs(quote['change'])}% hoje.
-Retorne APENAS JSON válido (sem markdown) com análise concisa (máx 200 chars por campo) explicando as prováveis causas,
-considerando o contexto atual de IA enterprise (Salesforce Agentforce, Microsoft Copilot, Google Gemini, AWS Bedrock, SAP Joule, Oracle OCI):
-{{"comment":"<análise em PT-BR>","comment_en":"<same in English>","comment_es":"<same in Spanish>"}}"""
+    prompt = f"""You are a senior market analyst specialized in enterprise tech and AI.
+The stock {ticker['ticker']} ({ticker['name']}, sector: {ticker['sector']}) {direction} {abs(quote['change'])}% today.
+Return ONLY valid JSON (no markdown). All strings must be properly escaped, no apostrophes or special chars:
+{{"comment":"<analysis in PT-BR, max 200 chars>","comment_en":"<same in English, max 200 chars>","comment_es":"<same in Spanish, max 200 chars>"}}"""
     try:
-        return json.loads(call_claude(prompt, max_tokens=300, temperature=0.3))
+        raw = call_claude(prompt, max_tokens=400)
+        return json.loads(raw)
     except Exception:
         return {}
 
@@ -325,7 +342,7 @@ def build_stocks() -> List[Dict]:
         if not quote:
             print(f"  Sem cotação para {t['ticker']}, pulando")
             continue
-        comment = gemini_stock_comment(t, quote)
+        comment = claude_stock_comment(t, quote)
         results.append({**t, **quote, **comment})
         time.sleep(0.5)
     return results
