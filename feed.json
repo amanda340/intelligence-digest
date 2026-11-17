@@ -1,155 +1,10 @@
 {
-  "generatedAt": "2026-11-16T19:16:50.809028+00:00",
+  "generatedAt": "2026-11-17T18:08:54.454378+00:00",
   "totalItems": 65,
   "tracks": {
     "benioff": {
       "u": "Nov/2026",
       "d": [
-        {
-          "t": "Marc Benioff Praises Grok",
-          "t_en": "Marc Benioff Praises Grok",
-          "t_es": "Marc Benioff Praises Grok",
-          "s": "Article URL: https://twitter.com/cb_doge/status/2028936688689352818 Comments URL: https://news.ycombinator.com/item?id=47245629 Points: 1 # Comments: 0",
-          "s_en": "Article URL: https://twitter.com/cb_doge/status/2028936688689352818 Comments URL: https://news.ycombinator.com/item?id=47245629 Points: 1 # Comments: 0",
-          "s_es": "Article URL: https://twitter.com/cb_doge/status/2028936688689352818 Comments URL: https://news.ycombinator.com/item?id=47245629 Points: 1 # Comments: 0",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Hacker News",
-          "dt": "2026-11-16",
-          "tag": "Benioff",
-          "alert": false,
-          "url": "https://twitter.com/cb_doge/status/2028936688689352818",
-          "urls": [
-            "https://twitter.com/cb_doge/status/2028936688689352818"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Marc Benioff makes 'cruel' ICE jokes at company event",
-          "t_en": "Marc Benioff makes 'cruel' ICE jokes at company event",
-          "t_es": "Marc Benioff makes 'cruel' ICE jokes at company event",
-          "s": "Article URL: https://sf.gazetteer.co/marc-benioff-makes-cruel-ice-jokes-at-company-event Comments URL: https://news.ycombinator.com/item?id=46966256 Points: 11 # Comments: 2",
-          "s_en": "Article URL: https://sf.gazetteer.co/marc-benioff-makes-cruel-ice-jokes-at-company-event Comments URL: https://news.ycombinator.com/item?id=46966256 Points: 11 # Comments: 2",
-          "s_es": "Article URL: https://sf.gazetteer.co/marc-benioff-makes-cruel-ice-jokes-at-company-event Comments URL: https://news.ycombinator.com/item?id=46966256 Points: 11 # Comments: 2",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Hacker News",
-          "dt": "2026-11-16",
-          "tag": "Benioff",
-          "alert": false,
-          "url": "https://sf.gazetteer.co/marc-benioff-makes-cruel-ice-jokes-at-company-event",
-          "urls": [
-            "https://sf.gazetteer.co/marc-benioff-makes-cruel-ice-jokes-at-company-event"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Marc Benioff Has Torched His Do-Good CEO Image",
-          "t_en": "Marc Benioff Has Torched His Do-Good CEO Image",
-          "t_es": "Marc Benioff Has Torched His Do-Good CEO Image",
-          "s": "Article URL: https://www.bloomberg.com/opinion/articles/2025-10-21/salesforce-ceo-marc-benioff-torched-his-do-good-tech-image Comments URL: https://news.ycombinator.com/item?id=45664076 Points: 5 # Comments: 1",
-          "s_en": "Article URL: https://www.bloomberg.com/opinion/articles/2025-10-21/salesforce-ceo-marc-benioff-torched-his-do-good-tech-image Comments URL: https://news.ycombinator.com/item?id=45664076 Points: 5 # Comments: 1",
-          "s_es": "Article URL: https://www.bloomberg.com/opinion/articles/2025-10-21/salesforce-ceo-marc-benioff-torched-his-do-good-tech-image Comments URL: https://news.ycombinator.com/item?id=45664076 Points: 5 # Comments: 1",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Hacker News",
-          "dt": "2026-11-16",
-          "tag": "Benioff",
-          "alert": false,
-          "url": "https://www.bloomberg.com/opinion/articles/2025-10-21/salesforce-ceo-marc-benioff-torched-his-do-good-tech-image",
-          "urls": [
-            "https://www.bloomberg.com/opinion/articles/2025-10-21/salesforce-ceo-marc-benioff-torched-his-do-good-tech-image"
-          ],
-          "aud": [
-            "Exec",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "The A-List Turned on Marc Benioff. Now He's Sorry",
-          "t_en": "The A-List Turned on Marc Benioff. Now He's Sorry",
-          "t_es": "The A-List Turned on Marc Benioff. Now He's Sorry",
-          "s": "Article URL: https://www.wsj.com/tech/marc-benioff-salesforce-national-guard-apology-23344f08 Comments URL: https://news.ycombinator.com/item?id=45633159 Points: 2 # Comments: 1",
-          "s_en": "Article URL: https://www.wsj.com/tech/marc-benioff-salesforce-national-guard-apology-23344f08 Comments URL: https://news.ycombinator.com/item?id=45633159 Points: 2 # Comments: 1",
-          "s_es": "Article URL: https://www.wsj.com/tech/marc-benioff-salesforce-national-guard-apology-23344f08 Comments URL: https://news.ycombinator.com/item?id=45633159 Points: 2 # Comments: 1",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Hacker News",
-          "dt": "2026-11-16",
-          "tag": "Benioff",
-          "alert": false,
-          "url": "https://www.wsj.com/tech/marc-benioff-salesforce-national-guard-apology-23344f08",
-          "urls": [
-            "https://www.wsj.com/tech/marc-benioff-salesforce-national-guard-apology-23344f08"
-          ],
-          "aud": [
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Marc Benioff: I no longer believe National Guard is needed for SF",
-          "t_en": "Marc Benioff: I no longer believe National Guard is needed for SF",
-          "t_es": "Marc Benioff: I no longer believe National Guard is needed for SF",
-          "s": "Article URL: https://www.cnbc.com/2025/10/17/benioff-trump-national-guard-sf.html Comments URL: https://news.ycombinator.com/item?id=45622321 Points: 81 # Comments: 90",
-          "s_en": "Article URL: https://www.cnbc.com/2025/10/17/benioff-trump-national-guard-sf.html Comments URL: https://news.ycombinator.com/item?id=45622321 Points: 81 # Comments: 90",
-          "s_es": "Article URL: https://www.cnbc.com/2025/10/17/benioff-trump-national-guard-sf.html Comments URL: https://news.ycombinator.com/item?id=45622321 Points: 81 # Comments: 90",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Hacker News",
-          "dt": "2026-11-16",
-          "tag": "Benioff",
-          "alert": false,
-          "url": "https://www.cnbc.com/2025/10/17/benioff-trump-national-guard-sf.html",
-          "urls": [
-            "https://www.cnbc.com/2025/10/17/benioff-trump-national-guard-sf.html"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": null
-        },
         {
           "t": "Salesforce announces an AI-heavy makeover for Slack, with 30 new features",
           "t_en": "Salesforce announces an AI-heavy makeover for Slack, with 30 new features",
@@ -164,7 +19,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2026/03/31/salesforce-announces-an-ai-heavy-makeover-for-slack-with-30-new-features/",
@@ -197,7 +52,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2026/02/25/salesforce-ceo-marc-benioff-this-isnt-our-first-saaspocalypse/",
@@ -231,7 +86,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2026/02/05/the-washington-post-is-retreating-from-silicon-valley-when-it-matters-most/",
@@ -264,7 +119,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2025/12/02/the-spectacle-of-bryan-johnson-and-his-livestreamed-shrooms-trip/",
@@ -290,7 +145,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2025/10/18/salesforce-ceo-marc-benioff-apologizes-for-saying-national-guard-troops-needed-in-san-francisco/",
@@ -317,6 +172,78 @@
       "u": "Nov/2026",
       "d": [
         {
+          "t": "Salesforce and Microsoft Announce Copilotforce, Bringing Salesforce Customer Context and Sales Workflows to Microsoft Copilot",
+          "t_en": "Salesforce and Microsoft Announce Copilotforce, Bringing Salesforce Customer Context and Sales Workflows to Microsoft Copilot",
+          "t_es": "Salesforce and Microsoft Announce Copilotforce, Bringing Salesforce Customer Context and Sales Workflows to Microsoft Copilot",
+          "s": "New integrations bring Salesforce customer context and sales workflows into Microsoft Copilot, enable real-time CRM collaboration in Microsoft Teams, and connect Salesforce Data 360 with Microsoft Fabric through bidirectional zero-copy data access. A",
+          "s_en": "New integrations bring Salesforce customer context and sales workflows into Microsoft Copilot, enable real-time CRM collaboration in Microsoft Teams, and connect Salesforce Data 360 with Microsoft Fabric through bidirectional zero-copy data access. A",
+          "s_es": "New integrations bring Salesforce customer context and sales workflows into Microsoft Copilot, enable real-time CRM collaboration in Microsoft Teams, and connect Salesforce Data 360 with Microsoft Fabric through bidirectional zero-copy data access. A",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Salesforce News",
+          "dt": "2026-11-17",
+          "tag": "Salesforce",
+          "alert": false,
+          "url": "https://www.salesforce.com/news/stories/copilotforce-announcement/",
+          "urls": [
+            "https://www.salesforce.com/news/stories/copilotforce-announcement/"
+          ],
+          "aud": [
+            "EA",
+            "SA",
+            "TA",
+            "Build",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Informatica from Salesforce brings Trusted Enterprise Data into Microsoft Copilot, Microsoft Foundry, and Microsoft Fabric to Accelerate AI & Analytics",
+          "t_en": "Informatica from Salesforce brings Trusted Enterprise Data into Microsoft Copilot, Microsoft Foundry, and Microsoft Fabric to Accelerate AI & Analytics",
+          "t_es": "Informatica from Salesforce brings Trusted Enterprise Data into Microsoft Copilot, Microsoft Foundry, and Microsoft Fabric to Accelerate AI & Analytics",
+          "s": "Expanded Microsoft collaboration brings Informatica&#8217;s enterprise data intelligence directly into Microsoft Copilot for business users and Microsoft Foundry for AI developers, while strengthening trusted analytics across Microsoft Fabric. Announ",
+          "s_en": "Expanded Microsoft collaboration brings Informatica&#8217;s enterprise data intelligence directly into Microsoft Copilot for business users and Microsoft Foundry for AI developers, while strengthening trusted analytics across Microsoft Fabric. Announ",
+          "s_es": "Expanded Microsoft collaboration brings Informatica&#8217;s enterprise data intelligence directly into Microsoft Copilot for business users and Microsoft Foundry for AI developers, while strengthening trusted analytics across Microsoft Fabric. Announ",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Salesforce News",
+          "dt": "2026-11-17",
+          "tag": "Salesforce",
+          "alert": false,
+          "url": "https://www.salesforce.com/news/stories/informatica-trusted-enterprise-data-microsoft-collaboration/",
+          "urls": [
+            "https://www.salesforce.com/news/stories/informatica-trusted-enterprise-data-microsoft-collaboration/"
+          ],
+          "aud": [
+            "TA",
+            "Build",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
           "t": "New Data: Holiday Shoppers Will Rely on Agents. Retailers Must Be Ready.",
           "t_en": "New Data: Holiday Shoppers Will Rely on Agents. Retailers Must Be Ready.",
           "t_es": "New Data: Holiday Shoppers Will Rely on Agents. Retailers Must Be Ready.",
@@ -330,7 +257,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/ai-first-holiday/",
@@ -364,7 +291,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/visual-ai-assistants-ivg-lessons/",
@@ -390,7 +317,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/agents-that-improve-ai-models/",
@@ -409,80 +336,39 @@
             "stock_change": null,
             "stock_comment": null
           }
-        },
-        {
-          "t": "New Data Shows Sales Agents Are Rescuing the Sales Cycle",
-          "t_en": "New Data Shows Sales Agents Are Rescuing the Sales Cycle",
-          "t_es": "New Data Shows Sales Agents Are Rescuing the Sales Cycle",
-          "s": "Nobody gets into sales to do data entry. Sellers want to build relationships and close deals, yet the average seller spends 60% of their time on non-selling activities like manually updating CRM systems and researching accounts. Sales leaders feel th",
-          "s_en": "Nobody gets into sales to do data entry. Sellers want to build relationships and close deals, yet the average seller spends 60% of their time on non-selling activities like manually updating CRM systems and researching accounts. Sales leaders feel th",
-          "s_es": "Nobody gets into sales to do data entry. Sellers want to build relationships and close deals, yet the average seller spends 60% of their time on non-selling activities like manually updating CRM systems and researching accounts. Sales leaders feel th",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Salesforce News",
-          "dt": "2026-11-16",
-          "tag": "Salesforce",
-          "alert": false,
-          "url": "https://www.salesforce.com/news/stories/how-ai-agents-improve-crm-data-accuracy/",
-          "urls": [
-            "https://www.salesforce.com/news/stories/how-ai-agents-improve-crm-data-accuracy/"
-          ],
-          "aud": [
-            "TA",
-            "Build",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Missionforce National Security Achieves ‘Awardable’ Status for Department of War Recruiting Capabilities in the CDAO’s Tradewinds Solutions Marketplace",
-          "t_en": "Missionforce National Security Achieves ‘Awardable’ Status for Department of War Recruiting Capabilities in the CDAO’s Tradewinds Solutions Marketplace",
-          "t_es": "Missionforce National Security Achieves ‘Awardable’ Status for Department of War Recruiting Capabilities in the CDAO’s Tradewinds Solutions Marketplace",
-          "s": "SAN FRANCISCO and WASHINGTON, November 10, 2026 — Salesforce, the world’s #1 Agentic CRM, today announced it has received &#8220;Awardable&#8221; status for Missionforce National Security personnel recruiting through the Chief Digital and Artificial ",
-          "s_en": "SAN FRANCISCO and WASHINGTON, November 10, 2026 — Salesforce, the world’s #1 Agentic CRM, today announced it has received &#8220;Awardable&#8221; status for Missionforce National Security personnel recruiting through the Chief Digital and Artificial ",
-          "s_es": "SAN FRANCISCO and WASHINGTON, November 10, 2026 — Salesforce, the world’s #1 Agentic CRM, today announced it has received &#8220;Awardable&#8221; status for Missionforce National Security personnel recruiting through the Chief Digital and Artificial ",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Salesforce News",
-          "dt": "2026-11-16",
-          "tag": "Salesforce",
-          "alert": false,
-          "url": "https://www.salesforce.com/news/press-releases/2026/11/10/missionforce-achieves-awardable-status/",
-          "urls": [
-            "https://www.salesforce.com/news/press-releases/2026/11/10/missionforce-achieves-awardable-status/"
-          ],
-          "aud": [
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
         }
       ]
     },
     "issues": {
       "u": "Nov/2026",
       "d": [
+        {
+          "t": "Costs API data is delayed",
+          "t_en": "Costs API data is delayed",
+          "t_es": "Costs API data is delayed",
+          "s": "Status: InvestigatingWe have identified a delay in our Costs API. We are working to resolve the issue.Affected components Compliance API (Degraded performance)",
+          "s_en": "Status: InvestigatingWe have identified a delay in our Costs API. We are working to resolve the issue.Affected components Compliance API (Degraded performance)",
+          "s_es": "Status: InvestigatingWe have identified a delay in our Costs API. We are working to resolve the issue.Affected components Compliance API (Degraded performance)",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "OpenAI Status",
+          "dt": "2026-11-17",
+          "tag": "Issue",
+          "alert": false,
+          "url": "https://status.openai.com//incidents/01M7N9VNR6X5SEC90M1YCDB36D",
+          "urls": [
+            "https://status.openai.com//incidents/01M7N9VNR6X5SEC90M1YCDB36D"
+          ],
+          "aud": [
+            "Exec",
+            "TA"
+          ],
+          "signals": null
+        },
         {
           "t": "Delayed Costs Data in the Compliance API",
           "t_en": "Delayed Costs Data in the Compliance API",
@@ -497,7 +383,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M7ATRS6BMZ61E4JDHJGM79Y0",
@@ -523,7 +409,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M7C40W0N5MZHNW0YM09QV962",
@@ -556,7 +442,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M78GAT3AK9P9W8Z230KHFVE8",
@@ -589,7 +475,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M79GYA0GA772Y6D089AH5478",
@@ -602,34 +488,35 @@
           "signals": null
         },
         {
-          "t": "GPT-image-2.5 and 2.6 Sunburst & Flare High error rate",
-          "t_en": "GPT-image-2.5 and 2.6 Sunburst & Flare High error rate",
-          "t_es": "GPT-image-2.5 and 2.6 Sunburst & Flare High error rate",
-          "s": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Images (Operational)",
-          "s_en": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Images (Operational)",
-          "s_es": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Images (Operational)",
+          "t": "Some users unable to sign up with Apple on the Claude iOS app",
+          "t_en": "Some users unable to sign up with Apple on the Claude iOS app",
+          "t_es": "Some users unable to sign up with Apple on the Claude iOS app",
+          "s": "Nov 16, 19:52 UTC Resolved - The issue affecting Sign in with Apple on the Claude iOS app has been resolved. Impact occurred from 16:29 PT on November 13 / 00:29 UTC on November 14 to 10:31 PT / 18:31 UTC on November 16. Nov 14, 20:12 UTC Update - We",
+          "s_en": "Nov 16, 19:52 UTC Resolved - The issue affecting Sign in with Apple on the Claude iOS app has been resolved. Impact occurred from 16:29 PT on November 13 / 00:29 UTC on November 14 to 10:31 PT / 18:31 UTC on November 16. Nov 14, 20:12 UTC Update - We",
+          "s_es": "Nov 16, 19:52 UTC Resolved - The issue affecting Sign in with Apple on the Claude iOS app has been resolved. Impact occurred from 16:29 PT on November 13 / 00:29 UTC on November 14 to 10:31 PT / 18:31 UTC on November 16. Nov 14, 20:12 UTC Update - We",
           "d": "",
           "d_en": "",
           "d_es": "",
           "critical": "",
           "critical_en": "",
           "critical_es": "",
-          "f": "OpenAI Status",
-          "dt": "2026-11-16",
+          "f": "Anthropic Status",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
-          "url": "https://status.openai.com//incidents/01M77FAXVFV338GY7G9VRENRS5",
+          "url": "https://status.claude.com/incidents/ct4c2pwf2xpj",
           "urls": [
-            "https://status.openai.com//incidents/01M77FAXVFV338GY7G9VRENRS5"
+            "https://status.claude.com/incidents/ct4c2pwf2xpj"
           ],
           "aud": [
-            "TA"
+            "Exec",
+            "SE"
           ],
           "signals": {
-            "hn_comments": 2530,
-            "hn_url": "https://news.ycombinator.com/item?id=38309611",
+            "hn_comments": 394,
+            "hn_url": "https://news.ycombinator.com/item?id=10981679",
             "reddit_posts": 0,
-            "stock": null,
+            "stock": "GOOGL",
             "stock_change": null,
             "stock_comment": null
           }
@@ -638,9 +525,9 @@
           "t": "Claude unable to join meetings",
           "t_en": "Claude unable to join meetings",
           "t_es": "Claude unable to join meetings",
-          "s": "Nov 16, 18:10 UTC Update - Claude may still be unable to join some calls in Claude Meetings (beta), and Auto-join remains paused. Calls already in progress and other Claude features are not affected. We expect this to take some time to fully resolve ",
-          "s_en": "Nov 16, 18:10 UTC Update - Claude may still be unable to join some calls in Claude Meetings (beta), and Auto-join remains paused. Calls already in progress and other Claude features are not affected. We expect this to take some time to fully resolve ",
-          "s_es": "Nov 16, 18:10 UTC Update - Claude may still be unable to join some calls in Claude Meetings (beta), and Auto-join remains paused. Calls already in progress and other Claude features are not affected. We expect this to take some time to fully resolve ",
+          "s": "Nov 17, 02:02 UTC Identified - Claude Meetings (beta) saw higher than expected demand today, and Claude was unable to join many calls. We have put mitigations in place and are continuing to monitor and improve join reliability.Claude Meetings is now ",
+          "s_en": "Nov 17, 02:02 UTC Identified - Claude Meetings (beta) saw higher than expected demand today, and Claude was unable to join many calls. We have put mitigations in place and are continuing to monitor and improve join reliability.Claude Meetings is now ",
+          "s_es": "Nov 17, 02:02 UTC Identified - Claude Meetings (beta) saw higher than expected demand today, and Claude was unable to join many calls. We have put mitigations in place and are continuing to monitor and improve join reliability.Claude Meetings is now ",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -648,7 +535,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/b5cq662qf2wm",
@@ -656,7 +543,7 @@
             "https://status.claude.com/incidents/b5cq662qf2wm"
           ],
           "aud": [
-            "Exec"
+            "SE"
           ],
           "signals": {
             "hn_comments": 298,
@@ -681,7 +568,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/r1b4f9bbnsx1",
@@ -702,40 +589,6 @@
           }
         },
         {
-          "t": "Some users unable to sign up with Apple on the Claude iOS app",
-          "t_en": "Some users unable to sign up with Apple on the Claude iOS app",
-          "t_es": "Some users unable to sign up with Apple on the Claude iOS app",
-          "s": "Nov 14, 20:12 UTC Update - We are continuing to investigate an issue with Sign in with Apple on the Claude iOS app, which is mainly affecting new accounts. New users can sign up with Google or email instead. We will provide another update as soon as ",
-          "s_en": "Nov 14, 20:12 UTC Update - We are continuing to investigate an issue with Sign in with Apple on the Claude iOS app, which is mainly affecting new accounts. New users can sign up with Google or email instead. We will provide another update as soon as ",
-          "s_es": "Nov 14, 20:12 UTC Update - We are continuing to investigate an issue with Sign in with Apple on the Claude iOS app, which is mainly affecting new accounts. New users can sign up with Google or email instead. We will provide another update as soon as ",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Anthropic Status",
-          "dt": "2026-11-16",
-          "tag": "Issue",
-          "alert": false,
-          "url": "https://status.claude.com/incidents/ct4c2pwf2xpj",
-          "urls": [
-            "https://status.claude.com/incidents/ct4c2pwf2xpj"
-          ],
-          "aud": [
-            "Exec",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 394,
-            "hn_url": "https://news.ycombinator.com/item?id=10981679",
-            "reddit_posts": 0,
-            "stock": "GOOGL",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
           "t": "Elevated purchasing errors on claude.ai",
           "t_en": "Elevated purchasing errors on claude.ai",
           "t_es": "Elevated purchasing errors on claude.ai",
@@ -749,7 +602,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/qrpz8k79qm7x",
@@ -783,7 +636,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/sqn3fg1l96dl",
@@ -816,7 +669,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5HYZKWQZ635R5Q126SHJ1EX",
@@ -842,7 +695,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5EPTJX79TDVMB07KQV902HH",
@@ -868,7 +721,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5D492RJ0NNWGAG1JFF9HZ0X",
@@ -901,7 +754,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5D0AE6TJDT4W664FE4AABET",
@@ -927,7 +780,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M59SQX711PHWS3C697ZQN8NH",
@@ -945,6 +798,40 @@
       "u": "Nov/2026",
       "d": [
         {
+          "t": "Put Gemini to work for you",
+          "t_en": "Put Gemini to work for you",
+          "t_es": "Put Gemini to work for you",
+          "s": "Tasks in Gemini is now free of charge in six countries, with new features starting in the U.S. and deeper Google Workspace integration to get things done on your behalf.",
+          "s_en": "Tasks in Gemini is now free of charge in six countries, with new features starting in the U.S. and deeper Google Workspace integration to get things done on your behalf.",
+          "s_es": "Tasks in Gemini is now free of charge in six countries, with new features starting in the U.S. and deeper Google Workspace integration to get things done on your behalf.",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Google AI Blog",
+          "dt": "2026-11-17",
+          "tag": "Google",
+          "alert": false,
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/",
+          "urls": [
+            "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/"
+          ],
+          "aud": [
+            "EA",
+            "SA"
+          ],
+          "signals": {
+            "hn_comments": 394,
+            "hn_url": "https://news.ycombinator.com/item?id=10981679",
+            "reddit_posts": 0,
+            "stock": "GOOGL",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
           "t": "New Ask Maps features to help with holiday travel and prep",
           "t_en": "New Ask Maps features to help with holiday travel and prep",
           "t_es": "New Ask Maps features to help with holiday travel and prep",
@@ -958,7 +845,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/products-and-platforms/products/maps/ask-maps-holiday-travel-features-2026/",
@@ -984,7 +871,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
@@ -1017,7 +904,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
@@ -1050,7 +937,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/",
@@ -1070,45 +957,12 @@
           }
         },
         {
-          "t": "Experience the art and legacy of Dr. Esther Mahlangu",
-          "t_en": "Experience the art and legacy of Dr. Esther Mahlangu",
-          "t_es": "Experience the art and legacy of Dr. Esther Mahlangu",
-          "s": "A new online archive of Esther Mahlangu’s life and art is now on Google Arts & Culture.",
-          "s_en": "A new online archive of Esther Mahlangu’s life and art is now on Google Arts & Culture.",
-          "s_es": "A new online archive of Esther Mahlangu’s life and art is now on Google Arts & Culture.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Google AI Blog",
-          "dt": "2026-11-16",
-          "tag": "Google",
-          "alert": false,
-          "url": "https://blog.google/company-news/outreach-and-initiatives/arts-culture/esther-mahlangu/",
-          "urls": [
-            "https://blog.google/company-news/outreach-and-initiatives/arts-culture/esther-mahlangu/"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": {
-            "hn_comments": 394,
-            "hn_url": "https://news.ycombinator.com/item?id=10981679",
-            "reddit_posts": 0,
-            "stock": "GOOGL",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "How MoEngage built agentic customer engagement on Amazon Bedrock AgentCore",
-          "t_en": "How MoEngage built agentic customer engagement on Amazon Bedrock AgentCore",
-          "t_es": "How MoEngage built agentic customer engagement on Amazon Bedrock AgentCore",
-          "s": "MoEngage built Merlin AI, a set of AI agents on Amazon Bedrock and Amazon Bedrock AgentCore that let marketing and product teams draft, analyze, and adjust campaigns from a single conversation. Learn how MoEngage turned its existing APIs into MCP too",
-          "s_en": "MoEngage built Merlin AI, a set of AI agents on Amazon Bedrock and Amazon Bedrock AgentCore that let marketing and product teams draft, analyze, and adjust campaigns from a single conversation. Learn how MoEngage turned its existing APIs into MCP too",
-          "s_es": "MoEngage built Merlin AI, a set of AI agents on Amazon Bedrock and Amazon Bedrock AgentCore that let marketing and product teams draft, analyze, and adjust campaigns from a single conversation. Learn how MoEngage turned its existing APIs into MCP too",
+          "t": "Reason over time-series data with OpenTSLM on Amazon SageMaker JumpStart",
+          "t_en": "Reason over time-series data with OpenTSLM on Amazon SageMaker JumpStart",
+          "t_es": "Reason over time-series data with OpenTSLM on Amazon SageMaker JumpStart",
+          "s": "OpenTSLM, an open source family of time-series language models, is now available in Amazon SageMaker JumpStart. See how Nexthink and Aionic Labs apply it to proactive IT support, then deploy OpenTSLM to a real-time endpoint and fine-tune it on your o",
+          "s_en": "OpenTSLM, an open source family of time-series language models, is now available in Amazon SageMaker JumpStart. See how Nexthink and Aionic Labs apply it to proactive IT support, then deploy OpenTSLM to a real-time endpoint and fine-tune it on your o",
+          "s_es": "OpenTSLM, an open source family of time-series language models, is now available in Amazon SageMaker JumpStart. See how Nexthink and Aionic Labs apply it to proactive IT support, then deploy OpenTSLM to a real-time endpoint and fine-tune it on your o",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1116,48 +970,15 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "AWS",
           "alert": false,
-          "url": "https://aws.amazon.com/blogs/machine-learning/how-moengage-built-agentic-customer-engagement-on-amazon-bedrock-agentcore/",
+          "url": "https://aws.amazon.com/blogs/machine-learning/reason-over-time-series-data-with-opentslm-on-amazon-sagemaker-jumpstart/",
           "urls": [
-            "https://aws.amazon.com/blogs/machine-learning/how-moengage-built-agentic-customer-engagement-on-amazon-bedrock-agentcore/"
+            "https://aws.amazon.com/blogs/machine-learning/reason-over-time-series-data-with-opentslm-on-amazon-sagemaker-jumpstart/"
           ],
           "aud": [
             "TA",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 255,
-            "hn_url": "https://news.ycombinator.com/item?id=48473166",
-            "reddit_posts": 0,
-            "stock": "AMZN",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Modernizing mainframe Assembler to Java using Amazon Bedrock and AWS Transform",
-          "t_en": "Modernizing mainframe Assembler to Java using Amazon Bedrock and AWS Transform",
-          "t_es": "Modernizing mainframe Assembler to Java using Amazon Bedrock and AWS Transform",
-          "s": "Legacy mainframe Assembler applications are costly to maintain and hard to staff. This post presents a multi-stage, AI-powered methodology using Amazon Bedrock, Kiro IDE, and AWS Transform to extract business rules, convert Assembler through an inter",
-          "s_en": "Legacy mainframe Assembler applications are costly to maintain and hard to staff. This post presents a multi-stage, AI-powered methodology using Amazon Bedrock, Kiro IDE, and AWS Transform to extract business rules, convert Assembler through an inter",
-          "s_es": "Legacy mainframe Assembler applications are costly to maintain and hard to staff. This post presents a multi-stage, AI-powered methodology using Amazon Bedrock, Kiro IDE, and AWS Transform to extract business rules, convert Assembler through an inter",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "AWS ML Blog",
-          "dt": "2026-11-16",
-          "tag": "AWS",
-          "alert": false,
-          "url": "https://aws.amazon.com/blogs/machine-learning/modernizing-mainframe-assembler-to-java-using-amazon-bedrock-and-aws-transform/",
-          "urls": [
-            "https://aws.amazon.com/blogs/machine-learning/modernizing-mainframe-assembler-to-java-using-amazon-bedrock-and-aws-transform/"
-          ],
-          "aud": [
             "Build"
           ],
           "signals": {
@@ -1170,12 +991,12 @@
           }
         },
         {
-          "t": "Novo Nordisk modernizes manufacturing process documents with Amazon Bedrock AgentCore",
-          "t_en": "Novo Nordisk modernizes manufacturing process documents with Amazon Bedrock AgentCore",
-          "t_es": "Novo Nordisk modernizes manufacturing process documents with Amazon Bedrock AgentCore",
-          "s": "Novo Nordisk's Manufacturing Technology team within the Tablet area team built a process-intelligence assistant on Amazon Bedrock AgentCore, using a GraphRAG architecture that pairs a knowledge graph in Amazon Neptune with hybrid search in Amazon Ope",
-          "s_en": "Novo Nordisk's Manufacturing Technology team within the Tablet area team built a process-intelligence assistant on Amazon Bedrock AgentCore, using a GraphRAG architecture that pairs a knowledge graph in Amazon Neptune with hybrid search in Amazon Ope",
-          "s_es": "Novo Nordisk's Manufacturing Technology team within the Tablet area team built a process-intelligence assistant on Amazon Bedrock AgentCore, using a GraphRAG architecture that pairs a knowledge graph in Amazon Neptune with hybrid search in Amazon Ope",
+          "t": "Your complete guide to AWS Quick at AWS re:Invent 2026",
+          "t_en": "Your complete guide to AWS Quick at AWS re:Invent 2026",
+          "t_es": "Your complete guide to AWS Quick at AWS re:Invent 2026",
+          "s": "AWS Quick gives your whole organization AI that knows your business, respects your security rules, and acts on your behalf. At AWS re:Invent 2026, customers including Allianz, Cox Automotive, and Southwest Airlines share how they govern, extend, and ",
+          "s_en": "AWS Quick gives your whole organization AI that knows your business, respects your security rules, and acts on your behalf. At AWS re:Invent 2026, customers including Allianz, Cox Automotive, and Southwest Airlines share how they govern, extend, and ",
+          "s_es": "AWS Quick gives your whole organization AI that knows your business, respects your security rules, and acts on your behalf. At AWS re:Invent 2026, customers including Allianz, Cox Automotive, and Southwest Airlines share how they govern, extend, and ",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1183,16 +1004,15 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "AWS",
           "alert": false,
-          "url": "https://aws.amazon.com/blogs/machine-learning/novo-nordisk-modernizes-manufacturing-process-documents-with-amazon-bedrock-agentcore/",
+          "url": "https://aws.amazon.com/blogs/machine-learning/your-complete-guide-to-aws-quick-at-aws-reinvent-2026/",
           "urls": [
-            "https://aws.amazon.com/blogs/machine-learning/novo-nordisk-modernizes-manufacturing-process-documents-with-amazon-bedrock-agentcore/"
+            "https://aws.amazon.com/blogs/machine-learning/your-complete-guide-to-aws-quick-at-aws-reinvent-2026/"
           ],
           "aud": [
-            "EA",
-            "SA"
+            "SE"
           ],
           "signals": {
             "hn_comments": 255,
@@ -1204,12 +1024,12 @@
           }
         },
         {
-          "t": "Get answers from tables with tabular search in Amazon Bedrock Managed Knowledge Base",
-          "t_en": "Get answers from tables with tabular search in Amazon Bedrock Managed Knowledge Base",
-          "t_es": "Get answers from tables with tabular search in Amazon Bedrock Managed Knowledge Base",
-          "s": "Amazon Bedrock Managed Knowledge Base now supports tabular search, so agentic retrieval can answer questions over CSV, XLSX, and XLS files. It looks up values and runs calculations across every relevant row, then combines the results with facts from ",
-          "s_en": "Amazon Bedrock Managed Knowledge Base now supports tabular search, so agentic retrieval can answer questions over CSV, XLSX, and XLS files. It looks up values and runs calculations across every relevant row, then combines the results with facts from ",
-          "s_es": "Amazon Bedrock Managed Knowledge Base now supports tabular search, so agentic retrieval can answer questions over CSV, XLSX, and XLS files. It looks up values and runs calculations across every relevant row, then combines the results with facts from ",
+          "t": "How LoanPro built an agentic AI loan servicing assistant with Amazon Bedrock AgentCore",
+          "t_en": "How LoanPro built an agentic AI loan servicing assistant with Amazon Bedrock AgentCore",
+          "t_es": "How LoanPro built an agentic AI loan servicing assistant with Amazon Bedrock AgentCore",
+          "s": "LoanPro worked with AWS Partner AllCloud and the AWS Generative AI Innovation Center to build a multi-agent AI assistant on Amazon Bedrock and Amazon Bedrock AgentCore. It gives loan servicing agents instant borrower context and next-best-action reco",
+          "s_en": "LoanPro worked with AWS Partner AllCloud and the AWS Generative AI Innovation Center to build a multi-agent AI assistant on Amazon Bedrock and Amazon Bedrock AgentCore. It gives loan servicing agents instant borrower context and next-best-action reco",
+          "s_es": "LoanPro worked with AWS Partner AllCloud and the AWS Generative AI Innovation Center to build a multi-agent AI assistant on Amazon Bedrock and Amazon Bedrock AgentCore. It gives loan servicing agents instant borrower context and next-best-action reco",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1217,15 +1037,16 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "AWS",
           "alert": false,
-          "url": "https://aws.amazon.com/blogs/machine-learning/get-answers-from-tables-with-tabular-search-in-amazon-bedrock-managed-knowledge-base/",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-loanpro-built-an-agentic-ai-loan-servicing-assistant-with-amazon-bedrock-agentcore/",
           "urls": [
-            "https://aws.amazon.com/blogs/machine-learning/get-answers-from-tables-with-tabular-search-in-amazon-bedrock-managed-knowledge-base/"
+            "https://aws.amazon.com/blogs/machine-learning/how-loanpro-built-an-agentic-ai-loan-servicing-assistant-with-amazon-bedrock-agentcore/"
           ],
           "aud": [
-            "TA"
+            "Build",
+            "SE"
           ],
           "signals": {
             "hn_comments": 255,
@@ -1237,12 +1058,12 @@
           }
         },
         {
-          "t": "Best practices for writing Denied Topics in Amazon Bedrock Guardrails",
-          "t_en": "Best practices for writing Denied Topics in Amazon Bedrock Guardrails",
-          "t_es": "Best practices for writing Denied Topics in Amazon Bedrock Guardrails",
-          "s": "With Denied Topics in Amazon Bedrock Guardrails, you block a content category by describing it in plain language, and the guardrail matches by meaning rather than keyword, which can block more than you intend. This post presents eight best practices ",
-          "s_en": "With Denied Topics in Amazon Bedrock Guardrails, you block a content category by describing it in plain language, and the guardrail matches by meaning rather than keyword, which can block more than you intend. This post presents eight best practices ",
-          "s_es": "With Denied Topics in Amazon Bedrock Guardrails, you block a content category by describing it in plain language, and the guardrail matches by meaning rather than keyword, which can block more than you intend. This post presents eight best practices ",
+          "t": "Responsible AI for agentic AI: A phased roadmap for platform and application teams",
+          "t_en": "Responsible AI for agentic AI: A phased roadmap for platform and application teams",
+          "t_es": "Responsible AI for agentic AI: A phased roadmap for platform and application teams",
+          "s": "Enterprises adopting agentic AI at scale need platforms that embed responsible AI from the start. This post gives platform and application teams a three-phase roadmap (governance foundation, pilot deployment, and evaluation and hardening) that maps t",
+          "s_en": "Enterprises adopting agentic AI at scale need platforms that embed responsible AI from the start. This post gives platform and application teams a three-phase roadmap (governance foundation, pilot deployment, and evaluation and hardening) that maps t",
+          "s_es": "Enterprises adopting agentic AI at scale need platforms that embed responsible AI from the start. This post gives platform and application teams a three-phase roadmap (governance foundation, pilot deployment, and evaluation and hardening) that maps t",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1250,15 +1071,16 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "AWS",
           "alert": false,
-          "url": "https://aws.amazon.com/blogs/machine-learning/best-practices-for-writing-denied-topics-in-amazon-bedrock-guardrails/",
+          "url": "https://aws.amazon.com/blogs/machine-learning/responsible-ai-for-agentic-ai-a-phased-roadmap-for-platform-and-application-teams/",
           "urls": [
-            "https://aws.amazon.com/blogs/machine-learning/best-practices-for-writing-denied-topics-in-amazon-bedrock-guardrails/"
+            "https://aws.amazon.com/blogs/machine-learning/responsible-ai-for-agentic-ai-a-phased-roadmap-for-platform-and-application-teams/"
           ],
           "aud": [
-            "TA"
+            "TA",
+            "Build"
           ],
           "signals": {
             "hn_comments": 255,
@@ -1270,12 +1092,45 @@
           }
         },
         {
-          "t": "Trump says ex-Nvidia CEO Jensen Huang’s affair with an alleged Chinese spy did not threaten national security",
-          "t_en": "Trump says ex-Nvidia CEO Jensen Huang’s affair with an alleged Chinese spy did not threaten national security",
-          "t_es": "Trump says ex-Nvidia CEO Jensen Huang’s affair with an alleged Chinese spy did not threaten national security",
-          "s": "Trump contradicted his own government's intelligence officials, who reportedly concluded that Alice Huang is a Chinese spy.",
-          "s_en": "Trump contradicted his own government's intelligence officials, who reportedly concluded that Alice Huang is a Chinese spy.",
-          "s_es": "Trump contradicted his own government's intelligence officials, who reportedly concluded that Alice Huang is a Chinese spy.",
+          "t": "How ArisGlobal scaled generative AI inference on Amazon Bedrock",
+          "t_en": "How ArisGlobal scaled generative AI inference on Amazon Bedrock",
+          "t_es": "How ArisGlobal scaled generative AI inference on Amazon Bedrock",
+          "s": "ArisGlobal runs NavaX, its life-sciences AI engine, on Amazon Bedrock. By caching the shared prompt prefix instead of each per-case document, ArisGlobal cut effective input cost by about 50% and overall monthly inference spend by about 40%, while onb",
+          "s_en": "ArisGlobal runs NavaX, its life-sciences AI engine, on Amazon Bedrock. By caching the shared prompt prefix instead of each per-case document, ArisGlobal cut effective input cost by about 50% and overall monthly inference spend by about 40%, while onb",
+          "s_es": "ArisGlobal runs NavaX, its life-sciences AI engine, on Amazon Bedrock. By caching the shared prompt prefix instead of each per-case document, ArisGlobal cut effective input cost by about 50% and overall monthly inference spend by about 40%, while onb",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "AWS ML Blog",
+          "dt": "2026-11-17",
+          "tag": "AWS",
+          "alert": false,
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-arisglobal-scaled-generative-ai-inference-on-amazon-bedrock/",
+          "urls": [
+            "https://aws.amazon.com/blogs/machine-learning/how-arisglobal-scaled-generative-ai-inference-on-amazon-bedrock/"
+          ],
+          "aud": [
+            "Exec"
+          ],
+          "signals": {
+            "hn_comments": 255,
+            "hn_url": "https://news.ycombinator.com/item?id=48473166",
+            "reddit_posts": 0,
+            "stock": "AMZN",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Pedestal AI raises $4.7 million to agentify the supply chain",
+          "t_en": "Pedestal AI raises $4.7 million to agentify the supply chain",
+          "t_es": "Pedestal AI raises $4.7 million to agentify the supply chain",
+          "s": "The company uses agentic AI to make supply chains faster and more reliable.",
+          "s_en": "The company uses agentic AI to make supply chains faster and more reliable.",
+          "s_es": "The company uses agentic AI to make supply chains faster and more reliable.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1283,25 +1138,25 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/16/trump-says-ex-nvidia-ceo-jensen-huangs-affair-with-an-alleged-chinese-spy-did-not-threaten-national-security/",
+          "url": "https://techcrunch.com/2026/11/17/pedestal-ai-raises-4-7-million-to-agentify-the-supply-chain/",
           "urls": [
-            "https://techcrunch.com/2026/11/16/trump-says-ex-nvidia-ceo-jensen-huangs-affair-with-an-alleged-chinese-spy-did-not-threaten-national-security/"
+            "https://techcrunch.com/2026/11/17/pedestal-ai-raises-4-7-million-to-agentify-the-supply-chain/"
           ],
           "aud": [
-            "Exec"
+            "TA"
           ],
           "signals": null
         },
         {
-          "t": "Sam Altman on Nvidia without Jensen Huang: the industry will be ‘fine’",
-          "t_en": "Sam Altman on Nvidia without Jensen Huang: the industry will be ‘fine’",
-          "t_es": "Sam Altman on Nvidia without Jensen Huang: the industry will be ‘fine’",
-          "s": "OpenAI CEO Sam Altman acknowledged the special role Nvidia CEO Jensen Huang has played in the AI boom, but ultimately thinks the industry will be “fine” without him at the helm.",
-          "s_en": "OpenAI CEO Sam Altman acknowledged the special role Nvidia CEO Jensen Huang has played in the AI boom, but ultimately thinks the industry will be “fine” without him at the helm.",
-          "s_es": "OpenAI CEO Sam Altman acknowledged the special role Nvidia CEO Jensen Huang has played in the AI boom, but ultimately thinks the industry will be “fine” without him at the helm.",
+          "t": "Proton’s Lumo, a privacy-focused alternative to ChatGPT and Claude, arrives on desktop",
+          "t_en": "Proton’s Lumo, a privacy-focused alternative to ChatGPT and Claude, arrives on desktop",
+          "t_es": "Proton’s Lumo, a privacy-focused alternative to ChatGPT and Claude, arrives on desktop",
+          "s": "Proton's new Lumo Desktop app for Windows, Mac, and Linux lets users automate tasks across files and connected apps, with granular controls over what its AI can access.",
+          "s_en": "Proton's new Lumo Desktop app for Windows, Mac, and Linux lets users automate tasks across files and connected apps, with granular controls over what its AI can access.",
+          "s_es": "Proton's new Lumo Desktop app for Windows, Mac, and Linux lets users automate tasks across files and connected apps, with granular controls over what its AI can access.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1309,19 +1164,19 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/16/sam-altman-on-nvidia-without-jensen-huang-the-industry-will-be-fine/",
+          "url": "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/",
           "urls": [
-            "https://techcrunch.com/2026/11/16/sam-altman-on-nvidia-without-jensen-huang-the-industry-will-be-fine/"
+            "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/"
           ],
           "aud": [
-            "Exec"
+            "TA"
           ],
           "signals": {
-            "hn_comments": 2530,
-            "hn_url": "https://news.ycombinator.com/item?id=38309611",
+            "hn_comments": 298,
+            "hn_url": "https://news.ycombinator.com/item?id=50260814",
             "reddit_posts": 0,
             "stock": null,
             "stock_change": null,
@@ -1329,12 +1184,12 @@
           }
         },
         {
-          "t": "FBI says Artex AI open-source hacking tool used to breach networks in ‘under three hours’",
-          "t_en": "FBI says Artex AI open-source hacking tool used to breach networks in ‘under three hours’",
-          "t_es": "FBI says Artex AI open-source hacking tool used to breach networks in ‘under three hours’",
-          "s": "The FBI says that the open-source hacking tool was used in cyberattacks targeting a U.S. IT giant and the South Korean financial industry.",
-          "s_en": "The FBI says that the open-source hacking tool was used in cyberattacks targeting a U.S. IT giant and the South Korean financial industry.",
-          "s_es": "The FBI says that the open-source hacking tool was used in cyberattacks targeting a U.S. IT giant and the South Korean financial industry.",
+          "t": "AI models can be tricked into identifying civilians as military targets by telling them it’s a game",
+          "t_en": "AI models can be tricked into identifying civilians as military targets by telling them it’s a game",
+          "t_es": "AI models can be tricked into identifying civilians as military targets by telling them it’s a game",
+          "s": "Vals, a San Francisco-based AI evaluation startup, tested whether leading AI models could be manipulated into participating in autonomous warfare. They usually compiled.",
+          "s_en": "Vals, a San Francisco-based AI evaluation startup, tested whether leading AI models could be manipulated into participating in autonomous warfare. They usually compiled.",
+          "s_es": "Vals, a San Francisco-based AI evaluation startup, tested whether leading AI models could be manipulated into participating in autonomous warfare. They usually compiled.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1342,12 +1197,12 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours/",
+          "url": "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/",
           "urls": [
-            "https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours/"
+            "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/"
           ],
           "aud": [
             "TA"
@@ -1355,12 +1210,12 @@
           "signals": null
         },
         {
-          "t": "Jordan Belfort’s new AI voice startup, Tone, wants to sell like the ‘Wolf of Wall Street’",
-          "t_en": "Jordan Belfort’s new AI voice startup, Tone, wants to sell like the ‘Wolf of Wall Street’",
-          "t_es": "Jordan Belfort’s new AI voice startup, Tone, wants to sell like the ‘Wolf of Wall Street’",
-          "s": "Belfort claims his AI sales voice can already close deals almost as well as the best human salespeople, and he thinks it will catch up in a year.",
-          "s_en": "Belfort claims his AI sales voice can already close deals almost as well as the best human salespeople, and he thinks it will catch up in a year.",
-          "s_es": "Belfort claims his AI sales voice can already close deals almost as well as the best human salespeople, and he thinks it will catch up in a year.",
+          "t": "Jensen Huang says he would be ‘honored’ if allowed to return as Nvidia CEO",
+          "t_en": "Jensen Huang says he would be ‘honored’ if allowed to return as Nvidia CEO",
+          "t_es": "Jensen Huang says he would be ‘honored’ if allowed to return as Nvidia CEO",
+          "s": "In the first public statement since his resignation, Nvidia founder Jensen Huang signaled his willingness to return as CEO.",
+          "s_en": "In the first public statement since his resignation, Nvidia founder Jensen Huang signaled his willingness to return as CEO.",
+          "s_es": "In the first public statement since his resignation, Nvidia founder Jensen Huang signaled his willingness to return as CEO.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1368,56 +1223,116 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/16/jordan-belforts-new-ai-voice-startup-tone-wants-to-sell-like-the-wolf-of-wall-street/",
+          "url": "https://techcrunch.com/2026/11/17/jensen-huang-says-he-would-be-honored-if-allowed-to-return-as-nvidia-ceo/",
           "urls": [
-            "https://techcrunch.com/2026/11/16/jordan-belforts-new-ai-voice-startup-tone-wants-to-sell-like-the-wolf-of-wall-street/"
+            "https://techcrunch.com/2026/11/17/jensen-huang-says-he-would-be-honored-if-allowed-to-return-as-nvidia-ceo/"
+          ],
+          "aud": [
+            "Exec"
+          ],
+          "signals": null
+        },
+        {
+          "t": "Daydream’s new AI agent acts as your personal stylist — and can shop for you, too",
+          "t_en": "Daydream’s new AI agent acts as your personal stylist — and can shop for you, too",
+          "t_es": "Daydream’s new AI agent acts as your personal stylist — and can shop for you, too",
+          "s": "Daydream's new AI shopping agent can remember your style, virtually try on clothes, plan outfits around your wardrobe, track sales, and complete purchases.",
+          "s_en": "Daydream's new AI shopping agent can remember your style, virtually try on clothes, plan outfits around your wardrobe, track sales, and complete purchases.",
+          "s_es": "Daydream's new AI shopping agent can remember your style, virtually try on clothes, plan outfits around your wardrobe, track sales, and complete purchases.",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "TechCrunch AI",
+          "dt": "2026-11-17",
+          "tag": "Mercado",
+          "alert": false,
+          "url": "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/",
+          "urls": [
+            "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/"
           ],
           "aud": [
             "SE"
           ],
           "signals": null
-        },
-        {
-          "t": "OpenAI will embed safety researchers to investigate AI subversion",
-          "t_en": "OpenAI will embed safety researchers to investigate AI subversion",
-          "t_es": "OpenAI will embed safety researchers to investigate AI subversion",
-          "s": "OpenAI will embed six Apollo Research evaluators to investigate whether its AI models engage in subversive behavior, but restrictions on access and disclosure raise questions about their independence.",
-          "s_en": "OpenAI will embed six Apollo Research evaluators to investigate whether its AI models engage in subversive behavior, but restrictions on access and disclosure raise questions about their independence.",
-          "s_es": "OpenAI will embed six Apollo Research evaluators to investigate whether its AI models engage in subversive behavior, but restrictions on access and disclosure raise questions about their independence.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "TechCrunch AI",
-          "dt": "2026-11-16",
-          "tag": "Mercado",
-          "alert": false,
-          "url": "https://techcrunch.com/2026/11/16/openai-will-embed-apollo-researchers-to-investigate-ai-subversion/",
-          "urls": [
-            "https://techcrunch.com/2026/11/16/openai-will-embed-apollo-researchers-to-investigate-ai-subversion/"
-          ],
-          "aud": [
-            "Exec"
-          ],
-          "signals": {
-            "hn_comments": 2530,
-            "hn_url": "https://news.ycombinator.com/item?id=38309611",
-            "reddit_posts": 0,
-            "stock": null,
-            "stock_change": null,
-            "stock_comment": null
-          }
         }
       ]
     },
     "rivals": {
       "u": "Nov/2026",
       "d": [
+        {
+          "t": "Strengthening NATO and allied cyber defenses with AI",
+          "t_en": "Strengthening NATO and allied cyber defenses with AI",
+          "t_es": "Strengthening NATO and allied cyber defenses with AI",
+          "s": "How OpenAI is working with NATO and allied cyber agencies to help trusted defenders find vulnerabilities, test fixes and protect essential systems.",
+          "s_en": "How OpenAI is working with NATO and allied cyber agencies to help trusted defenders find vulnerabilities, test fixes and protect essential systems.",
+          "s_es": "How OpenAI is working with NATO and allied cyber agencies to help trusted defenders find vulnerabilities, test fixes and protect essential systems.",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "OpenAI Blog",
+          "dt": "2026-11-17",
+          "tag": "OpenAI",
+          "alert": false,
+          "url": "https://openai.com/index/strengthening-nato-allied-cyber-defences-ai",
+          "urls": [
+            "https://openai.com/index/strengthening-nato-allied-cyber-defences-ai"
+          ],
+          "aud": [
+            "TA"
+          ],
+          "signals": {
+            "hn_comments": 2530,
+            "hn_url": "https://news.ycombinator.com/item?id=38309611",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Introducing OpenAI for Chile",
+          "t_en": "Introducing OpenAI for Chile",
+          "t_es": "Introducing OpenAI for Chile",
+          "s": "OpenAI and the Government of Chile are partnering to support responsible AI adoption, build public-sector skills and help local startups develop AI applications.",
+          "s_en": "OpenAI and the Government of Chile are partnering to support responsible AI adoption, build public-sector skills and help local startups develop AI applications.",
+          "s_es": "OpenAI and the Government of Chile are partnering to support responsible AI adoption, build public-sector skills and help local startups develop AI applications.",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "OpenAI Blog",
+          "dt": "2026-11-17",
+          "tag": "OpenAI",
+          "alert": false,
+          "url": "https://openai.com/index/introducing-openai-for-chile",
+          "urls": [
+            "https://openai.com/index/introducing-openai-for-chile"
+          ],
+          "aud": [
+            "Exec",
+            "Build"
+          ],
+          "signals": {
+            "hn_comments": 2530,
+            "hn_url": "https://news.ycombinator.com/item?id=38309611",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
         {
           "t": "Broadening access to AI for scientists",
           "t_en": "Broadening access to AI for scientists",
@@ -1432,7 +1347,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "OpenAI",
           "alert": false,
           "url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers",
@@ -1465,7 +1380,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "OpenAI",
           "alert": false,
           "url": "https://openai.com/index/strengthening-online-child-safety",
@@ -1491,78 +1406,12 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "OpenAI",
           "alert": false,
           "url": "https://openai.com/index/science-at-the-frontier",
           "urls": [
             "https://openai.com/index/science-at-the-frontier"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": {
-            "hn_comments": 2530,
-            "hn_url": "https://news.ycombinator.com/item?id=38309611",
-            "reddit_posts": 0,
-            "stock": null,
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "LVMH’s Media Division announces strategic partnership with OpenAI",
-          "t_en": "LVMH’s Media Division announces strategic partnership with OpenAI",
-          "t_es": "LVMH’s Media Division announces strategic partnership with OpenAI",
-          "s": "LVMH’s Media Division and OpenAI announce a partnership to support journalism with AI and make its publications more accessible through ChatGPT.",
-          "s_en": "LVMH’s Media Division and OpenAI announce a partnership to support journalism with AI and make its publications more accessible through ChatGPT.",
-          "s_es": "LVMH’s Media Division and OpenAI announce a partnership to support journalism with AI and make its publications more accessible through ChatGPT.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "OpenAI Blog",
-          "dt": "2026-11-16",
-          "tag": "OpenAI",
-          "alert": false,
-          "url": "https://openai.com/index/lvmh-media-division-partnership",
-          "urls": [
-            "https://openai.com/index/lvmh-media-division-partnership"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": {
-            "hn_comments": 2530,
-            "hn_url": "https://news.ycombinator.com/item?id=38309611",
-            "reddit_posts": 0,
-            "stock": null,
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Our first phase of embedded assessments",
-          "t_en": "Our first phase of embedded assessments",
-          "t_es": "Our first phase of embedded assessments",
-          "s": "OpenAI begins embedded assessments with Apollo Research, METR, and Transluce, and Goodfire to independently evaluate model alignment, safeguards, and monitoring systems.",
-          "s_en": "OpenAI begins embedded assessments with Apollo Research, METR, and Transluce, and Goodfire to independently evaluate model alignment, safeguards, and monitoring systems.",
-          "s_es": "OpenAI begins embedded assessments with Apollo Research, METR, and Transluce, and Goodfire to independently evaluate model alignment, safeguards, and monitoring systems.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "OpenAI Blog",
-          "dt": "2026-11-16",
-          "tag": "OpenAI",
-          "alert": false,
-          "url": "https://openai.com/index/our-first-phase-of-embedded-assessments",
-          "urls": [
-            "https://openai.com/index/our-first-phase-of-embedded-assessments"
           ],
           "aud": [
             "TA"
@@ -1595,7 +1444,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/2026/08/04/bending-spoons-to-buy-airtable-for-1-28b/",
@@ -1621,7 +1470,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/video/musk-v-altman-is-just-getting-started/",
@@ -1654,7 +1503,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/podcast/vibe-coding-meet-vibe-security/",
@@ -1687,7 +1536,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/2025/01/21/mr-beast-is-reportedly-now-among-those-trying-to-buy-tiktok/",
@@ -1713,7 +1562,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-16",
+          "dt": "2026-11-17",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/2024/09/21/indias-oyo-acquires-motel-6-for-525m/",
@@ -1731,306 +1580,485 @@
       "u": "Nov/2026",
       "d": [
         {
-          "t": "Are you ready to collect Sales Tax on California Sales starting Jan 1, 2027?",
-          "t_en": "Are you ready to collect Sales Tax on California Sales starting Jan 1, 2027?",
-          "t_es": "Are you ready to collect Sales Tax on California Sales starting Jan 1, 2027?",
-          "s": "Just want we need. More work before the holidays. California Just Made SaaS Taxable starting Jan 1. If you are based in California, then you need to collect Sales Tax If you are not based in California, but meet California&#39;s $500,000 economic nex",
-          "s_en": "Just want we need. More work before the holidays. California Just Made SaaS Taxable starting Jan 1. If you are based in California, then you need to collect Sales Tax If you are not based in California, but meet California&#39;s $500,000 economic nex",
-          "s_es": "Just want we need. More work before the holidays. California Just Made SaaS Taxable starting Jan 1. If you are based in California, then you need to collect Sales Tax If you are not based in California, but meet California&#39;s $500,000 economic nex",
+          "t": "Salesforce Agentforce at total dud for partners",
+          "t_en": "Salesforce Agentforce at total dud for partners",
+          "t_es": "Salesforce Agentforce at total dud for partners",
+          "s": "Article URL: https://www.theregister.com/saas/2026/08/21/salesforce-partners-are-not-seeing-revenue-from-agentforce-ai-platform-report-says/5291167 Comments URL: https://news.ycombinator.com/item?id=49393691 Points: 5 # Comments: 1",
+          "s_en": "Article URL: https://www.theregister.com/saas/2026/08/21/salesforce-partners-are-not-seeing-revenue-from-agentforce-ai-platform-report-says/5291167 Comments URL: https://news.ycombinator.com/item?id=49393691 Points: 5 # Comments: 1",
+          "s_es": "Article URL: https://www.theregister.com/saas/2026/08/21/salesforce-partners-are-not-seeing-revenue-from-agentforce-ai-platform-report-says/5291167 Comments URL: https://news.ycombinator.com/item?id=49393691 Points: 5 # Comments: 1",
           "d": "",
           "d_en": "",
           "d_es": "",
           "critical": "",
           "critical_en": "",
           "critical_es": "",
-          "f": "Reddit r/salesforce",
-          "dt": "2026-11-16",
-          "tag": "Comunidade",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
           "alert": false,
-          "url": "https://www.reddit.com/r/salesforce/comments/1xxxryb/are_you_ready_to_collect_sales_tax_on_california/",
+          "url": "https://www.theregister.com/saas/2026/08/21/salesforce-partners-are-not-seeing-revenue-from-agentforce-ai-platform-report-says/5291167",
           "urls": [
-            "https://www.reddit.com/r/salesforce/comments/1xxxryb/are_you_ready_to_collect_sales_tax_on_california/"
-          ],
-          "aud": [
-            "SE"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Salesforce Developer (5 YOE, 12 LPA) – Expected Salary & Which Companies to Target for Next Switch?",
-          "t_en": "Salesforce Developer (5 YOE, 12 LPA) – Expected Salary & Which Companies to Target for Next Switch?",
-          "t_es": "Salesforce Developer (5 YOE, 12 LPA) – Expected Salary & Which Companies to Target for Next Switch?",
-          "s": "Guys, I&#39;m planning to switch and need some realistic suggestions. I have 5 years of experience in Salesforce, currently earning 12 LPA. My skills include Admin, Apex, LWC, Flows and Integrations. I also have basic knowledge of Agentforce and Data",
-          "s_en": "Guys, I&#39;m planning to switch and need some realistic suggestions. I have 5 years of experience in Salesforce, currently earning 12 LPA. My skills include Admin, Apex, LWC, Flows and Integrations. I also have basic knowledge of Agentforce and Data",
-          "s_es": "Guys, I&#39;m planning to switch and need some realistic suggestions. I have 5 years of experience in Salesforce, currently earning 12 LPA. My skills include Admin, Apex, LWC, Flows and Integrations. I also have basic knowledge of Agentforce and Data",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Reddit r/salesforce",
-          "dt": "2026-11-16",
-          "tag": "Comunidade",
-          "alert": false,
-          "url": "https://www.reddit.com/r/salesforce/comments/1xxxabq/salesforce_developer_5_yoe_12_lpa_expected_salary/",
-          "urls": [
-            "https://www.reddit.com/r/salesforce/comments/1xxxabq/salesforce_developer_5_yoe_12_lpa_expected_salary/"
-          ],
-          "aud": [
-            "EA",
-            "SA",
-            "TA",
-            "Build",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Thinking of switching from Salesforce Development to AI/ML. Is it worth it?",
-          "t_en": "Thinking of switching from Salesforce Development to AI/ML. Is it worth it?",
-          "t_es": "Thinking of switching from Salesforce Development to AI/ML. Is it worth it?",
-          "s": "I&#39;ve(28M) been working as a Salesforce Developer for around 3.5 years (excluding a career break), and lately, I&#39;ve been questioning the long-term growth prospects of this domain. With AI tools like Claude making development increasingly easie",
-          "s_en": "I&#39;ve(28M) been working as a Salesforce Developer for around 3.5 years (excluding a career break), and lately, I&#39;ve been questioning the long-term growth prospects of this domain. With AI tools like Claude making development increasingly easie",
-          "s_es": "I&#39;ve(28M) been working as a Salesforce Developer for around 3.5 years (excluding a career break), and lately, I&#39;ve been questioning the long-term growth prospects of this domain. With AI tools like Claude making development increasingly easie",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Reddit r/salesforce",
-          "dt": "2026-11-16",
-          "tag": "Comunidade",
-          "alert": false,
-          "url": "https://www.reddit.com/r/salesforce/comments/1xxnnfq/thinking_of_switching_from_salesforce_development/",
-          "urls": [
-            "https://www.reddit.com/r/salesforce/comments/1xxnnfq/thinking_of_switching_from_salesforce_development/"
-          ],
-          "aud": [
-            "Build",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Salesforce Data Cloud – Records from a custom Salesforce object not appearing in Batch Data Transform preview",
-          "t_en": "Salesforce Data Cloud – Records from a custom Salesforce object not appearing in Batch Data Transform preview",
-          "t_es": "Salesforce Data Cloud – Records from a custom Salesforce object not appearing in Batch Data Transform preview",
-          "s": "I&#39;m working with Salesforce Data Cloud and trying to create a Batch Data Transform using data ingested from a custom Salesforce CRM object called Booking. The Booking object contains records in my Salesforce org. I&#39;ve created a Data Stream us",
-          "s_en": "I&#39;m working with Salesforce Data Cloud and trying to create a Batch Data Transform using data ingested from a custom Salesforce CRM object called Booking. The Booking object contains records in my Salesforce org. I&#39;ve created a Data Stream us",
-          "s_es": "I&#39;m working with Salesforce Data Cloud and trying to create a Batch Data Transform using data ingested from a custom Salesforce CRM object called Booking. The Booking object contains records in my Salesforce org. I&#39;ve created a Data Stream us",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Reddit r/salesforce",
-          "dt": "2026-11-16",
-          "tag": "Comunidade",
-          "alert": false,
-          "url": "https://www.reddit.com/r/salesforce/comments/1xxn7ux/salesforce_data_cloud_records_from_a_custom/",
-          "urls": [
-            "https://www.reddit.com/r/salesforce/comments/1xxn7ux/salesforce_data_cloud_records_from_a_custom/"
-          ],
-          "aud": [
-            "TA",
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Pearson VUE Payment Issues",
-          "t_en": "Pearson VUE Payment Issues",
-          "t_es": "Pearson VUE Payment Issues",
-          "s": "Hey there, So, I am trying to schedule two Salesforce Certifications through Pearson Vue, the thing is I tried to pay with three different cards, American Express, Visa and Mastercard, and I always get the same error &quot;Uh oh! We&#39;re unable to ",
-          "s_en": "Hey there, So, I am trying to schedule two Salesforce Certifications through Pearson Vue, the thing is I tried to pay with three different cards, American Express, Visa and Mastercard, and I always get the same error &quot;Uh oh! We&#39;re unable to ",
-          "s_es": "Hey there, So, I am trying to schedule two Salesforce Certifications through Pearson Vue, the thing is I tried to pay with three different cards, American Express, Visa and Mastercard, and I always get the same error &quot;Uh oh! We&#39;re unable to ",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Reddit r/salesforce",
-          "dt": "2026-11-16",
-          "tag": "Comunidade",
-          "alert": false,
-          "url": "https://www.reddit.com/r/salesforce/comments/1xxlqym/pearson_vue_payment_issues/",
-          "urls": [
-            "https://www.reddit.com/r/salesforce/comments/1xxlqym/pearson_vue_payment_issues/"
-          ],
-          "aud": [
-            "SE"
-          ],
-          "signals": {
-            "hn_comments": 25,
-            "hn_url": "https://news.ycombinator.com/item?id=46410153",
-            "reddit_posts": 0,
-            "stock": "CRM",
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Guardrail oficial Beans Tech",
-          "t_en": "Guardrail oficial Beans Tech",
-          "t_es": "Guardrail oficial Beans Tech",
-          "s": "Resposta curta Não existe um “Guardrail oficial Beans Tech” reconhecido por autoridades regulatórias brasileiras nem documentado em fontes técnicas públicas da IBM, Granite ou ecossistema Beans Tech. O termo não consta em normativos do BCB, ANPD, CFM",
-          "s_en": "Resposta curta Não existe um “Guardrail oficial Beans Tech” reconhecido por autoridades regulatórias brasileiras nem documentado em fontes técnicas públicas da IBM, Granite ou ecossistema Beans Tech. O termo não consta em normativos do BCB, ANPD, CFM",
-          "s_es": "Resposta curta Não existe um “Guardrail oficial Beans Tech” reconhecido por autoridades regulatórias brasileiras nem documentado em fontes técnicas públicas da IBM, Granite ou ecossistema Beans Tech. O termo não consta em normativos do BCB, ANPD, CFM",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Dev.to AI",
-          "dt": "2026-11-16",
-          "tag": "Dev.to",
-          "alert": false,
-          "url": "https://dev.to/beanstechbr/guardrail-oficial-beans-tech-2hmb",
-          "urls": [
-            "https://dev.to/beanstechbr/guardrail-oficial-beans-tech-2hmb"
-          ],
-          "aud": [
-            "TA",
-            "Build"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Guardrail independente de modelo",
-          "t_en": "Guardrail independente de modelo",
-          "t_es": "Guardrail independente de modelo",
-          "s": "Resposta curta Guardrail independente de modelo é uma camada de segurança que opera fora do ciclo de inferência do modelo de IA, aplicando regras, filtros e validações padronizadas independentemente da arquitetura, tamanho ou fornecedor do modelo sub",
-          "s_en": "Resposta curta Guardrail independente de modelo é uma camada de segurança que opera fora do ciclo de inferência do modelo de IA, aplicando regras, filtros e validações padronizadas independentemente da arquitetura, tamanho ou fornecedor do modelo sub",
-          "s_es": "Resposta curta Guardrail independente de modelo é uma camada de segurança que opera fora do ciclo de inferência do modelo de IA, aplicando regras, filtros e validações padronizadas independentemente da arquitetura, tamanho ou fornecedor do modelo sub",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Dev.to AI",
-          "dt": "2026-11-16",
-          "tag": "Dev.to",
-          "alert": false,
-          "url": "https://dev.to/beanstechbr/guardrail-independente-de-modelo-j31",
-          "urls": [
-            "https://dev.to/beanstechbr/guardrail-independente-de-modelo-j31"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": null
-        },
-        {
-          "t": "What Is a Marketplace of AI Offices? A Small Business Guide",
-          "t_en": "What Is a Marketplace of AI Offices? A Small Business Guide",
-          "t_es": "What Is a Marketplace of AI Offices? A Small Business Guide",
-          "s": "The problem with starting from zero Most small business owners have tried an AI chatbot. You open it, type a question, and get an answer. It is useful. But the next day you start again. The chatbot does not know your prices. It does not know your cli",
-          "s_en": "The problem with starting from zero Most small business owners have tried an AI chatbot. You open it, type a question, and get an answer. It is useful. But the next day you start again. The chatbot does not know your prices. It does not know your cli",
-          "s_es": "The problem with starting from zero Most small business owners have tried an AI chatbot. You open it, type a question, and get an answer. It is useful. But the next day you start again. The chatbot does not know your prices. It does not know your cli",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Dev.to AI",
-          "dt": "2026-11-16",
-          "tag": "Dev.to",
-          "alert": false,
-          "url": "https://dev.to/arseny_ign/what-is-a-marketplace-of-ai-offices-a-small-business-guide-19b8",
-          "urls": [
-            "https://dev.to/arseny_ign/what-is-a-marketplace-of-ai-offices-a-small-business-guide-19b8"
-          ],
-          "aud": [
-            "Build",
-            "SE"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Building an AI phone caller that has to admit it's an AI: what 26 real calls broke",
-          "t_en": "Building an AI phone caller that has to admit it's an AI: what 26 real calls broke",
-          "t_es": "Building an AI phone caller that has to admit it's an AI: what 26 real calls broke",
-          "s": "I built Arogo, a small service where you type a question for a business (\"does the vet take new patients, and what's a first visit?\"), approve a plan, and a voice agent phones them and sends you the answer plus the whole transcript. The stack is bori",
-          "s_en": "I built Arogo, a small service where you type a question for a business (\"does the vet take new patients, and what's a first visit?\"), approve a plan, and a voice agent phones them and sends you the answer plus the whole transcript. The stack is bori",
-          "s_es": "I built Arogo, a small service where you type a question for a business (\"does the vet take new patients, and what's a first visit?\"), approve a plan, and a voice agent phones them and sends you the answer plus the whole transcript. The stack is bori",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Dev.to AI",
-          "dt": "2026-11-16",
-          "tag": "Dev.to",
-          "alert": false,
-          "url": "https://dev.to/ethan_beirne_8e367d0977af/building-an-ai-phone-caller-that-has-to-admit-its-an-ai-what-26-real-calls-broke-58aa",
-          "urls": [
-            "https://dev.to/ethan_beirne_8e367d0977af/building-an-ai-phone-caller-that-has-to-admit-its-an-ai-what-26-real-calls-broke-58aa"
-          ],
-          "aud": [
-            "TA",
-            "Build"
-          ],
-          "signals": null
-        },
-        {
-          "t": "How to tell if an MCP server is still maintained",
-          "t_en": "How to tell if an MCP server is still maintained",
-          "t_es": "How to tell if an MCP server is still maintained",
-          "s": "An MCP server is a dependency. You point your AI client at it, and from then on it sits between your agent and someone else's API. If the project behind it stops getting fixes, it breaks quietly — an API changes, an auth flow shifts, a security hole ",
-          "s_en": "An MCP server is a dependency. You point your AI client at it, and from then on it sits between your agent and someone else's API. If the project behind it stops getting fixes, it breaks quietly — an API changes, an auth flow shifts, a security hole ",
-          "s_es": "An MCP server is a dependency. You point your AI client at it, and from then on it sits between your agent and someone else's API. If the project behind it stops getting fixes, it breaks quietly — an API changes, an auth flow shifts, a security hole ",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Dev.to AI",
-          "dt": "2026-11-16",
-          "tag": "Dev.to",
-          "alert": false,
-          "url": "https://dev.to/serverdex/how-to-tell-if-an-mcp-server-is-still-maintained-oj5",
-          "urls": [
-            "https://dev.to/serverdex/how-to-tell-if-an-mcp-server-is-still-maintained-oj5"
+            "https://www.theregister.com/saas/2026/08/21/salesforce-partners-are-not-seeing-revenue-from-agentforce-ai-platform-report-says/5291167"
           ],
           "aud": [
             "Exec",
             "TA",
-            "Build",
             "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Show HN: Ckg-agentforce – Salesforce AgentForce as a traversable MCP graph",
+          "t_en": "Show HN: Ckg-agentforce – Salesforce AgentForce as a traversable MCP graph",
+          "t_es": "Show HN: Ckg-agentforce – Salesforce AgentForce as a traversable MCP graph",
+          "s": "Article URL: https://github.com/Yarmoluk/ckg-agentforce Comments URL: https://news.ycombinator.com/item?id=49003795 Points: 2 # Comments: 0",
+          "s_en": "Article URL: https://github.com/Yarmoluk/ckg-agentforce Comments URL: https://news.ycombinator.com/item?id=49003795 Points: 2 # Comments: 0",
+          "s_es": "Article URL: https://github.com/Yarmoluk/ckg-agentforce Comments URL: https://news.ycombinator.com/item?id=49003795 Points: 2 # Comments: 0",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://github.com/Yarmoluk/ckg-agentforce",
+          "urls": [
+            "https://github.com/Yarmoluk/ckg-agentforce"
+          ],
+          "aud": [
+            "TA",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Salesforce pulls back from LLMs, pivots Agentforce to deterministic automation",
+          "t_en": "Salesforce pulls back from LLMs, pivots Agentforce to deterministic automation",
+          "t_es": "Salesforce pulls back from LLMs, pivots Agentforce to deterministic automation",
+          "s": "Article URL: https://timesofindia.indiatimes.com/technology/tech-news/after-laying-off-4000-employees-and-automating-with-ai-agents-salesforce-executives-admit-we-were-more-confident-about-/articleshow/126121875.cms Comments URL: https://news.ycombin",
+          "s_en": "Article URL: https://timesofindia.indiatimes.com/technology/tech-news/after-laying-off-4000-employees-and-automating-with-ai-agents-salesforce-executives-admit-we-were-more-confident-about-/articleshow/126121875.cms Comments URL: https://news.ycombin",
+          "s_es": "Article URL: https://timesofindia.indiatimes.com/technology/tech-news/after-laying-off-4000-employees-and-automating-with-ai-agents-salesforce-executives-admit-we-were-more-confident-about-/articleshow/126121875.cms Comments URL: https://news.ycombin",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://timesofindia.indiatimes.com/technology/tech-news/after-laying-off-4000-employees-and-automating-with-ai-agents-salesforce-executives-admit-we-were-more-confident-about-/articleshow/126121875.cms",
+          "urls": [
+            "https://timesofindia.indiatimes.com/technology/tech-news/after-laying-off-4000-employees-and-automating-with-ai-agents-salesforce-executives-admit-we-were-more-confident-about-/articleshow/126121875.cms"
+          ],
+          "aud": [
+            "Exec",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Salesforce (Agentforce) announces agreement to acquire Spindle AI",
+          "t_en": "Salesforce (Agentforce) announces agreement to acquire Spindle AI",
+          "t_es": "Salesforce (Agentforce) announces agreement to acquire Spindle AI",
+          "s": "Article URL: https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-spindle-ai/?bc=HL Comments URL: https://news.ycombinator.com/item?id=45855212 Points: 1 # Comments: 0",
+          "s_en": "Article URL: https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-spindle-ai/?bc=HL Comments URL: https://news.ycombinator.com/item?id=45855212 Points: 1 # Comments: 0",
+          "s_es": "Article URL: https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-spindle-ai/?bc=HL Comments URL: https://news.ycombinator.com/item?id=45855212 Points: 1 # Comments: 0",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-spindle-ai/?bc=HL",
+          "urls": [
+            "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-spindle-ai/?bc=HL"
+          ],
+          "aud": [
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "AI Prompt injection – trick Salesforce Agentforce into leaking sales",
+          "t_en": "AI Prompt injection – trick Salesforce Agentforce into leaking sales",
+          "t_es": "AI Prompt injection – trick Salesforce Agentforce into leaking sales",
+          "s": "Article URL: https://www.theregister.com/2025/09/26/salesforce_agentforce_forceleak_attack/ Comments URL: https://news.ycombinator.com/item?id=45413615 Points: 2 # Comments: 0",
+          "s_en": "Article URL: https://www.theregister.com/2025/09/26/salesforce_agentforce_forceleak_attack/ Comments URL: https://news.ycombinator.com/item?id=45413615 Points: 2 # Comments: 0",
+          "s_es": "Article URL: https://www.theregister.com/2025/09/26/salesforce_agentforce_forceleak_attack/ Comments URL: https://news.ycombinator.com/item?id=45413615 Points: 2 # Comments: 0",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://www.theregister.com/2025/09/26/salesforce_agentforce_forceleak_attack/",
+          "urls": [
+            "https://www.theregister.com/2025/09/26/salesforce_agentforce_forceleak_attack/"
+          ],
+          "aud": [
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 25,
+            "hn_url": "https://news.ycombinator.com/item?id=46410153",
+            "reddit_posts": 0,
+            "stock": "CRM",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "New MCP Protocol: Bringing MCP 2026-07-28 to Claude",
+          "t_en": "New MCP Protocol: Bringing MCP 2026-07-28 to Claude",
+          "t_es": "New MCP Protocol: Bringing MCP 2026-07-28 to Claude",
+          "s": "Article URL: https://claude.com/blog/bringing-mcp-2026-07-28-to-claude Comments URL: https://news.ycombinator.com/item?id=49105807 Points: 4 # Comments: 0",
+          "s_en": "Article URL: https://claude.com/blog/bringing-mcp-2026-07-28-to-claude Comments URL: https://news.ycombinator.com/item?id=49105807 Points: 4 # Comments: 0",
+          "s_es": "Article URL: https://claude.com/blog/bringing-mcp-2026-07-28-to-claude Comments URL: https://news.ycombinator.com/item?id=49105807 Points: 4 # Comments: 0",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://claude.com/blog/bringing-mcp-2026-07-28-to-claude",
+          "urls": [
+            "https://claude.com/blog/bringing-mcp-2026-07-28-to-claude"
+          ],
+          "aud": [
+            "TA"
+          ],
+          "signals": {
+            "hn_comments": 298,
+            "hn_url": "https://news.ycombinator.com/item?id=50260814",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Update on the Next MCP Protocol Release",
+          "t_en": "Update on the Next MCP Protocol Release",
+          "t_es": "Update on the Next MCP Protocol Release",
+          "s": "Article URL: http://blog.modelcontextprotocol.io/posts/2025-09-26-mcp-next-version-update/ Comments URL: https://news.ycombinator.com/item?id=45401194 Points: 5 # Comments: 1",
+          "s_en": "Article URL: http://blog.modelcontextprotocol.io/posts/2025-09-26-mcp-next-version-update/ Comments URL: https://news.ycombinator.com/item?id=45401194 Points: 5 # Comments: 1",
+          "s_es": "Article URL: http://blog.modelcontextprotocol.io/posts/2025-09-26-mcp-next-version-update/ Comments URL: https://news.ycombinator.com/item?id=45401194 Points: 5 # Comments: 1",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "http://blog.modelcontextprotocol.io/posts/2025-09-26-mcp-next-version-update/",
+          "urls": [
+            "http://blog.modelcontextprotocol.io/posts/2025-09-26-mcp-next-version-update/"
+          ],
+          "aud": [
+            "TA"
           ],
           "signals": {
             "hn_comments": 5,
             "hn_url": "https://news.ycombinator.com/item?id=46513163",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "MCP Protocol Specification",
+          "t_en": "MCP Protocol Specification",
+          "t_es": "MCP Protocol Specification",
+          "s": "Article URL: https://modelcontextprotocol.io/specification/2025-03-26 Comments URL: https://news.ycombinator.com/item?id=45332407 Points: 1 # Comments: 0",
+          "s_en": "Article URL: https://modelcontextprotocol.io/specification/2025-03-26 Comments URL: https://news.ycombinator.com/item?id=45332407 Points: 1 # Comments: 0",
+          "s_es": "Article URL: https://modelcontextprotocol.io/specification/2025-03-26 Comments URL: https://news.ycombinator.com/item?id=45332407 Points: 1 # Comments: 0",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://modelcontextprotocol.io/specification/2025-03-26",
+          "urls": [
+            "https://modelcontextprotocol.io/specification/2025-03-26"
+          ],
+          "aud": [
+            "TA"
+          ],
+          "signals": {
+            "hn_comments": 5,
+            "hn_url": "https://news.ycombinator.com/item?id=46513163",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Metis OS – Unified MCP protocol for AI agent tool orchestration",
+          "t_en": "Metis OS – Unified MCP protocol for AI agent tool orchestration",
+          "t_es": "Metis OS – Unified MCP protocol for AI agent tool orchestration",
+          "s": "Article URL: https://github.com/metisos/metisos_agentV1 Comments URL: https://news.ycombinator.com/item?id=44670752 Points: 2 # Comments: 1",
+          "s_en": "Article URL: https://github.com/metisos/metisos_agentV1 Comments URL: https://news.ycombinator.com/item?id=44670752 Points: 2 # Comments: 1",
+          "s_es": "Article URL: https://github.com/metisos/metisos_agentV1 Comments URL: https://news.ycombinator.com/item?id=44670752 Points: 2 # Comments: 1",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://github.com/metisos/metisos_agentV1",
+          "urls": [
+            "https://github.com/metisos/metisos_agentV1"
+          ],
+          "aud": [
+            "TA"
+          ],
+          "signals": {
+            "hn_comments": 5,
+            "hn_url": "https://news.ycombinator.com/item?id=46513163",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "The AI Agent Enterprise Revolution: Building the Missing Context Layer",
+          "t_en": "The AI Agent Enterprise Revolution: Building the Missing Context Layer",
+          "t_es": "The AI Agent Enterprise Revolution: Building the Missing Context Layer",
+          "s": "Article URL: https://samelogic.com/blog/the-ai-agent-enterprise-revolution-building-the-missing-context-layer Comments URL: https://news.ycombinator.com/item?id=43506508 Points: 2 # Comments: 0",
+          "s_en": "Article URL: https://samelogic.com/blog/the-ai-agent-enterprise-revolution-building-the-missing-context-layer Comments URL: https://news.ycombinator.com/item?id=43506508 Points: 2 # Comments: 0",
+          "s_es": "Article URL: https://samelogic.com/blog/the-ai-agent-enterprise-revolution-building-the-missing-context-layer Comments URL: https://news.ycombinator.com/item?id=43506508 Points: 2 # Comments: 0",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Hacker News",
+          "dt": "2026-11-17",
+          "tag": "HN",
+          "alert": false,
+          "url": "https://samelogic.com/blog/the-ai-agent-enterprise-revolution-building-the-missing-context-layer",
+          "urls": [
+            "https://samelogic.com/blog/the-ai-agent-enterprise-revolution-building-the-missing-context-layer"
+          ],
+          "aud": [
+            "Build"
+          ],
+          "signals": null
+        },
+        {
+          "t": "THE RELEVANCE OF SOFTWARE ENGINEERING IN WEB APPLICATIONS VS. \"VIBE CODING\" Written by MARC JUNIOR",
+          "t_en": "THE RELEVANCE OF SOFTWARE ENGINEERING IN WEB APPLICATIONS VS. \"VIBE CODING\" Written by MARC JUNIOR",
+          "t_es": "THE RELEVANCE OF SOFTWARE ENGINEERING IN WEB APPLICATIONS VS. \"VIBE CODING\" Written by MARC JUNIOR",
+          "s": "Course Title: Advanced Software Engineering &amp; Web Architecture ** Topic: The Role of Software Engineering in Modern Web Apps: Dangers and Demerits of \"Vibe Coding\"** 1. Introduction With the rapid evolution of generative AI, software development ",
+          "s_en": "Course Title: Advanced Software Engineering &amp; Web Architecture ** Topic: The Role of Software Engineering in Modern Web Apps: Dangers and Demerits of \"Vibe Coding\"** 1. Introduction With the rapid evolution of generative AI, software development ",
+          "s_es": "Course Title: Advanced Software Engineering &amp; Web Architecture ** Topic: The Role of Software Engineering in Modern Web Apps: Dangers and Demerits of \"Vibe Coding\"** 1. Introduction With the rapid evolution of generative AI, software development ",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Dev.to AI",
+          "dt": "2026-11-17",
+          "tag": "Dev.to",
+          "alert": false,
+          "url": "https://dev.to/marc_junior_05/the-relevance-of-software-engineering-in-web-applications-vs-vibe-coding-written-by-marc-junior-6bj",
+          "urls": [
+            "https://dev.to/marc_junior_05/the-relevance-of-software-engineering-in-web-applications-vs-vibe-coding-written-by-marc-junior-6bj"
+          ],
+          "aud": [
+            "Build"
+          ],
+          "signals": {
+            "hn_comments": 110,
+            "hn_url": "https://news.ycombinator.com/item?id=42901897",
+            "reddit_posts": 0,
+            "stock": "ORCL",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "I shipped four imagegen-swarm updates from other people's feedback",
+          "t_en": "I shipped four imagegen-swarm updates from other people's feedback",
+          "t_es": "I shipped four imagegen-swarm updates from other people's feedback",
+          "s": "I published imagegen-swarm as a Claude Code and Codex skill. You give it a list of image jobs, and it feeds six engines at once: Codex, Jimeng, Grok, Gemini, Muse, and Lovart. Most of them use accounts you already have, so you don't need a separate i",
+          "s_en": "I published imagegen-swarm as a Claude Code and Codex skill. You give it a list of image jobs, and it feeds six engines at once: Codex, Jimeng, Grok, Gemini, Muse, and Lovart. Most of them use accounts you already have, so you don't need a separate i",
+          "s_es": "I published imagegen-swarm as a Claude Code and Codex skill. You give it a list of image jobs, and it feeds six engines at once: Codex, Jimeng, Grok, Gemini, Muse, and Lovart. Most of them use accounts you already have, so you don't need a separate i",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Dev.to AI",
+          "dt": "2026-11-17",
+          "tag": "Dev.to",
+          "alert": false,
+          "url": "https://dev.to/ekko237/i-shipped-four-imagegen-swarm-updates-from-other-peoples-feedback-40mn",
+          "urls": [
+            "https://dev.to/ekko237/i-shipped-four-imagegen-swarm-updates-from-other-peoples-feedback-40mn"
+          ],
+          "aud": [
+            "Build",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 394,
+            "hn_url": "https://news.ycombinator.com/item?id=10981679",
+            "reddit_posts": 0,
+            "stock": "GOOGL",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Gemini separates training consent from history—and extends retention",
+          "t_en": "Gemini separates training consent from history—and extends retention",
+          "t_es": "Gemini separates training consent from history—and extends retention",
+          "s": "Control over AI training is becoming easier to obtain without giving up a usable assistant, but that control says less about data retention than users might expect. Ars Technica reports that Google is separating Gemini’s history and training settings",
+          "s_en": "Control over AI training is becoming easier to obtain without giving up a usable assistant, but that control says less about data retention than users might expect. Ars Technica reports that Google is separating Gemini’s history and training settings",
+          "s_es": "Control over AI training is becoming easier to obtain without giving up a usable assistant, but that control says less about data retention than users might expect. Ars Technica reports that Google is separating Gemini’s history and training settings",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Dev.to AI",
+          "dt": "2026-11-17",
+          "tag": "Dev.to",
+          "alert": false,
+          "url": "https://dev.to/siftsignal/gemini-separates-training-consent-from-history-and-extends-retention-33oj",
+          "urls": [
+            "https://dev.to/siftsignal/gemini-separates-training-consent-from-history-and-extends-retention-33oj"
+          ],
+          "aud": [
+            "TA"
+          ],
+          "signals": {
+            "hn_comments": 394,
+            "hn_url": "https://news.ycombinator.com/item?id=10981679",
+            "reddit_posts": 0,
+            "stock": "GOOGL",
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
+          "t": "Drawing 150 countries and 152 street maps on one canvas without freezing the page",
+          "t_en": "Drawing 150 countries and 152 street maps on one canvas without freezing the page",
+          "t_es": "Drawing 150 countries and 152 street maps on one canvas without freezing the page",
+          "s": "We at TGscope built a world map of Telegram channels: 278,975 channels tied to 150 countries, and 152 cities drawn with roads, water and district borders. You can zoom from the whole planet down to a street in one motion. There is no map library unde",
+          "s_en": "We at TGscope built a world map of Telegram channels: 278,975 channels tied to 150 countries, and 152 cities drawn with roads, water and district borders. You can zoom from the whole planet down to a street in one motion. There is no map library unde",
+          "s_es": "We at TGscope built a world map of Telegram channels: 278,975 channels tied to 150 countries, and 152 cities drawn with roads, water and district borders. You can zoom from the whole planet down to a street in one motion. There is no map library unde",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Dev.to AI",
+          "dt": "2026-11-17",
+          "tag": "Dev.to",
+          "alert": false,
+          "url": "https://dev.to/tgscope_629d565fb02dbb743/drawing-150-countries-and-152-street-maps-on-one-canvas-without-freezing-the-page-4l2o",
+          "urls": [
+            "https://dev.to/tgscope_629d565fb02dbb743/drawing-150-countries-and-152-street-maps-on-one-canvas-without-freezing-the-page-4l2o"
+          ],
+          "aud": [
+            "Build"
+          ],
+          "signals": null
+        },
+        {
+          "t": "OpenAI Starts Embedded Assessments with 4 Independent Labs",
+          "t_en": "OpenAI Starts Embedded Assessments with 4 Independent Labs",
+          "t_es": "OpenAI Starts Embedded Assessments with 4 Independent Labs",
+          "s": "📅 November 16, 2026 • OpenAI OpenAI has signed agreements with 4 independent assessors — Apollo Research, METR, Transluce and Goodfire — for the first phase of its embedded assessments program. Under this model, outside experts receive deep access to",
+          "s_en": "📅 November 16, 2026 • OpenAI OpenAI has signed agreements with 4 independent assessors — Apollo Research, METR, Transluce and Goodfire — for the first phase of its embedded assessments program. Under this model, outside experts receive deep access to",
+          "s_es": "📅 November 16, 2026 • OpenAI OpenAI has signed agreements with 4 independent assessors — Apollo Research, METR, Transluce and Goodfire — for the first phase of its embedded assessments program. Under this model, outside experts receive deep access to",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Dev.to AI",
+          "dt": "2026-11-17",
+          "tag": "Dev.to",
+          "alert": false,
+          "url": "https://dev.to/delimitter/openai-starts-embedded-assessments-with-4-independent-labs-33ak",
+          "urls": [
+            "https://dev.to/delimitter/openai-starts-embedded-assessments-with-4-independent-labs-33ak"
+          ],
+          "aud": [
+            "Build"
+          ],
+          "signals": {
+            "hn_comments": 2530,
+            "hn_url": "https://news.ycombinator.com/item?id=38309611",
             "reddit_posts": 0,
             "stock": null,
             "stock_change": null,
@@ -2062,7 +2090,7 @@
       "Mercado",
       "OpenAI",
       "Acquisition",
-      "Comunidade",
+      "HN",
       "Dev.to"
     ],
     "hold": [
@@ -2077,50 +2105,50 @@
       "ticker": "CRM",
       "name": "Salesforce",
       "sector": "Enterprise SaaS",
-      "price": "$216.36",
-      "change": 0.66
+      "price": "$195.38",
+      "change": -8.48
     },
     {
       "ticker": "MSFT",
       "name": "Microsoft",
       "sector": "Cloud / AI",
-      "price": "$519.96",
-      "change": -4.63
+      "price": "$502.09",
+      "change": -5.83
     },
     {
       "ticker": "GOOGL",
       "name": "Alphabet / Google",
       "sector": "Cloud / AI",
-      "price": "$285.41",
-      "change": -0.95
+      "price": "$281.94",
+      "change": -1.89
     },
     {
       "ticker": "AMZN",
       "name": "Amazon / AWS",
       "sector": "Cloud / AI",
-      "price": "$258.28",
-      "change": -3.24
+      "price": "$257.26",
+      "change": -5.02
     },
     {
       "ticker": "NOW",
       "name": "ServiceNow",
       "sector": "Enterprise AI Workflow",
-      "price": "$100.59",
-      "change": -2.11
+      "price": "$93.02",
+      "change": -6.62
     },
     {
       "ticker": "SAP",
       "name": "SAP SE",
       "sector": "Enterprise ERP / AI",
-      "price": "$234.30",
-      "change": -1.31
+      "price": "$222.90",
+      "change": -4.64
     },
     {
       "ticker": "ORCL",
       "name": "Oracle Corporation",
       "sector": "Cloud / Database / AI",
-      "price": "$119.21",
-      "change": -0.48
+      "price": "$113.92",
+      "change": -3.44
     }
   ],
   "acquisitions": {
@@ -2140,7 +2168,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-16",
+        "dt": "2026-11-17",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/2026/08/04/bending-spoons-to-buy-airtable-for-1-28b/",
@@ -2168,7 +2196,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-16",
+        "dt": "2026-11-17",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/video/musk-v-altman-is-just-getting-started/",
@@ -2196,7 +2224,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-16",
+        "dt": "2026-11-17",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/podcast/vibe-coding-meet-vibe-security/",
@@ -2224,7 +2252,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-16",
+        "dt": "2026-11-17",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/2025/01/21/mr-beast-is-reportedly-now-among-those-trying-to-buy-tiktok/",
@@ -2252,7 +2280,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-16",
+        "dt": "2026-11-17",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/2024/09/21/indias-oyo-acquires-motel-6-for-525m/",
