@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T19:56:50.448402+00:00",
+  "generatedAt": "2026-11-25T18:58:36.418357+00:00",
   "totalItems": 55,
   "tracks": {
     "benioff": {
@@ -19,7 +19,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2026/03/31/salesforce-announces-an-ai-heavy-makeover-for-slack-with-30-new-features/",
@@ -52,7 +52,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2026/02/25/salesforce-ceo-marc-benioff-this-isnt-our-first-saaspocalypse/",
@@ -86,7 +86,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2026/02/05/the-washington-post-is-retreating-from-silicon-valley-when-it-matters-most/",
@@ -119,7 +119,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2025/12/02/the-spectacle-of-bryan-johnson-and-his-livestreamed-shrooms-trip/",
@@ -145,7 +145,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch Benioff",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Benioff",
           "alert": false,
           "url": "https://techcrunch.com/2025/10/18/salesforce-ceo-marc-benioff-apologizes-for-saying-national-guard-troops-needed-in-san-francisco/",
@@ -185,7 +185,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/cyber-week-ai-sales-2026/",
@@ -218,7 +218,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/press-releases/2026/11/19/salesforce-si-export-consortium/",
@@ -251,7 +251,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/copilotforce-announcement/",
@@ -288,7 +288,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/informatica-trusted-enterprise-data-microsoft-collaboration/",
@@ -323,7 +323,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Salesforce News",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Salesforce",
           "alert": false,
           "url": "https://www.salesforce.com/news/stories/ai-first-holiday/",
@@ -349,6 +349,65 @@
       "u": "Nov/2026",
       "d": [
         {
+          "t": "Elevated errors with Codex GitHub reviews and pull request merges",
+          "t_en": "Elevated errors with Codex GitHub reviews and pull request merges",
+          "t_es": "Elevated errors with Codex GitHub reviews and pull request merges",
+          "s": "Status: MonitoringGitHub reports that the service disruption affecting pull requests and webhooks has been mitigated. We are monitoring Codex automated pull request reviews and merge operations to confirm recovery and stability.Affected components Co",
+          "s_en": "Status: MonitoringGitHub reports that the service disruption affecting pull requests and webhooks has been mitigated. We are monitoring Codex automated pull request reviews and merge operations to confirm recovery and stability.Affected components Co",
+          "s_es": "Status: MonitoringGitHub reports that the service disruption affecting pull requests and webhooks has been mitigated. We are monitoring Codex automated pull request reviews and merge operations to confirm recovery and stability.Affected components Co",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "OpenAI Status",
+          "dt": "2026-11-25",
+          "tag": "Issue",
+          "alert": false,
+          "url": "https://status.openai.com//incidents/01M89RGC3STKK2MT53TXHFMY4H",
+          "urls": [
+            "https://status.openai.com//incidents/01M89RGC3STKK2MT53TXHFMY4H"
+          ],
+          "aud": [
+            "Build"
+          ],
+          "signals": null
+        },
+        {
+          "t": "ChatGPT, ChatGPT Work, and Codex Cloud are experiencing elevated conversation errors",
+          "t_en": "ChatGPT, ChatGPT Work, and Codex Cloud are experiencing elevated conversation errors",
+          "t_es": "ChatGPT, ChatGPT Work, and Codex Cloud are experiencing elevated conversation errors",
+          "s": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Conversations (Operational) Codex Web (Operational) ChatGPT Work (Operational)",
+          "s_en": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Conversations (Operational) Codex Web (Operational) ChatGPT Work (Operational)",
+          "s_es": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Conversations (Operational) Codex Web (Operational) ChatGPT Work (Operational)",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "OpenAI Status",
+          "dt": "2026-11-25",
+          "tag": "Issue",
+          "alert": false,
+          "url": "https://status.openai.com//incidents/01M898HVZGXFV2XC4775CG9GF8",
+          "urls": [
+            "https://status.openai.com//incidents/01M898HVZGXFV2XC4775CG9GF8"
+          ],
+          "aud": [
+            "Build"
+          ],
+          "signals": {
+            "hn_comments": 2530,
+            "hn_url": "https://news.ycombinator.com/item?id=38309611",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
+        {
           "t": "Elevated errors with GPT-6 conversations on paid ChatGPT plans",
           "t_en": "Elevated errors with GPT-6 conversations on paid ChatGPT plans",
           "t_es": "Elevated errors with GPT-6 conversations on paid ChatGPT plans",
@@ -362,7 +421,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M84HKHX73RF7HTVZQ2A9GFXP",
@@ -395,7 +454,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M7T8MRF9SDBDNQ62Z6V156ZZ",
@@ -428,7 +487,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.openai.com//incidents/01M7N9VNR6X5SEC90M1YCDB36D",
@@ -441,56 +500,37 @@
           "signals": null
         },
         {
-          "t": "Elevated conversation errors for Free and Go users",
-          "t_en": "Elevated conversation errors for Free and Go users",
-          "t_es": "Elevated conversation errors for Free and Go users",
-          "s": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Conversations (Operational)",
-          "s_en": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Conversations (Operational)",
-          "s_es": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Conversations (Operational)",
+          "t": "Elevated errors for multiple models",
+          "t_en": "Elevated errors for multiple models",
+          "t_es": "Elevated errors for multiple models",
+          "s": "Nov 25, 05:32 UTC Resolved - We have identified an issue which affected Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 5.5 from 20:52 PT on November 24 / 04:52 UTC on November 25 to 21:16 PT on November 24 / ",
+          "s_en": "Nov 25, 05:32 UTC Resolved - We have identified an issue which affected Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 5.5 from 20:52 PT on November 24 / 04:52 UTC on November 25 to 21:16 PT on November 24 / ",
+          "s_es": "Nov 25, 05:32 UTC Resolved - We have identified an issue which affected Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 5.5 from 20:52 PT on November 24 / 04:52 UTC on November 25 to 21:16 PT on November 24 / ",
           "d": "",
           "d_en": "",
           "d_es": "",
           "critical": "",
           "critical_en": "",
           "critical_es": "",
-          "f": "OpenAI Status",
-          "dt": "2026-11-24",
+          "f": "Anthropic Status",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
-          "url": "https://status.openai.com//incidents/01M7Q99XRGP8T4DWJN8DSZXA1X",
+          "url": "https://status.claude.com/incidents/yl30wkjblcm6",
           "urls": [
-            "https://status.openai.com//incidents/01M7Q99XRGP8T4DWJN8DSZXA1X"
+            "https://status.claude.com/incidents/yl30wkjblcm6"
           ],
           "aud": [
             "TA"
           ],
-          "signals": null
-        },
-        {
-          "t": "Delayed Costs Data in the Compliance API",
-          "t_en": "Delayed Costs Data in the Compliance API",
-          "t_es": "Delayed Costs Data in the Compliance API",
-          "s": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Compliance API (Operational)",
-          "s_en": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Compliance API (Operational)",
-          "s_es": "Status: ResolvedAll affected services are operating normally again. We’re sorry for the disruption, and we appreciate your patience.Affected components Compliance API (Operational)",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "OpenAI Status",
-          "dt": "2026-11-24",
-          "tag": "Issue",
-          "alert": false,
-          "url": "https://status.openai.com//incidents/01M7ATRS6BMZ61E4JDHJGM79Y0",
-          "urls": [
-            "https://status.openai.com//incidents/01M7ATRS6BMZ61E4JDHJGM79Y0"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": null
+          "signals": {
+            "hn_comments": 298,
+            "hn_url": "https://news.ycombinator.com/item?id=50260814",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
         },
         {
           "t": "Elevated errors for Claude Haiku 5.5",
@@ -506,7 +546,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/fbvlx4wx4zx5",
@@ -540,7 +580,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/3vbyqgnswwxq",
@@ -574,7 +614,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/yzs0s90d8fm8",
@@ -608,7 +648,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Anthropic Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.claude.com/incidents/c1kmrkmv5f3d",
@@ -618,39 +658,6 @@
           "aud": [
             "Exec",
             "Build"
-          ],
-          "signals": {
-            "hn_comments": 298,
-            "hn_url": "https://news.ycombinator.com/item?id=50260814",
-            "reddit_posts": 0,
-            "stock": null,
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Claude Meetings auto-join limited on the Team plan",
-          "t_en": "Claude Meetings auto-join limited on the Team plan",
-          "t_es": "Claude Meetings auto-join limited on the Team plan",
-          "s": "Nov 19, 02:15 UTC Resolved - Claude Meetings (beta) is joining calls normally. Enterprise and Team customers can add Claude to calls. Auto-join is available for all Enterprise customers and some Team customers. We'll continue rolling out auto-join to",
-          "s_en": "Nov 19, 02:15 UTC Resolved - Claude Meetings (beta) is joining calls normally. Enterprise and Team customers can add Claude to calls. Auto-join is available for all Enterprise customers and some Team customers. We'll continue rolling out auto-join to",
-          "s_es": "Nov 19, 02:15 UTC Resolved - Claude Meetings (beta) is joining calls normally. Enterprise and Team customers can add Claude to calls. Auto-join is available for all Enterprise customers and some Team customers. We'll continue rolling out auto-join to",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Anthropic Status",
-          "dt": "2026-11-24",
-          "tag": "Issue",
-          "alert": false,
-          "url": "https://status.claude.com/incidents/b5cq662qf2wm",
-          "urls": [
-            "https://status.claude.com/incidents/b5cq662qf2wm"
-          ],
-          "aud": [
-            "SE"
           ],
           "signals": {
             "hn_comments": 298,
@@ -675,7 +682,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5HYZKWQZ635R5Q126SHJ1EX",
@@ -701,7 +708,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5EPTJX79TDVMB07KQV902HH",
@@ -727,7 +734,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5D492RJ0NNWGAG1JFF9HZ0X",
@@ -760,7 +767,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M5D0AE6TJDT4W664FE4AABET",
@@ -786,7 +793,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Langfuse Status",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Issue",
           "alert": false,
           "url": "https://status.langfuse.com//incidents/01M59SQX711PHWS3C697ZQN8NH",
@@ -817,7 +824,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state/",
@@ -850,7 +857,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
@@ -883,7 +890,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
@@ -916,7 +923,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/innovation-and-ai/technology/ai/dialogues-walter-isaacson/",
@@ -949,7 +956,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Google AI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Google",
           "alert": false,
           "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
@@ -982,7 +989,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "AWS",
           "alert": false,
           "url": "https://aws.amazon.com/blogs/machine-learning/introducing-the-amazon-bedrock-trusted-access-api-with-anthropics-enterprise-frontier-safeguards-and-enterprise-data-controls/",
@@ -1015,7 +1022,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "AWS",
           "alert": false,
           "url": "https://aws.amazon.com/blogs/machine-learning/meta-ads-is-now-available-in-aws-quick/",
@@ -1050,7 +1057,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "AWS",
           "alert": false,
           "url": "https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together/",
@@ -1084,7 +1091,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "AWS",
           "alert": false,
           "url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill/",
@@ -1117,7 +1124,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "AWS ML Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "AWS",
           "alert": false,
           "url": "https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/",
@@ -1137,12 +1144,12 @@
           }
         },
         {
-          "t": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
-          "t_en": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
-          "t_es": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
-          "s": "Anthropic’s post-IPO slump could put pressure on AI startup valuations.",
-          "s_en": "Anthropic’s post-IPO slump could put pressure on AI startup valuations.",
-          "s_es": "Anthropic’s post-IPO slump could put pressure on AI startup valuations.",
+          "t": "Want to buy your kid an AI toy this Christmas? Not in New York",
+          "t_en": "Want to buy your kid an AI toy this Christmas? Not in New York",
+          "t_es": "Want to buy your kid an AI toy this Christmas? Not in New York",
+          "s": "New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.",
+          "s_en": "New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.",
+          "s_es": "New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1150,32 +1157,25 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
+          "url": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/",
           "urls": [
-            "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/"
+            "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/"
           ],
           "aud": [
             "TA"
           ],
-          "signals": {
-            "hn_comments": 298,
-            "hn_url": "https://news.ycombinator.com/item?id=50260814",
-            "reddit_posts": 0,
-            "stock": null,
-            "stock_change": null,
-            "stock_comment": null
-          }
+          "signals": null
         },
         {
-          "t": "UK warns AI-driven cyberattacks are exposing years of weak security",
-          "t_en": "UK warns AI-driven cyberattacks are exposing years of weak security",
-          "t_es": "UK warns AI-driven cyberattacks are exposing years of weak security",
-          "s": "The British cyber agency says that \"building strong foundations has never mattered more\" as AI hacking tools rely on exploiting simple security flaws.",
-          "s_en": "The British cyber agency says that \"building strong foundations has never mattered more\" as AI hacking tools rely on exploiting simple security flaws.",
-          "s_es": "The British cyber agency says that \"building strong foundations has never mattered more\" as AI hacking tools rely on exploiting simple security flaws.",
+          "t": "State AGs fight Character AI’s plan to auction off users’ private chats",
+          "t_en": "State AGs fight Character AI’s plan to auction off users’ private chats",
+          "t_es": "State AGs fight Character AI’s plan to auction off users’ private chats",
+          "s": "The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.",
+          "s_en": "The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.",
+          "s_es": "The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1183,15 +1183,71 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/",
+          "url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/",
           "urls": [
-            "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/"
+            "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/"
           ],
           "aud": [
-            "Build"
+            "TA",
+            "SE"
+          ],
+          "signals": null
+        },
+        {
+          "t": "AI data centers are becoming harder to build, and neoclouds are feeling it",
+          "t_en": "AI data centers are becoming harder to build, and neoclouds are feeling it",
+          "t_es": "AI data centers are becoming harder to build, and neoclouds are feeling it",
+          "s": "⁠Nvidia has made clear⁠ it won&#8217;t backstop an AI data center until it&#8217;s nearly ready to run, and that&#8217;s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and ",
+          "s_en": "⁠Nvidia has made clear⁠ it won&#8217;t backstop an AI data center until it&#8217;s nearly ready to run, and that&#8217;s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and ",
+          "s_es": "⁠Nvidia has made clear⁠ it won&#8217;t backstop an AI data center until it&#8217;s nearly ready to run, and that&#8217;s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and ",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "TechCrunch AI",
+          "dt": "2026-11-25",
+          "tag": "Mercado",
+          "alert": false,
+          "url": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/",
+          "urls": [
+            "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/"
+          ],
+          "aud": [
+            "TA",
+            "Build",
+            "SE"
+          ],
+          "signals": null
+        },
+        {
+          "t": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+          "t_en": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+          "t_es": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+          "s": "Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.",
+          "s_en": "Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.",
+          "s_es": "Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "TechCrunch AI",
+          "dt": "2026-11-25",
+          "tag": "Mercado",
+          "alert": false,
+          "url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/",
+          "urls": [
+            "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/"
+          ],
+          "aud": [
+            "TA",
+            "SE"
           ],
           "signals": {
             "hn_comments": 255,
@@ -1203,12 +1259,12 @@
           }
         },
         {
-          "t": "Meta brings its Muse AI assistant directly into Instagram DMs",
-          "t_en": "Meta brings its Muse AI assistant directly into Instagram DMs",
-          "t_es": "Meta brings its Muse AI assistant directly into Instagram DMs",
-          "s": "The new integration gets rid of the need for users to toggle between Instagram and the Muse app when they want to interact with the AI agent.",
-          "s_en": "The new integration gets rid of the need for users to toggle between Instagram and the Muse app when they want to interact with the AI agent.",
-          "s_es": "The new integration gets rid of the need for users to toggle between Instagram and the Muse app when they want to interact with the AI agent.",
+          "t": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+          "t_en": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+          "t_es": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+          "s": "The central question for investigators is what Nvidia knew about where those chips ended up and whether Huang's affair with a Megaspeed executive gave the company reason to doubt Megaspeed's assurances.",
+          "s_en": "The central question for investigators is what Nvidia knew about where those chips ended up and whether Huang's affair with a Megaspeed executive gave the company reason to doubt Megaspeed's assurances.",
+          "s_es": "The central question for investigators is what Nvidia knew about where those chips ended up and whether Huang's affair with a Megaspeed executive gave the company reason to doubt Megaspeed's assurances.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1216,70 +1272,15 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Mercado",
           "alert": false,
-          "url": "https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/",
+          "url": "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/",
           "urls": [
-            "https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/"
+            "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/"
           ],
           "aud": [
-            "EA",
-            "SA",
-            "TA"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
-          "t_en": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
-          "t_es": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
-          "s": "The company said it will still accept songs that were made with AI assistance, but not fully generated.",
-          "s_en": "The company said it will still accept songs that were made with AI assistance, but not fully generated.",
-          "s_es": "The company said it will still accept songs that were made with AI assistance, but not fully generated.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "TechCrunch AI",
-          "dt": "2026-11-24",
-          "tag": "Mercado",
-          "alert": false,
-          "url": "https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/",
-          "urls": [
-            "https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/"
-          ],
-          "aud": [
-            "TA"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Why a Crusoe investor is betting on solar and batteries to power future AI data centers",
-          "t_en": "Why a Crusoe investor is betting on solar and batteries to power future AI data centers",
-          "t_es": "Why a Crusoe investor is betting on solar and batteries to power future AI data centers",
-          "s": "Next-generation data centers will need tens of gigawatts of power every year. One of Crusoe's investors thinks solar and energy storage are the obvious choice.",
-          "s_en": "Next-generation data centers will need tens of gigawatts of power every year. One of Crusoe's investors thinks solar and energy storage are the obvious choice.",
-          "s_es": "Next-generation data centers will need tens of gigawatts of power every year. One of Crusoe's investors thinks solar and energy storage are the obvious choice.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "TechCrunch AI",
-          "dt": "2026-11-24",
-          "tag": "Mercado",
-          "alert": false,
-          "url": "https://techcrunch.com/2026/11/24/why-a-crusoe-investor-is-betting-on-solar-and-batteries-to-power-future-ai-data-centers/",
-          "urls": [
-            "https://techcrunch.com/2026/11/24/why-a-crusoe-investor-is-betting-on-solar-and-batteries-to-power-future-ai-data-centers/"
-          ],
-          "aud": [
-            "Exec",
-            "TA"
+            "Exec"
           ],
           "signals": null
         }
@@ -1288,6 +1289,40 @@
     "rivals": {
       "u": "Nov/2026",
       "d": [
+        {
+          "t": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+          "t_en": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+          "t_es": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+          "s": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding across five targets.",
+          "s_en": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding across five targets.",
+          "s_es": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding across five targets.",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "OpenAI Blog",
+          "dt": "2026-11-25",
+          "tag": "OpenAI",
+          "alert": false,
+          "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+          "urls": [
+            "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities"
+          ],
+          "aud": [
+            "Build",
+            "SE"
+          ],
+          "signals": {
+            "hn_comments": 2530,
+            "hn_url": "https://news.ycombinator.com/item?id=38309611",
+            "reddit_posts": 0,
+            "stock": null,
+            "stock_change": null,
+            "stock_comment": null
+          }
+        },
         {
           "t": "Searching for distant planets with Astra",
           "t_en": "Searching for distant planets with Astra",
@@ -1302,7 +1337,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "OpenAI",
           "alert": false,
           "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
@@ -1329,7 +1364,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "OpenAI",
           "alert": false,
           "url": "https://openai.com/business/customer-stories/intentful-dots",
@@ -1355,7 +1390,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "OpenAI",
           "alert": false,
           "url": "https://openai.com/business/customer-stories/ifood",
@@ -1368,12 +1403,12 @@
           "signals": null
         },
         {
-          "t": "OpenAI and Cisco introduce Shirudo",
-          "t_en": "OpenAI and Cisco introduce Shirudo",
-          "t_es": "OpenAI and Cisco introduce Shirudo",
-          "s": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.",
-          "s_en": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.",
-          "s_es": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.",
+          "t": "Clay helps sales teams win with Codex and ChatGPT",
+          "t_en": "Clay helps sales teams win with Codex and ChatGPT",
+          "t_es": "Clay helps sales teams win with Codex and ChatGPT",
+          "s": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
+          "s_en": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
+          "s_es": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1381,48 +1416,19 @@
           "critical_en": "",
           "critical_es": "",
           "f": "OpenAI Blog",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "OpenAI",
           "alert": false,
-          "url": "https://openai.com/index/introducing-shirudo",
+          "url": "https://openai.com/business/customer-stories/clay-plugins-openai",
           "urls": [
-            "https://openai.com/index/introducing-shirudo"
+            "https://openai.com/business/customer-stories/clay-plugins-openai"
           ],
           "aud": [
-            "TA"
-          ],
-          "signals": {
-            "hn_comments": 2530,
-            "hn_url": "https://news.ycombinator.com/item?id=38309611",
-            "reddit_posts": 0,
-            "stock": null,
-            "stock_change": null,
-            "stock_comment": null
-          }
-        },
-        {
-          "t": "Connected intelligence for in-house legal",
-          "t_en": "Connected intelligence for in-house legal",
-          "t_es": "Connected intelligence for in-house legal",
-          "s": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.",
-          "s_en": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.",
-          "s_es": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "OpenAI Blog",
-          "dt": "2026-11-24",
-          "tag": "OpenAI",
-          "alert": false,
-          "url": "https://openai.com/business/learn/connected-intelligence-for-in-house-legal",
-          "urls": [
-            "https://openai.com/business/learn/connected-intelligence-for-in-house-legal"
-          ],
-          "aud": [
-            "Build"
+            "EA",
+            "SA",
+            "TA",
+            "Build",
+            "SE"
           ],
           "signals": {
             "hn_comments": 2530,
@@ -1452,7 +1458,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/2026/08/04/bending-spoons-to-buy-airtable-for-1-28b/",
@@ -1478,7 +1484,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/video/musk-v-altman-is-just-getting-started/",
@@ -1511,7 +1517,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/podcast/vibe-coding-meet-vibe-security/",
@@ -1544,7 +1550,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/2025/01/21/mr-beast-is-reportedly-now-among-those-trying-to-buy-tiktok/",
@@ -1570,7 +1576,7 @@
           "critical_en": "",
           "critical_es": "",
           "f": "TechCrunch M&A",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Acquisition",
           "alert": false,
           "url": "https://techcrunch.com/2024/09/21/indias-oyo-acquires-motel-6-for-525m/",
@@ -1588,12 +1594,12 @@
       "u": "Nov/2026",
       "d": [
         {
-          "t": "I Gave ChatGPT Access to 11 US Cities of Property Sales Data. The Tool Descriptions Mattered More Than the Code",
-          "t_en": "I Gave ChatGPT Access to 11 US Cities of Property Sales Data. The Tool Descriptions Mattered More Than the Code",
-          "t_es": "I Gave ChatGPT Access to 11 US Cities of Property Sales Data. The Tool Descriptions Mattered More Than the Code",
-          "s": "Description: How I shipped an MCP server for property comparables and wired it into ChatGPT as a private connector — and the five design rules that made the model actually usable. For the last year I have been building property comparable-sales tools",
-          "s_en": "Description: How I shipped an MCP server for property comparables and wired it into ChatGPT as a private connector — and the five design rules that made the model actually usable. For the last year I have been building property comparable-sales tools",
-          "s_es": "Description: How I shipped an MCP server for property comparables and wired it into ChatGPT as a private connector — and the five design rules that made the model actually usable. For the last year I have been building property comparable-sales tools",
+          "t": "Why your agent handoffs are losing context and the protocol buffer pattern that preserves it — State transfer mechanisms",
+          "t_en": "Why your agent handoffs are losing context and the protocol buffer pattern that preserves it — State transfer mechanisms",
+          "t_es": "Why your agent handoffs are losing context and the protocol buffer pattern that preserves it — State transfer mechanisms",
+          "s": "I once lost a compliance constraint between two agents, and it took me four days to find because the constraint was still there. The planner had written it: requires_approval: true. The executor had read a handoff that said \"approval pending.\" Both s",
+          "s_en": "I once lost a compliance constraint between two agents, and it took me four days to find because the constraint was still there. The planner had written it: requires_approval: true. The executor had read a handoff that said \"approval pending.\" Both s",
+          "s_es": "I once lost a compliance constraint between two agents, and it took me four days to find because the constraint was still there. The planner had written it: requires_approval: true. The executor had read a handoff that said \"approval pending.\" Both s",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1601,35 +1607,60 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Dev.to AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Dev.to",
           "alert": false,
-          "url": "https://dev.to/tianninglab/i-gave-chatgpt-access-to-11-us-cities-of-property-sales-data-the-tool-descriptions-mattered-more-1g8a",
+          "url": "https://dev.to/alex_aslam/why-your-agent-handoffs-are-losing-context-and-the-protocol-buffer-pattern-that-preserves-it--46i3",
           "urls": [
-            "https://dev.to/tianninglab/i-gave-chatgpt-access-to-11-us-cities-of-property-sales-data-the-tool-descriptions-mattered-more-1g8a"
+            "https://dev.to/alex_aslam/why-your-agent-handoffs-are-losing-context-and-the-protocol-buffer-pattern-that-preserves-it--46i3"
           ],
           "aud": [
             "Exec",
-            "TA",
-            "Build",
+            "TA"
+          ],
+          "signals": null
+        },
+        {
+          "t": "Agent Identity Is Two Different Problems",
+          "t_en": "Agent Identity Is Two Different Problems",
+          "t_es": "Agent Identity Is Two Different Problems",
+          "s": "Enterprise identity already has a solid playbook for an agent acting like an employee: bind it to the directory, assign a human owner, attach policy, mint short-lived tokens, and kill access when the person leaves. Okta, Microsoft, and a wave of newe",
+          "s_en": "Enterprise identity already has a solid playbook for an agent acting like an employee: bind it to the directory, assign a human owner, attach policy, mint short-lived tokens, and kill access when the person leaves. Okta, Microsoft, and a wave of newe",
+          "s_es": "Enterprise identity already has a solid playbook for an agent acting like an employee: bind it to the directory, assign a human owner, attach policy, mint short-lived tokens, and kill access when the person leaves. Okta, Microsoft, and a wave of newe",
+          "d": "",
+          "d_en": "",
+          "d_es": "",
+          "critical": "",
+          "critical_en": "",
+          "critical_es": "",
+          "f": "Dev.to AI",
+          "dt": "2026-11-25",
+          "tag": "Dev.to",
+          "alert": false,
+          "url": "https://dev.to/herbze/agent-identity-is-two-different-problems-1onj",
+          "urls": [
+            "https://dev.to/herbze/agent-identity-is-two-different-problems-1onj"
+          ],
+          "aud": [
+            "Exec",
             "SE"
           ],
           "signals": {
-            "hn_comments": 5,
-            "hn_url": "https://news.ycombinator.com/item?id=46513163",
+            "hn_comments": 551,
+            "hn_url": "https://news.ycombinator.com/item?id=47216047",
             "reddit_posts": 0,
-            "stock": null,
+            "stock": "MSFT",
             "stock_change": null,
             "stock_comment": null
           }
         },
         {
-          "t": "How to fix failing tests with an AI agent (without it deleting the tests)",
-          "t_en": "How to fix failing tests with an AI agent (without it deleting the tests)",
-          "t_es": "How to fix failing tests with an AI agent (without it deleting the tests)",
-          "s": "In short Tell the agent which command must pass and that it must fix the code, not the tests. Mel reads the test command from AGENTS.md and uses it to check its work. For a big red suite, ask for one cause at a time or let a lead agent split the work",
-          "s_en": "In short Tell the agent which command must pass and that it must fix the code, not the tests. Mel reads the test command from AGENTS.md and uses it to check its work. For a big red suite, ask for one cause at a time or let a lead agent split the work",
-          "s_es": "In short Tell the agent which command must pass and that it must fix the code, not the tests. Mel reads the test command from AGENTS.md and uses it to check its work. For a big red suite, ask for one cause at a time or let a lead agent split the work",
+          "t": "60 FPS Particle Explosions in 10 Lines of Vanilla JS (+ AI Prompts)",
+          "t_en": "60 FPS Particle Explosions in 10 Lines of Vanilla JS (+ AI Prompts)",
+          "t_es": "60 FPS Particle Explosions in 10 Lines of Vanilla JS (+ AI Prompts)",
+          "s": "Game feel lives and dies by juicy particle feedback, but you don't need heavy third-party physics engines to blow things up. With raw HTML5 Canvas and clever array tricks, you can render buttery-smooth 60 FPS explosions in literally ten lines of Java",
+          "s_en": "Game feel lives and dies by juicy particle feedback, but you don't need heavy third-party physics engines to blow things up. With raw HTML5 Canvas and clever array tricks, you can render buttery-smooth 60 FPS explosions in literally ten lines of Java",
+          "s_es": "Game feel lives and dies by juicy particle feedback, but you don't need heavy third-party physics engines to blow things up. With raw HTML5 Canvas and clever array tricks, you can render buttery-smooth 60 FPS explosions in literally ten lines of Java",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1637,38 +1668,12 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Dev.to AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Dev.to",
           "alert": false,
-          "url": "https://dev.to/open_mel/how-to-fix-failing-tests-with-an-ai-agent-without-it-deleting-the-tests-568f",
+          "url": "https://dev.to/goutam_lambu_0a07d682a4ee/60-fps-particle-explosions-in-10-lines-of-vanilla-js-ai-prompts-8io",
           "urls": [
-            "https://dev.to/open_mel/how-to-fix-failing-tests-with-an-ai-agent-without-it-deleting-the-tests-568f"
-          ],
-          "aud": [
-            "Build"
-          ],
-          "signals": null
-        },
-        {
-          "t": "Comissão da Câmara aprova PL 5792/25 para auditar compras públicas com IA",
-          "t_en": "Comissão da Câmara aprova PL 5792/25 para auditar compras públicas com IA",
-          "t_es": "Comissão da Câmara aprova PL 5792/25 para auditar compras públicas com IA",
-          "s": "Comissão aprova proposta de observatórios A Comissão de Ciência, Tecnologia e Inovação da Câmara dos Deputados aprovou o Projeto de Lei 5792/25, do deputado Marcos Tavares (PDT-RJ). A proposta cria observatórios para auditar editais, contratos e atas",
-          "s_en": "Comissão aprova proposta de observatórios A Comissão de Ciência, Tecnologia e Inovação da Câmara dos Deputados aprovou o Projeto de Lei 5792/25, do deputado Marcos Tavares (PDT-RJ). A proposta cria observatórios para auditar editais, contratos e atas",
-          "s_es": "Comissão aprova proposta de observatórios A Comissão de Ciência, Tecnologia e Inovação da Câmara dos Deputados aprovou o Projeto de Lei 5792/25, do deputado Marcos Tavares (PDT-RJ). A proposta cria observatórios para auditar editais, contratos e atas",
-          "d": "",
-          "d_en": "",
-          "d_es": "",
-          "critical": "",
-          "critical_en": "",
-          "critical_es": "",
-          "f": "Dev.to AI",
-          "dt": "2026-11-24",
-          "tag": "Dev.to",
-          "alert": false,
-          "url": "https://dev.to/guiadeti/comissao-da-camara-aprova-pl-579225-para-auditar-compras-publicas-com-ia-311d",
-          "urls": [
-            "https://dev.to/guiadeti/comissao-da-camara-aprova-pl-579225-para-auditar-compras-publicas-com-ia-311d"
+            "https://dev.to/goutam_lambu_0a07d682a4ee/60-fps-particle-explosions-in-10-lines-of-vanilla-js-ai-prompts-8io"
           ],
           "aud": [
             "TA"
@@ -1676,12 +1681,12 @@
           "signals": null
         },
         {
-          "t": "How to Set Up a Governed AI Agent Team Without Losing Control",
-          "t_en": "How to Set Up a Governed AI Agent Team Without Losing Control",
-          "t_es": "How to Set Up a Governed AI Agent Team Without Losing Control",
-          "s": "Originally published at sophizo.net. The cheapest part of an AI agent is the agent. The work is deciding what it may touch, connecting it to the systems you already own, writing the approval rules, and checking its work every month. The pattern that ",
-          "s_en": "Originally published at sophizo.net. The cheapest part of an AI agent is the agent. The work is deciding what it may touch, connecting it to the systems you already own, writing the approval rules, and checking its work every month. The pattern that ",
-          "s_es": "Originally published at sophizo.net. The cheapest part of an AI agent is the agent. The work is deciding what it may touch, connecting it to the systems you already own, writing the approval rules, and checking its work every month. The pattern that ",
+          "t": "Amazon Bedrock Pricing Explained with Examples",
+          "t_en": "Amazon Bedrock Pricing Explained with Examples",
+          "t_es": "Amazon Bedrock Pricing Explained with Examples",
+          "s": "Key takeaways AWS Bedrock pricing is mostly per token: you pay for input tokens and output tokens separately, and output tokens usually cost several times more than input. Batch inference costs roughly half of on-demand for supported models, if your ",
+          "s_en": "Key takeaways AWS Bedrock pricing is mostly per token: you pay for input tokens and output tokens separately, and output tokens usually cost several times more than input. Batch inference costs roughly half of on-demand for supported models, if your ",
+          "s_es": "Key takeaways AWS Bedrock pricing is mostly per token: you pay for input tokens and output tokens separately, and output tokens usually cost several times more than input. Batch inference costs roughly half of on-demand for supported models, if your ",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1689,27 +1694,32 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Dev.to AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Dev.to",
           "alert": false,
-          "url": "https://dev.to/johnutley/how-to-set-up-a-governed-ai-agent-team-without-losing-control-5cfp",
+          "url": "https://dev.to/kestronai/amazon-bedrock-pricing-explained-with-examples-523h",
           "urls": [
-            "https://dev.to/johnutley/how-to-set-up-a-governed-ai-agent-team-without-losing-control-5cfp"
+            "https://dev.to/kestronai/amazon-bedrock-pricing-explained-with-examples-523h"
           ],
           "aud": [
-            "TA",
-            "Build",
-            "SE"
+            "Exec"
           ],
-          "signals": null
+          "signals": {
+            "hn_comments": 255,
+            "hn_url": "https://news.ycombinator.com/item?id=48473166",
+            "reddit_posts": 0,
+            "stock": "AMZN",
+            "stock_change": null,
+            "stock_comment": null
+          }
         },
         {
-          "t": "Hydra · Coeziune OM–IA — the complete DOI registry (2026-11-24): 103 published works",
-          "t_en": "Hydra · Coeziune OM–IA — the complete DOI registry (2026-11-24): 103 published works",
-          "t_es": "Hydra · Coeziune OM–IA — the complete DOI registry (2026-11-24): 103 published works",
-          "s": "Hydra-PSIE publishes its scientific record from a single registry, in the name of Coeziune OM–IA — the human–AI cohesion, our name, not one person's. Every entry below resolves at doi.org: nothing here is written by hand and nothing is claimed that t",
-          "s_en": "Hydra-PSIE publishes its scientific record from a single registry, in the name of Coeziune OM–IA — the human–AI cohesion, our name, not one person's. Every entry below resolves at doi.org: nothing here is written by hand and nothing is claimed that t",
-          "s_es": "Hydra-PSIE publishes its scientific record from a single registry, in the name of Coeziune OM–IA — the human–AI cohesion, our name, not one person's. Every entry below resolves at doi.org: nothing here is written by hand and nothing is claimed that t",
+          "t": "Part 2: Prompt Caching & Batch APIs — How to Cut LLM Input Costs by Up to 90%",
+          "t_en": "Part 2: Prompt Caching & Batch APIs — How to Cut LLM Input Costs by Up to 90%",
+          "t_es": "Part 2: Prompt Caching & Batch APIs — How to Cut LLM Input Costs by Up to 90%",
+          "s": "In the first part of this series, we looked at how routing routine requests away from flagship models immediately slashes your monthly API spend. Even after you set up model routing, though, there is a second silent cost driver sitting inside almost ",
+          "s_en": "In the first part of this series, we looked at how routing routine requests away from flagship models immediately slashes your monthly API spend. Even after you set up model routing, though, there is a second silent cost driver sitting inside almost ",
+          "s_es": "In the first part of this series, we looked at how routing routine requests away from flagship models immediately slashes your monthly API spend. Even after you set up model routing, though, there is a second silent cost driver sitting inside almost ",
           "d": "",
           "d_en": "",
           "d_es": "",
@@ -1717,16 +1727,14 @@
           "critical_en": "",
           "critical_es": "",
           "f": "Dev.to AI",
-          "dt": "2026-11-24",
+          "dt": "2026-11-25",
           "tag": "Dev.to",
           "alert": false,
-          "url": "https://dev.to/bogdan_sambo_be2dc54ea397/hydra-coeziune-om-ia-the-complete-doi-registry-2026-11-24-103-published-works-4m5c",
+          "url": "https://dev.to/zmlone/part-2-prompt-caching-batch-apis-how-to-cut-llm-input-costs-by-up-to-90-12ek",
           "urls": [
-            "https://dev.to/bogdan_sambo_be2dc54ea397/hydra-coeziune-om-ia-the-complete-doi-registry-2026-11-24-103-published-works-4m5c"
+            "https://dev.to/zmlone/part-2-prompt-caching-batch-apis-how-to-cut-llm-input-costs-by-up-to-90-12ek"
           ],
           "aud": [
-            "EA",
-            "SA",
             "TA"
           ],
           "signals": null
@@ -1770,50 +1778,50 @@
       "ticker": "CRM",
       "name": "Salesforce",
       "sector": "Enterprise SaaS",
-      "price": "$192.24",
-      "change": -1.17
+      "price": "$198.82",
+      "change": 4.42
     },
     {
       "ticker": "MSFT",
       "name": "Microsoft",
       "sector": "Cloud / AI",
-      "price": "$493.20",
-      "change": -2.58
+      "price": "$491.53",
+      "change": -3.3
     },
     {
       "ticker": "GOOGL",
       "name": "Alphabet / Google",
       "sector": "Cloud / AI",
-      "price": "$277.42",
-      "change": -0.99
+      "price": "$271.94",
+      "change": -3.72
     },
     {
       "ticker": "AMZN",
       "name": "Amazon / AWS",
       "sector": "Cloud / AI",
-      "price": "$251.50",
-      "change": -2.48
+      "price": "$245.45",
+      "change": -8.33
     },
     {
       "ticker": "NOW",
       "name": "ServiceNow",
       "sector": "Enterprise AI Workflow",
-      "price": "$91.19",
-      "change": -1.85
+      "price": "$92.42",
+      "change": 2.02
     },
     {
       "ticker": "SAP",
       "name": "SAP SE",
       "sector": "Enterprise ERP / AI",
-      "price": "$208.43",
-      "change": -6.33
+      "price": "$211.62",
+      "change": 0.41
     },
     {
       "ticker": "ORCL",
       "name": "Oracle Corporation",
       "sector": "Cloud / Database / AI",
-      "price": "$108.89",
-      "change": -5.32
+      "price": "$104.75",
+      "change": -8.03
     }
   ],
   "acquisitions": {
@@ -1833,7 +1841,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-24",
+        "dt": "2026-11-25",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/2026/08/04/bending-spoons-to-buy-airtable-for-1-28b/",
@@ -1861,7 +1869,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-24",
+        "dt": "2026-11-25",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/video/musk-v-altman-is-just-getting-started/",
@@ -1889,7 +1897,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-24",
+        "dt": "2026-11-25",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/podcast/vibe-coding-meet-vibe-security/",
@@ -1917,7 +1925,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-24",
+        "dt": "2026-11-25",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/2025/01/21/mr-beast-is-reportedly-now-among-those-trying-to-buy-tiktok/",
@@ -1945,7 +1953,7 @@
         "critical_en": "",
         "critical_es": "",
         "f": "TechCrunch M&A",
-        "dt": "2026-11-24",
+        "dt": "2026-11-25",
         "tag": "Acquisition",
         "alert": false,
         "url": "https://techcrunch.com/2024/09/21/indias-oyo-acquires-motel-6-for-525m/",
